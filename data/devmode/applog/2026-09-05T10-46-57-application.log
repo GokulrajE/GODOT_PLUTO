@@ -1,0 +1,15 @@
+[2026-09-05T10:46:57] INFO    [devmode] >> Application started
+[2026-09-05T10:46:57] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=1
+[2026-09-05T10:47:15] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:48:22] INFO    [devmode] [ROM             ] >> Saved — mech=WFE PROM[-63.6,66.9] AROM[-27.4,36.5] APROM[-59.6,63.9]
+[2026-09-05T10:48:23] INFO    [devmode] [ROM             ] >> Saved — mech=WFE PROM[-63.6,66.9] AROM[-27.4,36.5] APROM[-59.6,63.9]
+[2026-09-05T10:48:30] INFO    [devmode] [MechanismSpeed  ] >> WURD — speed initialised to 10.0 deg/s
+[2026-09-05T10:48:30] INFO    [devmode] [AppData         ] >> Mechanism set: WURD — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:48:34] INFO    [devmode] [AppData         ] >> Mechanism set: WURD — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:48:43] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:48:46] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:48:51] INFO    [devmode] [MechanismSpeed  ] >> FPS — speed initialised to 10.0 deg/s
+[2026-09-05T10:48:51] INFO    [devmode] [AppData         ] >> Mechanism set: FPS — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:49:02] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:49:06] INFO    [devmode] [AppData         ] >> Mechanism set: WURD — Trial#Day=0 Trial#Sess=0
+[2026-09-05T10:50:07] INFO    [devmode] [ROM             ] >> Saved — mech=WURD PROM[-69.7,70.2] AROM[-56.7,41.5] APROM[-66.3,65.9]

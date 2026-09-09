@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bpr2v78cieijp"
+
+[deps]
+
+files=["res://data/devmode/rom/WFE-rom.PromMin.translation", "res://data/devmode/rom/WFE-rom.PromMax.translation", "res://data/devmode/rom/WFE-rom.AromMin.translation", "res://data/devmode/rom/WFE-rom.AromMax.translation", "res://data/devmode/rom/WFE-rom.APromMin.translation", "res://data/devmode/rom/WFE-rom.APromMax.translation"]
+
+source_file="res://data/devmode/rom/WFE-rom.csv"
+dest_files=["res://data/devmode/rom/WFE-rom.PromMin.translation", "res://data/devmode/rom/WFE-rom.PromMax.translation", "res://data/devmode/rom/WFE-rom.AromMin.translation", "res://data/devmode/rom/WFE-rom.AromMax.translation", "res://data/devmode/rom/WFE-rom.APromMin.translation", "res://data/devmode/rom/WFE-rom.APromMax.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

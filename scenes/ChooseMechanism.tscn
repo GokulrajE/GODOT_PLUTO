@@ -1,0 +1,429 @@
+[gd_scene format=3 uid="uid://bo3t1nnb4eyp1"]
+
+[ext_resource type="Script" uid="uid://bemjp706fgwl1" path="res://scripts/choose_mechanism_scene.gd" id="1_nk2ty"]
+
+[sub_resource type="StyleBoxFlat" id="sb_bg_header"]
+bg_color = Color(0.102, 0.259, 0.122, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wfe_n"]
+bg_color = Color(0.059, 0.200, 0.094, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wfe_h"]
+bg_color = Color(0.082, 0.259, 0.122, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wfe_p"]
+bg_color = Color(0.035, 0.129, 0.059, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_n"]
+bg_color = Color(0.055, 0.165, 0.157, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.188, 0.682, 0.580, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_h"]
+bg_color = Color(0.075, 0.220, 0.208, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.188, 0.682, 0.580, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_p"]
+bg_color = Color(0.031, 0.102, 0.098, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fps_n"]
+bg_color = Color(0.129, 0.200, 0.063, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.502, 0.737, 0.235, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fps_h"]
+bg_color = Color(0.165, 0.259, 0.082, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.502, 0.737, 0.235, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fps_p"]
+bg_color = Color(0.082, 0.129, 0.039, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_n"]
+bg_color = Color(0.188, 0.220, 0.039, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.816, 0.196, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_h"]
+bg_color = Color(0.235, 0.275, 0.055, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.749, 0.816, 0.196, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_p"]
+bg_color = Color(0.118, 0.141, 0.024, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_n"]
+bg_color = Color(0.035, 0.153, 0.129, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.157, 0.612, 0.518, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_h"]
+bg_color = Color(0.051, 0.204, 0.173, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.157, 0.612, 0.518, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_p"]
+bg_color = Color(0.020, 0.094, 0.078, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_n"]
+bg_color = Color(0.094, 0.176, 0.059, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.357, 0.651, 0.235, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_h"]
+bg_color = Color(0.122, 0.231, 0.078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.357, 0.651, 0.235, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_p"]
+bg_color = Color(0.059, 0.110, 0.035, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.502, 0.937, 0.502, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="ChooseMechanismScene" type="Control" unique_id=1380763505]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_nk2ty")
+
+[node name="BGColor" type="ColorRect" parent="." unique_id=1480565025]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.039, 0.082, 0.047, 1)
+
+[node name="HeaderPanel" type="Panel" parent="." unique_id=1153194495]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 92.0
+theme_override_styles/panel = SubResource("sb_bg_header")
+
+[node name="TitleLabel" type="Label" parent="HeaderPanel" unique_id=1565763089]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 14.0
+offset_right = 700.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+text = "Choose Mechanism"
+
+[node name="SubtitleLabel" type="Label" parent="HeaderPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 52.0
+offset_right = 700.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "Select the rehabilitation mechanism to use"
+
+[node name="MechGrid" type="GridContainer" parent="." unique_id=646683858]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 108.0
+offset_right = -16.0
+offset_bottom = -16.0
+columns = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+
+[node name="WFE" type="Button" parent="MechGrid" unique_id=1565209693]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_mech_wfe_n")
+theme_override_styles/hover = SubResource("sb_mech_wfe_h")
+theme_override_styles/pressed = SubResource("sb_mech_wfe_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "WFE
+Wrist Flex / Extension"
+
+[node name="WURD" type="Button" parent="MechGrid" unique_id=1728376611]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_mech_wurd_n")
+theme_override_styles/hover = SubResource("sb_mech_wurd_h")
+theme_override_styles/pressed = SubResource("sb_mech_wurd_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "WURD
+Wrist Ulnar Radial Dev"
+
+[node name="FPS" type="Button" parent="MechGrid" unique_id=1311221422]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_mech_fps_n")
+theme_override_styles/hover = SubResource("sb_mech_fps_h")
+theme_override_styles/pressed = SubResource("sb_mech_fps_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "FPS
+Forearm Pronation Sup"
+
+[node name="HOC" type="Button" parent="MechGrid" unique_id=1567395338]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_mech_hoc_n")
+theme_override_styles/hover = SubResource("sb_mech_hoc_h")
+theme_override_styles/pressed = SubResource("sb_mech_hoc_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "HOC
+Hand Opening / Closing"
+
+[node name="FME1" type="Button" parent="MechGrid" unique_id=1597338279]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_mech_fme1_n")
+theme_override_styles/hover = SubResource("sb_mech_fme1_h")
+theme_override_styles/pressed = SubResource("sb_mech_fme1_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "FME1
+Functional Mechanism 1"
+
+[node name="FME2" type="Button" parent="MechGrid" unique_id=2134509835]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_mech_fme2_n")
+theme_override_styles/hover = SubResource("sb_mech_fme2_h")
+theme_override_styles/pressed = SubResource("sb_mech_fme2_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "FME2
+Functional Mechanism 2"

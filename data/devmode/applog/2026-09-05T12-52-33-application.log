@@ -1,0 +1,7 @@
+[2026-09-05T12:52:33] INFO    [devmode] >> Application started
+[2026-09-05T12:52:33] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=1
+[2026-09-05T12:52:39] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0
+[2026-09-05T12:53:42] INFO    [devmode] [ROM             ] >> Saved — mech=WFE PROM[-66.8,61.8] AROM[-25.0,27.0] APROM[-62.0,57.2]
+[2026-09-05T12:53:42] INFO    [devmode] [AppData         ] >> Game set: HAT-TRICK
+[2026-09-05T12:53:46] INFO    [devmode] [AppData         ] >> StartTrial | Day=1 Sess=1 Type=SR85PCTRAIN DesiredSR=85.0 File=raw-sess01-trial001-HAT-TRICK-WFE.csv
+[2026-09-05T12:54:47] INFO    [devmode] [AppData         ] >> StopTrial | SR=94.7% Targets=19 Hits=18 Misses=1

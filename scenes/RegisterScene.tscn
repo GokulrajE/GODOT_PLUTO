@@ -1,0 +1,368 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/register_scene.gd" id="1_reg"]
+
+[sub_resource type="StyleBoxFlat" id="sb_card"]
+bg_color = Color(0.063, 0.125, 0.075, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_hdr"]
+bg_color = Color(0.102, 0.259, 0.122, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+bg_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
+bg_color = Color(0.188, 0.647, 0.345, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+bg_color = Color(0.122, 0.447, 0.231, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
+bg_color = Color(0.216, 0.471, 0.235, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
+bg_color = Color(0.063, 0.125, 0.075, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gh"]
+bg_color = Color(0.098, 0.180, 0.110, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
+bg_color = Color(0.122, 0.235, 0.137, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_side_sel"]
+bg_color = Color(0.259, 0.839, 0.455, 0.20)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.502, 0.937, 0.502, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_input_n"]
+bg_color = Color(0.020, 0.043, 0.024, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_input_f"]
+bg_color = Color(0.020, 0.043, 0.024, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 13.0
+content_margin_top = 7.0
+content_margin_right = 13.0
+content_margin_bottom = 7.0
+
+[node name="RegisterScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_reg")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.039, 0.082, 0.047, 1)
+
+[node name="FormCard" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.23
+anchor_top = 0.02
+anchor_right = 0.77
+anchor_bottom = 0.98
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="FormCardHeader" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.23
+anchor_top = 0.02
+anchor_right = 0.77
+offset_bottom = 86.0
+theme_override_styles/panel = SubResource("sb_hdr")
+
+[node name="AppNameLabel" type="Label" parent="FormCardHeader"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 10.0
+offset_right = 576.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+text = "PLUTO"
+
+[node name="HeaderSubLabel" type="Label" parent="FormCardHeader"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 50.0
+offset_right = 576.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "Register New Patient"
+
+[node name="FormPanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.02
+anchor_right = 0.75
+anchor_bottom = 0.98
+offset_top = 100.0
+offset_left = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+theme_override_constants/separation = 8
+
+[node name="PatientIDLabel" type="Label" parent="FormPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "PATIENT ID  *"
+
+[node name="PatientIDInput" type="LineEdit" parent="FormPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 46)
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_styles/normal = SubResource("sb_input_n")
+theme_override_styles/focus = SubResource("sb_input_f")
+placeholder_text = "e.g. P001"
+
+[node name="StartDateLabel" type="Label" parent="FormPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "START DATE  (YYYY-MM-DD)"
+
+[node name="StartDateInput" type="LineEdit" parent="FormPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 46)
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_styles/normal = SubResource("sb_input_n")
+theme_override_styles/focus = SubResource("sb_input_f")
+placeholder_text = "2026-09-05"
+
+[node name="EndDateLabel" type="Label" parent="FormPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "END DATE  (YYYY-MM-DD)"
+
+[node name="EndDateInput" type="LineEdit" parent="FormPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 46)
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_styles/normal = SubResource("sb_input_n")
+theme_override_styles/focus = SubResource("sb_input_f")
+placeholder_text = "2026-12-05"
+
+[node name="TrainingSideLabel" type="Label" parent="FormPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "TRAINING SIDE"
+
+[node name="TrainingSideRow" type="HBoxContainer" parent="FormPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LeftButton" type="Button" parent="FormPanel/TrainingSideRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(140, 46)
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_btn_gn")
+theme_override_styles/hover = SubResource("sb_btn_gh")
+theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Left"
+
+[node name="RightButton" type="Button" parent="FormPanel/TrainingSideRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(140, 46)
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_btn_gn")
+theme_override_styles/hover = SubResource("sb_btn_gh")
+theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Right"
+
+[node name="LocationLabel" type="Label" parent="FormPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "LOCATION"
+
+[node name="LocationInput" type="LineEdit" parent="FormPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 46)
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_styles/normal = SubResource("sb_input_n")
+theme_override_styles/focus = SubResource("sb_input_f")
+placeholder_text = "e.g. Mumbai"
+
+[node name="ButtonsRow" type="HBoxContainer" parent="FormPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BackButton" type="Button" parent="FormPanel/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 48)
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_btn_gn")
+theme_override_styles/hover = SubResource("sb_btn_gh")
+theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Back"
+
+[node name="RegisterButton" type="Button" parent="FormPanel/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 48)
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_disabled_color = Color(0.729, 0.859, 0.635, 0.6)
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Register"
+
+[node name="StatusLabel" type="Label" parent="FormPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 32)
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3

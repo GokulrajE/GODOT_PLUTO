@@ -1,0 +1,5 @@
+:Location: vellore
+:Device: PLUTO
+:User: devmode1
+SessionNumber,DateTime,TrialNumberDay,TrialNumberSession,TrialType,TrialStartTime,TrialStopTime,TrialRawDataFile,Mechanism,GameName,GameParameter,GameSpeed,AssistMode,DesiredSuccessRate,SuccessRate,CurrentControlBound,NextControlBound,MoveTime,CurrentTargets,CurrentHits,CurrentMisses,CummulativeTargets,CummulativeHits,CummulativeMisses,CurrentStar,CummulativeStars
+1,2026-09-08T12:29:11,1,1,SR85PCTRAIN,2026-09-08T12:28:07,2026-09-08T12:29:11,raw-sess01-trial001-HAT-TRICK-WFE.csv,WFE,HAT-TRICK,0.0,10.0,AAN,85.000,94.737,0.600,0.443,60.0,19,18,1,19,18,1,0,0

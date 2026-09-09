@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://choose_game_scene"]
+
+[ext_resource type="Script" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
+
+[sub_resource type="StyleBoxFlat" id="sb_card"]
+bg_color = Color(0.063, 0.125, 0.075, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_hdr"]
+bg_color = Color(0.102, 0.259, 0.122, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+bg_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
+bg_color = Color(0.188, 0.647, 0.345, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+bg_color = Color(0.122, 0.447, 0.231, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.502, 0.937, 0.502, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ChooseGameScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_cgame")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.039, 0.082, 0.047, 1)
+
+[node name="Card" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.12
+anchor_right = 0.75
+anchor_bottom = 0.88
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="Header" type="Panel" parent="Card"]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_bottom = 80.0
+theme_override_styles/panel = SubResource("sb_hdr")
+
+[node name="TitleLabel" type="Label" parent="Card/Header"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 10.0
+offset_right = 576.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+text = "Choose Game"
+
+[node name="MechLabel" type="Label" parent="Card/Header"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 50.0
+offset_right = 576.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = ""
+
+[node name="StatusLabel" type="Label" parent="Card"]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 24.0
+offset_top = 100.0
+offset_right = -24.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = ""
+horizontal_alignment = 1
+
+[node name="HatTrickButton" type="Button" parent="Card"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.3
+anchor_right = 0.9
+anchor_bottom = 0.6
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "HAT-TRICK"

@@ -1,0 +1,4 @@
+[2026-09-04T09:29:02] INFO    [devmode] >> Application started
+[2026-09-04T09:29:02] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=1
+[2026-09-04T09:29:08] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0
+[2026-09-04T09:29:58] INFO    [devmode] [ROM             ] >> Saved — mech=WFE PROM[-67.0,69.4] AROM[-34.5,42.2] APROM[-63.0,65.4]

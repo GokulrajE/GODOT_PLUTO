@@ -1,0 +1,225 @@
+[gd_scene format=3 uid="uid://clio4gxq03md2"]
+
+[ext_resource type="Script" uid="uid://drxnjew7bgub5" path="res://scripts/calibration_scene.gd" id="1_t0c77"]
+
+[sub_resource type="StyleBoxFlat" id="sb_hdr"]
+bg_color = Color(0.102, 0.259, 0.122, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_back_n"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.063, 0.125, 0.075, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_back_p"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.122, 0.235, 0.137, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_back_h"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.098, 0.180, 0.110, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.502, 0.937, 0.502, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_main_card"]
+bg_color = Color(0.063, 0.125, 0.075, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_angle_box"]
+bg_color = Color(0.020, 0.043, 0.024, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="CalibrationScene" type="Control" unique_id=603495132]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_t0c77")
+
+[node name="BGColor" type="ColorRect" parent="." unique_id=66682615]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.039, 0.082, 0.047, 1)
+
+[node name="HeaderPanel" type="Panel" parent="." unique_id=2006771541]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 92.0
+theme_override_styles/panel = SubResource("sb_hdr")
+
+[node name="TitleLabel" type="Label" parent="HeaderPanel" unique_id=1259309177]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 500.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_font_sizes/font_size = 22
+text = "Calibration"
+
+[node name="HeaderSubLabel" type="Label" parent="HeaderPanel" unique_id=798196566]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 700.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_font_sizes/font_size = 12
+text = "Auto-calibrate the selected mechanism before assessment"
+
+[node name="BackButton" type="Button" parent="HeaderPanel" unique_id=2125436837]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_right = -16.0
+offset_top = 13.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("sb_btn_back_n")
+theme_override_styles/pressed = SubResource("sb_btn_back_p")
+theme_override_styles/hover = SubResource("sb_btn_back_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "← Mechanism"
+
+[node name="MainCard" type="Panel" parent="." unique_id=704802773]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.14
+anchor_right = 0.75
+anchor_bottom = 0.88
+theme_override_styles/panel = SubResource("sb_main_card")
+
+[node name="MechLabel" type="Label" parent="." unique_id=828822220]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.16
+anchor_right = 0.75
+anchor_bottom = 0.22
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="AngleTitleLabel" type="Label" parent="." unique_id=1997892720]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.23
+anchor_right = 0.75
+anchor_bottom = 0.29
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_font_sizes/font_size = 13
+text = "CURRENT ANGLE"
+horizontal_alignment = 1
+
+[node name="AngleBoxBG" type="Panel" parent="." unique_id=151407031]
+layout_mode = 1
+anchor_left = 0.35
+anchor_top = 0.30
+anchor_right = 0.65
+anchor_bottom = 0.62
+theme_override_styles/panel = SubResource("sb_angle_box")
+
+[node name="AngleLabel" type="Label" parent="." unique_id=2054900269]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.30
+anchor_right = 0.75
+anchor_bottom = 0.62
+theme_override_colors/font_color = Color(0.502, 0.937, 0.502, 1)
+theme_override_font_sizes/font_size = 80
+text = "---"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AngleUnitLabel" type="Label" parent="." unique_id=1671887438]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.63
+anchor_right = 0.75
+anchor_bottom = 0.68
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_font_sizes/font_size = 13
+text = "degrees"
+horizontal_alignment = 1
+
+[node name="InstructionLabel" type="Label" parent="." unique_id=2002052392]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.69
+anchor_right = 0.75
+anchor_bottom = 0.84
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_font_sizes/font_size = 20
+text = "Press the PLUTO button to calibrate."
+horizontal_alignment = 1
+autowrap_mode = 3

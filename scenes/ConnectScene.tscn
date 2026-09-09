@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://dre67ydokkfgp"]
+
+[ext_resource type="Script" uid="uid://bloyh5wh20430" path="res://scripts/connect_scene.gd" id="1_cth24"]
+
+[sub_resource type="StyleBoxFlat" id="sb_card"]
+bg_color = Color(0.063, 0.125, 0.075, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.216, 0.471, 0.235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_hdr"]
+bg_color = Color(0.102, 0.259, 0.122, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+bg_color = Color(0.259, 0.839, 0.455, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
+bg_color = Color(0.188, 0.647, 0.345, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+bg_color = Color(0.122, 0.447, 0.231, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
+bg_color = Color(0.216, 0.471, 0.235, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.502, 0.937, 0.502, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ConnectScene" type="Control" unique_id=1364837092]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_cth24")
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=2005726731]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.039, 0.082, 0.047, 1)
+
+[node name="ConnectCard" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.28
+anchor_top = 0.20
+anchor_right = 0.72
+anchor_bottom = 0.80
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="ConnectCardHeader" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.28
+anchor_top = 0.20
+anchor_right = 0.72
+offset_bottom = 70.0
+theme_override_styles/panel = SubResource("sb_hdr")
+
+[node name="HeaderPanel" type="Control" parent="ConnectCardHeader" unique_id=1128504806]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 70.0
+
+[node name="TitleLabel" type="Label" parent="ConnectCardHeader" unique_id=824476217]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 476.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+text = "PLUTO"
+
+[node name="TaglineLabel" type="Label" parent="ConnectCardHeader"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 476.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+text = "Device Connection"
+
+[node name="CenterContainer" type="VBoxContainer" parent="." unique_id=1681990217]
+layout_mode = 1
+anchor_left = 0.30
+anchor_top = 0.20
+anchor_right = 0.70
+anchor_bottom = 0.80
+offset_top = 86.0
+offset_bottom = -20.0
+theme_override_constants/separation = 20
+
+[node name="ConnectButton" type="Button" parent="CenterContainer" unique_id=1839161868]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_disabled_color = Color(0.729, 0.859, 0.635, 0.6)
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Connect to PLUTO"
+
+[node name="StatusLabel" type="Label" parent="." unique_id=1779154011]
+layout_mode = 1
+anchor_left = 0.30
+anchor_top = 0.20
+anchor_right = 0.70
+anchor_bottom = 0.80
+offset_top = 200.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3

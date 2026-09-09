@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://c3qxcf06830wr"
+
+[deps]
+
+source_file="res://data/devmode/rawdata/raw-sess06-trial003-HAT-TRICK-WFE.csv"
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

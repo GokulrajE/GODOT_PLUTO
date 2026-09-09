@@ -1,0 +1,398 @@
+[gd_scene format=3 uid="uid://bserialtest"]
+
+[ext_resource type="Script" path="res://SerialTest.gd" id="1_SerialTest"]
+
+[sub_resource type="StyleBoxFlat" id="sb_header"]
+bg_color = Color(0.024, 0.392, 0.522, 1)
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="sb_panel"]
+bg_color = Color(0.090, 0.137, 0.220, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.196, 0.275, 0.408, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn"]
+bg_color = Color(0.0, 0.647, 0.820, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_h"]
+bg_color = Color(0.0, 0.510, 0.647, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_p"]
+bg_color = Color(0.0, 0.380, 0.490, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
+bg_color = Color(0.196, 0.275, 0.408, 0.35)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="sb_input"]
+bg_color = Color(0.045, 0.075, 0.135, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.196, 0.275, 0.408, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+
+[node name="SerialTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_SerialTest")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.063, 0.102, 0.173, 1)
+
+[node name="RootLayout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+theme_override_constants/separation = 5
+
+[node name="Header" type="PanelContainer" parent="RootLayout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+theme_override_styles/panel = SubResource("sb_header")
+
+[node name="HeaderBox" type="HBoxContainer" parent="RootLayout/Header"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatusLabel" type="Label" parent="RootLayout/Header/HeaderBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+text = "Not connected"
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="PortInput" type="LineEdit" parent="RootLayout/Header/HeaderBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(90, 30)
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("sb_input")
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+placeholder_text = "COM45"
+text = "COM45"
+
+[node name="ConnectButton" type="Button" parent="RootLayout/Header/HeaderBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(110, 30)
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "Connect"
+
+[node name="StreamButton" type="Button" parent="RootLayout/Header/HeaderBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(110, 30)
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "Start Stream"
+
+[node name="Main" type="HBoxContainer" parent="RootLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Left" type="PanelContainer" parent="RootLayout/Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.0
+theme_override_styles/panel = SubResource("sb_panel")
+
+[node name="SensorWrap" type="VBoxContainer" parent="RootLayout/Main/Left"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SensorLabel" type="Label" parent="RootLayout/Main/Left/SensorWrap"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.72, 0.95, 0.72, 1)
+text = "Waiting for data..."
+
+[node name="RawLabel" type="Label" parent="RootLayout/Main/Left/SensorWrap"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = ""
+
+[node name="Right" type="PanelContainer" parent="RootLayout/Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.1
+theme_override_styles/panel = SubResource("sb_panel")
+
+[node name="RightInner" type="VBoxContainer" parent="RootLayout/Main/Right"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MechTitle" type="Label" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = "MECHANISM  (selects & calibrates)"
+
+[node name="MechRow" type="HBoxContainer" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Sep0" type="HSeparator" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+
+[node name="CalibTitle" type="Label" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = "CALIBRATE: WFE"
+
+[node name="CalibRow" type="HBoxContainer" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StartButton" type="Button" parent="RootLayout/Main/Right/RightInner/CalibRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 28)
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "Calib START"
+
+[node name="EndButton" type="Button" parent="RootLayout/Main/Right/RightInner/CalibRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 28)
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "Calib END"
+
+[node name="Sep1" type="HSeparator" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+
+[node name="CtrlTypeTitle" type="Label" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = "CONTROL MODE"
+
+[node name="CtrlTypeRow" type="HBoxContainer" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Sep2" type="HSeparator" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+
+[node name="TargetTitle" type="Label" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = "CONTROL TARGET  (-10.0 to 10.0)"
+
+[node name="TargetSlider" type="HSlider" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 26)
+min_value = -10.0
+max_value = 10.0
+step = 0.5
+value = 0.0
+
+[node name="TargetRow" type="HBoxContainer" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ValueLabel" type="Label" parent="RootLayout/Main/Right/RightInner/TargetRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 28)
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+text = "Target: 0.000 °"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SetButton" type="Button" parent="RootLayout/Main/Right/RightInner/TargetRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(90, 28)
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "Set Target"
+
+[node name="ZeroButton" type="Button" parent="RootLayout/Main/Right/RightInner/TargetRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(55, 28)
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "Zero"
+
+[node name="Sep3" type="HSeparator" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+
+[node name="BoundTitle" type="Label" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = "CONTROL BOUND  (step ±0.05)"
+
+[node name="BoundRow" type="HBoxContainer" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="DecButton" type="Button" parent="RootLayout/Main/Right/RightInner/BoundRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 28)
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "−"
+
+[node name="ValueLabel" type="Label" parent="RootLayout/Main/Right/RightInner/BoundRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 28)
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+text = "Bound: 0.600"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IncButton" type="Button" parent="RootLayout/Main/Right/RightInner/BoundRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 28)
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_hover_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_pressed_color = Color(0.937, 0.953, 0.984, 1)
+theme_override_colors/font_disabled_color = Color(0.576, 0.667, 0.800, 0.5)
+theme_override_styles/normal = SubResource("sb_btn")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+text = "+"
+
+[node name="Sep4" type="HSeparator" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+
+[node name="DirTitle" type="Label" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.576, 0.667, 0.800, 1)
+text = "CONTROL DIRECTION"
+
+[node name="DirRow" type="HBoxContainer" parent="RootLayout/Main/Right/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="HeartbeatTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = false

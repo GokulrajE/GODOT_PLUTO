@@ -1,0 +1,317 @@
+[gd_scene format=3 uid="uid://cn0csxfwylyhd"]
+
+[ext_resource type="Script" uid="uid://dkr6r86s0n70l" path="res://scripts/main_scene.gd" id="1_main"]
+
+[sub_resource type="StyleBoxFlat" id="sb_card"]
+bg_color = Color(1.0, 1.0, 1.0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="sb_hdr"]
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+content_margin_left = 24.0
+content_margin_top = 14.0
+content_margin_right = 24.0
+content_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="sb_input_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.980, 0.996, 0.980, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_input_f"]
+content_margin_left = 13.0
+content_margin_top = 7.0
+content_margin_right = 13.0
+content_margin_bottom = 7.0
+bg_color = Color(0.980, 0.996, 0.980, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.078, 0.404, 0.204, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.114, 0.557, 0.286, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.749, 0.878, 0.761, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(1.0, 1.0, 1.0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.824, 0.929, 0.839, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gh"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.906, 0.961, 0.914, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.502, 0.212, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="MainScene" type="Control" unique_id=456096218]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_main")
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=124856678]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.941, 0.969, 0.945, 1)
+
+[node name="LoginCard" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.04
+anchor_right = 0.75
+anchor_bottom = 0.97
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="LoginCardHeader" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.04
+anchor_right = 0.75
+offset_bottom = 108.0
+theme_override_styles/panel = SubResource("sb_hdr")
+
+[node name="AppNameLabel" type="Label" parent="LoginCardHeader" unique_id=158457112]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 520.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 32
+text = "PLUTO"
+
+[node name="TaglineLabel" type="Label" parent="LoginCardHeader" unique_id=773978210]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 48.0
+offset_right = 520.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
+theme_override_font_sizes/font_size = 13
+text = "Rehabilitation Platform"
+
+[node name="LoginPanel" type="VBoxContainer" parent="." unique_id=1001593109]
+layout_mode = 1
+anchor_left = 0.27
+anchor_top = 0.04
+anchor_right = 0.73
+anchor_bottom = 0.97
+offset_top = 128.0
+offset_bottom = -16.0
+theme_override_constants/separation = 16
+
+[node name="LoginTitle" type="Label" parent="LoginPanel" unique_id=1360028164]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
+theme_override_font_sizes/font_size = 18
+text = "Patient Login"
+
+[node name="PatientIDInput" type="LineEdit" parent="LoginPanel" unique_id=430651106]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("sb_input_n")
+theme_override_styles/focus = SubResource("sb_input_f")
+placeholder_text = "Enter Patient ID"
+
+[node name="LoginButton" type="Button" parent="LoginPanel" unique_id=1050920310]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_disabled_color = Color(0.500, 0.650, 0.510, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Login"
+
+[node name="RegisterButton" type="Button" parent="LoginPanel" unique_id=1703194625]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
+theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.502, 0.212, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("sb_btn_gn")
+theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/hover = SubResource("sb_btn_gh")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Register New Patient"
+
+[node name="LoginStatus" type="Label" parent="LoginPanel" unique_id=1974337841]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ConnectPanel" type="VBoxContainer" parent="." unique_id=1331893561]
+visible = false
+layout_mode = 1
+anchor_left = 0.27
+anchor_top = 0.04
+anchor_right = 0.73
+anchor_bottom = 0.97
+offset_top = 128.0
+offset_bottom = -16.0
+theme_override_constants/separation = 20
+
+[node name="PatientLabel" type="Label" parent="ConnectPanel" unique_id=2099845649]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 20
+text = "Patient: "
+horizontal_alignment = 1
+
+[node name="ConnectButton" type="Button" parent="ConnectPanel" unique_id=800374461]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_disabled_color = Color(0.500, 0.650, 0.510, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/disabled = SubResource("sb_btn_dis")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Connect to PLUTO"
+
+[node name="ConnectStatus" type="Label" parent="ConnectPanel" unique_id=1724052154]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+autowrap_mode = 3
