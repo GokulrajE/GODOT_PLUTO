@@ -1,0 +1,9 @@
+:Location: vellore
+:Device: PLUTO
+:User: devmode2
+SessionNumber,DateTime,TrialNumberDay,TrialNumberSession,TrialType,TrialStartTime,TrialStopTime,TrialRawDataFile,Mechanism,GameName,GameParameter,GameSpeed,AssistMode,DesiredSuccessRate,SuccessRate,CurrentControlBound,NextControlBound,MoveTime,CurrentTargets,CurrentHits,CurrentMisses,CummulativeTargets,CummulativeHits,CummulativeMisses,CurrentStar,CummulativeStars
+1,2026-09-10T11:00:44,1,1,SR85PCTRAIN,2026-09-10T10:59:37,2026-09-10T11:00:44,raw-sess01-trial001-HAT-TRICK-WFE.csv,WFE,HAT-TRICK,4.0,10.0,AAN,85.000,85.000,0.600,0.540,60.0,20,17,3,20,17,3,0,0
+2,2026-09-10T11:13:02,2,1,SR85PCTRAIN,2026-09-10T11:12:47,2026-09-10T11:13:02,raw-sess02-trial002-HAT-TRICK-WFE.csv,WFE,HAT-TRICK,4.0,10.0,AAN,85.000,40.000,0.540,0.936,60.0,5,2,2,25,19,5,0,0
+3,2026-09-10T11:19:13,3,1,SR85PCTRAIN,2026-09-10T11:18:08,2026-09-10T11:19:13,raw-sess03-trial003-HAT-TRICK-WFE.csv,WFE,HAT-TRICK,4.0,10.0,AAN,85.000,95.000,0.936,0.742,60.0,20,19,1,45,38,6,0,0
+3,2026-09-10T11:19:17,3,1,SR85PCTRAIN,2026-09-10T11:18:08,2026-09-10T11:19:17,raw-sess03-trial003-HAT-TRICK-WFE.csv,WFE,HAT-TRICK,4.0,10.0,AAN,85.000,0.000,0.742,1.000,60.0,0,0,0,45,38,6,0,0
+5,2026-09-10T11:32:29,4,1,SR85PCTRAIN,2026-09-10T11:31:08,2026-09-10T11:32:29,raw-sess05-trial004-HAT-TRICK-WFE.csv,WFE,HAT-TRICK,4.0,10.0,AAN,85.000,90.000,1.000,0.850,60.0,20,18,2,65,56,8,0,0

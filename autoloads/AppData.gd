@@ -59,6 +59,16 @@ var trial_type:           int    = 0  # _HomerTherapy.TrialType.SR85PCTRAIN
 var _trial_raw_logger           = null  # DataLogger
 var _last_target:         float  = INF
 
+# ── Game log state (updated by the active game each frame) ─────────────
+var log_player_x:  float  = 0.0
+var log_player_y:  float  = 0.0
+var log_target_x:  float  = 0.0
+var log_target_y:  float  = 0.0
+var log_game_state: String = ""
+var log_aan_target: float  = 0.0
+var log_aan_init:   float  = 0.0
+var log_aan_state:  String = ""
+
 # ── HOC helpers ───────────────────────────────────────────────────────
 func hoc_to_cm(angle: float) -> float:
 	return HOC_SCALE * abs(angle)
@@ -119,6 +129,7 @@ func start_new_trial() -> void:
 		mechanism_name,
 		type_name)
 	_trial_raw_logger = _DataLogger.new(trial_raw_file, "")
+	EventBus.new_sensor_data.connect(_on_raw_log)
 
 	DataManager.log_info("AppData",
 		"StartTrial | Day=%d Sess=%d Type=%s DesiredSR=%.1f File=%s" % [
@@ -176,6 +187,9 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 		"CtrlBound: %.3f → %.3f (SR=%.1f%% desired=%.1f%%)" % [
 			current_bound, next_bound, success_rate, desired_success_rate])
 
+	if EventBus.new_sensor_data.is_connected(_on_raw_log):
+		EventBus.new_sensor_data.disconnect(_on_raw_log)
+
 	if _trial_raw_logger != null:
 		_trial_raw_logger.stop_data_log()
 		_trial_raw_logger = null
@@ -184,6 +198,40 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 	DataManager.log_info("AppData",
 		"StopTrial | SR=%.1f%% Targets=%d Hits=%d Misses=%d" % [
 			success_rate, targets, hits, misses])
+
+func _on_raw_log() -> void:
+	if _trial_raw_logger == null or not _trial_raw_logger.still_logging:
+		return
+	var mech_name = PlutoComm.MECHANISMS[PlutoComm.mechanism] \
+		if PlutoComm.mechanism < PlutoComm.MECHANISMS.size() else ""
+	var ctrl_name = PlutoComm.CONTROL_TYPES[PlutoComm.control_type] \
+		if PlutoComm.control_type < PlutoComm.CONTROL_TYPES.size() else ""
+	var row = "%s,%d,%d,%d,0,%s,%d,%s,%d,%.6f,%.6f,%.6f,%.6f,%.6f,%d,%.6f,0,0,0,%.3f,%.3f,%.3f,%.3f,%s,%.3f,%.3f,%s,," % [
+		"%.6f" % PlutoComm.run_time,
+		PlutoComm.packet_number,
+		PlutoComm.status,
+		PlutoComm.data_type,
+		ctrl_name,
+		PlutoComm.calibration,
+		mech_name,
+		PlutoComm.button,
+		PlutoComm.angle,
+		PlutoComm.torque,
+		PlutoComm.desired,
+		PlutoComm.control,
+		PlutoComm.control_bound,
+		PlutoComm.control_dir,
+		PlutoComm.target,
+		log_player_x,
+		log_player_y,
+		log_target_x,
+		log_target_y,
+		log_game_state,
+		log_aan_target,
+		log_aan_init,
+		log_aan_state,
+	]
+	_trial_raw_logger.log_data(row + "\n")
 
 func log_raw_data(row: String) -> void:
 	if _trial_raw_logger != null and _trial_raw_logger.still_logging:

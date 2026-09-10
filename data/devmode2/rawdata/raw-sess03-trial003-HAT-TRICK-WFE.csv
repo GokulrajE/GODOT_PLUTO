@@ -1,0 +1,12 @@
+:Device: PLUTO
+:Location: vellore
+:User: devmode2
+:Mechanism: WFE
+:Game: HAT-TRICK
+:TrialType: SR85PCTRAIN
+:TrialStartTime: 2026-09-10T11:18:08
+:TrialNumberDay: 3
+:AROM: [-3.80,6.28]
+:PROM: [-53.42,67.20]
+:APROM: [-52.42,64.02]
+DeviceRunTime,PacketNumber,Status,DataType,ErrorStatus,ControlType,Calibration,Mechanism,Button,Angle,Torque,Desired,Control,ControlBound,ControlDir,Target,Error,ErrorDiff,ErrorSum,GamePlayerX,GamePlayerY,GameTargetX,GameTargetY,GameState,AanTargetPosition,AanInitialPosition,AanState,Annotation,Miscellaneous

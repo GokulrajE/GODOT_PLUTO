@@ -19,7 +19,7 @@ func _on_pluto_button() -> void:
 
 func _on_hat_trick_pressed() -> void:
 	AppData.set_game("HAT-TRICK")
-	get_tree().change_scene_to_file("res://scenes/HatrickScene.tscn")
+	get_tree().change_scene_to_file("res://game/HAT_TIRCK/scene/HatrickScene.tscn")
 
 func _get_mech_display_name() -> String:
 	var names := {

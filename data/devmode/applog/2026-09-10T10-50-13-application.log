@@ -1,0 +1,3 @@
+[2026-09-10T10:50:13] INFO    [devmode] >> Application started
+[2026-09-10T10:50:13] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=27
+[2026-09-10T10:50:18] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=15 Trial#Sess=0 CtrlBound=1.000

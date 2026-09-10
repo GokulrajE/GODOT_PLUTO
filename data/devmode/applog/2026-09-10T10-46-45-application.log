@@ -1,0 +1,12 @@
+[2026-09-10T10:46:45] INFO    [devmode] >> Application started
+[2026-09-10T10:46:45] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=25
+[2026-09-10T10:46:50] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=13 Trial#Sess=0 CtrlBound=0.705
+[2026-09-10T10:46:58] INFO    [devmode] [AppData         ] >> Game set: HAT-TRICK
+[2026-09-10T10:47:00] INFO    [devmode] [AppData         ] >> StartTrial | Day=14 Sess=1 Type=TRAIN DesiredSR=78.0 File=raw-sess25-trial014-HAT-TRICK-WFE.csv
+[2026-09-10T10:48:01] INFO    [devmode] [MechanismSpeed  ] >> WFE — speed updated to 36.0 deg/s (MANUAL)
+[2026-09-10T10:48:01] INFO    [devmode] [AppData         ] >> CtrlBound: 0.705 → 0.964 (SR=45.1% desired=78.0%)
+[2026-09-10T10:48:01] INFO    [devmode] [AppData         ] >> StopTrial | SR=45.1% Targets=51 Hits=23 Misses=28
+[2026-09-10T10:48:07] INFO    [devmode] [AppData         ] >> StartTrial | Day=15 Sess=2 Type=TRAIN DesiredSR=78.0 File=raw-sess25-trial015-HAT-TRICK-WFE.csv
+[2026-09-10T10:48:47] INFO    [devmode] [MechanismSpeed  ] >> WFE — speed updated to 25.0 deg/s (MANUAL)
+[2026-09-10T10:48:47] INFO    [devmode] [AppData         ] >> CtrlBound: 0.964 → 1.000 (SR=64.0% desired=78.0%)
+[2026-09-10T10:48:47] INFO    [devmode] [AppData         ] >> StopTrial | SR=64.0% Targets=25 Hits=16 Misses=8

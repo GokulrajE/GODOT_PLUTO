@@ -1,0 +1,4 @@
+[2026-09-10T10:51:13] INFO    [devmode2] >> Application started
+[2026-09-10T10:51:13] INFO    [devmode2] [DataManager     ] >> Patient loaded: devmode2  session=1
+[2026-09-10T10:51:19] INFO    [devmode2] [MechanismSpeed  ] >> WFE — speed initialised to 10.0 deg/s
+[2026-09-10T10:51:19] INFO    [devmode2] [AppData         ] >> Mechanism set: WFE — Trial#Day=0 Trial#Sess=0 CtrlBound=0.600

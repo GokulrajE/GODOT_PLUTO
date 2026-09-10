@@ -38,6 +38,8 @@ var calibration:   int   = 0
 var control_type:  int   = 0
 var packet_number: int   = 0
 var run_time:      float = 0.0
+var status:        int   = 0
+var data_type:     int   = 0
 var is_connected:  bool  = false
 var is_streaming:  bool  = false
 
@@ -207,8 +209,8 @@ func _parse_packet(raw: PackedByteArray) -> void:
 	if raw.size() < 6:
 		return
 
-	var status_byte = raw[3]
-	var data_type   = (status_byte >> 4) & 0x0F
+	status    = raw[3]
+	data_type = (status >> 4) & 0x0F
 
 	if data_type != 0:
 		return
@@ -219,8 +221,8 @@ func _parse_packet(raw: PackedByteArray) -> void:
 	var prev_mech = mechanism
 	var prev_ctrl = control_type
 	mechanism    = (raw[6] >> 4) & 0x0F
-	calibration  = status_byte & 0x01
-	control_type = (status_byte & 0x0E) >> 1
+	calibration  = status & 0x01
+	control_type = (status & 0x0E) >> 1
 
 	packet_number = raw[7] | (raw[8] << 8)
 	run_time = (raw[9] | (raw[10] << 8) | (raw[11] << 16) | (raw[12] << 24)) * 0.001

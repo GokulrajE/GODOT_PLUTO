@@ -1,4 +1,4 @@
-res://scenes/MainScene.tscn
-res://scenes/HatrickScene.tscn
-res://scenes/CalibrationScene.tscn
-res://scripts/hatrick_game.gd
+res://game/HAT_TIRCK/scene/HatrickScene.tscn
+res://autoloads/AppData.gd
+res://autoloads/PlutoComm.gd
+res://game/HAT_TIRCK/scripts/hatrick_game.gd
