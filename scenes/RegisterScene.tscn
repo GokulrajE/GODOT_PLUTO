@@ -3,24 +3,24 @@
 [ext_resource type="Script" path="res://scripts/register_scene.gd" id="1_reg"]
 
 [sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(0.063, 0.125, 0.075, 1)
+bg_color = Color(1.0, 1.0, 1.0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="sb_hdr"]
-bg_color = Color(0.102, 0.259, 0.122, 1)
+bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
-bg_color = Color(0.259, 0.839, 0.455, 1)
+bg_color = Color(0.153, 0.714, 0.376, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -31,7 +31,7 @@ content_margin_right = 16.0
 content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-bg_color = Color(0.188, 0.647, 0.345, 1)
+bg_color = Color(0.114, 0.557, 0.286, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -42,7 +42,7 @@ content_margin_right = 16.0
 content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
-bg_color = Color(0.122, 0.447, 0.231, 1)
+bg_color = Color(0.078, 0.404, 0.204, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -53,19 +53,19 @@ content_margin_right = 16.0
 content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
-bg_color = Color(0.216, 0.471, 0.235, 0.35)
+bg_color = Color(0.749, 0.878, 0.761, 0.7)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
-bg_color = Color(0.063, 0.125, 0.075, 1)
+bg_color = Color(1.0, 1.0, 1.0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -76,12 +76,12 @@ content_margin_right = 16.0
 content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_gh"]
-bg_color = Color(0.098, 0.180, 0.110, 1)
+bg_color = Color(0.906, 0.961, 0.914, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -92,23 +92,7 @@ content_margin_right = 16.0
 content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
-bg_color = Color(0.122, 0.235, 0.137, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="sb_side_sel"]
-bg_color = Color(0.259, 0.839, 0.455, 0.20)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.259, 0.839, 0.455, 1)
+bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -124,19 +108,19 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.502, 0.937, 0.502, 0.7)
+border_color = Color(0.082, 0.502, 0.212, 0.7)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="sb_input_n"]
-bg_color = Color(0.020, 0.043, 0.024, 1)
+bg_color = Color(0.980, 0.996, 0.980, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -147,12 +131,12 @@ content_margin_right = 14.0
 content_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="sb_input_f"]
-bg_color = Color(0.020, 0.043, 0.024, 1)
+bg_color = Color(0.980, 0.996, 0.980, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.259, 0.839, 0.455, 1)
+border_color = Color(0.153, 0.714, 0.376, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -174,7 +158,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.039, 0.082, 0.047, 1)
+color = Color(0.941, 0.969, 0.945, 1)
 
 [node name="FormCard" type="Panel" parent="."]
 layout_mode = 1
@@ -199,7 +183,7 @@ offset_top = 10.0
 offset_right = 576.0
 offset_bottom = 46.0
 theme_override_font_sizes/font_size = 26
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 text = "PLUTO"
 
 [node name="HeaderSubLabel" type="Label" parent="FormCardHeader"]
@@ -209,7 +193,7 @@ offset_top = 50.0
 offset_right = 576.0
 offset_bottom = 72.0
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "Register New Patient"
 
 [node name="FormPanel" type="VBoxContainer" parent="."]
@@ -227,15 +211,15 @@ theme_override_constants/separation = 8
 [node name="PatientIDLabel" type="Label" parent="FormPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "PATIENT ID  *"
 
 [node name="PatientIDInput" type="LineEdit" parent="FormPanel"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 46)
 theme_override_font_sizes/font_size = 17
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
 theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "e.g. P001"
@@ -243,15 +227,15 @@ placeholder_text = "e.g. P001"
 [node name="StartDateLabel" type="Label" parent="FormPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "START DATE  (YYYY-MM-DD)"
 
 [node name="StartDateInput" type="LineEdit" parent="FormPanel"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 46)
 theme_override_font_sizes/font_size = 17
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
 theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "2026-09-05"
@@ -259,15 +243,15 @@ placeholder_text = "2026-09-05"
 [node name="EndDateLabel" type="Label" parent="FormPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "END DATE  (YYYY-MM-DD)"
 
 [node name="EndDateInput" type="LineEdit" parent="FormPanel"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 46)
 theme_override_font_sizes/font_size = 17
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
 theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "2026-12-05"
@@ -275,7 +259,7 @@ placeholder_text = "2026-12-05"
 [node name="TrainingSideLabel" type="Label" parent="FormPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "TRAINING SIDE"
 
 [node name="TrainingSideRow" type="HBoxContainer" parent="FormPanel"]
@@ -286,9 +270,9 @@ theme_override_constants/separation = 12
 layout_mode = 2
 custom_minimum_size = Vector2(140, 46)
 theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_styles/normal = SubResource("sb_btn_gn")
 theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
@@ -299,9 +283,9 @@ text = "Left"
 layout_mode = 2
 custom_minimum_size = Vector2(140, 46)
 theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_styles/normal = SubResource("sb_btn_gn")
 theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
@@ -311,15 +295,15 @@ text = "Right"
 [node name="LocationLabel" type="Label" parent="FormPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "LOCATION"
 
 [node name="LocationInput" type="LineEdit" parent="FormPanel"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 46)
 theme_override_font_sizes/font_size = 17
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/placeholder_color = Color(0.729, 0.859, 0.635, 0.7)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
 theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "e.g. Mumbai"
@@ -333,9 +317,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 48)
 theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
-theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_styles/normal = SubResource("sb_btn_gn")
 theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
@@ -347,10 +331,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 48)
 theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_disabled_color = Color(0.729, 0.859, 0.635, 0.6)
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_disabled_color = Color(0.500, 0.650, 0.510, 1)
 theme_override_styles/normal = SubResource("sb_btn_pn")
 theme_override_styles/hover = SubResource("sb_btn_ph")
 theme_override_styles/pressed = SubResource("sb_btn_pp")
@@ -362,7 +346,7 @@ text = "Register"
 layout_mode = 2
 custom_minimum_size = Vector2(0, 32)
 theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 text = ""
 horizontal_alignment = 1
 autowrap_mode = 3

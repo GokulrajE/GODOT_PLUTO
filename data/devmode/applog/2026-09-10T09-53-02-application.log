@@ -1,0 +1,7 @@
+[2026-09-10T09:53:02] INFO    [devmode] >> Application started
+[2026-09-10T09:53:02] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=17
+[2026-09-10T09:53:13] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=5 Trial#Sess=0 CtrlBound=1.000
+[2026-09-10T09:53:21] INFO    [devmode] [AppData         ] >> Game set: HAT-TRICK
+[2026-09-10T09:53:22] INFO    [devmode] [AppData         ] >> StartTrial | Day=6 Sess=1 Type=TRAIN DesiredSR=88.0 File=raw-sess17-trial006-HAT-TRICK-WFE.csv
+[2026-09-10T09:53:34] INFO    [devmode] [AppData         ] >> CtrlBound: 1.000 → 1.000 (SR=75.0% desired=88.0%)
+[2026-09-10T09:53:34] INFO    [devmode] [AppData         ] >> StopTrial | SR=75.0% Targets=4 Hits=3 Misses=0

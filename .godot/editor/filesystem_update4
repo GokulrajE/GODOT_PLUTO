@@ -1,0 +1,4 @@
+res://scenes/MainScene.tscn
+res://scenes/HatrickScene.tscn
+res://scenes/CalibrationScene.tscn
+res://scripts/hatrick_game.gd

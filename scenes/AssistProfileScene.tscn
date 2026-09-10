@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cwlfoantwg5fg" path="res://scripts/assist_profile_scene.gd" id="1_s3fxf"]
 
 [sub_resource type="StyleBoxFlat" id="sb_hdr"]
-bg_color = Color(0.102, 0.259, 0.122, 1)
+bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 
@@ -12,12 +12,12 @@ content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-bg_color = Color(0.063, 0.125, 0.075, 1)
+bg_color = Color(1.0, 1.0, 1.0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -28,7 +28,7 @@ content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-bg_color = Color(0.122, 0.235, 0.137, 1)
+bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -39,12 +39,12 @@ content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-bg_color = Color(0.098, 0.180, 0.110, 1)
+bg_color = Color(0.906, 0.961, 0.914, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -56,62 +56,62 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.502, 0.937, 0.502, 0.7)
+border_color = Color(0.082, 0.502, 0.212, 0.7)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="sb_main_card"]
-bg_color = Color(0.063, 0.125, 0.075, 1)
+bg_color = Color(1.0, 1.0, 1.0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 
 [sub_resource type="StyleBoxFlat" id="sb_assist_badge"]
-bg_color = Color(0.094, 0.196, 0.106, 0.9)
+bg_color = Color(0.820, 0.941, 0.835, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 
 [sub_resource type="StyleBoxFlat" id="sb_track"]
-bg_color = Color(0.020, 0.043, 0.024, 1)
+bg_color = Color(0.918, 0.949, 0.922, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="sb_cursor_min"]
-bg_color = Color(0.502, 0.937, 0.502, 1)
+bg_color = Color(0.153, 0.714, 0.376, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="sb_cursor_max"]
-bg_color = Color(0.259, 0.839, 0.455, 1)
+bg_color = Color(0.059, 0.502, 0.259, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="sb_cursor_curr"]
-bg_color = Color(0.800, 0.200, 0.200, 1)
+bg_color = Color(0.800, 0.150, 0.150, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -129,7 +129,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.039, 0.082, 0.047, 1)
+color = Color(0.941, 0.969, 0.945, 1)
 
 [node name="HeaderPanel" type="Panel" parent="." unique_id=2013944048]
 layout_mode = 1
@@ -149,7 +149,7 @@ offset_left = 24.0
 offset_top = 12.0
 offset_right = 700.0
 offset_bottom = 44.0
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_font_sizes/font_size = 22
 text = "Assist Profile"
 
@@ -159,7 +159,7 @@ offset_left = 24.0
 offset_top = 48.0
 offset_right = 700.0
 offset_bottom = 72.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 theme_override_font_sizes/font_size = 13
 text = "WRIST FLEX/EXTENSION"
 
@@ -173,9 +173,9 @@ offset_left = -140.0
 offset_right = -16.0
 offset_top = 13.0
 offset_bottom = -13.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
-theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
+theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("sb_btn_gn")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
@@ -206,7 +206,7 @@ offset_left = 20.0
 offset_top = 12.0
 offset_right = 600.0
 offset_bottom = 44.0
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_font_sizes/font_size = 18
 text = "ASSISTANCE — AAN Protocol"
 
@@ -220,7 +220,7 @@ offset_left = 20.0
 offset_top = 68.0
 offset_right = -20.0
 offset_bottom = 100.0
-theme_override_colors/font_color = Color(0.502, 0.937, 0.502, 1)
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
 theme_override_font_sizes/font_size = 18
 text = "RELAX YOUR HANDS — PLUTO WILL ASSIST YOU"
 horizontal_alignment = 1
@@ -235,7 +235,7 @@ offset_left = 20.0
 offset_top = 108.0
 offset_right = -20.0
 offset_bottom = 136.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 theme_override_font_sizes/font_size = 15
 text = "Press PLUTO button to start the AAN"
 horizontal_alignment = 1
@@ -285,7 +285,7 @@ offset_left = 28.0
 offset_top = 234.0
 offset_right = 160.0
 offset_bottom = 258.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 theme_override_font_sizes/font_size = 13
 text = "Flexion"
 
@@ -299,7 +299,7 @@ offset_left = -60.0
 offset_right = 60.0
 offset_top = 234.0
 offset_bottom = 258.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 theme_override_font_sizes/font_size = 13
 text = "Closed"
 horizontal_alignment = 1
@@ -314,7 +314,7 @@ offset_left = -140.0
 offset_right = -20.0
 offset_top = 234.0
 offset_bottom = 258.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 theme_override_font_sizes/font_size = 13
 text = "Extension"
 horizontal_alignment = 2
@@ -329,7 +329,7 @@ offset_left = 20.0
 offset_right = -20.0
 offset_top = 272.0
 offset_bottom = 352.0
-theme_override_colors/font_color = Color(0.502, 0.937, 0.502, 1)
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
 theme_override_font_sizes/font_size = 64
 text = "---"
 horizontal_alignment = 1
@@ -344,7 +344,7 @@ offset_left = 20.0
 offset_right = -20.0
 offset_top = 354.0
 offset_bottom = 376.0
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 theme_override_font_sizes/font_size = 13
 text = "degrees"
 horizontal_alignment = 1

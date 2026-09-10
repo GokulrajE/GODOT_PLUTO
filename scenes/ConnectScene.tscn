@@ -3,24 +3,24 @@
 [ext_resource type="Script" uid="uid://bloyh5wh20430" path="res://scripts/connect_scene.gd" id="1_cth24"]
 
 [sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(0.063, 0.125, 0.075, 1)
+bg_color = Color(1.0, 1.0, 1.0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.216, 0.471, 0.235, 1)
+border_color = Color(0.749, 0.878, 0.761, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="sb_hdr"]
-bg_color = Color(0.102, 0.259, 0.122, 1)
+bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
-bg_color = Color(0.259, 0.839, 0.455, 1)
+bg_color = Color(0.153, 0.714, 0.376, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -31,7 +31,7 @@ content_margin_right = 16.0
 content_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-bg_color = Color(0.188, 0.647, 0.345, 1)
+bg_color = Color(0.114, 0.557, 0.286, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -42,7 +42,7 @@ content_margin_right = 16.0
 content_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
-bg_color = Color(0.122, 0.447, 0.231, 1)
+bg_color = Color(0.078, 0.404, 0.204, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -53,7 +53,7 @@ content_margin_right = 16.0
 content_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
-bg_color = Color(0.216, 0.471, 0.235, 0.35)
+bg_color = Color(0.749, 0.878, 0.761, 0.7)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -65,7 +65,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.502, 0.937, 0.502, 0.7)
+border_color = Color(0.082, 0.502, 0.212, 0.7)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -83,7 +83,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.039, 0.082, 0.047, 1)
+color = Color(0.941, 0.969, 0.945, 1)
 
 [node name="ConnectCard" type="Panel" parent="."]
 layout_mode = 1
@@ -113,7 +113,7 @@ offset_top = 12.0
 offset_right = 476.0
 offset_bottom = 46.0
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 text = "PLUTO"
 
 [node name="TaglineLabel" type="Label" parent="ConnectCardHeader"]
@@ -123,7 +123,7 @@ offset_top = 48.0
 offset_right = 476.0
 offset_bottom = 66.0
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.729, 0.859, 0.635, 1)
+theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "Device Connection"
 
 [node name="CenterContainer" type="VBoxContainer" parent="." unique_id=1681990217]
@@ -140,10 +140,10 @@ theme_override_constants/separation = 20
 layout_mode = 2
 custom_minimum_size = Vector2(0, 56)
 theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_hover_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_pressed_color = Color(0.922, 0.980, 0.922, 1)
-theme_override_colors/font_disabled_color = Color(0.729, 0.859, 0.635, 0.6)
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_colors/font_disabled_color = Color(0.500, 0.650, 0.510, 1)
 theme_override_styles/normal = SubResource("sb_btn_pn")
 theme_override_styles/hover = SubResource("sb_btn_ph")
 theme_override_styles/pressed = SubResource("sb_btn_pp")
@@ -160,7 +160,7 @@ anchor_bottom = 0.80
 offset_top = 200.0
 offset_bottom = -20.0
 theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(0.922, 0.980, 0.922, 1)
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 text = ""
 horizontal_alignment = 1
 autowrap_mode = 3

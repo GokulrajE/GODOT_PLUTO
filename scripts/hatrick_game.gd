@@ -3,17 +3,20 @@ extends Control
 const _PlutoAAN = preload("res://scripts/PlutoAAN.gd")
 
 # ── Layout ──────────────────────────────────────────────────────────────────
-const GAME_LEFT: float    = 20.0
-const GAME_RIGHT: float   = 1146.0
-const BALL_START_Y: float = 72.0
-const BALL_MISS_Y: float  = 560.0
-const HAT_Y_TOP: float    = 445.0
-const HAT_H: float        = 130.0
-const HAT_HALF_W: float   = 100.0
-const HAT_W: float        = 200.0
-const CATCH_Y_TOP: float  = 448.0
-const CATCH_Y_H: float    = 52.0
-const BALL_SIZE: float    = 64.0
+const GAME_LEFT: float       = 20.0
+const GAME_RIGHT: float      = 1146.0
+const BALL_START_Y: float    = 72.0
+const BALL_MISS_Y: float     = 610.0   # below catch zone (hat brim ~496 + catch height)
+const HAT_Y_TOP: float       = 490.0   # hat moved to Y≈496 in scene
+const HAT_H: float           = 130.0
+const HAT_HALF_W: float      = 100.0   # collision half-width
+const HAT_W: float           = 200.0   # collision width
+const HAT_VISUAL_HALF: float = 71.0    # (202 layout px * 0.7 scale) / 2 — for visual centering and clamping
+const CATCH_Y_TOP: float     = 490.0   # aligned to hat brim Y
+const CATCH_Y_H: float       = 65.0    # catch window height
+const BALL_SIZE: float       = 80.0    # bowling ball (square)
+const BOMB_W:    float       = 150.0    # bomb width
+const BOMB_H:    float       = 150.0    # bomb height (taller due to fuse)
 
 # ── Timing ──────────────────────────────────────────────────────────────────
 const TRIAL_DURATION: float    = 60.0
@@ -130,8 +133,8 @@ func angle_to_screen(angle: float) -> float:
 
 func _set_hat_x(x: float) -> void:
 	_hat_x = x
-	_hat_back.position.x  = x - HAT_HALF_W
-	_hat_front.position.x = x - HAT_HALF_W
+	_hat_back.position.x  = x - HAT_VISUAL_HALF
+	_hat_front.position.x = x - HAT_VISUAL_HALF
 
 func _process(delta: float) -> void:
 	_move_hat(delta)
@@ -148,7 +151,7 @@ func _move_hat(delta: float) -> void:
 		sx = _hat_x - 400.0 * delta
 	elif Input.is_key_pressed(KEY_RIGHT):
 		sx = _hat_x + 400.0 * delta
-	_set_hat_x(clamp(sx, GAME_LEFT + HAT_HALF_W, GAME_RIGHT - HAT_HALF_W))
+	_set_hat_x(clamp(sx, GAME_LEFT + HAT_VISUAL_HALF, GAME_RIGHT - HAT_VISUAL_HALF))
 
 func _tick(delta: float) -> void:
 	var playing = (_state != State.WAITING and _state != State.PAUSED
@@ -226,12 +229,13 @@ func _move_balls(delta: float) -> void:
 func _check_collision() -> void:
 	if _current_ball == null or _ball_caught or _ball_missed:
 		return
-	var cx := _current_ball.position.x + BALL_SIZE * 0.5
-	var cy := _current_ball.position.y + BALL_SIZE * 0.5
+	var sz: Vector2 = _current_ball.size
+	var cx: float = _current_ball.position.x + sz.x * 0.5
+	var cy: float = _current_ball.position.y + sz.y * 0.5
 	var catch_rect := Rect2(Vector2(_hat_x - HAT_HALF_W, CATCH_Y_TOP), Vector2(HAT_W, CATCH_Y_H))
 	if catch_rect.has_point(Vector2(cx, cy)):
 		_ball_was_caught()
-	elif _current_ball.position.y + BALL_SIZE >= BALL_MISS_Y:
+	elif _current_ball.position.y + sz.y >= BALL_MISS_Y:
 		_ball_was_missed()
 
 func _ball_was_caught() -> void:
@@ -255,14 +259,18 @@ func _spawn_ball() -> void:
 	n_targets += 1
 	var ball := TextureRect.new()
 	ball.stretch_mode = TextureRect.STRETCH_SCALE
-	ball.expand_mode  = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	ball.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
+	var display_size := Vector2(BALL_SIZE, BALL_SIZE)
 	if _ball_textures.size() > 0:
-		ball.texture = _ball_textures[randi() % _ball_textures.size()]
+		var tex_idx: int = randi() % _ball_textures.size()
+		ball.texture = _ball_textures[tex_idx]
+		if tex_idx == 1:
+			display_size = Vector2(BOMB_W, BOMB_H)
 	_ball_container.add_child(ball)
-	# Set absolute layout after adding to scene tree
 	ball.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	ball.position = Vector2(angle_to_screen(_target_angle) - BALL_SIZE * 0.5, BALL_START_Y)
-	ball.size     = Vector2(BALL_SIZE, BALL_SIZE)
+	var spawn_x: float = clamp(angle_to_screen(_target_angle), GAME_LEFT + display_size.x * 0.5, GAME_RIGHT - display_size.x * 0.5)
+	ball.position = Vector2(spawn_x - display_size.x * 0.5, BALL_START_Y)
+	ball.size     = display_size
 	_current_ball = ball
 
 func _pick_target_angle() -> float:
