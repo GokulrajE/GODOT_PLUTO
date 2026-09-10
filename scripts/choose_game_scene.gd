@@ -8,6 +8,9 @@ func _ready() -> void:
 	status_label.text = "Press PLUTO button or select a game below"
 
 	$Card/HatTrickButton.pressed.connect(_on_hat_trick_pressed)
+	$Card/FruitBasketButton.pressed.connect(_on_fruit_basket_pressed)
+	$Card/RNRButton.pressed.connect(_on_rnr_pressed)
+	$Card/BackButton.pressed.connect(_on_back_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
 
 func _exit_tree() -> void:
@@ -20,6 +23,17 @@ func _on_pluto_button() -> void:
 func _on_hat_trick_pressed() -> void:
 	AppData.set_game("HAT-TRICK")
 	get_tree().change_scene_to_file("res://game/HAT_TIRCK/scene/HatrickScene.tscn")
+
+func _on_fruit_basket_pressed() -> void:
+	AppData.set_game("FRUIT-BASKET")
+	get_tree().change_scene_to_file("res://game/FRUIT_BASKET/scene/FruitBasketScene.tscn")
+
+func _on_rnr_pressed() -> void:
+	AppData.set_game("RNR")
+	get_tree().change_scene_to_file("res://game/RNR/scene/RNRScene.tscn")
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
 
 func _get_mech_display_name() -> String:
 	var names := {

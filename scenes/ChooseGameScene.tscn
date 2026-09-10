@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://choose_game_scene"]
+[gd_scene format=3 uid="uid://d0sonx8j3ioxa"]
 
-[ext_resource type="Script" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
+[ext_resource type="Script" uid="uid://bq0summpb3dw4" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
 
 [sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(1.0, 1.0, 1.0, 1)
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -20,37 +20,37 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
 bg_color = Color(0.153, 0.714, 0.376, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-content_margin_left = 24.0
-content_margin_top = 18.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-bg_color = Color(0.114, 0.557, 0.286, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 24.0
-content_margin_top = 18.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
 bg_color = Color(0.078, 0.404, 0.204, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
 content_margin_left = 24.0
 content_margin_top = 18.0
 content_margin_right = 24.0
 content_margin_bottom = 18.0
+bg_color = Color(0.114, 0.557, 0.286, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="sb_focus"]
 draw_center = false
@@ -64,84 +64,180 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="ChooseGameScene" type="Control"]
+[sub_resource type="StyleBoxFlat" id="sb_back_n"]
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+bg_color = Color(0.78, 0.18, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="sb_back_h"]
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+bg_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ChooseGameScene" type="Control" unique_id=1357170814]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_cgame")
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1194295764]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.941, 0.969, 0.945, 1)
 
-[node name="Card" type="Panel" parent="."]
+[node name="Card" type="Panel" parent="." unique_id=146444568]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.12
 anchor_right = 0.75
 anchor_bottom = 0.88
 theme_override_styles/panel = SubResource("sb_card")
 
-[node name="Header" type="Panel" parent="Card"]
+[node name="Header" type="Panel" parent="Card" unique_id=1690426179]
 layout_mode = 1
-anchor_left = 0.0
-anchor_top = 0.0
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_bottom = 80.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("sb_hdr")
 
-[node name="TitleLabel" type="Label" parent="Card/Header"]
+[node name="TitleLabel" type="Label" parent="Card/Header" unique_id=1060276498]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 10.0
 offset_right = 576.0
 offset_bottom = 46.0
-theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 26
 text = "Choose Game"
 
-[node name="MechLabel" type="Label" parent="Card/Header"]
+[node name="MechLabel" type="Label" parent="Card/Header" unique_id=266871391]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 50.0
 offset_right = 576.0
 offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
-text = ""
 
-[node name="StatusLabel" type="Label" parent="Card"]
+[node name="StatusLabel" type="Label" parent="Card" unique_id=882831177]
 layout_mode = 1
-anchor_left = 0.0
-anchor_top = 0.0
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 0.0
-offset_left = 24.0
-offset_top = 100.0
-offset_right = -24.0
-offset_bottom = 130.0
+offset_left = 26.0
+offset_top = 105.240005
+offset_right = -22.0
+offset_bottom = 135.24
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
-text = ""
 horizontal_alignment = 1
 
-[node name="HatTrickButton" type="Button" parent="Card"]
+[node name="HatTrickButton" type="Button" parent="Card" unique_id=269478581]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.1
-anchor_top = 0.3
+anchor_top = 0.22
 anchor_right = 0.9
-anchor_bottom = 0.6
+anchor_bottom = 0.4
+offset_left = 1.3999939
+offset_top = 48.89441
+offset_right = 1.3999634
+offset_bottom = 48.89441
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
 theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/hover = SubResource("sb_btn_ph")
 theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/hover = SubResource("sb_btn_ph")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "HAT-TRICK"
+
+[node name="FruitBasketButton" type="Button" parent="Card" unique_id=1202186055]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.43
+anchor_right = 0.9
+anchor_bottom = 0.61
+offset_left = 1.3999939
+offset_top = 48.89441
+offset_right = 1.3999634
+offset_bottom = 48.89441
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "FRUIT BASKET"
+
+[node name="RNRButton" type="Button" parent="Card" unique_id=582748105]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.64
+anchor_right = 0.9
+anchor_bottom = 0.82
+offset_left = 1.3999939
+offset_top = 48.89441
+offset_right = 1.3999634
+offset_bottom = 48.89441
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("sb_btn_pn")
+theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/hover = SubResource("sb_btn_ph")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "R-N-R"
+
+[node name="BackButton" type="Button" parent="Card" unique_id=1564524278]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.87
+anchor_right = 0.9
+anchor_bottom = 0.97
+offset_left = 253.4
+offset_top = -413.2176
+offset_right = 42.600037
+offset_bottom = -410.46558
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("sb_back_n")
+theme_override_styles/pressed = SubResource("sb_back_h")
+theme_override_styles/hover = SubResource("sb_back_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "← Choose Mechanism"

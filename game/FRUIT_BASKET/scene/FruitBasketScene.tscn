@@ -1,0 +1,424 @@
+[gd_scene format=3 uid="uid://dfy3m9x1abc2p"]
+
+[ext_resource type="Script" uid="uid://bxkqm5t9r2wfn" path="res://game/FRUIT_BASKET/scripts/fruit_basket_game.gd" id="1_game"]
+[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/sky.png" id="2_sky"]
+[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/groundgrass.png" id="3_ground"]
+[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/catch.wav" id="5_catch"]
+[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/drop.wav" id="6_miss"]
+[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/bgnew.wav" id="7_music"]
+
+[sub_resource type="StyleBoxFlat" id="sb_header"]
+bg_color = Color(1, 1, 1, 0.88)
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+
+[sub_resource type="StyleBoxFlat" id="sb_exit_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.78, 0.18, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_exit_h"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.502, 0.212, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_modal"]
+bg_color = Color(1, 1, 1, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_n"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_p"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.078, 0.404, 0.204, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_h"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.114, 0.557, 0.286, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="FruitBasketScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_game")
+
+[node name="Sky" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sky")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Ground" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+grow_vertical = 0
+texture = ExtResource("3_ground")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BasketContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FruitContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CatchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_catch")
+
+[node name="MissSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_miss")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_music")
+volume_db = -6.0
+autoplay = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Header" type="Panel" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("sb_header")
+
+[node name="TimerLabel" type="Label" parent="UI/Header"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 360.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 24
+text = "Time: 60 s"
+
+[node name="ScoreLabel" type="Label" parent="UI/Header"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = 14.0
+offset_right = 150.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 24
+text = "Score: 00"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="UI/Header"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("sb_exit_n")
+theme_override_styles/pressed = SubResource("sb_exit_h")
+theme_override_styles/hover = SubResource("sb_exit_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Exit"
+
+[node name="WaitPanel" type="Panel" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.75
+anchor_bottom = 0.74
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="GameTitle" type="Label" parent="UI/WaitPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 30.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 48
+text = "FRUIT BASKET"
+horizontal_alignment = 1
+
+[node name="SubTitle" type="Label" parent="UI/WaitPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 110.0
+offset_bottom = 148.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 17
+text = "Guide the falling fruit into the correct basket!"
+horizontal_alignment = 1
+
+[node name="HintLabel" type="Label" parent="UI/WaitPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 190.0
+offset_bottom = 228.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 17
+text = "Press the PLUTO button to start"
+horizontal_alignment = 1
+
+[node name="PausePanel" type="Panel" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.25
+anchor_right = 0.7
+anchor_bottom = 0.68
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="PauseTitle" type="Label" parent="UI/PausePanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 40
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="PauseHint" type="Label" parent="UI/PausePanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 130.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 16
+text = "Press PLUTO button to resume"
+horizontal_alignment = 1
+
+[node name="GameOverPanel" type="Panel" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.16
+anchor_right = 0.8
+anchor_bottom = 0.78
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="OverTitle" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 44
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="CaughtLabel" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 106.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 18
+text = "Fruits caught:"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 146.0
+offset_bottom = 343.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 34
+text = "00 / 00"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_right = 0.85
+offset_top = 254.0
+offset_bottom = 302.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("sb_btn_n")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Return to Game Select"
+
+[node name="SpeedPanel" type="Panel" parent="UI"]
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 230.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="TitleLabel" type="Label" parent="UI/SpeedPanel"]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 214.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "GAME SPEED  (Ctrl+G)"
+horizontal_alignment = 1
+
+[node name="SpeedRow" type="HBoxContainer" parent="UI/SpeedPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 202.0
+offset_bottom = 94.0
+theme_override_constants/separation = 6
+
+[node name="DecreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_n")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "−"
+
+[node name="SpeedLabel" type="Label" parent="UI/SpeedPanel/SpeedRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IncreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("sb_btn_n")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "+"
+
+[node name="SessionLabel" type="Label" parent="UI/SpeedPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 102.0
+offset_right = 215.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 3
