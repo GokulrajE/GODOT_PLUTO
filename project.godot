@@ -24,6 +24,7 @@ EventBus="*res://autoloads/EventBus.gd"
 AppData="*res://autoloads/AppData.gd"
 DataManager="*res://autoloads/DataManager.gd"
 PlutoComm="*uid://0l07lk2j6cve"
+StatusOverlay="*res://autoloads/StatusOverlay.gd"
 
 [display]
 

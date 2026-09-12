@@ -1,16 +1,18 @@
 extends Control
 
-@onready var mech_label:   Label  = $Card/Header/MechLabel
-@onready var status_label: Label  = $Card/StatusLabel
+@onready var mech_label:   Label = $Header/MechLabel
+@onready var status_label: Label = $Header/StatusLabel
 
 func _ready() -> void:
-	mech_label.text = _get_mech_display_name()
+	mech_label.text   = _get_mech_display_name()
 	status_label.text = "Press PLUTO button or select a game below"
 
-	$Card/HatTrickButton.pressed.connect(_on_hat_trick_pressed)
-	$Card/FruitBasketButton.pressed.connect(_on_fruit_basket_pressed)
-	$Card/RNRButton.pressed.connect(_on_rnr_pressed)
-	$Card/BackButton.pressed.connect(_on_back_pressed)
+	$GameGrid/HatTrickButton.pressed.connect(_on_hat_trick_pressed)
+	$GameGrid/FruitBasketButton.pressed.connect(_on_fruit_basket_pressed)
+	$GameGrid/RNRButton.pressed.connect(_on_rnr_pressed)
+	$GameGrid/TukTukButton.pressed.connect(_on_tuk_tuk_pressed)
+	$GameGrid/PingPongButton.pressed.connect(_on_ping_pong_pressed)
+	$BackButton.pressed.connect(_on_back_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
 
 func _exit_tree() -> void:
@@ -32,12 +34,20 @@ func _on_rnr_pressed() -> void:
 	AppData.set_game("RNR")
 	get_tree().change_scene_to_file("res://game/RNR/scene/RNRScene.tscn")
 
+func _on_tuk_tuk_pressed() -> void:
+	AppData.set_game("TUK-TUK")
+	get_tree().change_scene_to_file("res://game/TUK_TUK/scene/TukTukScene.tscn")
+
+func _on_ping_pong_pressed() -> void:
+	AppData.set_game("PING-PONG")
+	get_tree().change_scene_to_file("res://game/PING_PONG/scene/PingPongScene.tscn")
+
 func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
 
 func _get_mech_display_name() -> String:
 	var names := {
-		"WFE":  "WRIST FLEX/EXTENSION",
+		"WFE":  "WRIST FLEX / EXTENSION",
 		"WURD": "WRIST ULNAR RADIAL DEVIATION",
 		"FPS":  "FOREARM PRONATION SUPINATION",
 		"HOC":  "HAND OPENING CLOSING",

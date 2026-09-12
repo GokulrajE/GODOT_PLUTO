@@ -1,5 +1,0 @@
-[2026-09-10T10:14:07] INFO    [devmode] >> Application started
-[2026-09-10T10:14:07] INFO    [devmode] [DataManager     ] >> Patient loaded: devmode  session=24
-[2026-09-10T10:14:13] INFO    [devmode] [AppData         ] >> Mechanism set: WFE — Trial#Day=12 Trial#Sess=0 CtrlBound=0.872
-[2026-09-10T10:14:21] INFO    [devmode] [AppData         ] >> Game set: HAT-TRICK
-[2026-09-10T10:14:23] INFO    [devmode] [AppData         ] >> StartTrial | Day=13 Sess=1 Type=TRAIN DesiredSR=77.0 File=raw-sess24-trial013-HAT-TRICK-WFE.csv

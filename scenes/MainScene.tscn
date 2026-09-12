@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cn0csxfwylyhd"]
 
 [ext_resource type="Script" uid="uid://dkr6r86s0n70l" path="res://scripts/main_scene.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://iu4sbf7q18wm" path="res://Assets/Pluto.png" id="2_pluto"]
 
 [sub_resource type="StyleBoxFlat" id="sb_card"]
 content_margin_left = 0.0
@@ -172,14 +173,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main")
 
-[node name="BackgroundColor" type="ColorRect" parent="." unique_id=124856678]
+[node name="BackgroundImage" type="TextureRect" parent="." unique_id=124856678]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pluto")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BackgroundTint" type="ColorRect" parent="." unique_id=124856679]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.941, 0.969, 0.945, 1)
+color = Color(0.941, 0.969, 0.945, 0.72)
 
 [node name="LoginCard" type="Panel" parent="." unique_id=1134502126]
 layout_mode = 1

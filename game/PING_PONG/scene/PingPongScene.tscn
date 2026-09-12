@@ -1,0 +1,440 @@
+[gd_scene format=3 uid="uid://c57srblre5bu4"]
+
+[ext_resource type="Script" uid="uid://chm5588eh5gpw" path="res://game/PING_PONG/scripts/ping_pong_game.gd" id="1_game"]
+[ext_resource type="Texture2D" uid="uid://cyk4c2t57ntje" path="res://unityScripts/Ping Pong/Sprites/white.png" id="2_q2lub"]
+[ext_resource type="Texture2D" uid="uid://dlb0dx4vp30e5" path="res://unityScripts/Ping Pong/Sprites/Grey.png" id="3_xxhgn"]
+[ext_resource type="AudioStream" uid="uid://bm0jcwry5rsnl" path="res://game/PING_PONG/audio/bounce.wav" id="4_lxhjv"]
+[ext_resource type="AudioStream" uid="uid://xj851vtre2wr" path="res://game/PING_PONG/audio/win.wav" id="5_d7qll"]
+[ext_resource type="AudioStream" uid="uid://b6cvwhxefqge3" path="res://unityScripts/Ping Pong/audio/loose.wav" id="5_lose"]
+[ext_resource type="AudioStream" uid="uid://di6kv4et6snqy" path="res://game/PING_PONG/audio/Super Mario Bros Soundtrack.mp3" id="7_fkkc6"]
+
+[sub_resource type="StyleBoxFlat" id="sb_header"]
+bg_color = Color(0.04, 0.05, 0.1, 0.92)
+border_width_bottom = 1
+border_color = Color(0.15, 0.25, 0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="sb_exit_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.78, 0.18, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_exit_h"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 1, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_modal"]
+bg_color = Color(0.04, 0.04, 0.12, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.3, 0.7, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_n"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_p"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.078, 0.404, 0.204, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_h"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.114, 0.557, 0.286, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PingPongScene" type="Control" unique_id=178319741]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_game")
+
+[node name="Background" type="ColorRect" parent="." unique_id=92603345]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.055, 0.06, 0.12, 1)
+
+[node name="TopWall" type="ColorRect" parent="." unique_id=1247807475]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 82.0
+grow_horizontal = 2
+color = Color(0.04, 0.04, 0.1, 1)
+
+[node name="BottomWall" type="ColorRect" parent="." unique_id=1330414034]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.04, 0.04, 0.1, 1)
+
+[node name="PlayerPaddle" type="TextureRect" parent="." unique_id=1300560853]
+modulate = Color(0.059, 0.718, 0.333, 1)
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 264.225
+offset_right = 1107.055
+offset_bottom = 374.00012
+texture = ExtResource("2_q2lub")
+expand_mode = 1
+
+[node name="EnemyPaddle" type="TextureRect" parent="." unique_id=1834967196]
+modulate = Color(1, 0.354, 0.354, 1)
+layout_mode = 0
+offset_left = 46.0
+offset_top = 259.0
+offset_right = 64.0
+offset_bottom = 369.0
+texture = ExtResource("2_q2lub")
+expand_mode = 1
+
+[node name="Ball" type="TextureRect" parent="." unique_id=1587932847]
+modulate = Color(0.22106755, 0.50473887, 1, 1)
+layout_mode = 0
+offset_left = 562.0
+offset_top = 341.0
+offset_right = 590.0
+offset_bottom = 369.0
+texture = ExtResource("3_xxhgn")
+
+[node name="BounceSound" type="AudioStreamPlayer" parent="." unique_id=2134912039]
+stream = ExtResource("4_lxhjv")
+
+[node name="WinSound" type="AudioStreamPlayer" parent="." unique_id=867622385]
+stream = ExtResource("5_d7qll")
+
+[node name="LoseSound" type="AudioStreamPlayer" parent="." unique_id=22136121]
+stream = ExtResource("5_lose")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=2105451844]
+stream = ExtResource("7_fkkc6")
+volume_db = -8.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1359727425]
+layer = 10
+
+[node name="FlashRect" type="ColorRect" parent="UI" unique_id=688577384]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Header" type="Panel" parent="UI" unique_id=1087812217]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("sb_header")
+
+[node name="TimerLabel" type="Label" parent="UI/Header" unique_id=2138368840]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 360.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Time: 60 s"
+
+[node name="ScoreLabel" type="Label" parent="UI/Header" unique_id=1352248325]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = 14.0
+offset_right = 200.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 24
+text = "You 0  :  0 CPU"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="UI/Header" unique_id=288154820]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("sb_exit_n")
+theme_override_styles/pressed = SubResource("sb_exit_h")
+theme_override_styles/hover = SubResource("sb_exit_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Exit"
+
+[node name="WaitPanel" type="Panel" parent="UI" unique_id=1882200918]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.75
+anchor_bottom = 0.74
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="GameTitle" type="Label" parent="UI/WaitPanel" unique_id=421150775]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 30.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 48
+text = "PING-PONG"
+horizontal_alignment = 1
+
+[node name="SubTitle" type="Label" parent="UI/WaitPanel" unique_id=552815481]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 110.0
+offset_bottom = 148.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Control your paddle and beat the CPU!"
+horizontal_alignment = 1
+
+[node name="HintLabel" type="Label" parent="UI/WaitPanel" unique_id=309228641]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 190.0
+offset_bottom = 228.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Press the PLUTO button to start"
+horizontal_alignment = 1
+
+[node name="PausePanel" type="Panel" parent="UI" unique_id=1675843314]
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.25
+anchor_right = 0.7
+anchor_bottom = 0.68
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="PauseTitle" type="Label" parent="UI/PausePanel" unique_id=1473557848]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="PauseHint" type="Label" parent="UI/PausePanel" unique_id=1452666396]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 130.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Press PLUTO button to resume"
+horizontal_alignment = 1
+
+[node name="GameOverPanel" type="Panel" parent="UI" unique_id=1873628221]
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.16
+anchor_right = 0.8
+anchor_bottom = 0.78
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=817931745]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 44
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/GameOverPanel" unique_id=1543316800]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 106.0
+offset_bottom = 290.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "You: 0  |  CPU: 0"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="UI/GameOverPanel" unique_id=230084009]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_right = 0.85
+offset_top = 300.0
+offset_bottom = 348.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("sb_btn_n")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Return to Game Select"
+
+[node name="SpeedPanel" type="Panel" parent="UI" unique_id=770120001]
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 230.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="TitleLabel" type="Label" parent="UI/SpeedPanel" unique_id=770120002]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 214.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "GAME SPEED  (Ctrl+G)"
+horizontal_alignment = 1
+
+[node name="SpeedRow" type="HBoxContainer" parent="UI/SpeedPanel" unique_id=770120003]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 202.0
+offset_bottom = 94.0
+theme_override_constants/separation = 6
+
+[node name="DecreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow" unique_id=770120004]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_n")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "−"
+
+[node name="SpeedLabel" type="Label" parent="UI/SpeedPanel/SpeedRow" unique_id=770120005]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IncreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow" unique_id=770120006]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("sb_btn_n")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "+"
+
+[node name="SessionLabel" type="Label" parent="UI/SpeedPanel" unique_id=770120007]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 102.0
+offset_right = 215.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 3

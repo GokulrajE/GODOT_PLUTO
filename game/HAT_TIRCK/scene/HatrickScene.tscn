@@ -238,6 +238,7 @@ theme_override_styles/focus = SubResource("sb_focus")
 text = "Exit"
 
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1463858368]
+visible = false
 anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.2
@@ -282,6 +283,7 @@ text = "Press the PLUTO button to start"
 horizontal_alignment = 1
 
 [node name="PausePanel" type="Panel" parent="UI" unique_id=162082985]
+visible = false
 anchors_preset = -1
 anchor_left = 0.3
 anchor_top = 0.25
@@ -314,6 +316,7 @@ text = "Press PLUTO button to resume"
 horizontal_alignment = 1
 
 [node name="GameOverPanel" type="Panel" parent="UI" unique_id=1951044826]
+visible = false
 anchors_preset = -1
 anchor_left = 0.2
 anchor_top = 0.16

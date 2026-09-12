@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ecyal47yqk5q"
+path="res://.godot/imported/Naan Autokaran Intro Music (BGM) _ T.Thuvarakan.mp3-6af1b1ebdfa467d76909bff10621e245.mp3str"
+
+[deps]
+
+source_file="res://game/TUK_TUK/audio/bgd music/Naan Autokaran Intro Music (BGM) _ T.Thuvarakan.mp3"
+dest_files=["res://.godot/imported/Naan Autokaran Intro Music (BGM) _ T.Thuvarakan.mp3-6af1b1ebdfa467d76909bff10621e245.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

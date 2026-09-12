@@ -1,52 +1,57 @@
 [gd_scene format=3 uid="uid://d0sonx8j3ioxa"]
 
 [ext_resource type="Script" uid="uid://bq0summpb3dw4" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
+[ext_resource type="Texture2D" uid="uid://djyitj4bsm7g0" path="res://Assets/hat.png" id="2_5uoe4"]
+[ext_resource type="Texture2D" uid="uid://es3wusu602lv" path="res://game/FRUIT_BASKET/sprites/basket.png" id="3_basket"]
+[ext_resource type="Texture2D" uid="uid://bpyudfyxj3jx6" path="res://game/RNR/sprites/plant_stage5.png" id="4_plant"]
+[ext_resource type="Texture2D" uid="uid://d0fnu6l7je76x" path="res://Assets/auto.png" id="5_hednk"]
+[ext_resource type="Texture2D" uid="uid://dnhlkiqrpp33l" path="res://unityScripts/Ping Pong/Sprites/—Pngtree—vector ping pong icon_4046610.png" id="6_pp"]
 
-[sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="sb_header"]
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_hat_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.965, 0.945, 0.882, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="sb_hdr"]
-bg_color = Color(0.824, 0.929, 0.839, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
-content_margin_left = 24.0
-content_margin_top = 18.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
-bg_color = Color(0.153, 0.714, 0.376, 1)
+border_color = Color(0.75, 0.55, 0.08, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
-content_margin_left = 24.0
-content_margin_top = 18.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
-bg_color = Color(0.078, 0.404, 0.204, 1)
+[sub_resource type="StyleBoxFlat" id="sb_hat_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.894, 0.855, 0.686, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-content_margin_left = 24.0
-content_margin_top = 18.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
-bg_color = Color(0.114, 0.557, 0.286, 1)
+[sub_resource type="StyleBoxFlat" id="sb_hat_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.941, 0.91, 0.78, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.55, 0.08, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
@@ -58,23 +63,195 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.082, 0.502, 0.212, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_color = Color(0.082, 0.502, 0.212, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_fruit_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.969, 0.906, 0.898, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.78, 0.22, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_fruit_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.91, 0.718, 0.706, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_fruit_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.949, 0.82, 0.808, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78, 0.22, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_rnr_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.882, 0.957, 0.945, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.082, 0.612, 0.51, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_rnr_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.686, 0.882, 0.859, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_rnr_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.784, 0.929, 0.91, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.612, 0.51, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_tuk_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.965, 0.957, 0.878, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.55, 0.04, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_tuk_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.886, 0.863, 0.647, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_tuk_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.941, 0.922, 0.765, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62, 0.55, 0.04, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_pp_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.882, 0.91, 0.965, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.35, 0.78, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_pp_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.671, 0.733, 0.906, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_pp_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.784, 0.827, 0.949, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.18, 0.35, 0.78, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="sb_back_n"]
 content_margin_left = 20.0
 content_margin_top = 12.0
 content_margin_right = 20.0
 content_margin_bottom = 12.0
-bg_color = Color(0.78, 0.18, 0.18, 1)
+bg_color = Color(0.906, 0.882, 0.882, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.62, 0.12, 0.12, 1)
+border_color = Color(0.72, 0.18, 0.18, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -85,7 +262,7 @@ content_margin_left = 20.0
 content_margin_top = 12.0
 content_margin_right = 20.0
 content_margin_bottom = 12.0
-bg_color = Color(0.62, 0.12, 0.12, 1)
+bg_color = Color(0.78, 0.18, 0.18, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -100,7 +277,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cgame")
 
-[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1194295764]
+[node name="BGColor" type="ColorRect" parent="." unique_id=1194295764]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,133 +286,168 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.941, 0.969, 0.945, 1)
 
-[node name="Card" type="Panel" parent="." unique_id=146444568]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.12
-anchor_right = 0.75
-anchor_bottom = 0.88
-theme_override_styles/panel = SubResource("sb_card")
-
-[node name="Header" type="Panel" parent="Card" unique_id=1690426179]
+[node name="Header" type="Panel" parent="." unique_id=1690426179]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 80.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 98.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("sb_hdr")
+theme_override_styles/panel = SubResource("sb_header")
 
-[node name="TitleLabel" type="Label" parent="Card/Header" unique_id=1060276498]
+[node name="TitleLabel" type="Label" parent="Header" unique_id=1060276498]
 layout_mode = 0
 offset_left = 24.0
-offset_top = 10.0
-offset_right = 576.0
-offset_bottom = 46.0
+offset_top = 12.0
+offset_right = 700.0
+offset_bottom = 48.0
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_font_sizes/font_size = 26
 text = "Choose Game"
 
-[node name="MechLabel" type="Label" parent="Card/Header" unique_id=266871391]
+[node name="MechLabel" type="Label" parent="Header" unique_id=266871391]
 layout_mode = 0
 offset_left = 24.0
-offset_top = 50.0
-offset_right = 576.0
-offset_bottom = 76.0
+offset_top = 52.0
+offset_right = 700.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="StatusLabel" type="Label" parent="Header" unique_id=882831177]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = 14.0
+offset_right = -24.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
+horizontal_alignment = 2
 
-[node name="StatusLabel" type="Label" parent="Card" unique_id=882831177]
+[node name="GameGrid" type="GridContainer" parent="." unique_id=146444568]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 26.0
-offset_top = 105.240005
-offset_right = -22.0
-offset_bottom = 135.24
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 114.0
+offset_right = -16.0
+offset_bottom = -68.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
-theme_override_font_sizes/font_size = 15
-horizontal_alignment = 1
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3
 
-[node name="HatTrickButton" type="Button" parent="Card" unique_id=269478581]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.22
-anchor_right = 0.9
-anchor_bottom = 0.4
-offset_left = 1.3999939
-offset_top = 48.89441
-offset_right = 1.3999634
-offset_bottom = 48.89441
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
+[node name="HatTrickButton" type="Button" parent="GameGrid" unique_id=269478581]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.35, 0.22, 0.02, 1)
+theme_override_colors/font_pressed_color = Color(0.45, 0.28, 0.02, 1)
+theme_override_colors/font_hover_color = Color(0.45, 0.28, 0.02, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("sb_hat_n")
+theme_override_styles/pressed = SubResource("sb_hat_p")
+theme_override_styles/hover = SubResource("sb_hat_h")
 theme_override_styles/focus = SubResource("sb_focus")
-text = "HAT-TRICK"
+text = "HAT-TRICK
+Catch the flying balls"
+icon = ExtResource("2_5uoe4")
+expand_icon = true
 
-[node name="FruitBasketButton" type="Button" parent="Card" unique_id=1202186055]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.43
-anchor_right = 0.9
-anchor_bottom = 0.61
-offset_left = 1.3999939
-offset_top = 48.89441
-offset_right = 1.3999634
-offset_bottom = 48.89441
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
+[node name="FruitBasketButton" type="Button" parent="GameGrid" unique_id=1202186055]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.42, 0.08, 0.06, 1)
+theme_override_colors/font_pressed_color = Color(0.55, 0.1, 0.08, 1)
+theme_override_colors/font_hover_color = Color(0.55, 0.1, 0.08, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("sb_fruit_n")
+theme_override_styles/pressed = SubResource("sb_fruit_p")
+theme_override_styles/hover = SubResource("sb_fruit_h")
 theme_override_styles/focus = SubResource("sb_focus")
-text = "FRUIT BASKET"
+text = "FRUIT BASKET
+Catch falling fruits"
+icon = ExtResource("3_basket")
+expand_icon = true
 
-[node name="RNRButton" type="Button" parent="Card" unique_id=582748105]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.64
-anchor_right = 0.9
-anchor_bottom = 0.82
-offset_left = 1.3999939
-offset_top = 48.89441
-offset_right = 1.3999634
-offset_bottom = 48.89441
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
+[node name="RNRButton" type="Button" parent="GameGrid" unique_id=582748105]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.04, 0.32, 0.26, 1)
+theme_override_colors/font_pressed_color = Color(0.04, 0.42, 0.34, 1)
+theme_override_colors/font_hover_color = Color(0.04, 0.42, 0.34, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("sb_rnr_n")
+theme_override_styles/pressed = SubResource("sb_rnr_p")
+theme_override_styles/hover = SubResource("sb_rnr_h")
 theme_override_styles/focus = SubResource("sb_focus")
-text = "R-N-R"
+text = "R-N-R
+Grow your plant"
+icon = ExtResource("4_plant")
+expand_icon = true
 
-[node name="BackButton" type="Button" parent="Card" unique_id=1564524278]
+[node name="TukTukButton" type="Button" parent="GameGrid" unique_id=1296748105]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.32, 0.28, 0.02, 1)
+theme_override_colors/font_pressed_color = Color(0.42, 0.36, 0.02, 1)
+theme_override_colors/font_hover_color = Color(0.42, 0.36, 0.02, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("sb_tuk_n")
+theme_override_styles/pressed = SubResource("sb_tuk_p")
+theme_override_styles/hover = SubResource("sb_tuk_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "TUK-TUK
+Drive through the rocks"
+icon = ExtResource("5_hednk")
+expand_icon = true
+
+[node name="PingPongButton" type="Button" parent="GameGrid" unique_id=1486748105]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.08, 0.18, 0.48, 1)
+theme_override_colors/font_pressed_color = Color(0.1, 0.24, 0.62, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.24, 0.62, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("sb_pp_n")
+theme_override_styles/pressed = SubResource("sb_pp_p")
+theme_override_styles/hover = SubResource("sb_pp_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "PING-PONG
+Rally against the CPU"
+icon = ExtResource("6_pp")
+expand_icon = true
+
+[node name="BackButton" type="Button" parent="." unique_id=1564524278]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.87
-anchor_right = 0.9
-anchor_bottom = 0.97
-offset_left = 253.4
-offset_top = -413.2176
-offset_right = 42.600037
-offset_bottom = -410.46558
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -58.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.55, 0.08, 0.08, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("sb_back_n")
 theme_override_styles/pressed = SubResource("sb_back_h")
 theme_override_styles/hover = SubResource("sb_back_h")

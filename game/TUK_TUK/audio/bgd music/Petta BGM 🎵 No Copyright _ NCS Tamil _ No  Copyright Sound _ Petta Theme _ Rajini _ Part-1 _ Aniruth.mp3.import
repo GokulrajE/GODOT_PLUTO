@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bwl0xs37u6eru"
+path="res://.godot/imported/Petta BGM 🎵 No Copyright _ NCS Tamil _ No  Copyright Sound _ Petta Theme _ Rajini _ Part-1 _ Aniruth.mp3-6e4ab5f87ff1b422dbe6f3217c0ef006.mp3str"
+
+[deps]
+
+source_file="res://game/TUK_TUK/audio/bgd music/Petta BGM 🎵 No Copyright _ NCS Tamil _ No  Copyright Sound _ Petta Theme _ Rajini _ Part-1 _ Aniruth.mp3"
+dest_files=["res://.godot/imported/Petta BGM 🎵 No Copyright _ NCS Tamil _ No  Copyright Sound _ Petta Theme _ Rajini _ Part-1 _ Aniruth.mp3-6e4ab5f87ff1b422dbe6f3217c0ef006.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

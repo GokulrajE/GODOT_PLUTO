@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b27wvcrq0wi41"
+path="res://.godot/imported/bicycle-horn-7126.mp3-56a2b6cf0a65f0f845287f6673c76730.mp3str"
+
+[deps]
+
+source_file="res://game/TUK_TUK/audio/bgd music/bicycle-horn-7126.mp3"
+dest_files=["res://.godot/imported/bicycle-horn-7126.mp3-56a2b6cf0a65f0f845287f6673c76730.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

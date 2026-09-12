@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bk58gsyfa2lm2"
+path="res://.godot/imported/❤️REMO BGM No Copyright  _NCS TAMIL BGM _ SIVAKARTHIKEYAN BGM _ ❤️Remo Love Bgm❤️.mp3-df9693bcde932872dcce66098e98dbb2.mp3str"
+
+[deps]
+
+source_file="res://game/TUK_TUK/audio/bgd music/❤️REMO BGM No Copyright  _NCS TAMIL BGM _ SIVAKARTHIKEYAN BGM _ ❤️Remo Love Bgm❤️.mp3"
+dest_files=["res://.godot/imported/❤️REMO BGM No Copyright  _NCS TAMIL BGM _ SIVAKARTHIKEYAN BGM _ ❤️Remo Love Bgm❤️.mp3-df9693bcde932872dcce66098e98dbb2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csegiufqbuqcd"
+path="res://.godot/imported/Jack Sparrow BGM 🎵 No Copyright _ NCS Tamil _ No  Copyright Sound Tamil _ Johnny Depp .mp3-1ac08a9cb3d933321db742928470e5f9.mp3str"
+
+[deps]
+
+source_file="res://game/TUK_TUK/audio/bgd music/Jack Sparrow BGM 🎵 No Copyright _ NCS Tamil _ No  Copyright Sound Tamil _ Johnny Depp .mp3"
+dest_files=["res://.godot/imported/Jack Sparrow BGM 🎵 No Copyright _ NCS Tamil _ No  Copyright Sound Tamil _ Johnny Depp .mp3-1ac08a9cb3d933321db742928470e5f9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

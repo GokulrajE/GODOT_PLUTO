@@ -1,0 +1,447 @@
+[gd_scene format=3 uid="uid://rivf3uvrh0gt"]
+
+[ext_resource type="Script" uid="uid://365lr8nmomxf" path="res://game/TUK_TUK/scripts/tuk_tuk_game.gd" id="1_game"]
+[ext_resource type="Texture2D" uid="uid://ccspujw2s6eyt" path="res://game/TUK_TUK/sprites/New level/background.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://ljfu2vccufro" path="res://game/TUK_TUK/sprites/New level/groundGrass.png" id="3_ground"]
+[ext_resource type="AudioStream" uid="uid://ns5kq6skov8p" path="res://game/TUK_TUK/audio/die.mp3" id="4_die"]
+[ext_resource type="Texture2D" uid="uid://63snaem7r76j" path="res://game/TUK_TUK/sprites/New Folder/auto.png" id="4_yj5hl"]
+[ext_resource type="AudioStream" uid="uid://cblwpfc15j37p" path="res://game/TUK_TUK/audio/swoosh.mp3" id="5_pass"]
+[ext_resource type="Texture2D" uid="uid://b3253hlr6inw2" path="res://game/TUK_TUK/sprites/New Folder/wheel.png" id="5_xbcjy"]
+[ext_resource type="Texture2D" uid="uid://dkaq6wkavu0qv" path="res://game/TUK_TUK/sprites/New Folder/superstar.png" id="6_xbcjy"]
+[ext_resource type="Texture2D" uid="uid://cikihw53v7bge" path="res://game/TUK_TUK/sprites/New Folder/boost.png" id="7_u6c7a"]
+
+[sub_resource type="StyleBoxFlat" id="sb_header"]
+bg_color = Color(1, 1, 1, 0.82)
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+
+[sub_resource type="StyleBoxFlat" id="sb_exit_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.78, 0.18, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_exit_h"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.62, 0.12, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.502, 0.212, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_modal"]
+bg_color = Color(1, 1, 1, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_n"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_p"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.078, 0.404, 0.204, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_h"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.114, 0.557, 0.286, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_speed"]
+bg_color = Color(1, 1, 1, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="TukTukScene" type="Control" unique_id=2060986595]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_game")
+
+[node name="Background" type="TextureRect" parent="." unique_id=150775667]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Ground" type="TextureRect" parent="." unique_id=180272374]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -88.0
+grow_vertical = 0
+texture = ExtResource("3_ground")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="RockContainer" type="Control" parent="." unique_id=1489260081]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Player" type="TextureRect" parent="." unique_id=539897594]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 229.0
+offset_right = 226.0
+offset_bottom = 458.0
+texture = ExtResource("4_yj5hl")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="wheel1" type="Sprite2D" parent="Player" unique_id=1825319391]
+position = Vector2(63, 121)
+rotation = -6.2831855
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("5_xbcjy")
+
+[node name="wheel2" type="Sprite2D" parent="Player" unique_id=1751788120]
+position = Vector2(175.99998, 118.99999)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("5_xbcjy")
+
+[node name="face" type="Sprite2D" parent="Player" unique_id=863821745]
+position = Vector2(122.61377, 55.000008)
+scale = Vector2(0.3283993, 0.25451657)
+texture = ExtResource("6_xbcjy")
+
+[node name="booster" type="Sprite2D" parent="Player" unique_id=1759256936]
+position = Vector2(47, 100.00001)
+scale = Vector2(0.16964924, 0.2100985)
+texture = ExtResource("7_u6c7a")
+
+[node name="DieSound" type="AudioStreamPlayer" parent="." unique_id=1546002800]
+stream = ExtResource("4_die")
+
+[node name="PassSound" type="AudioStreamPlayer" parent="." unique_id=2118011726]
+stream = ExtResource("5_pass")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=184583340]
+volume_db = -6.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=579735869]
+layer = 10
+
+[node name="Header" type="Panel" parent="UI" unique_id=302428714]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("sb_header")
+
+[node name="TimerLabel" type="Label" parent="UI/Header" unique_id=1175802021]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 360.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 24
+text = "Time: 60 s"
+
+[node name="ScoreLabel" type="Label" parent="UI/Header" unique_id=1783705990]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = 14.0
+offset_right = 150.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 24
+text = "Score: 00"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="UI/Header" unique_id=1106374274]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("sb_exit_n")
+theme_override_styles/pressed = SubResource("sb_exit_h")
+theme_override_styles/hover = SubResource("sb_exit_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Exit"
+
+[node name="WaitPanel" type="Panel" parent="UI" unique_id=1535904641]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.75
+anchor_bottom = 0.74
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="GameTitle" type="Label" parent="UI/WaitPanel" unique_id=2010253775]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 30.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 48
+text = "TUK-TUK"
+horizontal_alignment = 1
+
+[node name="SubTitle" type="Label" parent="UI/WaitPanel" unique_id=88258090]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 110.0
+offset_bottom = 148.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 17
+text = "Navigate the auto through the rocks!"
+horizontal_alignment = 1
+
+[node name="HintLabel" type="Label" parent="UI/WaitPanel" unique_id=1369168575]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 190.0
+offset_bottom = 228.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 17
+text = "Press the PLUTO button to start"
+horizontal_alignment = 1
+
+[node name="PausePanel" type="Panel" parent="UI" unique_id=1448423709]
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.25
+anchor_right = 0.7
+anchor_bottom = 0.68
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="PauseTitle" type="Label" parent="UI/PausePanel" unique_id=1089299109]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 40
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="PauseHint" type="Label" parent="UI/PausePanel" unique_id=68434623]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 130.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 16
+text = "Press PLUTO button to resume"
+horizontal_alignment = 1
+
+[node name="GameOverPanel" type="Panel" parent="UI" unique_id=1544610231]
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.16
+anchor_right = 0.8
+anchor_bottom = 0.78
+theme_override_styles/panel = SubResource("sb_modal")
+
+[node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=77336455]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 44
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/GameOverPanel" unique_id=1813934644]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 106.0
+offset_bottom = 290.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 34
+text = "00 / 00"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="UI/GameOverPanel" unique_id=1855143499]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_right = 0.85
+offset_top = 300.0
+offset_bottom = 348.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("sb_btn_n")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Return to Game Select"
+
+[node name="SpeedPanel" type="Panel" parent="UI" unique_id=1386133293]
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 230.0
+offset_bottom = 218.0
+theme_override_styles/panel = SubResource("sb_speed")
+
+[node name="TitleLabel" type="Label" parent="UI/SpeedPanel" unique_id=786730309]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 214.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "GAME SPEED  (Ctrl+G)"
+horizontal_alignment = 1
+
+[node name="SpeedRow" type="HBoxContainer" parent="UI/SpeedPanel" unique_id=1780949946]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 202.0
+offset_bottom = 94.0
+theme_override_constants/separation = 6
+
+[node name="DecreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow" unique_id=1371574335]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("sb_btn_h")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_n")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "−"
+
+[node name="SpeedLabel" type="Label" parent="UI/SpeedPanel/SpeedRow" unique_id=2029014346]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IncreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow" unique_id=97229072]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("sb_btn_n")
+theme_override_styles/pressed = SubResource("sb_btn_p")
+theme_override_styles/hover = SubResource("sb_btn_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "+"
+
+[node name="SessionLabel" type="Label" parent="UI/SpeedPanel" unique_id=1648189290]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 102.0
+offset_right = 215.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+autowrap_mode = 3
