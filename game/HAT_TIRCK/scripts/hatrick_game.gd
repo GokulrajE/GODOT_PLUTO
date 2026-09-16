@@ -56,9 +56,10 @@ var _current_ball:  Control = null
 var _ball_textures: Array   = []
 
 # ── AAN (Assist-As-Needed) ───────────────────────────────────────────────────
-var _aan:      RefCounted = null
-var _use_aan:  bool       = false
-var _game_speed: float    = 10.0
+var _aan:        RefCounted = null
+var _use_aan:    bool       = false
+var _game_speed: float      = 10.0
+var _is_cpm:     bool       = false
 
 # ── Node refs ────────────────────────────────────────────────────────────────
 @onready var _hat_back:       TextureRect        = $HatBack
@@ -109,13 +110,15 @@ func _load_ball_textures() -> void:
 
 func _init_rom_data() -> void:
 	if AppData.selected_mechanism == null:
-		_aprom = [-45.0, 45.0]
-		_arom  = [-30.0, 30.0]
-		_prom  = [-45.0, 45.0]
+		_aprom  = [-45.0, 45.0]
+		_arom   = [-30.0, 30.0]
+		_prom   = [-45.0, 45.0]
+		_is_cpm = false
 		return
-	_aprom = AppData.selected_mechanism.current_aprom
-	_arom  = AppData.selected_mechanism.current_arom
-	_prom  = AppData.selected_mechanism.current_prom
+	_aprom  = AppData.selected_mechanism.current_aprom
+	_arom   = AppData.selected_mechanism.current_arom
+	_prom   = AppData.selected_mechanism.current_prom
+	_is_cpm = AppData.selected_mechanism.is_cpm
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
@@ -155,7 +158,8 @@ func _save_speed() -> void:
 		AppData.speed_data.set_move_duration(_move_duration)
 
 func _place_arom_lines() -> void:
-	if _arom.size() < 2:
+	# In CPM mode AROM is ~0 range — hide the lines as they'd overlap at centre
+	if _arom.size() < 2 or _is_cpm:
 		_arom_left.visible  = false
 		_arom_right.visible = false
 		return
@@ -266,13 +270,26 @@ func _tick(delta: float) -> void:
 				_aan.update(PlutoComm.angle, delta, true)
 				if _aan.state_change:
 					_update_pluto_aan_target()
-				var aan_done = _aan.state == _PlutoAAN.State.AROM_MOVING \
-					or _aan.state == _PlutoAAN.State.IDLE \
-					or _aan.state == _PlutoAAN.State.NONE
-				if not aan_done:
+				var aan_done = (_aan.state == _PlutoAAN.State.AROM_MOVING
+								or _aan.state == _PlutoAAN.State.IDLE
+								or _aan.state == _PlutoAAN.State.NONE)
+				if aan_done:
+					_end_game()
+					_state = State.DONE
 					return
-			_end_game()
-			_state = State.DONE
+				# AAN not yet at AROM (common in CPM mode — patient may never return).
+				# Use a timed fallback: 5 s at max speed, 12 s at min speed.
+				if _event_delay <= 0.0:
+					var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
+					_event_delay = lerp(12.0, 5.0, t)
+				else:
+					_event_delay -= delta
+					if _event_delay <= 0.0:
+						_end_game()
+						_state = State.DONE
+			else:
+				_end_game()
+				_state = State.DONE
 
 		State.DONE, State.PAUSED:
 			pass
@@ -372,6 +389,7 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	PlutoComm.set_control_type("NONE")
 	_kill_ball()
 	_save_speed()
 	AppData.stop_trial(n_targets, n_success, n_failure)

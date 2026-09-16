@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c4pmuwlw5572n" path="res://game/HAT_TIRCK/Sprites/HatFrontSprite.png" id="4_dkjrw"]
 [ext_resource type="Texture2D" uid="uid://dlwbbncu38b1b" path="res://game/HAT_TIRCK/Sprites/HatBackSprite.png" id="5_2e23j"]
 [ext_resource type="AudioStream" uid="uid://c2hr3lsogdjpx" path="res://game/HAT_TIRCK/audio/Ok.wav" id="7_catch"]
+[ext_resource type="AudioStream" uid="uid://bmr7yv1g0wlh5" path="res://game/HAT_TIRCK/audio/Mingle Game Song “Round and Round” Lyric Video _ Squid Game_ Season 2 _ Netflix - (320 Kbps).mp3" id="8_hlkry"]
 [ext_resource type="AudioStream" uid="uid://3a4humirr5uu" path="res://game/HAT_TIRCK/audio/Boom.wav" id="8_miss"]
-[ext_resource type="AudioStream" uid="uid://bs4lac2qufs71" path="res://game/HAT_TIRCK/audio/Music.MP3" id="9_music"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(1, 1, 1, 0.88)
@@ -176,7 +176,7 @@ stream = ExtResource("7_catch")
 stream = ExtResource("8_miss")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=283207602]
-stream = ExtResource("9_music")
+stream = ExtResource("8_hlkry")
 volume_db = -6.0
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1637700425]

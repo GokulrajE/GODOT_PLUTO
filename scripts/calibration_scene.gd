@@ -14,7 +14,8 @@ func _ready() -> void:
 
 	back_button.pressed.connect(func():
 		PlutoComm.set_control_type("NONE")
-		get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
+		var dest = "res://scenes/PlanSetupScene.tscn" if AppData.is_plan_setup else "res://scenes/ChooseMechanism.tscn"
+		get_tree().change_scene_to_file(dest)
 	)
 
 	EventBus.button_released.connect(_on_button_released)
@@ -86,7 +87,9 @@ func _auto_calibrate() -> void:
 	EventBus.calibration_done.emit()
 
 	await get_tree().create_timer(0.4).timeout
-	if _has_prior_full_assessment():
+	if AppData.is_plan_setup:
+		get_tree().change_scene_to_file("res://scenes/AssessmentScene.tscn")
+	elif _has_prior_full_assessment():
 		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/AssessmentScene.tscn")

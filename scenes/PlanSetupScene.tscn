@@ -1,0 +1,931 @@
+[gd_scene format=3 uid="uid://drk61iw62sxk1"]
+
+[ext_resource type="Script" uid="uid://dpf3q1jkuysxi" path="res://scripts/plan_setup_scene.gd" id="1_ps001"]
+[ext_resource type="Texture2D" uid="uid://c70imiinu5yop" path="res://Assets/mechanismImages/KNOB.png" id="tex_fme1"]
+[ext_resource type="Texture2D" uid="uid://ccj63yjvhlmox" path="res://Assets/mechanismImages/keyknob_outline.png" id="tex_fme2"]
+[ext_resource type="Texture2D" uid="uid://c17cydgi1l64y" path="res://Assets/mechanismImages/Pron_supin_out.png" id="tex_fps"]
+[ext_resource type="Texture2D" uid="uid://bbrlyfedhew5g" path="res://Assets/mechanismImages/hoc.png" id="tex_hoc"]
+[ext_resource type="Texture2D" uid="uid://qh1g7dk2bj8b" path="res://Assets/mechanismImages/FE.png" id="tex_wfe"]
+[ext_resource type="Texture2D" uid="uid://br05qovq1rfjm" path="res://Assets/mechanismImages/ulnar_radial_out2.png" id="tex_wurd"]
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_prim_n"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.059, 0.502, 0.259, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_prim_p"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.039, 0.329, 0.169, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_prim_h"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.082, 0.58, 0.298, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.502, 0.212, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_card"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="sb_badge"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.82, 0.85, 0.83, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_card_n"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.941, 0.969, 0.945, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_card_p"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_card_h"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.906, 0.961, 0.914, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_sec_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_sec_p"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_sec_h"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.906, 0.961, 0.914, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_popup"]
+bg_color = Color(0.941, 0.969, 0.945, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_close_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.906, 0.906, 0.906, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_close_p"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.78, 0.78, 0.78, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_close_h"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.85, 0.85, 0.85, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlanSetupScene" type="Control" unique_id=1207578385]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ps001")
+
+[node name="BG" type="ColorRect" parent="." unique_id=693417726]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.941, 0.969, 0.945, 1)
+
+[node name="Root" type="VBoxContainer" parent="." unique_id=1800458609]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="HBoxContainer" parent="Root" unique_id=1687072973]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderBG" type="ColorRect" parent="Root/Header" unique_id=1163053153]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.824, 0.929, 0.839, 1)
+
+[node name="TitlePad" type="MarginContainer" parent="Root/Header" unique_id=1140625086]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="TitleVBox" type="VBoxContainer" parent="Root/Header/TitlePad" unique_id=1322581057]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="TitleLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=857829576]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 24
+text = "Plan Setup"
+
+[node name="ReadyCountLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=1461052523]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 13
+
+[node name="ErrorLabel" type="Label" parent="Root/Header" unique_id=171566390]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.78, 0.129, 0.129, 1)
+theme_override_font_sizes/font_size = 13
+vertical_alignment = 1
+
+[node name="BtnPad" type="MarginContainer" parent="Root/Header" unique_id=552911633]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="DoneButton" type="Button" parent="Root/Header/BtnPad" unique_id=1594290208]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.45)
+theme_override_styles/normal = SubResource("sb_btn_prim_n")
+theme_override_styles/pressed = SubResource("sb_btn_prim_p")
+theme_override_styles/hover = SubResource("sb_btn_prim_h")
+theme_override_styles/disabled = SubResource("sb_btn_prim_n")
+theme_override_styles/focus = SubResource("sb_focus")
+disabled = true
+text = "Done  →"
+
+[node name="Divider" type="ColorRect" parent="Root" unique_id=418641158]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.749, 0.878, 0.761, 1)
+
+[node name="Scroll" type="ScrollContainer" parent="Root" unique_id=644905128]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardPad" type="MarginContainer" parent="Root/Scroll" unique_id=1490157613]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MechGrid" type="GridContainer" parent="Root/Scroll/CardPad" unique_id=1227257447]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 3
+
+[node name="WFECard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=622614059]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard" unique_id=800300278]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox" unique_id=380401642]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content" unique_id=606419409]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=885376354]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("tex_wfe")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=1537437030]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "Wrist Flex / Ext"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=684042305]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox/BadgeRow" unique_id=801022145]
+custom_minimum_size = Vector2(80, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_badge")
+
+[node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1151705959]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.5
+offset_right = 3.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "Not prescribed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=405553977]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Calibrate & Assess"
+
+[node name="WURDCard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=1189872572]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard" unique_id=84749813]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox" unique_id=50795748]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content" unique_id=898013090]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=719010122]
+modulate = Color(0.06136909, 0.0613691, 0.06136909, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("tex_wurd")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=285897146]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "Wrist Ulnar / Radial"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=495235299]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox/BadgeRow" unique_id=870425481]
+custom_minimum_size = Vector2(80, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_badge")
+
+[node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=306494121]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "Not prescribed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=1907529083]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Calibrate & Assess"
+
+[node name="FPSCard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=535977638]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard" unique_id=522253642]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox" unique_id=810107276]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content" unique_id=1765874324]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=238432346]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("tex_fps")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=1620600886]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "Forearm Pron / Sup"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=1573830667]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox/BadgeRow" unique_id=818411918]
+custom_minimum_size = Vector2(80, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_badge")
+
+[node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1313329560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "Not prescribed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=250262692]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Calibrate & Assess"
+
+[node name="HOCCard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=570200279]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard" unique_id=475731641]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox" unique_id=1604685643]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content" unique_id=1318371564]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=41968386]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("tex_hoc")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=1898808688]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "Hand Open / Close"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=325590405]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox/BadgeRow" unique_id=1421367017]
+custom_minimum_size = Vector2(80, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_badge")
+
+[node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=114831456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "Not prescribed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=485736869]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Calibrate & Assess"
+
+[node name="FME1Card" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=164542139]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card" unique_id=704380234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox" unique_id=1245386315]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content" unique_id=1413711099]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=113945271]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("tex_fme1")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=1005245698]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "Functional Mech 1"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=1862425975]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox/BadgeRow" unique_id=2033642723]
+custom_minimum_size = Vector2(80, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_badge")
+
+[node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1802584967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "Not prescribed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=903074026]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Calibrate & Assess"
+
+[node name="KnobButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=22754212]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Select Knob"
+
+[node name="KnobPreview" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=95471695]
+visible = false
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 3
+stretch_mode = 5
+
+[node name="FME2Card" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=561016781]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card" unique_id=609859876]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox" unique_id=1892640835]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content" unique_id=1254229872]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=1388126215]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("tex_fme2")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=83189396]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "Functional Mech 2"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=94805255]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox/BadgeRow" unique_id=384646717]
+custom_minimum_size = Vector2(80, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_badge")
+
+[node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1385173473]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "Not prescribed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=1977944842]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Calibrate & Assess"
+
+[node name="KnobButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=620953449]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_card_n")
+theme_override_styles/pressed = SubResource("sb_btn_card_p")
+theme_override_styles/hover = SubResource("sb_btn_card_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Select Knob"
+
+[node name="KnobPreview" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=837312905]
+visible = false
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 3
+stretch_mode = 5
+
+[node name="BottomDivider" type="ColorRect" parent="Root" unique_id=627805024]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.749, 0.878, 0.761, 1)
+
+[node name="BottomBar" type="HBoxContainer" parent="Root" unique_id=54755038]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="BottomBG" type="ColorRect" parent="Root/BottomBar" unique_id=707273289]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.824, 0.929, 0.839, 1)
+
+[node name="BottomPad" type="MarginContainer" parent="Root/BottomBar" unique_id=546887542]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 0
+
+[node name="BottomHBox" type="HBoxContainer" parent="Root/BottomBar/BottomPad" unique_id=1809458556]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="SetDurationButton" type="Button" parent="Root/BottomBar/BottomPad/BottomHBox" unique_id=1147211404]
+custom_minimum_size = Vector2(150, 42)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_sec_n")
+theme_override_styles/pressed = SubResource("sb_btn_sec_p")
+theme_override_styles/hover = SubResource("sb_btn_sec_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Set Duration"
+
+[node name="HintLabel" type="Label" parent="Root/BottomBar/BottomPad/BottomHBox" unique_id=177252709]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "Prescribe time for each mechanism After assessing."
+vertical_alignment = 1
+
+[node name="KnobPopup" type="Control" parent="." unique_id=1961600828]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KnobOverlay" type="ColorRect" parent="KnobPopup" unique_id=993466467]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="PopupPanel" type="Panel" parent="KnobPopup" unique_id=1612196693]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -230.0
+offset_right = 280.0
+offset_bottom = 230.0
+theme_override_styles/panel = SubResource("sb_popup")
+
+[node name="PopupVBox" type="VBoxContainer" parent="KnobPopup/PopupPanel" unique_id=830428472]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="TitlePad" type="MarginContainer" parent="KnobPopup/PopupPanel/PopupVBox" unique_id=440829583]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 0
+
+[node name="PopupTitle" type="Label" parent="KnobPopup/PopupPanel/PopupVBox/TitlePad" unique_id=918924426]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 17
+text = "Select Knob"
+horizontal_alignment = 1
+
+[node name="KnobScroll" type="ScrollContainer" parent="KnobPopup/PopupPanel/PopupVBox" unique_id=1535564056]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="KnobGrid" type="GridContainer" parent="KnobPopup/PopupPanel/PopupVBox/KnobScroll" unique_id=840679387]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 4
+
+[node name="ClosePad" type="MarginContainer" parent="KnobPopup/PopupPanel/PopupVBox" unique_id=801548870]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="CloseButton" type="Button" parent="KnobPopup/PopupPanel/PopupVBox/ClosePad" unique_id=1424338833]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_close_n")
+theme_override_styles/pressed = SubResource("sb_btn_close_p")
+theme_override_styles/hover = SubResource("sb_btn_close_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Close"

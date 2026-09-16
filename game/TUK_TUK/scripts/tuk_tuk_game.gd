@@ -14,8 +14,8 @@ const GAP_H:           float = 188.0
 const SPAWN_X:         float = 1240.0
 const DESPAWN_X:       float = -110.0
 const BG_W:            float = 1200.0
-const HIT_MARGIN_X:    float = 50.0
-const HIT_MARGIN_Y:    float = 70.0
+const HIT_MARGIN_X:    float = 65.0
+const HIT_MARGIN_Y:    float = 85.0
 
 # ── Speed ─────────────────────────────────────────────────────────────────────
 const MIN_SPEED:          float = 10.0
@@ -54,6 +54,8 @@ var _spawn_interval: float = 2.0
 var _spawn_timer:    float = 0.5
 var _game_speed:     float = 10.0
 var _fail_flash_t:   float = 0.0
+var _pass_flash_t:   float = 0.0
+var _anim_t:         float = 0.0
 var _aan_target_gap_y: float = -1.0
 
 var _columns:       Array     = []
@@ -63,8 +65,10 @@ var _rock_down_tex: Texture2D = null
 var _bg1: TextureRect = null
 var _bg2: TextureRect = null
 
-var _aan:     RefCounted = null
-var _use_aan: bool       = false
+var _aan:          RefCounted = null
+var _use_aan:      bool       = false
+var _is_cpm:       bool       = false
+var _event_delay:  float      = 0.0
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _player:         TextureRect       = $Player
@@ -105,7 +109,8 @@ func _ready() -> void:
 	var bgm = load("res://game/TUK_TUK/audio/bgd music/Naan Autokaran Intro Music (BGM) _ T.Thuvarakan.mp3")
 	if bgm:
 		$Music.stream = bgm
-		$Music.play()
+		$Music.finished.connect(func():
+			if not _game_finished: $Music.play())
 
 func _exit_tree() -> void:
 	if EventBus.button_released.is_connected(_on_pluto_button):
@@ -144,10 +149,12 @@ func _scroll_bg(delta: float) -> void:
 func _init_rom_data() -> void:
 	if AppData.selected_mechanism == null:
 		_aprom = [-45.0, 45.0]; _arom = [-30.0, 30.0]; _prom = [-45.0, 45.0]
+		_is_cpm = false
 		return
-	_aprom = AppData.selected_mechanism.current_aprom
-	_arom  = AppData.selected_mechanism.current_arom
-	_prom  = AppData.selected_mechanism.current_prom
+	_aprom  = AppData.selected_mechanism.current_aprom
+	_arom   = AppData.selected_mechanism.current_arom
+	_prom   = AppData.selected_mechanism.current_prom
+	_is_cpm = AppData.selected_mechanism.is_cpm
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
@@ -236,8 +243,10 @@ func _update_columns(delta: float) -> void:
 		# Score when column fully passes the player
 		if not col.scored and (col.x + ROCK_W * 0.5) < (PLAYER_X - _player_w * 0.5):
 			col.scored = true
-			n_success += 1
-			_pass_sfx.play()
+			if _state != State.FAILURE:
+				n_success += 1
+				_pass_sfx.play()
+				_pass_flash_t = 0.35
 		if col.x < DESPAWN_X:
 			(col.top as TextureRect).queue_free()
 			(col.bot as TextureRect).queue_free()
@@ -272,6 +281,7 @@ func _get_next_column() -> Dictionary:
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
 func _process(delta: float) -> void:
+	_anim_t += delta
 	_tick(delta)
 	_refresh_ui()
 	_update_log_state()
@@ -299,6 +309,14 @@ func _tick(delta: float) -> void:
 			_player_y = clamp(ty, GAME_TOP + _player_h * 0.5, GAME_BOTTOM - _player_h * 0.5)
 			_player.visible = true
 			_update_player_node()
+			# Blink: success flash fades gold→white; idle headlight pulse between
+			_pass_flash_t = maxf(_pass_flash_t - delta, 0.0)
+			if _pass_flash_t > 0.0:
+				var t: float = _pass_flash_t / 0.35
+				_player.modulate = Color(1.0, 1.0, lerp(1.0, 0.2, t), 1.0)
+			else:
+				var pulse: float = 0.88 + sin(_anim_t * 5.0) * 0.12
+				_player.modulate = Color(1.0, 1.0, pulse, 1.0)
 
 			# Spawn and scroll columns
 			_spawn_timer -= delta
@@ -335,13 +353,16 @@ func _tick(delta: float) -> void:
 		State.FAILURE:
 			_fail_flash_t -= delta
 			_shake_x = sin(_fail_flash_t * 40.0) * 10.0
-			_player.visible = fmod(_fail_flash_t * 10.0, 1.0) > 0.5
+			_player.modulate  = Color.WHITE
+			_player.visible   = fmod(_fail_flash_t * 10.0, 1.0) > 0.5
 			_update_player_node()
 			_update_columns(delta)
 			_scroll_bg(delta)
 			if _fail_flash_t <= 0.0:
 				_shake_x = 0.0
-				_player.visible = true
+				_player.visible  = true
+				_player.modulate = Color.WHITE
+				_pass_flash_t    = 0.0
 				_aan_target_gap_y = -1.0
 				_state = State.MOVE
 
@@ -352,9 +373,22 @@ func _tick(delta: float) -> void:
 				var aan_done: bool = (_aan.state == _PlutoAAN.State.AROM_MOVING
 					or _aan.state == _PlutoAAN.State.IDLE
 					or _aan.state == _PlutoAAN.State.NONE)
-				if not aan_done: return
-			_end_game()
-			_state = State.DONE
+				if aan_done:
+					_end_game()
+					_state = State.DONE
+					return
+				# CPM mode: patient may never return to AROM — timed fallback
+				if _event_delay <= 0.0:
+					var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
+					_event_delay = lerp(12.0, 5.0, t)
+				else:
+					_event_delay -= delta
+					if _event_delay <= 0.0:
+						_end_game()
+						_state = State.DONE
+			else:
+				_end_game()
+				_state = State.DONE
 
 		State.DONE, State.PAUSED:
 			pass
@@ -378,6 +412,7 @@ func _begin_game() -> void:
 	_wait_panel.visible = false
 	AppData.start_new_trial()
 	_setup_aan()
+	$Music.play()
 
 func _setup_aan() -> void:
 	var mech = AppData.mechanism_name
@@ -392,6 +427,7 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	$Music.stop()
 	_clear_columns()
 	_save_speed()
 	AppData.stop_trial(n_targets, n_success, n_failure)
@@ -439,6 +475,7 @@ func _toggle_pause() -> void:
 		_state = _prev_state; _pause_panel.visible = false
 
 func _on_exit_pressed() -> void:
+	$Music.stop()
 	if not _game_finished:
 		_clear_columns()
 		_save_speed()

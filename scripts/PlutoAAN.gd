@@ -105,10 +105,18 @@ func update(actual: float, del_t: float, trial_done: bool) -> void:
 			_reset_no_move()
 			match _get_target_type():
 				0, 2:  # InAromFromArom, InPromFromArom
-					state = State.AROM_MOVING
+					if _is_cpm_mode():
+						state = State.ASSIST_TO_TARGET_AT_BOUNDARY
+						_gen_assist_to_target(actual, false)
+					else:
+						state = State.AROM_MOVING
 				1, 3:  # InAromFromProm, InPromFromPromCrossArom
-					state = State.RELAX_TO_AROM
-					_gen_relax_to_arom(actual)
+					if _is_cpm_mode():
+						state = State.ASSIST_TO_TARGET_AT_BOUNDARY
+						_gen_assist_to_target(actual, false)
+					else:
+						state = State.RELAX_TO_AROM
+						_gen_relax_to_arom(actual)
 				4:     # InPromFromPromNoCrossArom
 					state = State.ASSIST_TO_TARGET_AT_BOUNDARY
 					_gen_assist_to_target(actual, false)
@@ -143,18 +151,29 @@ func update(actual: float, del_t: float, trial_done: bool) -> void:
 
 		State.ASSIST_TO_TARGET_AT_BOUNDARY:
 			if trial_done:
-				_gen_relax_to_arom(actual)
-				state = State.RELAX_TO_AROM
+				if _is_cpm_mode():
+					state = State.IDLE
+				else:
+					_gen_relax_to_arom(actual)
+					state = State.RELAX_TO_AROM
 
 		State.ASSIST_TO_TARGET_IN_BOUNDARY:
 			if trial_done:
-				_gen_relax_to_arom(actual)
-				state = State.RELAX_TO_AROM
+				if _is_cpm_mode():
+					state = State.IDLE
+				else:
+					_gen_relax_to_arom(actual)
+					state = State.RELAX_TO_AROM
 
 		State.IDLE:
 			pass
 
 # ── Private helpers ───────────────────────────────────────────────────────────
+
+func _is_cpm_mode() -> bool:
+	if arom.size() < 2:
+		return false
+	return abs(arom[1] - arom[0]) <= 5.0
 
 # Returns: 0=InAromFromArom, 1=InAromFromProm, 2=InPromFromArom,
 #          3=InPromFromPromCrossArom, 4=InPromFromPromNoCrossArom, 5=None

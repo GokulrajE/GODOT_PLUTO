@@ -61,7 +61,11 @@ func _on_connect_pressed() -> void:
 		connect_button.disabled = false
 
 func _on_pluto_button() -> void:
-	get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
+	if AppData.config_total_time == 0:
+		AppData.is_plan_setup = true
+		get_tree().change_scene_to_file("res://scenes/PlanSetupScene.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
 
 func _set_login_status(msg: String, is_error: bool) -> void:
 	login_status.text     = msg

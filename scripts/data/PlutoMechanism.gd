@@ -6,6 +6,7 @@ var side:             String = ""
 var prom_completed:   bool   = false
 var arom_completed:   bool   = false
 var aprom_completed:  bool   = false
+var is_cpm:           bool   = false
 var old_rom:          ROM    = null
 var new_rom:          ROM    = null
 var trial_number_day:     int = 0
@@ -45,6 +46,7 @@ func _init(mech_name: String, training_side: String) -> void:
 
 func _load_old_rom() -> void:
 	old_rom.read_from_file(name)
+	is_cpm = old_rom.is_cpm
 
 func next_trial() -> void:
 	trial_number_day     += 1
@@ -61,6 +63,10 @@ func set_new_arom(amin: float, amax: float) -> void:
 func set_new_aprom(apmin: float, apmax: float) -> void:
 	new_rom.set_aprom(apmin, apmax)
 	aprom_completed = (apmin != 0.0 or apmax != 0.0)
+
+func set_arom_cpm(cpm: bool) -> void:
+	is_cpm = cpm
+	new_rom.set_cpm(cpm)
 
 func save_assessment_data() -> void:
 	if prom_completed and arom_completed and aprom_completed:

@@ -1,0 +1,719 @@
+[gd_scene format=3 uid="uid://bl12vaekughd2"]
+
+[ext_resource type="Script" uid="uid://be371ec8g8ryp" path="res://scripts/set_duration_scene.gd" id="1_sd001"]
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_sec_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_sec_p"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_sec_h"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.906, 0.961, 0.914, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.502, 0.212, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_track"]
+bg_color = Color(0.918, 0.949, 0.922, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="sb_row"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_prim_n"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.059, 0.502, 0.259, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_prim_p"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.039, 0.329, 0.169, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_prim_h"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.082, 0.58, 0.298, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="SetDurationScene" type="Control" unique_id=1877646585]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sd001")
+
+[node name="BG" type="ColorRect" parent="." unique_id=1418421640]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.941, 0.969, 0.945, 1)
+
+[node name="Root" type="VBoxContainer" parent="." unique_id=145716048]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="HBoxContainer" parent="Root" unique_id=2095600281]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderBG" type="ColorRect" parent="Root/Header" unique_id=1508677831]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.824, 0.929, 0.839, 1)
+
+[node name="TitlePad" type="MarginContainer" parent="Root/Header" unique_id=564338154]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+
+[node name="TitleVBox" type="VBoxContainer" parent="Root/Header/TitlePad" unique_id=1998405024]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="TitleLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=1547462188]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 24
+text = "Set Duration"
+
+[node name="SubLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=1286797110]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "Select exactly 3 mechanisms  ·  Allocate 60 min total  ·  Min 10 / Max 40 min each"
+
+[node name="BtnPad" type="MarginContainer" parent="Root/Header" unique_id=635801512]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="BackButton" type="Button" parent="Root/Header/BtnPad" unique_id=1608794591]
+custom_minimum_size = Vector2(100, 42)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_styles/normal = SubResource("sb_btn_sec_n")
+theme_override_styles/pressed = SubResource("sb_btn_sec_p")
+theme_override_styles/hover = SubResource("sb_btn_sec_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "← Back"
+
+[node name="Divider" type="ColorRect" parent="Root" unique_id=1298815428]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.749, 0.878, 0.761, 1)
+
+[node name="AllocBar" type="MarginContainer" parent="Root" unique_id=1032630031]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 6
+
+[node name="AllocVBox" type="VBoxContainer" parent="Root/AllocBar" unique_id=1377157586]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AllocTitleLabel" type="Label" parent="Root/AllocBar/AllocVBox" unique_id=1811479623]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Allocation"
+
+[node name="AllocTrack" type="Panel" parent="Root/AllocBar/AllocVBox" unique_id=501586994]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_track")
+
+[node name="WFESeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=981397378]
+visible = false
+layout_mode = 1
+color = Color(0.18, 0.48, 0.82, 1)
+
+[node name="WURDSeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=1629368237]
+visible = false
+layout_mode = 1
+color = Color(0.82, 0.42, 0.06, 1)
+
+[node name="FPSSeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=1227979089]
+visible = false
+layout_mode = 1
+color = Color(0.72, 0.12, 0.12, 1)
+
+[node name="HOCSeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=2084518140]
+visible = false
+layout_mode = 1
+color = Color(0.06, 0.55, 0.26, 1)
+
+[node name="FME1Seg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=16078934]
+visible = false
+layout_mode = 1
+color = Color(0.55, 0.12, 0.72, 1)
+
+[node name="FME2Seg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=996285762]
+visible = false
+layout_mode = 1
+color = Color(0.7, 0.55, 0.04, 1)
+
+[node name="AllocLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox" unique_id=1616776785]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="WFELegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=1695236287]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/WFELegend" unique_id=740905990]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.18, 0.48, 0.82, 1)
+
+[node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/WFELegend" unique_id=1636221328]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "WFE"
+
+[node name="WURDLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=675553420]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/WURDLegend" unique_id=1072423981]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.82, 0.42, 0.06, 1)
+
+[node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/WURDLegend" unique_id=436076952]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "WURD"
+
+[node name="FPSLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=152438978]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/FPSLegend" unique_id=1809461355]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.72, 0.12, 0.12, 1)
+
+[node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/FPSLegend" unique_id=815998501]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "FPS"
+
+[node name="HOCLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=43194352]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/HOCLegend" unique_id=1520710765]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.06, 0.55, 0.26, 1)
+
+[node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/HOCLegend" unique_id=939821503]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "HOC"
+
+[node name="FME1Legend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=893123056]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/FME1Legend" unique_id=277887249]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.55, 0.12, 0.72, 1)
+
+[node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/FME1Legend" unique_id=2055642740]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "FME1"
+
+[node name="FME2Legend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=1264394267]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/FME2Legend" unique_id=1581121161]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.7, 0.55, 0.04, 1)
+
+[node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/FME2Legend" unique_id=174512913]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "FME2"
+
+[node name="Scroll" type="ScrollContainer" parent="Root" unique_id=650732107]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RowPad" type="MarginContainer" parent="Root/Scroll" unique_id=596467739]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="RowsVBox" type="VBoxContainer" parent="Root/Scroll/RowPad" unique_id=1751252685]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="WFERow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=1451340344]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_row")
+
+[node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/WFERow" unique_id=1056316568]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1853258733]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1755178767]
+custom_minimum_size = Vector2(8, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.18, 0.48, 0.82, 1)
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1221389808]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Wrist Flex / Ext"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1511169485]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 0.0
+editable = false
+
+[node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1373028438]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "— min"
+vertical_alignment = 1
+
+[node name="WURDRow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=447719526]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_row")
+
+[node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/WURDRow" unique_id=1479036164]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=423203541]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=2037535029]
+custom_minimum_size = Vector2(8, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.82, 0.42, 0.06, 1)
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=1060521688]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Wrist Ulnar / Radial"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=254840491]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 0.0
+editable = false
+
+[node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=846657786]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "— min"
+vertical_alignment = 1
+
+[node name="FPSRow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=539015526]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_row")
+
+[node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/FPSRow" unique_id=1581660617]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=4625978]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=1371043104]
+custom_minimum_size = Vector2(8, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.72, 0.12, 0.12, 1)
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=1827319641]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Forearm Pron / Sup"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=1421820302]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 0.0
+editable = false
+
+[node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=647947217]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "— min"
+vertical_alignment = 1
+
+[node name="HOCRow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=1996084896]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_row")
+
+[node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/HOCRow" unique_id=1306654172]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=334029539]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=2010726339]
+custom_minimum_size = Vector2(8, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.06, 0.55, 0.26, 1)
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=653156812]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Hand Open / Close"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=1292031034]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 0.0
+editable = false
+
+[node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=1059967780]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "— min"
+vertical_alignment = 1
+
+[node name="FME1Row" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=26371607]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_row")
+
+[node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/FME1Row" unique_id=583730621]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=1109292732]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=1238898233]
+custom_minimum_size = Vector2(8, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.55, 0.12, 0.72, 1)
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=578963332]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Functional Mech 1"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=2090581754]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 0.0
+editable = false
+
+[node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=866313339]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "— min"
+vertical_alignment = 1
+
+[node name="FME2Row" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=681783469]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_row")
+
+[node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/FME2Row" unique_id=356750042]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=1881549410]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=1810103734]
+custom_minimum_size = Vector2(8, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.7, 0.55, 0.04, 1)
+
+[node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=1215849508]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Functional Mech 2"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=683762345]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 0.0
+editable = false
+
+[node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=608482137]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "— min"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SummaryDivider" type="ColorRect" parent="Root" unique_id=2129299839]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.749, 0.878, 0.761, 1)
+
+[node name="SummaryPad" type="MarginContainer" parent="Root" unique_id=305145011]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 14
+
+[node name="SummaryVBox" type="VBoxContainer" parent="Root/SummaryPad" unique_id=1037995385]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TotalLabel" type="Label" parent="Root/SummaryPad/SummaryVBox" unique_id=1570116220]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="ErrorLabel" type="Label" parent="Root/SummaryPad/SummaryVBox" unique_id=1541145346]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.129, 0.129, 1)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+
+[node name="BtnRow" type="HBoxContainer" parent="Root/SummaryPad/SummaryVBox" unique_id=19560497]
+layout_mode = 2
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="Root/SummaryPad/SummaryVBox/BtnRow" unique_id=1164256775]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.45)
+theme_override_styles/normal = SubResource("sb_btn_prim_n")
+theme_override_styles/pressed = SubResource("sb_btn_prim_p")
+theme_override_styles/hover = SubResource("sb_btn_prim_h")
+theme_override_styles/disabled = SubResource("sb_btn_prim_n")
+theme_override_styles/focus = SubResource("sb_focus")
+disabled = true
+text = "Confirm & Save"

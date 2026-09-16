@@ -10,6 +10,10 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="sb_mech_wfe_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
 bg_color = Color(0.906, 0.969, 0.918, 1)
 border_width_left = 1
 border_width_top = 1
@@ -20,12 +24,23 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wfe_p"]
 content_margin_left = 16.0
 content_margin_top = 16.0
 content_margin_right = 16.0
 content_margin_bottom = 16.0
+bg_color = Color(0.749, 0.918, 0.773, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="sb_mech_wfe_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
 bg_color = Color(0.824, 0.949, 0.847, 1)
 border_width_left = 2
 border_width_top = 2
@@ -36,236 +51,6 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_wfe_p"]
-bg_color = Color(0.749, 0.918, 0.773, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_n"]
-bg_color = Color(0.898, 0.961, 0.957, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.094, 0.627, 0.529, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_h"]
-bg_color = Color(0.812, 0.933, 0.925, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.094, 0.627, 0.529, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_p"]
-bg_color = Color(0.718, 0.898, 0.886, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fps_n"]
-bg_color = Color(0.929, 0.957, 0.898, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.404, 0.686, 0.141, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fps_h"]
-bg_color = Color(0.855, 0.929, 0.804, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.404, 0.686, 0.141, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fps_p"]
-bg_color = Color(0.780, 0.894, 0.710, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_n"]
-bg_color = Color(0.961, 0.969, 0.898, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.631, 0.686, 0.094, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_h"]
-bg_color = Color(0.929, 0.941, 0.800, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.631, 0.686, 0.094, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_p"]
-bg_color = Color(0.894, 0.906, 0.706, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_n"]
-bg_color = Color(0.898, 0.957, 0.953, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.094, 0.561, 0.478, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_h"]
-bg_color = Color(0.808, 0.922, 0.914, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.094, 0.561, 0.478, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_p"]
-bg_color = Color(0.718, 0.882, 0.871, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_n"]
-bg_color = Color(0.906, 0.957, 0.910, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.251, 0.584, 0.141, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_h"]
-bg_color = Color(0.820, 0.922, 0.827, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.251, 0.584, 0.141, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_p"]
-bg_color = Color(0.737, 0.886, 0.749, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxFlat" id="sb_focus"]
 draw_center = false
@@ -279,11 +64,228 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.898, 0.961, 0.957, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.094, 0.627, 0.529, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.718, 0.898, 0.886, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_wurd_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.812, 0.933, 0.925, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.094, 0.627, 0.529, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fps_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.929, 0.957, 0.898, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.404, 0.686, 0.141, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fps_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.78, 0.894, 0.71, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fps_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.855, 0.929, 0.804, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.404, 0.686, 0.141, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.961, 0.969, 0.898, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.631, 0.686, 0.094, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.894, 0.906, 0.706, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_hoc_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.929, 0.941, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.631, 0.686, 0.094, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.898, 0.957, 0.953, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.094, 0.561, 0.478, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.718, 0.882, 0.871, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme1_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.808, 0.922, 0.914, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.094, 0.561, 0.478, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_n"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.906, 0.957, 0.91, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.251, 0.584, 0.141, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_p"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.737, 0.886, 0.749, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_mech_fme2_h"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.82, 0.922, 0.827, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.251, 0.584, 0.141, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [node name="ChooseMechanismScene" type="Control" unique_id=1380763505]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_nk2ty")
 
 [node name="BGColor" type="ColorRect" parent="." unique_id=1480565025]
@@ -291,17 +293,19 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.941, 0.969, 0.945, 1)
 
 [node name="HeaderPanel" type="Panel" parent="." unique_id=1153194495]
 layout_mode = 1
-anchor_left = 0.0
-anchor_top = 0.0
+anchors_preset = 10
 anchor_right = 1.0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = -16.0
 offset_bottom = 92.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("sb_bg_header")
 
 [node name="TitleLabel" type="Label" parent="HeaderPanel" unique_id=1565763089]
@@ -310,45 +314,46 @@ offset_left = 24.0
 offset_top = 14.0
 offset_right = 700.0
 offset_bottom = 50.0
-theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 26
 text = "Choose Mechanism"
 
-[node name="SubtitleLabel" type="Label" parent="HeaderPanel"]
+[node name="SubtitleLabel" type="Label" parent="HeaderPanel" unique_id=939267924]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 52.0
 offset_right = 700.0
 offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "Select the rehabilitation mechanism to use"
 
 [node name="MechGrid" type="GridContainer" parent="." unique_id=646683858]
 layout_mode = 1
-anchor_left = 0.0
-anchor_top = 0.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = 108.0
 offset_right = -16.0
 offset_bottom = -16.0
-columns = 3
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
+columns = 3
 
 [node name="WFE" type="Button" parent="MechGrid" unique_id=1565209693]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.059, 0.412, 0.188, 1)
 theme_override_colors/font_pressed_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_colors/font_hover_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("sb_mech_wfe_n")
-theme_override_styles/hover = SubResource("sb_mech_wfe_h")
 theme_override_styles/pressed = SubResource("sb_mech_wfe_p")
+theme_override_styles/hover = SubResource("sb_mech_wfe_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "WFE
 Wrist Flex / Extension"
@@ -357,13 +362,13 @@ Wrist Flex / Extension"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.047, 0.345, 0.294, 1)
 theme_override_colors/font_pressed_color = Color(0.047, 0.345, 0.294, 1)
+theme_override_colors/font_hover_color = Color(0.047, 0.345, 0.294, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("sb_mech_wurd_n")
-theme_override_styles/hover = SubResource("sb_mech_wurd_h")
 theme_override_styles/pressed = SubResource("sb_mech_wurd_p")
+theme_override_styles/hover = SubResource("sb_mech_wurd_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "WURD
 Wrist Ulnar Radial Dev"
@@ -372,13 +377,13 @@ Wrist Ulnar Radial Dev"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.251, 0.439, 0.055, 1)
 theme_override_colors/font_pressed_color = Color(0.251, 0.439, 0.055, 1)
+theme_override_colors/font_hover_color = Color(0.251, 0.439, 0.055, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("sb_mech_fps_n")
-theme_override_styles/hover = SubResource("sb_mech_fps_h")
 theme_override_styles/pressed = SubResource("sb_mech_fps_p")
+theme_override_styles/hover = SubResource("sb_mech_fps_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "FPS
 Forearm Pronation Sup"
@@ -387,13 +392,13 @@ Forearm Pronation Sup"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.392, 0.435, 0.039, 1)
 theme_override_colors/font_pressed_color = Color(0.392, 0.435, 0.039, 1)
+theme_override_colors/font_hover_color = Color(0.392, 0.435, 0.039, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("sb_mech_hoc_n")
-theme_override_styles/hover = SubResource("sb_mech_hoc_h")
 theme_override_styles/pressed = SubResource("sb_mech_hoc_p")
+theme_override_styles/hover = SubResource("sb_mech_hoc_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "HOC
 Hand Opening / Closing"
@@ -402,13 +407,13 @@ Hand Opening / Closing"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.047, 0.310, 0.263, 1)
-theme_override_colors/font_pressed_color = Color(0.047, 0.310, 0.263, 1)
+theme_override_colors/font_pressed_color = Color(0.047, 0.31, 0.263, 1)
+theme_override_colors/font_hover_color = Color(0.047, 0.31, 0.263, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("sb_mech_fme1_n")
-theme_override_styles/hover = SubResource("sb_mech_fme1_h")
 theme_override_styles/pressed = SubResource("sb_mech_fme1_p")
+theme_override_styles/hover = SubResource("sb_mech_fme1_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "FME1
 Functional Mechanism 1"
@@ -417,13 +422,13 @@ Functional Mechanism 1"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.157, 0.376, 0.075, 1)
 theme_override_colors/font_pressed_color = Color(0.157, 0.376, 0.075, 1)
+theme_override_colors/font_hover_color = Color(0.157, 0.376, 0.075, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("sb_mech_fme2_n")
-theme_override_styles/hover = SubResource("sb_mech_fme2_h")
 theme_override_styles/pressed = SubResource("sb_mech_fme2_p")
+theme_override_styles/hover = SubResource("sb_mech_fme2_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "FME2
 Functional Mechanism 2"

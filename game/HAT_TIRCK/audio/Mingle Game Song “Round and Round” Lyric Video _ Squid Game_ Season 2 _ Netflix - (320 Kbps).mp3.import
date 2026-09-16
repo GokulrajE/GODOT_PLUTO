@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bmr7yv1g0wlh5"
+path="res://.godot/imported/Mingle Game Song “Round and Round” Lyric Video _ Squid Game_ Season 2 _ Netflix - (320 Kbps).mp3-97c65e1e0593a6b02b3a4dce4699c49f.mp3str"
+
+[deps]
+
+source_file="res://game/HAT_TIRCK/audio/Mingle Game Song “Round and Round” Lyric Video _ Squid Game_ Season 2 _ Netflix - (320 Kbps).mp3"
+dest_files=["res://.godot/imported/Mingle Game Song “Round and Round” Lyric Video _ Squid Game_ Season 2 _ Netflix - (320 Kbps).mp3-97c65e1e0593a6b02b3a4dce4699c49f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

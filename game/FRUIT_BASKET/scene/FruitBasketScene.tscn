@@ -1,11 +1,12 @@
-[gd_scene format=3 uid="uid://dfy3m9x1abc2p"]
+[gd_scene format=3 uid="uid://dfy3nax1abc2p"]
 
-[ext_resource type="Script" uid="uid://bxkqm5t9r2wfn" path="res://game/FRUIT_BASKET/scripts/fruit_basket_game.gd" id="1_game"]
-[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/sky.png" id="2_sky"]
-[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/groundgrass.png" id="3_ground"]
-[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/catch.wav" id="5_catch"]
-[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/drop.wav" id="6_miss"]
-[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/bgnew.wav" id="7_music"]
+[ext_resource type="Script" uid="uid://bxkqm5uar2wfn" path="res://game/FRUIT_BASKET/scripts/fruit_basket_game.gd" id="1_game"]
+[ext_resource type="Texture2D" uid="uid://rjavbv01qrre" path="res://game/FRUIT_BASKET/sprites/Forest1.jpg" id="2_td2ea"]
+[ext_resource type="Texture2D" uid="uid://b2lknlhkoicmr" path="res://game/FRUIT_BASKET/sprites/groundgrass.png" id="3_ground"]
+[ext_resource type="Texture2D" uid="uid://es3wusu602lv" path="res://game/FRUIT_BASKET/sprites/basket.png" id="4_e6364"]
+[ext_resource type="AudioStream" uid="uid://b2svifws5og7g" path="res://game/FRUIT_BASKET/audio/catch.wav" id="5_catch"]
+[ext_resource type="AudioStream" uid="uid://cc6lwfsm1al7h" path="res://game/FRUIT_BASKET/audio/drop.wav" id="6_miss"]
+[ext_resource type="AudioStream" uid="uid://vshbjov1wo4h" path="res://game/FRUIT_BASKET/audio/fruitch.mp3" id="6_td2ea"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(1, 1, 1, 0.88)
@@ -96,7 +97,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="FruitBasketScene" type="Control"]
+[node name="FruitBasketScene" type="Control" unique_id=988390006]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -105,20 +106,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_game")
 
-[node name="Sky" type="TextureRect" parent="."]
+[node name="Sky" type="TextureRect" parent="." unique_id=867300664]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_sky")
+texture = ExtResource("2_td2ea")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Ground" type="TextureRect" parent="."]
+[node name="Ground" type="TextureRect" parent="." unique_id=1162444749]
 layout_mode = 1
-anchor_left = 0.0
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -128,7 +129,7 @@ texture = ExtResource("3_ground")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="BasketContainer" type="Control" parent="."]
+[node name="BasketContainer" type="Control" parent="." unique_id=1687362266]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,7 +138,37 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="FruitContainer" type="Control" parent="."]
+[node name="barsket1" type="Sprite2D" parent="BasketContainer" unique_id=1685522957]
+modulate = Color(0.34881547, 0.09697988, 0.057779297, 1)
+position = Vector2(106, 557.00006)
+scale = Vector2(0.2, 0.178)
+texture = ExtResource("4_e6364")
+
+[node name="barsket2" type="Sprite2D" parent="BasketContainer" unique_id=1465032973]
+modulate = Color(0.34881547, 0.09697988, 0.057779297, 1)
+position = Vector2(341, 557.00006)
+scale = Vector2(0.2, 0.179)
+texture = ExtResource("4_e6364")
+
+[node name="barsket3" type="Sprite2D" parent="BasketContainer" unique_id=1515209572]
+modulate = Color(0.34881547, 0.09697988, 0.057779297, 1)
+position = Vector2(580, 557)
+scale = Vector2(0.2, 0.179)
+texture = ExtResource("4_e6364")
+
+[node name="barsket4" type="Sprite2D" parent="BasketContainer" unique_id=413329658]
+modulate = Color(0.34881547, 0.09697988, 0.057779297, 1)
+position = Vector2(806, 557)
+scale = Vector2(0.2, 0.179)
+texture = ExtResource("4_e6364")
+
+[node name="barsket5" type="Sprite2D" parent="BasketContainer" unique_id=1608515019]
+modulate = Color(0.34881547, 0.09697988, 0.057779297, 1)
+position = Vector2(1034, 557)
+scale = Vector2(0.2, 0.179)
+texture = ExtResource("4_e6364")
+
+[node name="FruitContainer" type="Control" parent="." unique_id=738383670]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,27 +177,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CatchSound" type="AudioStreamPlayer" parent="."]
+[node name="CatchSound" type="AudioStreamPlayer" parent="." unique_id=2019753939]
 stream = ExtResource("5_catch")
 
-[node name="MissSound" type="AudioStreamPlayer" parent="."]
+[node name="MissSound" type="AudioStreamPlayer" parent="." unique_id=174762356]
 stream = ExtResource("6_miss")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_music")
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=186503829]
+stream = ExtResource("6_td2ea")
 volume_db = -6.0
 autoplay = true
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1123888903]
 layer = 10
 
-[node name="Header" type="Panel" parent="UI"]
+[node name="Header" type="Panel" parent="UI" unique_id=1769136519]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 68.0
 theme_override_styles/panel = SubResource("sb_header")
 
-[node name="TimerLabel" type="Label" parent="UI/Header"]
+[node name="TimerLabel" type="Label" parent="UI/Header" unique_id=468780562]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 14.0
@@ -176,7 +207,7 @@ theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_font_sizes/font_size = 24
 text = "Time: 60 s"
 
-[node name="ScoreLabel" type="Label" parent="UI/Header"]
+[node name="ScoreLabel" type="Label" parent="UI/Header" unique_id=507665188]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -193,7 +224,7 @@ theme_override_font_sizes/font_size = 24
 text = "Score: 00"
 horizontal_alignment = 1
 
-[node name="ExitButton" type="Button" parent="UI/Header"]
+[node name="ExitButton" type="Button" parent="UI/Header" unique_id=374698743]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -215,7 +246,7 @@ theme_override_styles/hover = SubResource("sb_exit_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Exit"
 
-[node name="WaitPanel" type="Panel" parent="UI"]
+[node name="WaitPanel" type="Panel" parent="UI" unique_id=1110122292]
 anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.2
@@ -223,7 +254,7 @@ anchor_right = 0.75
 anchor_bottom = 0.74
 theme_override_styles/panel = SubResource("sb_modal")
 
-[node name="GameTitle" type="Label" parent="UI/WaitPanel"]
+[node name="GameTitle" type="Label" parent="UI/WaitPanel" unique_id=1021408433]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -235,7 +266,7 @@ theme_override_font_sizes/font_size = 48
 text = "FRUIT BASKET"
 horizontal_alignment = 1
 
-[node name="SubTitle" type="Label" parent="UI/WaitPanel"]
+[node name="SubTitle" type="Label" parent="UI/WaitPanel" unique_id=74476623]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -247,7 +278,7 @@ theme_override_font_sizes/font_size = 17
 text = "Guide the falling fruit into the correct basket!"
 horizontal_alignment = 1
 
-[node name="HintLabel" type="Label" parent="UI/WaitPanel"]
+[node name="HintLabel" type="Label" parent="UI/WaitPanel" unique_id=760682291]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -259,7 +290,7 @@ theme_override_font_sizes/font_size = 17
 text = "Press the PLUTO button to start"
 horizontal_alignment = 1
 
-[node name="PausePanel" type="Panel" parent="UI"]
+[node name="PausePanel" type="Panel" parent="UI" unique_id=1803598184]
 anchors_preset = -1
 anchor_left = 0.3
 anchor_top = 0.25
@@ -267,7 +298,7 @@ anchor_right = 0.7
 anchor_bottom = 0.68
 theme_override_styles/panel = SubResource("sb_modal")
 
-[node name="PauseTitle" type="Label" parent="UI/PausePanel"]
+[node name="PauseTitle" type="Label" parent="UI/PausePanel" unique_id=290156723]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -279,7 +310,7 @@ theme_override_font_sizes/font_size = 40
 text = "PAUSED"
 horizontal_alignment = 1
 
-[node name="PauseHint" type="Label" parent="UI/PausePanel"]
+[node name="PauseHint" type="Label" parent="UI/PausePanel" unique_id=1830267733]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -291,7 +322,7 @@ theme_override_font_sizes/font_size = 16
 text = "Press PLUTO button to resume"
 horizontal_alignment = 1
 
-[node name="GameOverPanel" type="Panel" parent="UI"]
+[node name="GameOverPanel" type="Panel" parent="UI" unique_id=1898259165]
 anchors_preset = -1
 anchor_left = 0.2
 anchor_top = 0.16
@@ -299,7 +330,7 @@ anchor_right = 0.8
 anchor_bottom = 0.78
 theme_override_styles/panel = SubResource("sb_modal")
 
-[node name="OverTitle" type="Label" parent="UI/GameOverPanel"]
+[node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=2088286249]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -311,7 +342,7 @@ theme_override_font_sizes/font_size = 44
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="CaughtLabel" type="Label" parent="UI/GameOverPanel"]
+[node name="CaughtLabel" type="Label" parent="UI/GameOverPanel" unique_id=485662737]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -323,7 +354,7 @@ theme_override_font_sizes/font_size = 18
 text = "Fruits caught:"
 horizontal_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="UI/GameOverPanel"]
+[node name="ScoreLabel" type="Label" parent="UI/GameOverPanel" unique_id=231091975]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -335,7 +366,7 @@ theme_override_font_sizes/font_size = 34
 text = "00 / 00"
 horizontal_alignment = 1
 
-[node name="ExitButton" type="Button" parent="UI/GameOverPanel"]
+[node name="ExitButton" type="Button" parent="UI/GameOverPanel" unique_id=1398826372]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.15
@@ -352,14 +383,14 @@ theme_override_styles/hover = SubResource("sb_btn_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Return to Game Select"
 
-[node name="SpeedPanel" type="Panel" parent="UI"]
+[node name="SpeedPanel" type="Panel" parent="UI" unique_id=1345702379]
 offset_left = 16.0
 offset_top = 80.0
 offset_right = 230.0
 offset_bottom = 218.0
 theme_override_styles/panel = SubResource("sb_modal")
 
-[node name="TitleLabel" type="Label" parent="UI/SpeedPanel"]
+[node name="TitleLabel" type="Label" parent="UI/SpeedPanel" unique_id=1090686740]
 layout_mode = 0
 offset_top = 10.0
 offset_right = 214.0
@@ -369,7 +400,7 @@ theme_override_font_sizes/font_size = 12
 text = "GAME SPEED  (Ctrl+G)"
 horizontal_alignment = 1
 
-[node name="SpeedRow" type="HBoxContainer" parent="UI/SpeedPanel"]
+[node name="SpeedRow" type="HBoxContainer" parent="UI/SpeedPanel" unique_id=1394156848]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 42.0
@@ -377,7 +408,7 @@ offset_right = 202.0
 offset_bottom = 94.0
 theme_override_constants/separation = 6
 
-[node name="DecreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow"]
+[node name="DecreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow" unique_id=594939976]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -390,7 +421,7 @@ theme_override_styles/hover = SubResource("sb_btn_n")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "−"
 
-[node name="SpeedLabel" type="Label" parent="UI/SpeedPanel/SpeedRow"]
+[node name="SpeedLabel" type="Label" parent="UI/SpeedPanel/SpeedRow" unique_id=628977175]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
@@ -399,7 +430,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="IncreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow"]
+[node name="IncreaseButton" type="Button" parent="UI/SpeedPanel/SpeedRow" unique_id=2002041733]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -412,7 +443,7 @@ theme_override_styles/hover = SubResource("sb_btn_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "+"
 
-[node name="SessionLabel" type="Label" parent="UI/SpeedPanel"]
+[node name="SessionLabel" type="Label" parent="UI/SpeedPanel" unique_id=969061491]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 102.0

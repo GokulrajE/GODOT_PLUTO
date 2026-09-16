@@ -2,7 +2,7 @@ class_name ROM
 extends RefCounted
 
 const _DATA_ROOT  = "res://data/"
-const _ROM_HEADER = "DateTime,PromMin,PromMax,AromMin,AromMax,APromMin,APromMax"
+const _ROM_HEADER = "DateTime,PromMin,PromMax,AromMin,AromMax,APromMin,APromMax,IsCPM"
 
 var mechanism: String = ""
 var datetime:  String = ""
@@ -12,6 +12,7 @@ var arom_min:  float  = 0.0
 var arom_max:  float  = 0.0
 var aprom_min: float  = 0.0
 var aprom_max: float  = 0.0
+var is_cpm:    bool   = false
 
 var is_prom_set: bool:
 	get: return prom_min != 0.0 or prom_max != 0.0
@@ -31,6 +32,9 @@ func set_arom(min_val: float, max_val: float) -> void:
 	arom_min = min_val
 	arom_max = max_val
 	datetime = Time.get_datetime_string_from_system()
+
+func set_cpm(val: bool) -> void:
+	is_cpm = val
 
 func set_aprom(min_val: float, max_val: float) -> void:
 	aprom_min = min_val
@@ -70,6 +74,7 @@ func read_from_file(mech_name: String) -> bool:
 	arom_max  = float(p[4])
 	aprom_min = float(p[5])
 	aprom_max = float(p[6])
+	is_cpm    = (p.size() >= 8 and p[7].strip_edges().to_lower() == "true")
 	return true
 
 # Append this ROM's values to {patient_id}/rom/{mechanism}-rom.csv.
@@ -92,11 +97,13 @@ func write_to_file() -> void:
 	if needs_header:
 		file.store_line(_ROM_HEADER)
 	datetime = Time.get_datetime_string_from_system()
-	file.store_line("%s,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f" % [
-		datetime, prom_min, prom_max, arom_min, arom_max, aprom_min, aprom_max
+	file.store_line("%s,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%s" % [
+		datetime, prom_min, prom_max, arom_min, arom_max, aprom_min, aprom_max,
+		str(is_cpm)
 	])
 	file.close()
 	DataManager.log_info("ROM",
-		"Saved — mech=%s PROM[%.1f,%.1f] AROM[%.1f,%.1f] APROM[%.1f,%.1f]" % [
-			mechanism, prom_min, prom_max, arom_min, arom_max, aprom_min, aprom_max
+		"Saved — mech=%s PROM[%.1f,%.1f] AROM[%.1f,%.1f] APROM[%.1f,%.1f] CPM=%s" % [
+			mechanism, prom_min, prom_max, arom_min, arom_max, aprom_min, aprom_max,
+			str(is_cpm)
 		])

@@ -34,6 +34,18 @@ var mech_offset:     float  = 0.0
 # ── Calibration ───────────────────────────────────────────────────────
 var is_calibrated: bool = false
 
+# ── Plan setup ────────────────────────────────────────────────────────
+var is_plan_setup:     bool = false
+var config_total_time: int  = 0
+var config_wfe:        int  = 0
+var config_wurd:       int  = 0
+var config_fps:        int  = 0
+var config_hoc:        int  = 0
+var config_fme1:       int  = 0
+var config_fme2:       int  = 0
+var config_fme1_id:    int  = -1
+var config_fme2_id:    int  = -1
+
 # ── Assist profile ────────────────────────────────────────────────────
 const DEFAULT_CTRL_BOUND: float = 0.6
 const MIN_CTRL_BOUND:     float = 0.16

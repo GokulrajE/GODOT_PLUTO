@@ -9,12 +9,16 @@ const FRUIT_START_Y:  float = 50.0
 const BASKET_Y:       float = 510.0
 const BASKET_CATCH_H: float = 70.0
 const FRUIT_MISS_Y:   float = 620.0
-const FRUIT_SIZE:     float = 80.0
-const BASKET_SIZE:    float = 110.0
+const FRUIT_SIZE:     float = 100.0
+const BASKET_SIZE:    float = 150.0
 const BASKET_HALF_W:  float = 55.0
 const SLOT_COUNT:     int   = 5
 
 const FRUIT_NAMES = ["apple", "lemon", "orange", "strawberry", "blueberry"]
+
+const CAUGHT_ICON_W:    float = 40.0
+const CAUGHT_PER_ROW:   int   = 4
+const BASKET_FLOOR_Y:   float = 50.0  # offset below basket centre to the interior floor
 
 # ── Speed ─────────────────────────────────────────────────────────────────────
 const MIN_SPEED:          float = 10.0
@@ -55,14 +59,16 @@ var _current_fruit:  Control = null
 
 var _slot_positions:     Array     = []
 var _basket_nodes:       Array     = []
+var _basket_rest_y:      Array     = []
 var _basket_icon_nodes:  Array     = []
 var _basket_count_nodes: Array     = []   # Label per slot showing catch count
 var _basket_counts:      Array     = []   # int count per slot
+var _caught_icon_nodes:  Array     = []   # Array[Array] of placed catch icons per slot
+var _slot_fruit_type:    Array     = []   # shuffled fruit index per slot
 var _aura_nodes:         Array     = []
 var _ring_nodes:         Array     = []
 var _flash_nodes:        Array     = []
 var _fruit_textures:     Array     = []
-var _basket_texture:     Texture2D = null
 
 # ── Animation ─────────────────────────────────────────────────────────────────
 var _anim_t:         float = 0.0
@@ -73,6 +79,7 @@ var _flash_is_wrong: bool  = false
 var _aan:        RefCounted = null
 var _use_aan:    bool       = false
 var _game_speed: float      = 10.0
+var _is_cpm:     bool       = false
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _fruit_container:  Control           = $FruitContainer
@@ -121,17 +128,25 @@ func _load_textures() -> void:
 		"res://game/FRUIT_BASKET/sprites/blueberry.png",
 	]:
 		_fruit_textures.append(load(p))
-	_basket_texture = load("res://game/FRUIT_BASKET/sprites/basket.png")
 
 func _build_baskets() -> void:
-	var margin := 80.0
-	var step   := (GAME_RIGHT - margin - (GAME_LEFT + margin)) / float(SLOT_COUNT - 1)
+	# Shuffle which fruit type belongs to each slot
+	_slot_fruit_type = range(SLOT_COUNT)
+	_slot_fruit_type.shuffle()
+
+	var basket_names := ["barsket1", "barsket2", "barsket3", "barsket4", "barsket5"]
 	for i in SLOT_COUNT:
-		var cx: float = GAME_LEFT + margin + step * float(i)
+		# Use the Sprite2D already placed in the scene — no runtime texture loading needed
+		var basket := _basket_container.get_node(basket_names[i]) as Sprite2D
+		var cx:     float = basket.position.x
+		var rest_y: float = basket.position.y
 		_slot_positions.append(cx)
+		_basket_nodes.append(basket)
+		_basket_rest_y.append(rest_y)
+		_caught_icon_nodes.append([])
 
 		# Outer aura (behind basket, large soft glow)
-		var aura_size: float = BASKET_SIZE + 64.0
+		var aura_size: float = BASKET_SIZE
 		var aura_style := StyleBoxFlat.new()
 		aura_style.bg_color                   = Color(1.0, 0.85, 0.1, 0.0)
 		aura_style.corner_radius_top_left     = 60
@@ -141,13 +156,13 @@ func _build_baskets() -> void:
 		var aura := Panel.new()
 		aura.add_theme_stylebox_override("panel", aura_style)
 		aura.size     = Vector2(aura_size, aura_size)
-		aura.position = Vector2(cx - aura_size * 0.5, BASKET_Y + BASKET_SIZE * 0.5 - aura_size * 0.5)
+		aura.position = Vector2(cx - aura_size * 0.5, rest_y - aura_size * 0.5)
 		aura.visible  = false
 		_basket_container.add_child(aura)
 		_aura_nodes.append(aura)
 
 		# Inner crisp ring
-		var ring_size: float = BASKET_SIZE + 30.0
+		var ring_size: float = BASKET_SIZE 
 		var ring_style := StyleBoxFlat.new()
 		ring_style.bg_color                   = Color(1.0, 0.85, 0.1, 0.0)
 		ring_style.border_width_left          = 4
@@ -162,31 +177,20 @@ func _build_baskets() -> void:
 		var ring := Panel.new()
 		ring.add_theme_stylebox_override("panel", ring_style)
 		ring.size     = Vector2(ring_size, ring_size)
-		ring.position = Vector2(cx - ring_size * 0.5, BASKET_Y + BASKET_SIZE * 0.5 - ring_size * 0.5)
+		ring.position = Vector2(cx - ring_size * 0.5, rest_y - ring_size * 0.5)
 		ring.visible  = false
 		_basket_container.add_child(ring)
 		_ring_nodes.append(ring)
 
-		# Basket sprite
-		var basket := TextureRect.new()
-		basket.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		basket.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-		basket.size         = Vector2(BASKET_SIZE, BASKET_SIZE)
-		basket.position     = Vector2(cx - BASKET_SIZE * 0.5, BASKET_Y)
-		if _basket_texture:
-			basket.texture = _basket_texture
-		_basket_container.add_child(basket)
-		_basket_nodes.append(basket)
-
-		# Fruit type label icon on basket
+		# Fruit type icon on basket — larger and fully opaque so it's clearly visible
+		var fruit_idx: int = _slot_fruit_type[i]
 		var icon := TextureRect.new()
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-		icon.size         = Vector2(36.0, 36.0)
-		icon.position     = Vector2(cx - 18.0, BASKET_Y + 14.0)
-		if i < _fruit_textures.size() and _fruit_textures[i] != null:
-			icon.texture = _fruit_textures[i]
-		icon.modulate = Color(1, 1, 1, 0.6)
+		icon.size         = Vector2(56.0, 56.0)
+		icon.position     = Vector2(cx - 28.0, rest_y - 88.0)
+		if fruit_idx < _fruit_textures.size() and _fruit_textures[fruit_idx] != null:
+			icon.texture = _fruit_textures[fruit_idx]
 		_basket_container.add_child(icon)
 		_basket_icon_nodes.append(icon)
 
@@ -200,18 +204,18 @@ func _build_baskets() -> void:
 		var flash := Panel.new()
 		flash.add_theme_stylebox_override("panel", flash_style)
 		flash.size     = Vector2(BASKET_SIZE + 20.0, BASKET_SIZE + 20.0)
-		flash.position = Vector2(cx - (BASKET_SIZE + 20.0) * 0.5, BASKET_Y - 10.0)
+		flash.position = Vector2(cx - (BASKET_SIZE + 20.0) * 0.5, rest_y - (BASKET_SIZE + 20.0) * 0.5)
 		_basket_container.add_child(flash)
 		_flash_nodes.append(flash)
 
-		# Catch counter label above basket
+		# Catch counter label — white text, sits above the basket
 		var count_lbl := Label.new()
 		count_lbl.text = "0"
 		count_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		count_lbl.size     = Vector2(64.0, 30.0)
-		count_lbl.position = Vector2(cx - 32.0, BASKET_Y - 36.0)
-		count_lbl.add_theme_color_override("font_color", Color(0.08, 0.45, 0.18, 1.0))
-		count_lbl.add_theme_font_size_override("font_size", 22)
+		count_lbl.position = Vector2(cx - 32.0, rest_y - 130.0)
+		count_lbl.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
+		count_lbl.add_theme_font_size_override("font_size", 24)
 		_basket_container.add_child(count_lbl)
 		_basket_count_nodes.append(count_lbl)
 		_basket_counts.append(0)
@@ -220,10 +224,12 @@ func _build_baskets() -> void:
 func _init_rom_data() -> void:
 	if AppData.selected_mechanism == null:
 		_aprom = [-45.0, 45.0]; _arom = [-30.0, 30.0]; _prom = [-45.0, 45.0]
+		_is_cpm = false
 		return
-	_aprom = AppData.selected_mechanism.current_aprom
-	_arom  = AppData.selected_mechanism.current_arom
-	_prom  = AppData.selected_mechanism.current_prom
+	_aprom  = AppData.selected_mechanism.current_aprom
+	_arom   = AppData.selected_mechanism.current_arom
+	_prom   = AppData.selected_mechanism.current_prom
+	_is_cpm = AppData.selected_mechanism.is_cpm
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
@@ -295,20 +301,24 @@ func _animate_baskets(active: bool) -> void:
 	for i in SLOT_COUNT:
 		var is_target: bool = (i == _target_slot and active and
 			(_state == State.MOVE or _state == State.SPAWNFRUIT))
-		var cx:      float   = float(_slot_positions[i])
-		var basket   := _basket_nodes[i]      as TextureRect
-		var bicon    := _basket_icon_nodes[i] as TextureRect
-		var aura     := _aura_nodes[i]        as Panel
-		var ring     := _ring_nodes[i]        as Panel
-		var flash_cr := _flash_nodes[i]       as Panel
+		var cx:     float = float(_slot_positions[i])
+		var rest_y: float = float(_basket_rest_y[i])
+		var basket    := _basket_nodes[i]      as Sprite2D
+		var bicon     := _basket_icon_nodes[i] as TextureRect
+		var count_lbl := _basket_count_nodes[i] as Label
+		var aura      := _aura_nodes[i]        as Panel
+		var ring      := _ring_nodes[i]        as Panel
+		var flash_cr  := _flash_nodes[i]       as Panel
 
 		if is_target:
-			# Bounce basket and its label icon together
+			# Bounce basket, icon, and counter together
 			var bounce: float = sin(_anim_t * 6.5) * 9.0
-			basket.position.y = BASKET_Y + bounce
-			bicon.position.y  = BASKET_Y + 14.0 + bounce
-			basket.position.x = cx - BASKET_SIZE * 0.5
-			bicon.position.x  = cx - 18.0
+			basket.position.y    = rest_y + bounce
+			bicon.position.y     = rest_y - 88.0 + bounce
+			count_lbl.position.y = rest_y - 130.0 + bounce
+			basket.position.x    = cx
+			bicon.position.x     = cx - 28.0
+			count_lbl.position.x = cx - 32.0
 			aura.visible = true
 			ring.visible = true
 			# Slow breathe on aura, fast crisp pulse on ring border
@@ -321,8 +331,9 @@ func _animate_baskets(active: bool) -> void:
 			ring_sbox.border_color = Color(1.0, 0.93, 0.2, ring_alpha)
 		else:
 			# Reset to rest position
-			basket.position.y = BASKET_Y
-			bicon.position.y  = BASKET_Y + 14.0
+			basket.position.y    = rest_y
+			bicon.position.y     = rest_y - 88.0
+			count_lbl.position.y = rest_y - 130.0
 			aura.visible = false
 			ring.visible = false
 
@@ -333,17 +344,28 @@ func _animate_baskets(active: bool) -> void:
 			if _flash_is_wrong:
 				flash_sbox.bg_color = Color(1.0, 0.1, 0.1, pct * 0.55)
 				var shake: float = sin(_anim_t * 55.0) * (pct * 9.0)
-				basket.position.x = cx - BASKET_SIZE * 0.5 + shake
-				bicon.position.x  = cx - 18.0 + shake
+				basket.position.x    = cx + shake
+				bicon.position.x     = cx - 28.0 + shake
+				count_lbl.position.x = cx - 32.0 + shake
 			else:
-				flash_sbox.bg_color = Color(0.15, 1.0, 0.35, pct * 0.5)
-				basket.position.x = cx - BASKET_SIZE * 0.5
-				bicon.position.x  = cx - 18.0
+				flash_sbox.bg_color  = Color(0.15, 1.0, 0.35, pct * 0.5)
+				basket.position.x    = cx
+				bicon.position.x     = cx - 28.0
+				count_lbl.position.x = cx - 32.0
 		else:
 			flash_sbox.bg_color = Color(0, 0, 0, 0)
 			if not is_target:
-				basket.position.x = cx - BASKET_SIZE * 0.5
-				bicon.position.x  = cx - 18.0
+				basket.position.x    = cx
+				bicon.position.x     = cx - 28.0
+				count_lbl.position.x = cx - 32.0
+
+		# Move all caught icons with the basket (same dx/dy as the basket sprite)
+		var basket_dx: float = basket.position.x - cx
+		var basket_dy: float = basket.position.y - rest_y
+		for j in (_caught_icon_nodes[i] as Array).size():
+			var c_icon := (_caught_icon_nodes[i] as Array)[j] as TextureRect
+			var rp: Vector2 = _caught_icon_rest_pos(i, j)
+			c_icon.position = rp + Vector2(basket_dx, basket_dy)
 
 # ── State machine ─────────────────────────────────────────────────────────────
 func _tick(delta: float) -> void:
@@ -363,7 +385,7 @@ func _tick(delta: float) -> void:
 		State.SPAWNFRUIT:
 			if not _run_once:
 				_target_slot = randi() % SLOT_COUNT
-				_fruit_type  = _target_slot
+				_fruit_type  = _slot_fruit_type[_target_slot]
 				_spawn_fruit()
 				var target_angle := _screen_to_angle(_slot_positions[_target_slot])
 				if _use_aan and _aan != null:
@@ -402,9 +424,22 @@ func _tick(delta: float) -> void:
 				var aan_done: bool = (_aan.state == _PlutoAAN.State.AROM_MOVING
 					or _aan.state == _PlutoAAN.State.IDLE
 					or _aan.state == _PlutoAAN.State.NONE)
-				if not aan_done: return
-			_end_game()
-			_state = State.DONE
+				if aan_done:
+					_end_game()
+					_state = State.DONE
+					return
+				# CPM mode: patient may never return to AROM — timed fallback
+				if _event_delay <= 0.0:
+					var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
+					_event_delay = lerp(12.0, 5.0, t)
+				else:
+					_event_delay -= delta
+					if _event_delay <= 0.0:
+						_end_game()
+						_state = State.DONE
+			else:
+				_end_game()
+				_state = State.DONE
 
 		State.DONE, State.PAUSED:
 			pass
@@ -456,17 +491,28 @@ func _trigger_flash(slot: int, is_wrong: bool) -> void:
 	_flash_is_wrong = is_wrong
 	_flash_timer    = 0.55
 
+func _caught_icon_rest_pos(slot: int, idx: int) -> Vector2:
+	var cx:     float = float(_slot_positions[slot])
+	var rest_y: float = float(_basket_rest_y[slot])
+	var col:    int   = idx % CAUGHT_PER_ROW
+	var row:    int   = int(float(idx) / CAUGHT_PER_ROW)
+	var start_x: float = cx - (CAUGHT_PER_ROW * CAUGHT_ICON_W) * 0.5
+	# Row 0 sits at the basket floor; rows stack upward with no gap
+	return Vector2(start_x + col * CAUGHT_ICON_W,
+				   rest_y + BASKET_FLOOR_Y - (row + 1) * CAUGHT_ICON_W)
+
 func _place_caught_icon(slot: int, fruit_type: int) -> void:
 	if fruit_type >= _fruit_textures.size() or _fruit_textures[fruit_type] == null:
 		return
-	var cx: float = float(_slot_positions[slot])
+	var count: int = _basket_counts[slot]   # already incremented
 	var icon := TextureRect.new()
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-	icon.size         = Vector2(46.0, 46.0)
+	icon.size         = Vector2(CAUGHT_ICON_W, CAUGHT_ICON_W)
 	icon.texture      = _fruit_textures[fruit_type]
-	icon.position     = Vector2(cx - 23.0, BASKET_Y + 8.0)
+	icon.position     = _caught_icon_rest_pos(slot, count - 1)
 	_basket_container.add_child(icon)
+	_caught_icon_nodes[slot].append(icon)
 
 func _kill_fruit() -> void:
 	if _current_fruit:

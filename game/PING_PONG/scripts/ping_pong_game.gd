@@ -58,6 +58,8 @@ var _ball_vy:  float = 0.0
 
 var _aan:           RefCounted = null
 var _use_aan:       bool       = false
+var _is_cpm:        bool       = false
+var _event_delay:   float      = 0.0
 var _aan_trial_set: bool       = false
 
 var _aprom: Array = []
@@ -166,10 +168,12 @@ func _create_center_dashes() -> void:
 func _init_rom_data() -> void:
 	if AppData.selected_mechanism == null:
 		_aprom = [-45.0, 45.0]; _arom = [-30.0, 30.0]; _prom = [-45.0, 45.0]
+		_is_cpm = false
 		return
-	_aprom = AppData.selected_mechanism.current_aprom
-	_arom  = AppData.selected_mechanism.current_arom
-	_prom  = AppData.selected_mechanism.current_prom
+	_aprom  = AppData.selected_mechanism.current_aprom
+	_arom   = AppData.selected_mechanism.current_arom
+	_prom   = AppData.selected_mechanism.current_prom
+	_is_cpm = AppData.selected_mechanism.is_cpm
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
@@ -326,9 +330,22 @@ func _tick(delta: float) -> void:
 				var aan_done: bool = (_aan.state == _PlutoAAN.State.AROM_MOVING
 					or _aan.state == _PlutoAAN.State.IDLE
 					or _aan.state == _PlutoAAN.State.NONE)
-				if not aan_done: return
-			_end_game()
-			_state = State.DONE
+				if aan_done:
+					_end_game()
+					_state = State.DONE
+					return
+				# CPM mode: patient may never return to AROM — timed fallback
+				if _event_delay <= 0.0:
+					var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
+					_event_delay = lerp(12.0, 5.0, t)
+				else:
+					_event_delay -= delta
+					if _event_delay <= 0.0:
+						_end_game()
+						_state = State.DONE
+			else:
+				_end_game()
+				_state = State.DONE
 
 		State.DONE, State.PAUSED:
 			pass

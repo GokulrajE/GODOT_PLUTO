@@ -322,7 +322,10 @@ func _save_and_proceed() -> void:
 		AppData.selected_mechanism.set_new_aprom(_min_angle, _max_angle)
 		AppData.selected_mechanism.save_assessment_data()
 	EventBus.assist_assessed.emit(_min_angle, _max_angle)
-	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+	if AppData.is_plan_setup:
+		get_tree().change_scene_to_file("res://scenes/PlanSetupScene.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 
 func _update_curr_cursor(angle: float) -> void:
 	var tw = slider_track.size.x

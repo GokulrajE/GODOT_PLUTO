@@ -53,7 +53,7 @@ var _prom:                  Array = []
 var _arom:                  Array = []
 var _move_duration:         float = 2.0
 var _cloud_x:               float = 583.0
-var _target_seed:           int   = 0
+var _target_seed:           int   = -1
 var _rain_timer:            float = 0.0
 var _highlight_timer:       float = 0.0
 var _rain_duration_to_grow: float = 0.3
@@ -73,6 +73,7 @@ var _slot_positions:   Array = []
 var _aan:        RefCounted = null
 var _use_aan:    bool       = false
 var _game_speed: float      = 10.0
+var _is_cpm:     bool       = false
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _cloud:          TextureRect       = $Cloud
@@ -244,10 +245,12 @@ func _build_rain_drops() -> void:
 func _init_rom_data() -> void:
 	if AppData.selected_mechanism == null:
 		_aprom = [-45.0, 45.0]; _arom = [-30.0, 30.0]; _prom = [-45.0, 45.0]
+		_is_cpm = false
 		return
-	_aprom = AppData.selected_mechanism.current_aprom
-	_arom  = AppData.selected_mechanism.current_arom
-	_prom  = AppData.selected_mechanism.current_prom
+	_aprom  = AppData.selected_mechanism.current_aprom
+	_arom   = AppData.selected_mechanism.current_arom
+	_prom   = AppData.selected_mechanism.current_prom
+	_is_cpm = AppData.selected_mechanism.is_cpm
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
@@ -347,7 +350,7 @@ func _animate_visuals(delta: float) -> void:
 	var col_top:      float = _cloud.position.y + _cloud.size.y
 	var col_bottom:   float = SEED_Y - SEED_SIZE - 4.0
 	var col_height:   float = col_bottom - col_top
-	var slot_cx:      float = float(_slot_positions[_target_seed]) if _target_seed < _slot_positions.size() else 583.0
+	var slot_cx:      float = float(_slot_positions[_target_seed]) if _target_seed >= 0 and _target_seed < _slot_positions.size() else 583.0
 
 	for j in RAIN_DROP_COUNT:
 		var drop := _drop_nodes[j] as ColorRect
@@ -450,9 +453,22 @@ func _tick(delta: float) -> void:
 				var aan_done: bool = (_aan.state == _PlutoAAN.State.AROM_MOVING \
 					or _aan.state == _PlutoAAN.State.IDLE \
 					or _aan.state == _PlutoAAN.State.NONE)
-				if not aan_done: return
-			_end_game()
-			_state = State.DONE
+				if aan_done:
+					_end_game()
+					_state = State.DONE
+					return
+				# CPM mode: patient may never return to AROM — timed fallback
+				if _event_delay <= 0.0:
+					var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
+					_event_delay = lerp(12.0, 5.0, t)
+				else:
+					_event_delay -= delta
+					if _event_delay <= 0.0:
+						_end_game()
+						_state = State.DONE
+			else:
+				_end_game()
+				_state = State.DONE
 
 		State.DONE, State.PAUSED:
 			pass
@@ -472,7 +488,10 @@ func _update_rain(delta: float) -> void:
 func _grow_seed(idx: int) -> void:
 	if _seed_grown: return
 	_seed_grown = true
-	var new_stage: int = min(_seed_stage[idx] + 1, _seed_textures.size() - 1)
+	var max_stage: int = _seed_textures.size() - 1
+	var new_stage: int = _seed_stage[idx] + 1
+	if new_stage > max_stage:
+		new_stage = 2   # wrap back to stage 3 (index 2) after reaching stage 5
 	_seed_stage[idx] = new_stage
 	var sz:     float = float(PLANT_SIZES[new_stage]) if new_stage < PLANT_SIZES.size() else 120.0
 	var cx:     float = float(_slot_positions[idx])
@@ -487,17 +506,24 @@ func _grow_seed(idx: int) -> void:
 	_success_sfx.play()
 
 func _pick_target_seed() -> int:
-	# Prefer PROM-mapped seed
+	# Build candidate list excluding the slot that was just targeted
+	var candidates: Array = []
+	for i in SEED_COUNT:
+		if i != _target_seed:
+			candidates.append(i)
+	if candidates.is_empty():
+		candidates = range(SEED_COUNT)
+
 	if _prom.size() >= 2:
 		var angle: float = randf_range(float(_prom[0]), float(_prom[1]))
-		var sx: float = angle_to_screen(angle)
-		var best: int = 0
-		var best_d: float = abs(sx - float(_slot_positions[0]))
-		for i in range(1, SEED_COUNT):
+		var sx:    float = angle_to_screen(angle)
+		var best:  int   = candidates[0]
+		var best_d: float = abs(sx - float(_slot_positions[best]))
+		for i in candidates.slice(1):
 			var d: float = abs(sx - float(_slot_positions[i]))
 			if d < best_d: best_d = d; best = i
 		return best
-	return randi() % SEED_COUNT
+	return candidates[randi() % candidates.size()]
 
 func _hide_all_highlights() -> void:
 	for i in SEED_COUNT:

@@ -47,6 +47,15 @@ func load_patient(patient_id: String) -> bool:
 	AppData.patient_id            = p[0]
 	AppData.patient_start_date    = p[1]
 	AppData.patient_end_date      = p[2]
+	AppData.config_total_time     = int(p[3])
+	AppData.config_wfe            = int(p[4])
+	AppData.config_wurd           = int(p[5])
+	AppData.config_fps            = int(p[6])
+	AppData.config_hoc            = int(p[7])
+	AppData.config_fme1           = int(p[8])
+	AppData.config_fme2           = int(p[9])
+	AppData.config_fme1_id        = int(p[10])
+	AppData.config_fme2_id        = int(p[11])
 	AppData.patient_training_side = p[12]
 	AppData.patient_location      = p[13]
 	AppData.is_patient_loaded     = true
@@ -284,6 +293,53 @@ func read_control_bound(mech: String) -> float:
 	return last_bound
 
 # ══ Path helpers ════════════════════════════════════════════════════════
+
+func save_config() -> void:
+	var path = DATA_ROOT + AppData.patient_id + "/configdata"
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		push_error("DataManager: cannot write configdata")
+		return
+	file.store_line(CONFIG_HEADER)
+	file.store_line("%s,%s,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,%s" % [
+		AppData.patient_id,
+		AppData.patient_start_date,
+		AppData.patient_end_date,
+		AppData.config_total_time,
+		AppData.config_wfe,
+		AppData.config_wurd,
+		AppData.config_fps,
+		AppData.config_hoc,
+		AppData.config_fme1,
+		AppData.config_fme2,
+		AppData.config_fme1_id,
+		AppData.config_fme2_id,
+		AppData.patient_training_side,
+		AppData.patient_location,
+	])
+	file.close()
+	log_info("DataManager", "Config saved for " + AppData.patient_id)
+
+func has_rom_data(mech_name: String) -> bool:
+	var path = DATA_ROOT + AppData.patient_id + "/rom/" + mech_name + "-rom.csv"
+	if not FileAccess.file_exists(path):
+		return false
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return false
+	var _hdr = file.get_line()
+	var last_line = ""
+	while not file.eof_reached():
+		var line = file.get_line().strip_edges()
+		if not line.is_empty():
+			last_line = line
+	file.close()
+	if last_line.is_empty():
+		return false
+	var p = last_line.split(",")
+	if p.size() < 5:
+		return false
+	return float(p[3]) != 0.0 or float(p[4]) != 0.0
 
 func get_patient_path() -> String: return DATA_ROOT + AppData.patient_id + "/"
 func get_rom_path()     -> String: return DATA_ROOT + AppData.patient_id + "/rom/"
