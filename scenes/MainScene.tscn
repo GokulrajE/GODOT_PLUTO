@@ -28,6 +28,30 @@ bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 
+[sub_resource type="StyleBoxFlat" id="sb_goal_line"]
+bg_color = Color(0.059, 0.502, 0.259, 0.55)
+
+[sub_resource type="StyleBoxFlat" id="sb_bar_base"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="sb_chip"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.918, 0.949, 0.922, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="StyleBoxFlat" id="sb_input_n"]
 content_margin_left = 14.0
 content_margin_top = 8.0
@@ -164,7 +188,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="MainScene" type="Control" unique_id=456096218]
+[node name="MainScene" type="Control" unique_id=256012806]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,19 +197,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main")
 
-[node name="BackgroundImage" type="TextureRect" parent="." unique_id=124856678]
+[node name="BackgroundImage" type="TextureRect" parent="." unique_id=631643585]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_pluto")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="BackgroundTint" type="ColorRect" parent="." unique_id=124856679]
+[node name="BackgroundTint" type="ColorRect" parent="." unique_id=1381552949]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -194,72 +217,488 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.941, 0.969, 0.945, 0.72)
 
-[node name="LoginCard" type="Panel" parent="." unique_id=1134502126]
+[node name="DashCard" type="Panel" parent="." unique_id=687705538]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.04
-anchor_right = 0.75
-anchor_bottom = 0.97
-offset_left = 6.0
-offset_top = 90.08
-offset_right = 6.0
-offset_bottom = -85.48004
+anchor_left = 0.01
+anchor_top = 0.05
+anchor_right = 0.49
+anchor_bottom = 0.68
+offset_left = -5.5199995
+offset_top = -30.400002
+offset_right = -5.5200195
+offset_bottom = -30.400024
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("sb_card")
 
-[node name="LoginCardHeader" type="Panel" parent="." unique_id=1092750027]
+[node name="DashCardVBox" type="VBoxContainer" parent="DashCard" unique_id=1750666833]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.04
-anchor_right = 0.75
-anchor_bottom = 0.04
-offset_left = 6.0
-offset_top = 92.0
-offset_right = 6.0
-offset_bottom = 200.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="DashCardHeader" type="Panel" parent="DashCard/DashCardVBox" unique_id=825795050]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
 theme_override_styles/panel = SubResource("sb_hdr")
 
-[node name="AppNameLabel" type="Label" parent="LoginCardHeader" unique_id=158457112]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 12.08
-offset_right = 538.0
-offset_bottom = 58.08
+[node name="DashHeaderHBox" type="HBoxContainer" parent="DashCard/DashCardVBox/DashCardHeader" unique_id=1236351993]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.48
+offset_right = -10.52002
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DashTitle" type="Label" parent="DashCard/DashCardVBox/DashCardHeader/DashHeaderHBox" unique_id=708334988]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 16
+text = " Dashboard"
+
+[node name="DashPeriodLabel" type="Label" parent="DashCard/DashCardVBox/DashCardHeader/DashHeaderHBox" unique_id=468618272]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "Last 7 days"
+horizontal_alignment = 2
+
+[node name="DashBodyPad" type="MarginContainer" parent="DashCard/DashCardVBox" unique_id=226123153]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 14
+
+[node name="DashBodyVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad" unique_id=412262989]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="ChartContainer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox" unique_id=975499060]
+clip_contents = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="GoalLine" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer" unique_id=290616580]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.3
+offset_bottom = 2.0
+theme_override_styles/panel = SubResource("sb_goal_line")
+
+[node name="GoalLineLabel" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/GoalLine" unique_id=1134294226]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -14.0
+offset_right = 54.0
+theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 0.9)
+theme_override_font_sizes/font_size = 9
+text = "Goal"
+
+[node name="BarsHBox" type="HBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer" unique_id=459795782]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="Slot0" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1036925122]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=457042687]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=1732854685]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=446157531]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=1235566512]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="Slot1" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1082607986]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=1068346315]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=2083901989]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=1133034028]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=361387638]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="Slot2" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1882833242]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=1241366809]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=879231885]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=121681772]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=1771276785]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="Slot3" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1461336182]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=1859786050]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=386773141]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=555594987]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=1469038454]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="Slot4" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=159180643]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=1365059811]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=221881307]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=1396856859]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=563176724]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="Slot5" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=557686867]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1454163419]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1658100711]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1010120639]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1937834363]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="Slot6" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1709332549]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=85033812]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=366157216]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=415539592]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_bar_base")
+
+[node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=1087051549]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 10
+text = "—"
+horizontal_alignment = 1
+
+[node name="StatHBox" type="HBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox" unique_id=347721323]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StreakChip" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox" unique_id=932303802]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_chip")
+
+[node name="ChipVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip" unique_id=327864920]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="StreakValue" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip/ChipVBox" unique_id=1137538626]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme_override_font_sizes/font_size = 20
+text = "—"
+horizontal_alignment = 1
+
+[node name="StreakDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip/ChipVBox" unique_id=520677429]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Day streak"
+horizontal_alignment = 1
+
+[node name="TotalChip" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox" unique_id=634681178]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_chip")
+
+[node name="ChipVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip" unique_id=1106563175]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="TotalValue" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip/ChipVBox" unique_id=1213563812]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme_override_font_sizes/font_size = 20
+text = "—"
+horizontal_alignment = 1
+
+[node name="TotalDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip/ChipVBox" unique_id=667865749]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "This week"
+horizontal_alignment = 1
+
+[node name="GoalChip" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox" unique_id=1233408819]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_chip")
+
+[node name="ChipVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip" unique_id=1010634925]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="GoalValue" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip/ChipVBox" unique_id=611504671]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme_override_font_sizes/font_size = 20
+text = "—"
+horizontal_alignment = 1
+
+[node name="GoalDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip/ChipVBox" unique_id=190167353]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Daily goal"
+horizontal_alignment = 1
+
+[node name="LoginCard" type="Panel" parent="." unique_id=1417357449]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23
+anchor_top = 0.05
+anchor_right = 0.77
+anchor_bottom = 0.95
+offset_left = 14.040009
+offset_top = 63.6
+offset_right = 14.039978
+offset_bottom = -107.99997
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="LoginCardVBox" type="VBoxContainer" parent="LoginCard" unique_id=156750519]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="LoginCardHeader" type="Panel" parent="LoginCard/LoginCardVBox" unique_id=1893586975]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_styles/panel = SubResource("sb_hdr")
+
+[node name="HeaderVBox" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginCardHeader" unique_id=1676850649]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_right = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="AppLabel" type="Label" parent="LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox" unique_id=1842741904]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 28
 text = "PLUTO"
 
-[node name="TaglineLabel" type="Label" parent="LoginCardHeader" unique_id=773978210]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 61.08
-offset_right = 538.0
-offset_bottom = 83.08
+[node name="SubLabel" type="Label" parent="LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox" unique_id=1879535386]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
 text = "Rehabilitation Platform"
 
-[node name="LoginPanel" type="VBoxContainer" parent="." unique_id=1001593109]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.27
-anchor_top = 0.04
-anchor_right = 0.73
-anchor_bottom = 0.97
-offset_left = 5.9599915
-offset_top = 220.08
-offset_right = 5.960022
-offset_bottom = -88.56
+[node name="LoginBodyPad" type="MarginContainer" parent="LoginCard/LoginCardVBox" unique_id=390927515]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
+
+[node name="LoginBodyVBox" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginBodyPad" unique_id=1153941261]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LoginContent" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox" unique_id=1111632877]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="LoginTitle" type="Label" parent="LoginPanel" unique_id=1360028164]
+[node name="LoginTitle" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1667289755]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 18
 text = "Patient Login"
 
-[node name="PatientIDInput" type="LineEdit" parent="LoginPanel" unique_id=430651106]
+[node name="PatientIDInput" type="LineEdit" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=919872438]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
@@ -268,7 +707,8 @@ theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "Enter Patient ID"
 
-[node name="LoginButton" type="Button" parent="LoginPanel" unique_id=1050920310]
+[node name="LoginButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1664489903]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -283,7 +723,8 @@ theme_override_styles/disabled = SubResource("sb_btn_dis")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Login"
 
-[node name="RegisterButton" type="Button" parent="LoginPanel" unique_id=1703194625]
+[node name="RegisterButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=945927648]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
@@ -296,7 +737,8 @@ theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Register New Patient"
 
-[node name="LoginStatus" type="Label" parent="LoginPanel" unique_id=1974337841]
+[node name="LoginStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=758653041]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
@@ -304,35 +746,21 @@ theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="ConnectPanel" type="VBoxContainer" parent="." unique_id=1331893561]
+[node name="ConnectContent" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox" unique_id=1022892582]
+unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.27
-anchor_top = 0.04
-anchor_right = 0.73
-anchor_bottom = 0.97
-offset_left = 5.9599915
-offset_top = 240.08
-offset_right = 5.960022
-offset_bottom = -149.56
-theme_override_constants/separation = 20
-
-[node name="PatientLabel" type="Label" parent="ConnectPanel" unique_id=2099845649]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_font_sizes/font_size = 20
-text = "Patient: "
-horizontal_alignment = 1
+theme_override_constants/separation = 12
 
-[node name="ConnectButton" type="Button" parent="ConnectPanel" unique_id=800374461]
-custom_minimum_size = Vector2(0, 56)
+[node name="ConnectButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/ConnectContent" unique_id=2010326072]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.5, 0.65, 0.51, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("sb_btn_pn")
 theme_override_styles/pressed = SubResource("sb_btn_pp")
 theme_override_styles/hover = SubResource("sb_btn_ph")
@@ -340,10 +768,10 @@ theme_override_styles/disabled = SubResource("sb_btn_dis")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Connect to PLUTO"
 
-[node name="ConnectStatus" type="Label" parent="ConnectPanel" unique_id=1724052154]
-custom_minimum_size = Vector2(0, 60)
+[node name="ConnectStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/ConnectContent" unique_id=652265936]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3

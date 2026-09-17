@@ -14,6 +14,8 @@ const KNOB_IMAGES = [
 	"res://Assets/Knobs_PNG/10._Three_Pointed_Knob-removebg-preview.png",
 	"res://Assets/Knobs_PNG/11._Finger_Wheel-removebg-preview.png",
 	"res://Assets/Knobs_PNG/12._Poteniometer_Knob-removebg-preview.png",
+	"res://Assets/mechanismImages/KNOB.png",
+	"res://Assets/mechanismImages/keyknob_outline.png",
 ]
 
 # ── Colors — light green clinical theme (matches AssessmentScene) ──────
@@ -74,6 +76,9 @@ func _collect_card_refs() -> void:
 			_knob_btns[mech]    = inner.get_node("KnobButton") as Button
 			_knob_previews[mech]= inner.get_node("KnobPreview") as TextureRect
 			_knob_btns[mech].pressed.connect(func(): _open_knob_popup(mech))
+			var mech_img := inner.get_node_or_null("MechImage") as TextureRect
+			if mech_img:
+				mech_img.visible = false
 		else:
 			calib_btn.pressed.connect(func(): _go_calibrate(mech))
 
@@ -83,6 +88,34 @@ func _build_knob_buttons() -> void:
 		btn.custom_minimum_size = Vector2(88, 88)
 		var idx := i
 		btn.pressed.connect(func(): _select_knob(idx))
+
+		var sb_normal := StyleBoxFlat.new()
+		sb_normal.bg_color = Color(0.96, 0.99, 0.97, 1.0)
+		sb_normal.set_border_width_all(1)
+		sb_normal.border_color = Color(0.75, 0.88, 0.77, 1.0)
+		sb_normal.set_corner_radius_all(8)
+		sb_normal.content_margin_left  = 6; sb_normal.content_margin_right  = 6
+		sb_normal.content_margin_top   = 6; sb_normal.content_margin_bottom = 6
+		btn.add_theme_stylebox_override("normal", sb_normal)
+
+		var sb_hover := StyleBoxFlat.new()
+		sb_hover.bg_color = Color(0.85, 0.97, 0.87, 1.0)
+		sb_hover.set_border_width_all(2)
+		sb_hover.border_color = Color(0.153, 0.714, 0.376, 1.0)
+		sb_hover.set_corner_radius_all(8)
+		sb_hover.content_margin_left  = 6; sb_hover.content_margin_right  = 6
+		sb_hover.content_margin_top   = 6; sb_hover.content_margin_bottom = 6
+		btn.add_theme_stylebox_override("hover", sb_hover)
+
+		var sb_pressed := StyleBoxFlat.new()
+		sb_pressed.bg_color = Color(0.75, 0.95, 0.78, 1.0)
+		sb_pressed.set_border_width_all(2)
+		sb_pressed.border_color = Color(0.059, 0.502, 0.259, 1.0)
+		sb_pressed.set_corner_radius_all(8)
+		sb_pressed.content_margin_left  = 6; sb_pressed.content_margin_right  = 6
+		sb_pressed.content_margin_top   = 6; sb_pressed.content_margin_bottom = 6
+		btn.add_theme_stylebox_override("pressed", sb_pressed)
+
 		if ResourceLoader.exists(KNOB_IMAGES[i]):
 			var knob_img := TextureRect.new()
 			knob_img.texture      = load(KNOB_IMAGES[i])
@@ -214,7 +247,7 @@ func _update_done_button() -> void:
 	_done_button.disabled = not valid
 
 	if total == 0:
-		_error_label.text = "Set duration first, then assess each mechanism."
+		_error_label.text = "Assess each mechanism first, then set the duration."
 	elif total != 60:
 		_error_label.text = "Total duration must be 60 min (currently %d min)." % total
 	elif not fme1_ok:
@@ -245,13 +278,32 @@ func _update_popup_buttons() -> void:
 	for i in range(_popup_buttons.size()):
 		var btn: Button = _popup_buttons[i]
 		btn.disabled = (i == other_id)
-		btn.modulate = Color.GREEN if i == this_id else Color.WHITE
+		btn.modulate = Color(0.6, 0.6, 0.6, 1.0) if btn.disabled else Color.WHITE
+		if i == this_id:
+			var sb_sel := StyleBoxFlat.new()
+			sb_sel.bg_color = Color(0.059, 0.502, 0.259, 1.0)
+			sb_sel.set_border_width_all(2)
+			sb_sel.border_color = Color(0.039, 0.329, 0.169, 1.0)
+			sb_sel.set_corner_radius_all(8)
+			sb_sel.content_margin_left  = 6; sb_sel.content_margin_right  = 6
+			sb_sel.content_margin_top   = 6; sb_sel.content_margin_bottom = 6
+			btn.add_theme_stylebox_override("normal", sb_sel)
+		else:
+			var sb_normal := StyleBoxFlat.new()
+			sb_normal.bg_color = Color(0.96, 0.99, 0.97, 1.0)
+			sb_normal.set_border_width_all(1)
+			sb_normal.border_color = Color(0.75, 0.88, 0.77, 1.0)
+			sb_normal.set_corner_radius_all(8)
+			sb_normal.content_margin_left  = 6; sb_normal.content_margin_right  = 6
+			sb_normal.content_margin_top   = 6; sb_normal.content_margin_bottom = 6
+			btn.add_theme_stylebox_override("normal", sb_normal)
 
 func _select_knob(index: int) -> void:
 	if _selecting_fme == "FME1":
 		AppData.config_fme1_id = index
 	elif _selecting_fme == "FME2":
 		AppData.config_fme2_id = index
+	DataManager.save_config()
 	_knob_popup.visible = false
 	_refresh_cards()
 

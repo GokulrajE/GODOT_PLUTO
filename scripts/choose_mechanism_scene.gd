@@ -16,9 +16,23 @@ const MECH_IMAGES = {
 	"WURD": "res://Assets/mechanismImages/ulnar_radial_out2.png",
 	"FPS":  "res://Assets/mechanismImages/Pron_supin_out.png",
 	"HOC":  "res://Assets/mechanismImages/hoc.png",
-	"FME1": "res://Assets/mechanismImages/KNOB.png",
-	"FME2": "res://Assets/mechanismImages/keyknob_outline.png",
 }
+
+const KNOB_IMAGES = [
+	"res://Assets/Knobs_PNG/1._Ball_Knob_Big-removebg-preview.png",
+	"res://Assets/Knobs_PNG/2._Wing_Knob-removebg-preview.png",
+	"res://Assets/Knobs_PNG/3._Long_Handle-removebg-preview.png",
+	"res://Assets/Knobs_PNG/4.1_T_knob-removebg-preview.png",
+	"res://Assets/Knobs_PNG/6._Crank_Handle-removebg-preview.png",
+	"res://Assets/Knobs_PNG/7._Four_Pointed_Star-removebg-preview.png",
+	"res://Assets/Knobs_PNG/8._Rotor_Knob-removebg-preview.png",
+	"res://Assets/Knobs_PNG/9._Small_Knob_-_Big-removebg-preview.png",
+	"res://Assets/Knobs_PNG/10._Three_Pointed_Knob-removebg-preview.png",
+	"res://Assets/Knobs_PNG/11._Finger_Wheel-removebg-preview.png",
+	"res://Assets/Knobs_PNG/12._Poteniometer_Knob-removebg-preview.png",
+	"res://Assets/mechanismImages/KNOB.png",
+	"res://Assets/mechanismImages/keyknob_outline.png",
+]
 
 func _ready() -> void:
 	PlutoComm.calibrate_start("NOMECH")
@@ -55,14 +69,25 @@ func _populate_button(btn: Button, mech: String, time_val: int) -> void:
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	btn.add_child(vb)
 
-	if MECH_IMAGES.has(mech) and ResourceLoader.exists(MECH_IMAGES[mech]):
+	var img_path := ""
+	if mech == "FME1":
+		var kid := AppData.config_fme1_id
+		img_path = KNOB_IMAGES[kid] if kid >= 0 and kid < KNOB_IMAGES.size() else ""
+	elif mech == "FME2":
+		var kid := AppData.config_fme2_id
+		img_path = KNOB_IMAGES[kid] if kid >= 0 and kid < KNOB_IMAGES.size() else ""
+	elif MECH_IMAGES.has(mech):
+		img_path = MECH_IMAGES[mech]
+
+	if img_path != "" and ResourceLoader.exists(img_path):
 		var tex := TextureRect.new()
-		tex.texture       = load(MECH_IMAGES[mech])
+		tex.texture       = load(img_path)
 		tex.custom_minimum_size  = Vector2(72, 72)
 		tex.expand_mode   = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		tex.stretch_mode  = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		tex.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		tex.modulate      = Color(0, 0, 0, 1)
+		if mech != "FME1" and mech != "FME2":
+			tex.modulate = Color(0, 0, 0, 1)
 		tex.mouse_filter  = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(tex)
 
@@ -91,6 +116,13 @@ func _populate_button(btn: Button, mech: String, time_val: int) -> void:
 		time_lbl.add_theme_color_override("font_color", Color(0.059, 0.502, 0.259))
 		time_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(time_lbl)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed \
+			and event.keycode == KEY_X \
+			and event.ctrl_pressed and event.shift_pressed:
+		AppData.is_plan_setup = true
+		get_tree().change_scene_to_file("res://scenes/PlanSetupScene.tscn")
 
 func _on_mech_selected(mech_name: String) -> void:
 	var index = AppData.MECHANISMS.find(mech_name)

@@ -25,10 +25,10 @@ func _build_ui() -> void:
 	panel.anchor_right   = 1.0
 	panel.anchor_top     = 0.0
 	panel.anchor_bottom  = 0.0
-	panel.offset_left    = -110.0
-	panel.offset_right   = -12.0
-	panel.offset_top     = 6.0
-	panel.offset_bottom  = 34.0
+	panel.offset_left    = -60.0
+	panel.offset_right   = -2.0
+	panel.offset_top     = 2.0
+	panel.offset_bottom  = 24.0
 	panel.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	panel.mouse_filter   = Control.MOUSE_FILTER_IGNORE
 
@@ -50,21 +50,21 @@ func _build_ui() -> void:
 
 	var hbox := HBoxContainer.new()
 	hbox.set_anchors_preset(Control.PRESET_FULL_RECT)
-	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	hbox.add_theme_constant_override("separation", 5)
+	hbox.alignment = BoxContainer.ALIGNMENT_END
+	hbox.add_theme_constant_override("separation", 2)
 	panel.add_child(hbox)
 
 	_dot_lbl = Label.new()
 	_dot_lbl.text = "●"
-	_dot_lbl.add_theme_font_size_override("font_size", 9)
+	_dot_lbl.add_theme_font_size_override("font_size", 8)
 	_dot_lbl.add_theme_color_override("font_color", Color(0.15, 0.9, 0.4, 1))
 	_dot_lbl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	hbox.add_child(_dot_lbl)
 
 	_hz_lbl = Label.new()
 	_hz_lbl.text = "-- Hz"
-	_hz_lbl.custom_minimum_size = Vector2(50, 0)
-	_hz_lbl.add_theme_font_size_override("font_size", 11)
+	_hz_lbl.custom_minimum_size = Vector2(40, 0)
+	_hz_lbl.add_theme_font_size_override("font_size", 9)
 	_hz_lbl.add_theme_color_override("font_color", Color(0.55, 0.85, 1.0, 1))
 	_hz_lbl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	hbox.add_child(_hz_lbl)

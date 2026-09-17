@@ -106,7 +106,7 @@ func _ready() -> void:
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
-	var bgm = load("res://game/TUK_TUK/audio/bgd music/Naan Autokaran Intro Music (BGM) _ T.Thuvarakan.mp3")
+	var bgm = load("res://game/TUK_TUK/audio/bgd music/naan-autokaran-intro-music-bgm-tthuvarakan_z6QAMJPH.mp3")
 	if bgm:
 		$Music.stream = bgm
 		$Music.finished.connect(func():

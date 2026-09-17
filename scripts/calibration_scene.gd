@@ -87,7 +87,16 @@ func _auto_calibrate() -> void:
 	EventBus.calibration_done.emit()
 
 	await get_tree().create_timer(0.4).timeout
-	if AppData.is_plan_setup:
+	var is_fme := AppData.mechanism_name == "FME1" or AppData.mechanism_name == "FME2"
+	if is_fme:
+		if AppData.selected_mechanism != null:
+			AppData.selected_mechanism.set_new_prom(-90.0, 90.0)
+			AppData.selected_mechanism.set_new_arom(-90.0, 90.0)
+			AppData.selected_mechanism.set_new_aprom(-90.0, 90.0)
+		var dest := "res://scenes/PlanSetupScene.tscn" if AppData.is_plan_setup \
+			else "res://scenes/ChooseGameScene.tscn"
+		get_tree().change_scene_to_file(dest)
+	elif AppData.is_plan_setup:
 		get_tree().change_scene_to_file("res://scenes/AssessmentScene.tscn")
 	elif _has_prior_full_assessment():
 		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")

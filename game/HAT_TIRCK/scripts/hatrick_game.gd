@@ -75,6 +75,7 @@ var _is_cpm:     bool       = false
 @onready var _final_lbl:      Label              = $UI/GameOverPanel/ScoreLabel
 @onready var _catch_sfx:      AudioStreamPlayer  = $CatchSound
 @onready var _miss_sfx:       AudioStreamPlayer  = $MissSound
+@onready var _music:          AudioStreamPlayer  = $Music
 @onready var _speed_panel:    Panel              = $UI/SpeedPanel
 @onready var _speed_lbl:      Label              = $UI/SpeedPanel/SpeedRow/SpeedLabel
 @onready var _speed_info_lbl: Label              = $UI/SpeedPanel/SessionLabel
@@ -371,6 +372,7 @@ func _begin_game() -> void:
 	n_success  = 0
 	n_failure  = 0
 	_wait_panel.visible = false
+	_music.play()
 	AppData.start_new_trial()
 	_setup_aan()
 
@@ -391,6 +393,7 @@ func _end_game() -> void:
 	_game_finished = true
 	PlutoComm.set_control_type("NONE")
 	_kill_ball()
+	_music.stop()
 	_save_speed()
 	AppData.stop_trial(n_targets, n_success, n_failure)
 	_final_lbl.text = "%d / %d\nPress PLUTO button to play again" % [n_success, n_targets]
@@ -425,9 +428,11 @@ func _toggle_pause() -> void:
 		_prev_state          = _state
 		_state               = State.PAUSED
 		_pause_panel.visible = true
+		_music.stream_paused  = true
 	else:
 		_state               = _prev_state
 		_pause_panel.visible = false
+		_music.stream_paused  = false
 
 func _on_exit_pressed() -> void:
 	if not _game_finished:

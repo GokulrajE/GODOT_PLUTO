@@ -26,7 +26,7 @@ func create_patient(patient_id: String, start_date: String, end_date: String, tr
 		push_error("DataManager: cannot create configdata")
 		return false
 	file.store_line(CONFIG_HEADER)
-	file.store_line("%s,%s,%s,0,0,0,0,0,0,0,0,0,%s,%s" % [
+	file.store_line("%s,%s,%s,0,0,0,0,0,0,0,-1,-1,%s,%s" % [
 		patient_id, start_date, end_date, training_side, location
 	])
 	file.close()
@@ -291,6 +291,35 @@ func read_control_bound(mech: String) -> float:
 				last_bound = val
 	file.close()
 	return last_bound
+
+# Returns {date_string → total_move_seconds} for the past `days` calendar days.
+func read_daily_usage(days: int) -> Dictionary:
+	var result := {}
+	var today_unix := int(Time.get_unix_time_from_system())
+	for i in range(days - 1, -1, -1):
+		var date := Time.get_date_string_from_unix_time(today_unix - i * 86400)
+		result[date] = 0.0
+
+	if not AppData.is_patient_loaded:
+		return result
+	var path := DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	if not FileAccess.file_exists(path):
+		return result
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return result
+	while not file.eof_reached():
+		var line := file.get_line().strip_edges()
+		if line.is_empty() or line.begins_with(":"):
+			continue
+		var p := line.split(",")
+		if p.size() < 18 or not p[0].strip_edges().is_valid_int():
+			continue
+		var date_str := p[1].strip_edges().left(10)
+		if result.has(date_str):
+			result[date_str] += float(p[17].strip_edges())
+	file.close()
+	return result
 
 # ══ Path helpers ════════════════════════════════════════════════════════
 
