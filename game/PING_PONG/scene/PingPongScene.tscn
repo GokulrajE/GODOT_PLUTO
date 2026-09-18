@@ -3,10 +3,13 @@
 [ext_resource type="Script" uid="uid://chm5588eh5gpw" path="res://game/PING_PONG/scripts/ping_pong_game.gd" id="1_game"]
 [ext_resource type="Texture2D" uid="uid://cyk4c2t57ntje" path="res://unityScripts/Ping Pong/Sprites/white.png" id="2_q2lub"]
 [ext_resource type="Texture2D" uid="uid://dlb0dx4vp30e5" path="res://unityScripts/Ping Pong/Sprites/Grey.png" id="3_xxhgn"]
-[ext_resource type="AudioStream" uid="uid://bm0jcwry5rsnl" path="res://game/PING_PONG/audio/bounce.wav" id="4_lxhjv"]
-[ext_resource type="AudioStream" uid="uid://xj851vtre2wr" path="res://game/PING_PONG/audio/win.wav" id="5_d7qll"]
+[ext_resource type="AudioStream" uid="uid://bm0jcwry5rsnl" path="res://unityScripts/Ping Pong/audio/bounce.wav" id="4_lxhjv"]
+[ext_resource type="AudioStream" uid="uid://xj851vtre2wr" path="res://unityScripts/Ping Pong/audio/win.wav" id="5_d7qll"]
 [ext_resource type="AudioStream" uid="uid://b6cvwhxefqge3" path="res://unityScripts/Ping Pong/audio/loose.wav" id="5_lose"]
-[ext_resource type="AudioStream" uid="uid://di6kv4et6snqy" path="res://game/PING_PONG/audio/Super Mario Bros Soundtrack.mp3" id="7_fkkc6"]
+[ext_resource type="AudioStream" uid="uid://di6kv4et6snqy" path="res://unityScripts/Ping Pong/audio/Super Mario Bros Soundtrack.mp3" id="7_fkkc6"]
+[ext_resource type="Texture2D" uid="uid://bhhylg23cl6gb" path="res://unityScripts/Ping Pong/Sprites/PPBall.png" id="8_star"]
+[ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="9_star"]
+[ext_resource type="PackedScene" uid="uid://cs5al7mnnn6u6" path="res://scenes/CelebrationCard.tscn" id="10_celeb"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(0.04, 0.05, 0.1, 0.92)
@@ -243,6 +246,35 @@ theme_override_styles/hover = SubResource("sb_exit_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Exit"
 
+[node name="StarDisplay" type="HBoxContainer" parent="UI/Header" unique_id=2050158718]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = 6.0
+offset_right = -130.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="StarImg" type="TextureRect" parent="UI/Header/StarDisplay" unique_id=1408945156]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("9_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=1358556908]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94009966, 0.82135206, 0.23233637, 1)
+theme_override_font_sizes/font_size = 55
+text = "0"
+
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1882200918]
 anchors_preset = -1
 anchor_left = 0.25
@@ -438,3 +470,7 @@ theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="CelebrationCard" parent="UI" unique_id=645678901 instance=ExtResource("10_celeb")]
+trophy_texture = ExtResource("8_star")
+score_unit = "hits"

@@ -1,0 +1,186 @@
+[gd_scene format=3 uid="uid://cs5al7mnnn6u6"]
+
+[ext_resource type="Script" uid="uid://bvvklfmcfsr45" path="res://scripts/CelebrationCard.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="2_star"]
+[ext_resource type="Texture2D" uid="uid://cowri6e0awm1f" path="res://Assets/pngwing.com (5).png" id="3_confetti"]
+[ext_resource type="Texture2D" uid="uid://c5i451ggcxque" path="res://Assets/pngwing.com (8).png" id="4_ribbon"]
+[ext_resource type="Texture2D" uid="uid://bn5vocq4ddeet" path="res://Assets/pngwing.com (3).png" id="5_popper"]
+[ext_resource type="AudioStream" uid="uid://bnrcuqebc16to" path="res://Assets/audio/celebration.mp3" id="6_audio"]
+
+[sub_resource type="StyleBoxFlat" id="card_sb"]
+bg_color = Color(0.051, 0.106, 0.165, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.871, 0.722, 0.259, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.871, 0.722, 0.259, 0.35)
+shadow_size = 12
+
+[node name="CelebrationCard" type="Control" unique_id=852639605]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1581395962]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0.08, 0.72)
+
+[node name="Card" type="Panel" parent="." unique_id=821008783]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -230.0
+offset_right = 270.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("card_sb")
+
+[node name="ConfettiBg" type="TextureRect" parent="Card" unique_id=491473117]
+modulate = Color(1, 1, 1, 0.12)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_confetti")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Ribbon" type="TextureRect" parent="Card" unique_id=1811012474]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -4.0
+offset_bottom = 80.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("4_ribbon")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PopperLeft" type="TextureRect" parent="Card" unique_id=410693949]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -110.0
+offset_right = 110.0
+offset_bottom = 10.0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("5_popper")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PopperRight" type="TextureRect" parent="Card" unique_id=1263677590]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -110.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("5_popper")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="BodyHBox" type="HBoxContainer" parent="Card" unique_id=1515656792]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 84.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Trophy" type="TextureRect" parent="Card/BodyHBox" unique_id=1757152183]
+custom_minimum_size = Vector2(160, 200)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ScoreVBox" type="VBoxContainer" parent="Card/BodyHBox" unique_id=2073439011]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=1840170640]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.871, 0.722, 0.259, 1)
+theme_override_font_sizes/font_size = 22
+text = "NEW PERSONAL BEST!"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="Card/BodyHBox/ScoreVBox" unique_id=1073304629]
+layout_mode = 2
+
+[node name="ArrowLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=390708187]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 0.6, 1)
+theme_override_font_sizes/font_size = 13
+text = "▲  You improved!  ▲"
+horizontal_alignment = 1
+
+[node name="YesterdayLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=1595734802]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.72, 0.8, 1)
+theme_override_font_sizes/font_size = 17
+text = "Yesterday:  24 catches"
+horizontal_alignment = 1
+
+[node name="TodayLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=937493658]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.871, 0.722, 0.259, 1)
+theme_override_font_sizes/font_size = 24
+text = "Today:  30 catches"
+horizontal_alignment = 1
+
+[node name="StarTex" type="TextureRect" parent="Card/BodyHBox/ScoreVBox" unique_id=1967830182]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Audio" type="AudioStreamPlayer" parent="." unique_id=1049159710]
+stream = ExtResource("6_audio")

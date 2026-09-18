@@ -84,6 +84,7 @@ var _is_cpm:     bool       = false
 @onready var _pause_panel:    Control           = $UI/PausePanel
 @onready var _over_panel:     Control           = $UI/GameOverPanel
 @onready var _final_lbl:      Label             = $UI/GameOverPanel/ScoreLabel
+@onready var _music:          AudioStreamPlayer = $Music
 @onready var _success_sfx:    AudioStreamPlayer = $SuccessSound
 @onready var _miss_sfx:       AudioStreamPlayer = $MissSound
 @onready var _speed_panel:    Panel             = $UI/SpeedPanel
@@ -111,6 +112,9 @@ func _ready() -> void:
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
+	_yesterday_hits = DataManager.read_yesterday_hits(AppData.selected_game_name, AppData.mechanism_name)
+	_celeb_card.star_reached_header.connect(_on_star_reached_header)
+	_update_star_display()
 
 func _exit_tree() -> void:
 	if EventBus.button_released.is_connected(_on_pluto_button):
@@ -216,19 +220,21 @@ func _spawn_seeds() -> void:
 		_seed_container.add_child(bar_fill)
 		_bar_fill_nodes.append(bar_fill)
 
-		# ── Seed / plant sprite ──────────────────────────────────────────────
-		var seed := TextureRect.new()
-		seed.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		seed.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-		# Fixed base rect — scale is used to resize so aspect ratio is always preserved
-		seed.size         = Vector2(SEED_SIZE, SEED_SIZE)
-		seed.scale        = Vector2(1.0, 1.0)
-		seed.position     = Vector2(cx - SEED_SIZE * 0.5, SEED_Y - SEED_SIZE)
+		# ── Seed / plant sprite (added before ring so ring draws on top) ────
+		var seed_node := TextureRect.new()
+		seed_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		seed_node.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
+		seed_node.size         = Vector2(SEED_SIZE, SEED_SIZE)
+		seed_node.scale        = Vector2(1.0, 1.0)
+		seed_node.position     = Vector2(cx - SEED_SIZE * 0.5, SEED_Y - SEED_SIZE)
 		if _seed_textures.size() > 0 and _seed_textures[0] != null:
-			seed.texture = _seed_textures[0]
-		_seed_container.add_child(seed)
-		_seed_nodes.append(seed)
+			seed_node.texture = _seed_textures[0]
+		_seed_container.add_child(seed_node)
+		_seed_nodes.append(seed_node)
 		_seed_stage.append(0)
+
+		# ── Ring must render in front of the seed, so move it to last ──────
+		_seed_container.move_child(ring, _seed_container.get_child_count() - 1)
 
 # Build shared animated rain drops (one set, repositioned to active slot)
 func _build_rain_drops() -> void:
@@ -298,10 +304,19 @@ func _set_cloud_x(x: float) -> void:
 	_cloud.position.x = x - CLOUD_W * 0.5
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
+func _draw() -> void:
+	if _arom.size() < 2 or _is_cpm: return
+	var x_left:  float = angle_to_screen(float(_arom[0]))
+	var x_right: float = angle_to_screen(float(_arom[1]))
+	var col:     Color = Color(0.0, 1.0, 1.0, 0.7)
+	draw_line(Vector2(x_left,  82.0), Vector2(x_left,  540.0), col, 2.0)
+	draw_line(Vector2(x_right, 82.0), Vector2(x_right, 540.0), col, 2.0)
+
 func _process(delta: float) -> void:
 	_move_cloud(delta)
 	_tick(delta)
 	_animate_visuals(delta)
+	queue_redraw()
 	_refresh_ui()
 	_update_log_state()
 
@@ -571,11 +586,21 @@ func _end_game() -> void:
 	_game_finished = true
 	_is_raining    = false
 	_hide_all_highlights()
+	_music.stop()
 	_save_speed()
+	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
+	var today_total := today_prior + n_success
+	_earned_star = AppData.selected_game != null and today_total > _yesterday_hits \
+		and today_total > 0 and AppData.selected_game.today_stars == 0
+	if _earned_star:
+		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
 	_final_lbl.text      = "%d / %d\nPress PLUTO button to play again" % [n_success, n_targets]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
+	if _earned_star:
+		await get_tree().create_timer(0.6).timeout
+		_show_celebration(today_total)
 
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
@@ -585,7 +610,7 @@ func _refresh_ui() -> void:
 func _update_log_state() -> void:
 	AppData.log_player_x   = _cloud_x
 	AppData.log_player_y   = CLOUD_Y + CLOUD_H * 0.5
-	AppData.log_target_x   = _slot_positions[_target_seed] if _target_seed < _slot_positions.size() else 0.0
+	AppData.log_target_x   = _slot_positions[_target_seed] if _target_seed >= 0 and _target_seed < _slot_positions.size() else 0.0
 	AppData.log_target_y   = SEED_Y
 	AppData.log_game_state = State.keys()[_state]
 	if _aan != null:
@@ -621,6 +646,34 @@ func _on_exit_pressed() -> void:
 	if not _game_finished:
 		_is_raining = false
 		_hide_all_highlights()
+		_music.stop()
 		_save_speed()
 		AppData.stop_trial(n_targets, n_success, n_failure)
 	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+
+# ── Celebration & star UI ─────────────────────────────────────────────────────
+
+var _yesterday_hits: int  = 0
+var _earned_star:    bool = false
+
+@onready var _star_img_hdr:   TextureRect = $UI/Header/StarDisplay/StarImg
+@onready var _star_count_lbl: Label       = $UI/Header/StarDisplay/StarCountLabel
+@onready var _celeb_card:     Control     = $UI/CelebrationCard
+
+func _update_star_display() -> void:
+	if _star_count_lbl == null:
+		return
+	var stars: int = AppData.selected_game.cumulative_stars if AppData.selected_game != null else 0
+	_star_count_lbl.text = str(stars)
+
+func _show_celebration(today_total: int) -> void:
+	var header_star_rect := _star_img_hdr.get_global_rect()
+	_celeb_card.show_celebration(_yesterday_hits, today_total, header_star_rect)
+
+func _on_star_reached_header() -> void:
+	_update_star_display()
+	for _i in 2:
+		var t := create_tween()
+		t.tween_property(_star_img_hdr, "modulate", Color(1.6, 1.5, 0.5, 1), 0.12)
+		t.tween_property(_star_img_hdr, "modulate", Color(1.0, 1.0, 1.0, 1), 0.12)
+		await t.finished

@@ -46,7 +46,9 @@ var _time_left:   float = TRIAL_DURATION
 var n_targets:    int   = 0
 var n_success:    int   = 0
 var n_failure:    int   = 0
-var _flash_timer: float = 0.0
+var _flash_timer:   float = 0.0
+var _player_score:  int   = 0
+var _cpu_score:     int   = 0
 
 # ── Ball physics ───────────────────────────────────────────────────────────────
 var _player_y: float = 0.0
@@ -59,6 +61,7 @@ var _ball_vy:  float = 0.0
 var _aan:           RefCounted = null
 var _use_aan:       bool       = false
 var _is_cpm:        bool       = false
+var _pred_line:     Line2D     = null
 var _event_delay:   float      = 0.0
 var _aan_trial_set: bool       = false
 
@@ -115,6 +118,10 @@ func _ready() -> void:
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
+	_yesterday_hits = DataManager.read_yesterday_hits(AppData.selected_game_name, AppData.mechanism_name)
+	_celeb_card.star_reached_header.connect(_on_star_reached_header)
+	_update_star_display()
+	_place_arom_lines()
 
 	if _bounce_sfx.stream is AudioStreamWAV:
 		(_bounce_sfx.stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_DISABLED
@@ -207,25 +214,48 @@ func _update_paddle_positions() -> void:
 	_ball_node.position     = Vector2(_ball_x  - _ball_sz  * 0.5, _ball_y   - _ball_sz  * 0.5)
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
-func _process(delta: float) -> void:
-	_tick(delta)
-	_refresh_ui()
-	_update_log_state()
-	queue_redraw()
-
-func _draw() -> void:
-	if _arom.size() < 2: return
+func _place_arom_lines() -> void:
+	if _arom.size() < 2 or _is_cpm: return
 	var y_top: float = angle_to_screen_y(float(_arom[1]))
 	var y_bot: float = angle_to_screen_y(float(_arom[0]))
 	var x1:    float = PLAYER_X - 90.0
 	var x2:    float = PLAYER_X + 20.0
 	var col:   Color = Color(0.0, 1.0, 1.0, 0.75)
-	draw_line(Vector2(x1, y_top), Vector2(x2, y_top), col, 2.0)
-	draw_line(Vector2(x1, y_bot), Vector2(x2, y_bot), col, 2.0)
-	draw_line(Vector2(x1, y_top), Vector2(x1, y_bot), Color(0.0, 1.0, 1.0, 0.3), 2.0)
+	var lines_data: Array = [
+		[Vector2(x1, y_top - 1.0), Vector2(x2 - x1, 2.0), col],
+		[Vector2(x1, y_bot - 1.0), Vector2(x2 - x1, 2.0), col],
+		[Vector2(x1, minf(y_top, y_bot)), Vector2(2.0, absf(y_bot - y_top)), Color(0.0, 1.0, 1.0, 0.3)],
+	]
+	for d in lines_data:
+		var line := ColorRect.new()
+		line.position     = d[0]
+		line.size         = d[1]
+		line.color        = d[2]
+		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(line)
+		move_child(line, $UI.get_index())
+	_pred_line = Line2D.new()
+	_pred_line.width         = 2.0
+	_pred_line.default_color = Color(1.0, 1.0, 0.0, 0.7)
+	_pred_line.visible       = false
+	add_child(_pred_line)
+	move_child(_pred_line, $UI.get_index())
+
+func _update_prediction_line() -> void:
+	if _pred_line == null: return
 	if _ball_vx > 0.0 and _state == State.MOVE:
 		var pred_y: float = _predict_ball_y_at_player()
-		draw_circle(Vector2(PLAYER_X - _player_w * 0.5 - 10.0, pred_y), 6.0, Color(1.0, 1.0, 0.0, 0.85))
+		var hit_x:  float = PLAYER_X - _player_w * 0.5
+		_pred_line.points  = PackedVector2Array([Vector2(_ball_x, _ball_y), Vector2(hit_x, pred_y)])
+		_pred_line.visible = true
+	else:
+		_pred_line.visible = false
+
+func _process(delta: float) -> void:
+	_tick(delta)
+	_refresh_ui()
+	_update_log_state()
+	_update_prediction_line()
 
 func _tick(delta: float) -> void:
 	var playing := (_state != State.WAITING and _state != State.PAUSED
@@ -297,12 +327,14 @@ func _tick(delta: float) -> void:
 
 			if _ball_x - _ball_sz * 0.5 > GAME_RIGHT:
 				n_failure += 1
+				_cpu_score += 1
 				_lose_sfx.play()
 				_flash_rect.color   = Color(0.9, 0.1, 0.1, 0.3)
 				_flash_rect.visible = true
 				_flash_timer = 0.55
 				_state = State.SCORE_FLASH
 			elif _ball_x + _ball_sz * 0.5 < GAME_LEFT:
+				_player_score += 1
 				_win_sfx.play()
 				_flash_rect.color   = Color(0.1, 0.85, 0.3, 0.25)
 				_flash_rect.visible = true
@@ -380,6 +412,7 @@ func _update_pluto_aan_target() -> void:
 func _begin_game() -> void:
 	_time_left = TRIAL_DURATION
 	n_targets  = 0; n_success = 0; n_failure = 0
+	_player_score = 0; _cpu_score = 0
 	_wait_panel.visible  = false
 	_speed_panel.visible = false
 	_music.play()
@@ -399,16 +432,26 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	_music.stop()
 	_save_speed()
+	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
+	var today_total := today_prior + n_success
+	_earned_star = AppData.selected_game != null and today_total > _yesterday_hits \
+		and today_total > 0 and AppData.selected_game.today_stars == 0
+	if _earned_star:
+		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
-	_final_lbl.text     = "You: %d  |  CPU: %d\nPress PLUTO button to play again" % [n_success, n_failure]
+	_final_lbl.text     = "You: %d  |  CPU: %d\nPress PLUTO button to play again" % [_player_score, _cpu_score]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
+	if _earned_star:
+		await get_tree().create_timer(0.6).timeout
+		_show_celebration(today_total)
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
-	_score_lbl.text = "You %d  :  %d CPU" % [n_success, n_failure]
+	_score_lbl.text = "You %d  :  %d CPU" % [_player_score, _cpu_score]
 
 func _update_log_state() -> void:
 	AppData.log_player_x   = PLAYER_X
@@ -444,7 +487,35 @@ func _toggle_pause() -> void:
 		_state = _prev_state; _pause_panel.visible = false
 
 func _on_exit_pressed() -> void:
+	_music.stop()
 	if not _game_finished:
 		_save_speed()
 		AppData.stop_trial(n_targets, n_success, n_failure)
 	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+
+# ── Celebration & star UI ─────────────────────────────────────────────────────
+
+var _yesterday_hits: int  = 0
+var _earned_star:    bool = false
+
+@onready var _star_img_hdr:   TextureRect = $UI/Header/StarDisplay/StarImg
+@onready var _star_count_lbl: Label       = $UI/Header/StarDisplay/StarCountLabel
+@onready var _celeb_card:     Control     = $UI/CelebrationCard
+
+func _update_star_display() -> void:
+	if _star_count_lbl == null:
+		return
+	var stars: int = AppData.selected_game.cumulative_stars if AppData.selected_game != null else 0
+	_star_count_lbl.text = str(stars)
+
+func _show_celebration(today_total: int) -> void:
+	var header_star_rect := _star_img_hdr.get_global_rect()
+	_celeb_card.show_celebration(_yesterday_hits, today_total, header_star_rect)
+
+func _on_star_reached_header() -> void:
+	_update_star_display()
+	for _i in 2:
+		var t := create_tween()
+		t.tween_property(_star_img_hdr, "modulate", Color(1.6, 1.5, 0.5, 1), 0.12)
+		t.tween_property(_star_img_hdr, "modulate", Color(1.0, 1.0, 1.0, 1), 0.12)
+		await t.finished

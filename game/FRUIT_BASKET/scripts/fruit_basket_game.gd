@@ -16,9 +16,9 @@ const SLOT_COUNT:     int   = 5
 
 const FRUIT_NAMES = ["apple", "lemon", "orange", "strawberry", "blueberry"]
 
-const CAUGHT_ICON_W:    float = 40.0
-const CAUGHT_PER_ROW:   int   = 4
-const BASKET_FLOOR_Y:   float = 50.0  # offset below basket centre to the interior floor
+const CAUGHT_ICON_W:      float = 40.0
+const CAUGHT_PER_ROW:     int   = 4
+const BASKET_RIM_OFFSET:  float = 50.0  # pixels above basket sprite centre to the rim
 
 # ── Speed ─────────────────────────────────────────────────────────────────────
 const MIN_SPEED:          float = 10.0
@@ -113,6 +113,10 @@ func _ready() -> void:
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
+	_yesterday_hits = DataManager.read_yesterday_hits(AppData.selected_game_name, AppData.mechanism_name)
+	_celeb_card.star_reached_header.connect(_on_star_reached_header)
+	_update_star_display()
+	_place_arom_lines()
 
 func _exit_tree() -> void:
 	if EventBus.button_released.is_connected(_on_pluto_button):
@@ -278,6 +282,20 @@ func _set_fruit_x(x: float) -> void:
 		_current_fruit.position.x = x - FRUIT_SIZE * 0.5
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
+func _place_arom_lines() -> void:
+	if _arom.size() < 2 or _is_cpm: return
+	var col:     Color = Color(0.0, 1.0, 1.0, 0.7)
+	var x_left:  float = angle_to_screen(float(_arom[0]))
+	var x_right: float = angle_to_screen(float(_arom[1]))
+	for x in [x_left, x_right]:
+		var line := ColorRect.new()
+		line.color        = col
+		line.size         = Vector2(2.0, 538.0)
+		line.position     = Vector2(x - 1.0, 82.0)
+		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(line)
+		move_child(line, $UI.get_index())
+
 func _process(delta: float) -> void:
 	_anim_t      += delta
 	_flash_timer   = maxf(_flash_timer - delta, 0.0)
@@ -497,9 +515,9 @@ func _caught_icon_rest_pos(slot: int, idx: int) -> Vector2:
 	var col:    int   = idx % CAUGHT_PER_ROW
 	var row:    int   = int(float(idx) / CAUGHT_PER_ROW)
 	var start_x: float = cx - (CAUGHT_PER_ROW * CAUGHT_ICON_W) * 0.5
-	# Row 0 sits at the basket floor; rows stack upward with no gap
+	# Row 0 sits at the basket rim; rows stack upward
 	return Vector2(start_x + col * CAUGHT_ICON_W,
-				   rest_y + BASKET_FLOOR_Y - (row + 1) * CAUGHT_ICON_W)
+				   rest_y - BASKET_RIM_OFFSET - row * CAUGHT_ICON_W)
 
 func _place_caught_icon(slot: int, fruit_type: int) -> void:
 	if fruit_type >= _fruit_textures.size() or _fruit_textures[fruit_type] == null:
@@ -571,10 +589,19 @@ func _end_game() -> void:
 	_game_finished = true
 	_kill_fruit()
 	_save_speed()
+	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
+	var today_total := today_prior + n_success
+	_earned_star = AppData.selected_game != null and today_total > _yesterday_hits \
+		and today_total > 0 and AppData.selected_game.today_stars == 0
+	if _earned_star:
+		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
 	_final_lbl.text      = "%d / %d\nPress PLUTO button to play again" % [n_success, n_targets]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
+	if _earned_star:
+		await get_tree().create_timer(0.6).timeout
+		_show_celebration(today_total)
 
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
@@ -623,3 +650,30 @@ func _on_exit_pressed() -> void:
 		_save_speed()
 		AppData.stop_trial(n_targets, n_success, n_failure)
 	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+
+# ── Celebration & star UI ─────────────────────────────────────────────────────
+
+var _yesterday_hits: int  = 0
+var _earned_star:    bool = false
+
+@onready var _star_img_hdr:   TextureRect = $UI/Header/StarDisplay/StarImg
+@onready var _star_count_lbl: Label       = $UI/Header/StarDisplay/StarCountLabel
+@onready var _celeb_card:     Control     = $UI/CelebrationCard
+
+func _update_star_display() -> void:
+	if _star_count_lbl == null:
+		return
+	var stars: int = AppData.selected_game.cumulative_stars if AppData.selected_game != null else 0
+	_star_count_lbl.text = str(stars)
+
+func _show_celebration(today_total: int) -> void:
+	var header_star_rect := _star_img_hdr.get_global_rect()
+	_celeb_card.show_celebration(_yesterday_hits, today_total, header_star_rect)
+
+func _on_star_reached_header() -> void:
+	_update_star_display()
+	for _i in 2:
+		var t := create_tween()
+		t.tween_property(_star_img_hdr, "modulate", Color(1.6, 1.5, 0.5, 1), 0.12)
+		t.tween_property(_star_img_hdr, "modulate", Color(1.0, 1.0, 1.0, 1), 0.12)
+		await t.finished

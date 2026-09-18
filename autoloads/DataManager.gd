@@ -267,6 +267,38 @@ func read_star_counts(game_name: String, mech: String) -> Array:
 	file.close()
 	return [last_cu, today_stars]
 
+# Returns the total CurrentHits from today's already-written session rows for a given game+mech.
+func read_today_hits(game_name: String, mech: String) -> int:
+	var today := Time.get_date_string_from_system()
+	return _sum_hits_for_date(game_name, mech, today)
+
+# Returns the total CurrentHits from yesterday's session rows for a given game+mech.
+func read_yesterday_hits(game_name: String, mech: String) -> int:
+	var yesterday := Time.get_date_string_from_unix_time(int(Time.get_unix_time_from_system()) - 86400)
+	return _sum_hits_for_date(game_name, mech, yesterday)
+
+func _sum_hits_for_date(game_name: String, mech: String, date: String) -> int:
+	var path := DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	if not FileAccess.file_exists(path):
+		return 0
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return 0
+	var total := 0
+	while not file.eof_reached():
+		var line := file.get_line().strip_edges()
+		if line.is_empty() or line.begins_with(":"):
+			continue
+		var p := line.split(",")
+		if p.size() < 20 or not p[0].strip_edges().is_valid_int():
+			continue
+		if p[1].begins_with(date) \
+				and p[8].strip_edges() == mech \
+				and p[9].strip_edges() == game_name:
+			total += int(p[19])
+	file.close()
+	return total
+
 # Returns the NextControlBound from the last session row for this mechanism,
 # or -1.0 if none exists (caller should use the default then).
 func read_control_bound(mech: String) -> float:

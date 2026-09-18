@@ -7,6 +7,9 @@
 [ext_resource type="AudioStream" uid="uid://b2svifws5og7g" path="res://game/FRUIT_BASKET/audio/catch.wav" id="5_catch"]
 [ext_resource type="AudioStream" uid="uid://cc6lwfsm1al7h" path="res://game/FRUIT_BASKET/audio/drop.wav" id="6_miss"]
 [ext_resource type="AudioStream" uid="uid://vshbjov1wo4h" path="res://game/FRUIT_BASKET/audio/fruitch.mp3" id="6_td2ea"]
+[ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="7_star"]
+[ext_resource type="PackedScene" uid="uid://cs5al7mnnn6u6" path="res://scenes/CelebrationCard.tscn" id="8_celeb"]
+[ext_resource type="Texture2D" uid="uid://yju0q0e4igrp" path="res://game/FRUIT_BASKET/sprites/fruitbasket.png" id="10_rawg5"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(1, 1, 1, 0.88)
@@ -124,6 +127,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -80.0
+grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("3_ground")
 expand_mode = 1
@@ -223,6 +227,35 @@ theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
 theme_override_font_sizes/font_size = 24
 text = "Score: 00"
 horizontal_alignment = 1
+
+[node name="StarDisplay" type="HBoxContainer" parent="UI/Header" unique_id=987654321]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = 6.0
+offset_right = -130.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="StarImg" type="TextureRect" parent="UI/Header/StarDisplay" unique_id=876543219]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("7_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=765432198]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5058317, 0.07196803, 0.08845071, 1)
+theme_override_font_sizes/font_size = 55
+text = "0"
 
 [node name="ExitButton" type="Button" parent="UI/Header" unique_id=374698743]
 layout_mode = 1
@@ -453,3 +486,7 @@ theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="CelebrationCard" parent="UI" unique_id=654321987 instance=ExtResource("8_celeb")]
+trophy_texture = ExtResource("10_rawg5")
+score_unit = "fruits"

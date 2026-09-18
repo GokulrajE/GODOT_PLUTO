@@ -8,6 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://c2hr3lsogdjpx" path="res://game/HAT_TIRCK/audio/Ok.wav" id="7_catch"]
 [ext_resource type="AudioStream" uid="uid://bmr7yv1g0wlh5" path="res://game/HAT_TIRCK/audio/Mingle Game Song “Round and Round” Lyric Video _ Squid Game_ Season 2 _ Netflix - (320 Kbps).mp3" id="8_hlkry"]
 [ext_resource type="AudioStream" uid="uid://3a4humirr5uu" path="res://game/HAT_TIRCK/audio/Boom.wav" id="8_miss"]
+[ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="9_star"]
+[ext_resource type="PackedScene" uid="uid://cs5al7mnnn6u6" path="res://scenes/CelebrationCard.tscn" id="10_celeb"]
+[ext_resource type="Texture2D" uid="uid://db6qwygpk31q0" path="res://game/HAT_TIRCK/Sprites/celebrationPong.PNG" id="11_trophy"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(1, 1, 1, 0.88)
@@ -237,6 +240,35 @@ theme_override_styles/hover = SubResource("sb_exit_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Exit"
 
+[node name="StarDisplay" type="HBoxContainer" parent="UI/Header" unique_id=1681253194]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = 6.0
+offset_right = -130.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="StarImg" type="TextureRect" parent="UI/Header/StarDisplay" unique_id=1142441461]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("9_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=439089706]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5058317, 0.07196803, 0.08845071, 1)
+theme_override_font_sizes/font_size = 55
+text = "0"
+
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1463858368]
 visible = false
 anchors_preset = -1
@@ -450,3 +482,6 @@ theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="CelebrationCard" parent="UI" unique_id=1926175341 instance=ExtResource("10_celeb")]
+trophy_texture = ExtResource("11_trophy")

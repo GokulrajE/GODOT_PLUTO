@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dkaq6wkavu0qv" path="res://unityScripts/FlappyBirdStyleAssets/Sprites/New Folder/superstar.png" id="6_xbcjy"]
 [ext_resource type="Texture2D" uid="uid://cikihw53v7bge" path="res://unityScripts/FlappyBirdStyleAssets/Sprites/New Folder/boost.png" id="7_u6c7a"]
 [ext_resource type="AudioStream" uid="uid://jst15bqki8a4" path="res://game/TUK_TUK/audio/bgd music/naan-autokaran-intro-music-bgm-tthuvarakan_z6QAMJPH.mp3" id="10_rr4e4"]
+[ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="12_star"]
+[ext_resource type="PackedScene" uid="uid://cs5al7mnnn6u6" path="res://scenes/CelebrationCard.tscn" id="13_celeb"]
+[ext_resource type="Texture2D" uid="uid://dkomb1vckjciw" path="res://Assets/auto-removebg-preview.png" id="13_kti1y"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(1, 1, 1, 0.82)
@@ -253,6 +256,35 @@ theme_override_styles/hover = SubResource("sb_exit_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Exit"
 
+[node name="StarDisplay" type="HBoxContainer" parent="UI/Header" unique_id=1539932672]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = 6.0
+offset_right = -130.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="StarImg" type="TextureRect" parent="UI/Header/StarDisplay" unique_id=1151596909]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("12_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=2068469751]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5058317, 0.07196803, 0.08845071, 1)
+theme_override_font_sizes/font_size = 55
+text = "0"
+
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1535904641]
 anchors_preset = -1
 anchor_left = 0.25
@@ -448,3 +480,7 @@ theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="CelebrationCard" parent="UI" unique_id=888999111 instance=ExtResource("13_celeb")]
+trophy_texture = ExtResource("13_kti1y")
+score_unit = "gaps"

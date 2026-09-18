@@ -106,6 +106,10 @@ func _ready() -> void:
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
+	_yesterday_hits = DataManager.read_yesterday_hits(AppData.selected_game_name, AppData.mechanism_name)
+	_celeb_card.star_reached_header.connect(_on_star_reached_header)
+	_update_star_display()
+	_place_arom_lines()
 	var bgm = load("res://game/TUK_TUK/audio/bgd music/naan-autokaran-intro-music-bgm-tthuvarakan_z6QAMJPH.mp3")
 	if bgm:
 		$Music.stream = bgm
@@ -280,6 +284,27 @@ func _get_next_column() -> Dictionary:
 	return result
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
+func _place_arom_lines() -> void:
+	if _arom.size() < 2 or _is_cpm: return
+	var y_top: float = angle_to_screen_y(float(_arom[1]))
+	var y_bot: float = angle_to_screen_y(float(_arom[0]))
+	var x1:    float = PLAYER_X - 90.0
+	var x2:    float = PLAYER_X + 50.0
+	var col:   Color = Color(0.0, 1.0, 1.0, 0.75)
+	var lines_data: Array = [
+		[Vector2(x1, y_top - 1.0), Vector2(x2 - x1, 2.0), col],
+		[Vector2(x1, y_bot - 1.0), Vector2(x2 - x1, 2.0), col],
+		[Vector2(x1, minf(y_top, y_bot)), Vector2(2.0, absf(y_bot - y_top)), Color(0.0, 1.0, 1.0, 0.3)],
+	]
+	for d in lines_data:
+		var line := ColorRect.new()
+		line.position     = d[0]
+		line.size         = d[1]
+		line.color        = d[2]
+		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(line)
+		move_child(line, $UI.get_index())
+
 func _process(delta: float) -> void:
 	_anim_t += delta
 	_tick(delta)
@@ -430,10 +455,19 @@ func _end_game() -> void:
 	$Music.stop()
 	_clear_columns()
 	_save_speed()
+	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
+	var today_total := today_prior + n_success
+	_earned_star = AppData.selected_game != null and today_total > _yesterday_hits \
+		and today_total > 0 and AppData.selected_game.today_stars == 0
+	if _earned_star:
+		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
 	_final_lbl.text      = "%d / %d\nPress PLUTO button to play again" % [n_success, n_targets]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
+	if _earned_star:
+		await get_tree().create_timer(0.6).timeout
+		_show_celebration(today_total)
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 func _refresh_ui() -> void:
@@ -481,3 +515,30 @@ func _on_exit_pressed() -> void:
 		_save_speed()
 		AppData.stop_trial(n_targets, n_success, n_failure)
 	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+
+# ── Celebration & star UI ─────────────────────────────────────────────────────
+
+var _yesterday_hits: int  = 0
+var _earned_star:    bool = false
+
+@onready var _star_img_hdr:   TextureRect = $UI/Header/StarDisplay/StarImg
+@onready var _star_count_lbl: Label       = $UI/Header/StarDisplay/StarCountLabel
+@onready var _celeb_card:     Control     = $UI/CelebrationCard
+
+func _update_star_display() -> void:
+	if _star_count_lbl == null:
+		return
+	var stars: int = AppData.selected_game.cumulative_stars if AppData.selected_game != null else 0
+	_star_count_lbl.text = str(stars)
+
+func _show_celebration(today_total: int) -> void:
+	var header_star_rect := _star_img_hdr.get_global_rect()
+	_celeb_card.show_celebration(_yesterday_hits, today_total, header_star_rect)
+
+func _on_star_reached_header() -> void:
+	_update_star_display()
+	for _i in 2:
+		var t := create_tween()
+		t.tween_property(_star_img_hdr, "modulate", Color(1.6, 1.5, 0.5, 1), 0.12)
+		t.tween_property(_star_img_hdr, "modulate", Color(1.0, 1.0, 1.0, 1), 0.12)
+		await t.finished

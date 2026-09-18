@@ -61,6 +61,10 @@ var _use_aan:    bool       = false
 var _game_speed: float      = 10.0
 var _is_cpm:     bool       = false
 
+# ── Celebration / stars ───────────────────────────────────────────────────────
+var _yesterday_hits: int  = 0
+var _earned_star:    bool = false
+
 # ── Node refs ────────────────────────────────────────────────────────────────
 @onready var _hat_back:       TextureRect        = $HatBack
 @onready var _hat_front:      TextureRect        = $HatFront
@@ -98,6 +102,10 @@ func _ready() -> void:
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
+	_yesterday_hits = DataManager.read_yesterday_hits(
+		AppData.selected_game_name, AppData.mechanism_name)
+	_celeb_card.star_reached_header.connect(_on_star_reached_header)
+	_update_star_display()
 
 func _exit_tree() -> void:
 	if EventBus.button_released.is_connected(_on_pluto_button):
@@ -395,10 +403,24 @@ func _end_game() -> void:
 	_kill_ball()
 	_music.stop()
 	_save_speed()
+	# Today total = hits already written this session + this trial's hits
+	var today_prior := DataManager.read_today_hits(
+		AppData.selected_game_name, AppData.mechanism_name)
+	var today_total := today_prior + n_success
+
+	# Award star before stop_trial so it's written to the session file
+	_earned_star = AppData.selected_game != null \
+		and today_total > _yesterday_hits and today_total > 0 \
+		and AppData.selected_game.today_stars == 0
+	if _earned_star:
+		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
 	_final_lbl.text = "%d / %d\nPress PLUTO button to play again" % [n_success, n_targets]
-	_over_panel.visible = true
+	_over_panel.visible  = true
 	_speed_panel.visible = false
+	if _earned_star:
+		await get_tree().create_timer(0.6).timeout
+		_show_celebration(today_total)
 
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
@@ -440,3 +462,27 @@ func _on_exit_pressed() -> void:
 		_save_speed()
 		AppData.stop_trial(n_targets, n_success, n_failure)
 	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+
+# ── Celebration & star UI ─────────────────────────────────────────────────────
+
+@onready var _star_img_hdr:   TextureRect = $UI/Header/StarDisplay/StarImg
+@onready var _star_count_lbl: Label       = $UI/Header/StarDisplay/StarCountLabel
+@onready var _celeb_card:     Control     = $UI/CelebrationCard
+
+func _update_star_display() -> void:
+	if _star_count_lbl == null:
+		return
+	var stars: int = AppData.selected_game.cumulative_stars if AppData.selected_game != null else 0
+	_star_count_lbl.text = str(stars)
+
+func _show_celebration(today_total: int) -> void:
+	var header_star_rect := _star_img_hdr.get_global_rect()
+	_celeb_card.show_celebration(_yesterday_hits, today_total, header_star_rect)
+
+func _on_star_reached_header() -> void:
+	_update_star_display()
+	for _i in 2:
+		var t := create_tween()
+		t.tween_property(_star_img_hdr, "modulate", Color(1.6, 1.5, 0.5, 1), 0.12)
+		t.tween_property(_star_img_hdr, "modulate", Color(1.0, 1.0, 1.0, 1), 0.12)
+		await t.finished

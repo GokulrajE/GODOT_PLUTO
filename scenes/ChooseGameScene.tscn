@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bq0summpb3dw4" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
 [ext_resource type="Texture2D" uid="uid://djyitj4bsm7g0" path="res://Assets/hat.png" id="2_5uoe4"]
-[ext_resource type="Texture2D" uid="uid://es3wusu602lv" path="res://game/FRUIT_BASKET/sprites/basket.png" id="3_basket"]
+[ext_resource type="Texture2D" uid="uid://yju0q0e4igrp" path="res://game/FRUIT_BASKET/sprites/fruitbasket.png" id="3_5uoe4"]
 [ext_resource type="Texture2D" uid="uid://bpyudfyxj3jx6" path="res://game/RNR/sprites/plant_stage5.png" id="4_plant"]
-[ext_resource type="Texture2D" uid="uid://d0fnu6l7je76x" path="res://Assets/auto.png" id="5_hednk"]
+[ext_resource type="Texture2D" uid="uid://dkomb1vckjciw" path="res://Assets/auto-removebg-preview.png" id="5_5uoe4"]
 [ext_resource type="Texture2D" uid="uid://dnhlkiqrpp33l" path="res://unityScripts/Ping Pong/Sprites/—Pngtree—vector ping pong icon_4046610.png" id="6_pp"]
 
 [sub_resource type="StyleBoxFlat" id="sb_header"]
@@ -378,7 +378,7 @@ theme_override_styles/hover = SubResource("sb_fruit_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "FRUIT BASKET
 Catch falling fruits"
-icon = ExtResource("3_basket")
+icon = ExtResource("3_5uoe4")
 expand_icon = true
 
 [node name="RNRButton" type="Button" parent="GameGrid" unique_id=582748105]
@@ -412,7 +412,7 @@ theme_override_styles/hover = SubResource("sb_tuk_h")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "TUK-TUK
 Drive through the rocks"
-icon = ExtResource("5_hednk")
+icon = ExtResource("5_5uoe4")
 expand_icon = true
 
 [node name="PingPongButton" type="Button" parent="GameGrid" unique_id=1486748105]
