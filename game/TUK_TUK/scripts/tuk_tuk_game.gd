@@ -69,6 +69,7 @@ var _aan:          RefCounted = null
 var _use_aan:      bool       = false
 var _is_cpm:       bool       = false
 var _event_delay:  float      = 0.0
+var _arom_nodes:   Array      = []
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _player:         TextureRect       = $Player
@@ -184,7 +185,7 @@ func _decrease_speed() -> void:
 
 func _refresh_speed_label() -> void:
 	_speed_lbl.text      = "%d" % int(_game_speed)
-	_speed_info_lbl.text = "Scroll: %.0f px/s" % _scroll_speed
+	_speed_info_lbl.text = "Scroll: %.0f px/s\nBound: %.2f" % [_scroll_speed, AppData.assist_bound]
 
 func _save_speed() -> void:
 	if AppData.speed_data != null:
@@ -302,8 +303,10 @@ func _place_arom_lines() -> void:
 		line.size         = d[1]
 		line.color        = d[2]
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		line.visible      = false
 		add_child(line)
 		move_child(line, $UI.get_index())
+		_arom_nodes.append(line)
 
 func _process(delta: float) -> void:
 	_anim_t += delta
@@ -494,6 +497,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
+		for n in _arom_nodes: n.visible = _speed_panel.visible
+		_refresh_speed_label()
 
 func _on_pluto_button() -> void:
 	match _state:

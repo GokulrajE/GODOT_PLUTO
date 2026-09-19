@@ -80,6 +80,7 @@ var _aan:        RefCounted = null
 var _use_aan:    bool       = false
 var _game_speed: float      = 10.0
 var _is_cpm:     bool       = false
+var _arom_nodes: Array      = []
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _fruit_container:  Control           = $FruitContainer
@@ -259,7 +260,7 @@ func _decrease_speed() -> void:
 
 func _refresh_speed_label() -> void:
 	_speed_lbl.text      = "%d" % int(_game_speed)
-	_speed_info_lbl.text = "Duration: %.1f s" % _move_duration
+	_speed_info_lbl.text = "Duration: %.1f s\nBound: %.2f" % [_move_duration, AppData.assist_bound]
 
 func _save_speed() -> void:
 	if AppData.speed_data != null:
@@ -293,8 +294,10 @@ func _place_arom_lines() -> void:
 		line.size         = Vector2(2.0, 538.0)
 		line.position     = Vector2(x - 1.0, 82.0)
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		line.visible      = false
 		add_child(line)
 		move_child(line, $UI.get_index())
+		_arom_nodes.append(line)
 
 func _process(delta: float) -> void:
 	_anim_t      += delta
@@ -630,6 +633,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
+		for n in _arom_nodes: n.visible = _speed_panel.visible
+		_refresh_speed_label()
 
 func _on_pluto_button() -> void:
 	match _state:

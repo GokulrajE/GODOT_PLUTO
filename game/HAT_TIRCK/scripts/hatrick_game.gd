@@ -158,8 +158,8 @@ func _decrease_speed() -> void:
 	_refresh_speed_label()
 
 func _refresh_speed_label() -> void:
-	_speed_lbl.text = "%d" % int(_game_speed)
-	_speed_info_lbl.text = "Duration: %.1f s" % _move_duration
+	_speed_lbl.text      = "%d" % int(_game_speed)
+	_speed_info_lbl.text = "Duration: %.1f s\nBound: %.2f" % [_move_duration, AppData.assist_bound]
 
 func _save_speed() -> void:
 	if AppData.speed_data != null:
@@ -167,13 +167,14 @@ func _save_speed() -> void:
 		AppData.speed_data.set_move_duration(_move_duration)
 
 func _place_arom_lines() -> void:
-	# In CPM mode AROM is ~0 range — hide the lines as they'd overlap at centre
 	if _arom.size() < 2 or _is_cpm:
 		_arom_left.visible  = false
 		_arom_right.visible = false
 		return
 	_arom_left.position.x  = angle_to_screen(_arom[0]) - 1.0
 	_arom_right.position.x = angle_to_screen(_arom[1]) - 1.0
+	_arom_left.visible  = false
+	_arom_right.visible = false
 
 func angle_to_screen(angle: float) -> float:
 	if _aprom.size() < 2 or _aprom[0] == _aprom[1]:
@@ -433,6 +434,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
+		if not (_arom.size() < 2 or _is_cpm):
+			_arom_left.visible  = _speed_panel.visible
+			_arom_right.visible = _speed_panel.visible
+		_refresh_speed_label()
 
 func _on_pluto_button() -> void:
 	match _state:

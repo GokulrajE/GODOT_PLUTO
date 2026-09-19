@@ -1,5 +1,7 @@
 extends Node
 
+const SETTINGS_PATH: String = "user://game_settings.cfg"
+
 const _PlutoMechanism = preload("res://scripts/data/PlutoMechanism.gd")
 const _PlutoGame      = preload("res://scripts/data/PlutoGame.gd")
 const _MechanismSpeed = preload("res://scripts/data/MechanismSpeed.gd")
@@ -80,6 +82,23 @@ var log_game_state: String = ""
 var log_aan_target: float  = 0.0
 var log_aan_init:   float  = 0.0
 var log_aan_state:  String = ""
+
+# ── Game settings (persisted across sessions) ─────────────────────────
+var ping_pong_easy_mode: bool = true
+
+func _ready() -> void:
+	load_settings()
+
+func load_settings() -> void:
+	var cfg := ConfigFile.new()
+	if cfg.load(SETTINGS_PATH) == OK:
+		ping_pong_easy_mode = cfg.get_value("ping_pong", "easy_mode", true)
+
+func save_settings() -> void:
+	var cfg := ConfigFile.new()
+	cfg.load(SETTINGS_PATH)
+	cfg.set_value("ping_pong", "easy_mode", ping_pong_easy_mode)
+	cfg.save(SETTINGS_PATH)
 
 # ── HOC helpers ───────────────────────────────────────────────────────
 func hoc_to_cm(angle: float) -> float:

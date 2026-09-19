@@ -74,6 +74,7 @@ var _aan:        RefCounted = null
 var _use_aan:    bool       = false
 var _game_speed: float      = 10.0
 var _is_cpm:     bool       = false
+var _show_arom:  bool       = false
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _cloud:          TextureRect       = $Cloud
@@ -282,7 +283,7 @@ func _decrease_speed() -> void:
 
 func _refresh_speed_label() -> void:
 	_speed_lbl.text      = "%d" % int(_game_speed)
-	_speed_info_lbl.text = "Duration: %.1f s" % _move_duration
+	_speed_info_lbl.text = "Duration: %.1f s\nBound: %.2f" % [_move_duration, AppData.assist_bound]
 
 func _save_speed() -> void:
 	if AppData.speed_data != null:
@@ -305,7 +306,7 @@ func _set_cloud_x(x: float) -> void:
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
 func _draw() -> void:
-	if _arom.size() < 2 or _is_cpm: return
+	if not _show_arom or _arom.size() < 2 or _is_cpm: return
 	var x_left:  float = angle_to_screen(float(_arom[0]))
 	var x_right: float = angle_to_screen(float(_arom[1]))
 	var col:     Color = Color(0.0, 1.0, 1.0, 0.7)
@@ -628,6 +629,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
+		_show_arom = _speed_panel.visible
+		queue_redraw()
+		_refresh_speed_label()
 
 func _on_pluto_button() -> void:
 	match _state:

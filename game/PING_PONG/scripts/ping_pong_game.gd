@@ -61,7 +61,9 @@ var _ball_vy:  float = 0.0
 var _aan:           RefCounted = null
 var _use_aan:       bool       = false
 var _is_cpm:        bool       = false
-var _pred_line:     Line2D     = null
+var _arom_nodes:    Array      = []
+var _pred_segs:     Array      = []
+const PRED_SEG_COUNT: int      = 100
 var _event_delay:   float      = 0.0
 var _aan_trial_set: bool       = false
 
@@ -95,7 +97,8 @@ func _ready() -> void:
 	_player_h = _player_paddle.size.y
 	_enemy_w  = _enemy_paddle.size.x
 	_enemy_h  = _enemy_paddle.size.y
-	_ball_sz  = max(_ball_node.size.x, _ball_node.size.y)
+	_ball_node.size = Vector2(20.0, 20.0)
+	_ball_sz  = 20.0
 
 	_create_center_dashes()
 	_init_rom_data()
@@ -152,7 +155,7 @@ func _decrease_speed() -> void:
 
 func _refresh_speed_label() -> void:
 	_speed_lbl.text      = "%d" % int(_game_speed)
-	_speed_info_lbl.text = "Ball: %.0f px/s" % _ball_speed
+	_speed_info_lbl.text = "Ball: %.0f px/s\nBound: %.2f" % [_ball_speed, AppData.assist_bound]
 
 func _save_speed() -> void:
 	if AppData.speed_data != null:
@@ -232,24 +235,100 @@ func _place_arom_lines() -> void:
 		line.size         = d[1]
 		line.color        = d[2]
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		line.visible      = false
 		add_child(line)
 		move_child(line, $UI.get_index())
-	_pred_line = Line2D.new()
-	_pred_line.width         = 2.0
-	_pred_line.default_color = Color(1.0, 1.0, 0.0, 0.7)
-	_pred_line.visible       = false
-	add_child(_pred_line)
-	move_child(_pred_line, $UI.get_index())
+		_arom_nodes.append(line)
+	# Pre-allocate dashed prediction segments
+	for _i in PRED_SEG_COUNT:
+		var seg := Line2D.new()
+		seg.width         = 2.0
+		seg.default_color = Color(1.0, 1.0, 0.0, 0.7)
+		seg.visible       = false
+		add_child(seg)
+		move_child(seg, $UI.get_index())
+		_pred_segs.append(seg)
+	# Easy Mode toggle — always visible, bottom-left corner of game area
+	var easy_btn := CheckButton.new()
+	easy_btn.text           = "Easy Mode"
+	easy_btn.button_pressed = AppData.ping_pong_easy_mode
+	easy_btn.size           = Vector2(160.0, 36.0)
+	easy_btn.position       = Vector2(8.0, GAME_BOTTOM - 44.0)
+	easy_btn.add_theme_font_size_override("font_size", 16)
+	easy_btn.toggled.connect(func(on: bool) -> void:
+		AppData.ping_pong_easy_mode = on
+		AppData.save_settings())
+	$UI.add_child(easy_btn)
+
+func _get_ball_path_points() -> PackedVector2Array:
+	if _ball_vx <= 0.0: return PackedVector2Array()
+	var pts: Array[Vector2] = []
+	var x:   float = _ball_x
+	var y:   float = _ball_y
+	var vy:  float = _ball_vy
+	var tx:  float = PLAYER_X - _player_w * 0.5
+	pts.append(Vector2(x, y))
+	for _b in 12:
+		if x >= tx: break
+		var ttc:    float = (tx - x) / _ball_vx
+		var t_wall: float = INF
+		if vy < 0.0:
+			t_wall = (GAME_TOP - y) / vy
+		elif vy > 0.0:
+			t_wall = (GAME_BOTTOM - y) / vy
+		if t_wall <= 0.001 or t_wall >= ttc:
+			pts.append(Vector2(tx, y + vy * ttc))
+			break
+		x += _ball_vx * t_wall
+		y += vy * t_wall
+		pts.append(Vector2(x, y))
+		vy = -vy
+	return PackedVector2Array(pts)
+
+func _path_pt(segs: Array, lengths: Array, dist: float) -> Vector2:
+	var cum: float = 0.0
+	for k in segs.size():
+		if dist <= cum + lengths[k]:
+			var t: float = (dist - cum) / maxf(lengths[k], 0.001)
+			return (segs[k][0] as Vector2).lerp(segs[k][1] as Vector2, t)
+		cum += lengths[k]
+	return segs[-1][1] as Vector2
 
 func _update_prediction_line() -> void:
-	if _pred_line == null: return
-	if _ball_vx > 0.0 and _state == State.MOVE:
-		var pred_y: float = _predict_ball_y_at_player()
-		var hit_x:  float = PLAYER_X - _player_w * 0.5
-		_pred_line.points  = PackedVector2Array([Vector2(_ball_x, _ball_y), Vector2(hit_x, pred_y)])
-		_pred_line.visible = true
-	else:
-		_pred_line.visible = false
+	if _pred_segs.is_empty(): return
+	if not AppData.ping_pong_easy_mode or _ball_vx <= 0.0 or _state != State.MOVE:
+		for seg in _pred_segs: seg.visible = false
+		return
+	var path: PackedVector2Array = _get_ball_path_points()
+	if path.size() < 2:
+		for seg in _pred_segs: seg.visible = false
+		return
+	var p_segs:  Array = []
+	var lengths: Array = []
+	var total:   float = 0.0
+	for k in range(path.size() - 1):
+		var l: float = path[k].distance_to(path[k + 1])
+		p_segs.append([path[k], path[k + 1]])
+		lengths.append(l)
+		total += l
+	if total < 0.001:
+		for seg in _pred_segs: seg.visible = false
+		return
+	const DASH: float = 14.0
+	const GAP:  float = 8.0
+	var d: float = 0.0
+	var i: int   = 0
+	while d < total and i < _pred_segs.size():
+		var d_end: float = minf(d + DASH, total)
+		(_pred_segs[i] as Line2D).points  = PackedVector2Array([
+			_path_pt(p_segs, lengths, d),
+			_path_pt(p_segs, lengths, d_end)])
+		(_pred_segs[i] as Line2D).visible = true
+		i += 1
+		d += DASH + GAP
+	while i < _pred_segs.size():
+		(_pred_segs[i] as Line2D).visible = false
+		i += 1
 
 func _process(delta: float) -> void:
 	_tick(delta)
@@ -325,7 +404,7 @@ func _tick(delta: float) -> void:
 					_bounce_sfx.pitch_scale = 1.0
 					_bounce_sfx.play()
 
-			if _ball_x - _ball_sz * 0.5 > GAME_RIGHT:
+			if _ball_x + _ball_sz * 0.5 > GAME_RIGHT:
 				n_failure += 1
 				_cpu_score += 1
 				_lose_sfx.play()
@@ -441,7 +520,7 @@ func _end_game() -> void:
 	if _earned_star:
 		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
-	_final_lbl.text     = "You: %d  |  CPU: %d\nPress PLUTO button to play again" % [_player_score, _cpu_score]
+	_final_lbl.text     = "You: %d  |  CPU: %d\nPress PLUTO button to play again" % [n_success, n_targets]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
 	if _earned_star:
@@ -451,7 +530,7 @@ func _end_game() -> void:
 # ── UI ────────────────────────────────────────────────────────────────────────
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
-	_score_lbl.text = "You %d  :  %d CPU" % [_player_score, _cpu_score]
+	_score_lbl.text = "You %d  :  %d CPU" % [n_success, n_targets]
 
 func _update_log_state() -> void:
 	AppData.log_player_x   = PLAYER_X
@@ -472,6 +551,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
+		for n in _arom_nodes: n.visible = _speed_panel.visible
+		_refresh_speed_label()
 
 func _on_pluto_button() -> void:
 	match _state:
