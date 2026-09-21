@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1789796169
+::res://::1789962896
 CLAUDE.md::TextFile::-1::1789020601::0::1::::<><><>0<>0<><>::
 SerialTest.gd::GDScript::5269879769891141218::1789020601::0::1::::<>Control<><>0<>0<><>::
 serial_test.tscn::PackedScene::3165332070315215::1789020602::0::1::::<><><>0<>0<><>::res://SerialTest.gd
@@ -16,7 +16,7 @@ README.md::TextFile::-1::1789020601::0::1::::<><><>0<>0<><>::
 ::res://addons/gdserial/bin/macos-arm64/::1789020601
 ::res://addons/gdserial/bin/macos-x86_64/::1789020601
 ::res://addons/gdserial/bin/windows-arm64/::1789020601
-::res://addons/gdserial/bin/windows-x86_64/::1789796163
+::res://addons/gdserial/bin/windows-x86_64/::1789962892
 ::res://addons/gdserial/doc/::1789020601
 ::res://addons/gdserial/doc/en/::1789020601
 GdSerial.xml::TextFile::-1::1789020601::0::1::::<><><>0<>0<><>::
@@ -341,7 +341,7 @@ FPS-rom.PromMin.translation::OptimizedTranslation::7830478766862591274::17896392
 ::res://data/devmode8/session/::1789639250
 sessions.csv::Translation::6057804973492346399::1789639003::1789639250::1::::<><><>0<>0<>5ca28c388052758676e18193a4b5e976<>::
 ::res://data/devmode9/::1789643934
-::res://data/devmode9/applog/::1789715505
+::res://data/devmode9/applog/::1789969552
 2026-09-17T16-08-29-application.log::TextFile::-1::1789642029::0::1::::<><><>0<>0<><>::
 2026-09-17T16-21-48-application.log::TextFile::-1::1789642308::0::1::::<><><>0<>0<><>::
 2026-09-17T16-22-27-application.log::TextFile::-1::1789642347::0::1::::<><><>0<>0<><>::
@@ -372,6 +372,7 @@ sessions.csv::Translation::6057804973492346399::1789639003::1789639250::1::::<><
 2026-09-18T12-25-33-application.log::TextFile::-1::1789714678::0::1::::<><><>0<>0<><>::
 2026-09-18T12-37-03-application.log::TextFile::-1::1789715300::0::1::::<><><>0<>0<><>::
 2026-09-18T12-41-45-application.log::TextFile::-1::1789715584::0::1::::<><><>0<>0<><>::
+2026-09-21T11-15-52-application.log::TextFile::-1::1789969552::0::1::::<><><>0<>0<><>::
 ::res://data/devmode9/mech/::1789715609
 FME1-mechparams.csv::Translation::4291753618229698030::1789646786::1789646796::1::::<><><>0<>0<>07f832d9a474949ece8a9ae9dbfb128c<>::
 FME2-mechparams.csv::Translation::3182348233155306555::1789646158::1789646178::1::::<><><>0<>0<>833c0b67c81130fda7057aeedcbf2ecf<>::
@@ -401,7 +402,7 @@ FPS-rom.PromMin.translation::OptimizedTranslation::5351987491414252702::17896422
 ::res://data/devmode9/session/::1789715609
 sessions.csv::Translation::7431481643333797009::1789715584::1789715609::1::::<><><>0<>0<>53647dc23dd0247b6ea41d784f617700<>::
 ::res://data/DEVMODE10/::1789717407
-::res://data/DEVMODE10/applog/::1789799632
+::res://data/DEVMODE10/applog/::1789974921
 2026-09-18T13-13-36-application.log::TextFile::-1::1789718134::0::1::::<><><>0<>0<><>::
 2026-09-18T14-26-06-application.log::TextFile::-1::1789722413::0::1::::<><><>0<>0<><>::
 2026-09-18T15-51-39-application.log::TextFile::-1::1789727111::0::1::::<><><>0<>0<><>::
@@ -415,11 +416,28 @@ sessions.csv::Translation::7431481643333797009::1789715584::1789715609::1::::<><
 2026-09-19T11-57-24-application.log::TextFile::-1::1789799340::0::1::::<><><>0<>0<><>::
 2026-09-19T11-59-41-application.log::TextFile::-1::1789799452::0::1::::<><><>0<>0<><>::
 2026-09-19T12-03-52-application.log::TextFile::-1::1789799713::0::1::::<><><>0<>0<><>::
-::res://data/DEVMODE10/mech/::1789799546
+2026-09-21T09-22-38-application.log::TextFile::-1::1789962758::0::1::::<><><>0<>0<><>::
+2026-09-21T09-24-13-application.log::TextFile::-1::1789962853::0::1::::<><><>0<>0<><>::
+2026-09-21T09-25-21-application.log::TextFile::-1::1789962921::0::1::::<><><>0<>0<><>::
+2026-09-21T09-25-56-application.log::TextFile::-1::1789962956::0::1::::<><><>0<>0<><>::
+2026-09-21T09-26-29-application.log::TextFile::-1::1789963115::0::1::::<><><>0<>0<><>::
+2026-09-21T09-42-37-application.log::TextFile::-1::1789964045::0::1::::<><><>0<>0<><>::
+2026-09-21T09-45-45-application.log::TextFile::-1::1789964237::0::1::::<><><>0<>0<><>::
+2026-09-21T10-00-41-application.log::TextFile::-1::1789965120::0::1::::<><><>0<>0<><>::
+2026-09-21T11-16-08-application.log::TextFile::-1::1789969650::0::1::::<><><>0<>0<><>::
+2026-09-21T11-20-23-application.log::TextFile::-1::1789969900::0::1::::<><><>0<>0<><>::
+2026-09-21T11-32-51-application.log::TextFile::-1::1789970648::0::1::::<><><>0<>0<><>::
+2026-09-21T11-41-10-application.log::TextFile::-1::1789971149::0::1::::<><><>0<>0<><>::
+2026-09-21T12-06-25-application.log::TextFile::-1::1789972731::0::1::::<><><>0<>0<><>::
+2026-09-21T12-13-58-application.log::TextFile::-1::1789973127::0::1::::<><><>0<>0<><>::
+2026-09-21T12-17-57-application.log::TextFile::-1::1789973397::0::1::::<><><>0<>0<><>::
+2026-09-21T12-37-39-application.log::TextFile::-1::1789974474::0::1::::<><><>0<>0<><>::
+2026-09-21T12-45-21-application.log::TextFile::-1::1789975067::0::1::::<><><>0<>0<><>::
+::res://data/DEVMODE10/mech/::1789973410
 FME1-mechparams.csv::Translation::2403235270311035087::1789722350::1789722431::1::::<><><>0<>0<>0950d071a6ad128b89d718f84c67c960<>::
 FPS-mechparams.csv::Translation::8768350990468047098::1789722215::1789722431::1::::<><><>0<>0<>bff6dbe35a09697bcdcc5d63ec2ea970<>::
-WFE-mechparams.csv::Translation::3354473311547638388::1789799713::1789803408::1::::<><><>0<>0<>b34dbc5428365ffe397d36a92b640b80<>::
-::res://data/DEVMODE10/rawdata/::1789799651
+WFE-mechparams.csv::Translation::3354473311547638388::1789975067::1789975074::1::::<><><>0<>0<>b34dbc5428365ffe397d36a92b640b80<>::
+::res://data/DEVMODE10/rawdata/::1789975005
 raw-sess01-trial001-HAT-TRICK-WFE.csv::Translation::3603668338548402918::1789717768::1789718153::1::::<><><>0<>0<>a14ed0dfd2f7fca5d544b03a4f2a7708<>::
 raw-sess01-trial002-FRUIT-BASKET-WFE.csv::Translation::5270030514807817759::1789717848::1789718153::1::::<><><>0<>0<>62cbaf699433b43a85cfeef10da5f396<>::
 raw-sess01-trial003-RNR-WFE.csv::Translation::4691124093666386699::1789717938::1789718153::1::::<><><>0<>0<>4f6a13c79583b22807e78c2ef956b35c<>::
@@ -448,6 +466,22 @@ raw-sess31-trial008-PING-PONG-WFE.csv::Translation::3516444038538542404::1789799
 raw-sess31-trial009-PING-PONG-WFE.csv::Translation::6027580735733056251::1789799340::1789799367::1::::<><><>0<>0<>330c6db2663c8f95ae659e7525947841<>::
 raw-sess32-trial009-PING-PONG-WFE.csv::Translation::4069297536338965450::1789799452::1789799546::1::::<><><>0<>0<>668b7a2433e697592e37ce5f2c8f4c28<>::
 raw-sess33-trial010-PING-PONG-WFE.csv::Translation::1502302014777529397::1789799713::1789803408::1::::<><><>0<>0<>5a41cd852ef09f3a9f9e3cc5566afbc7<>::
+raw-sess34-trial001-PING-PONG-WFE.csv::Translation::5286531681229241763::1789963083::1789963932::1::::<><><>0<>0<>8ed0a192df9b74f9de12d174f3576667<>::
+raw-sess35-trial002-PING-PONG-WFE.csv::Translation::5941045736325282547::1789964045::1789964136::1::::<><><>0<>0<>f1d6942271b9ecee8ac2733be1834e30<>::
+raw-sess36-trial003-PING-PONG-WFE.csv::Translation::8550194918471114437::1789964228::1789964295::1::::<><><>0<>0<>b3bc37ebb9ea8e15d099cabdcbd5bc0c<>::
+raw-sess36-trial004-PING-PONG-WFE.csv::Translation::8348939267060175900::1789964237::1789964295::1::::<><><>0<>0<>cce6712bfc6eab3a74729e0d6e73aa17<>::
+raw-sess37-trial004-PING-PONG-WFE.csv::Translation::8194174578923667742::1789965120::1789965125::1::::<><><>0<>0<>8f43e8d65937d57d054a8c3114737495<>::
+raw-sess38-trial005-PING-PONG-WFE.csv::Translation::7128504690361938858::1789969650::1789969659::1::::<><><>0<>0<>724076415cd923bc1e68e5826c95a7d2<>::
+raw-sess39-trial006-PING-PONG-WFE.csv::Translation::2395204140125190958::1789969900::1789969907::1::::<><><>0<>0<>edd8edb97aa772b33aa8526d0897f12f<>::
+raw-sess40-trial007-PING-PONG-WFE.csv::Translation::37037261415775553::1789970648::1789970685::1::::<><><>0<>0<>c9428e3a3883419fa09990a74f030d41<>::
+raw-sess41-trial008-PING-PONG-WFE.csv::Translation::1245297266633191498::1789971149::1789972569::1::::<><><>0<>0<>3ba272ea5daf2f69c42b1fbc872d1786<>::
+raw-sess42-trial009-PING-PONG-WFE.csv::Translation::6704271739196259825::1789972662::1789972736::1::::<><><>0<>0<>766e2b8c5f6ed85c2f0a3336a7b247ad<>::
+raw-sess42-trial010-PING-PONG-WFE.csv::Translation::4904802957804140356::1789972731::1789972736::1::::<><><>0<>0<>5bb28d49f67d58f9d3f33b8cb48e1206<>::
+raw-sess44-trial011-PING-PONG-WFE.csv::Translation::729397510110728513::1789973127::1789973133::1::::<><><>0<>0<>23b6ff82e92d2b83c969889c6aaae380<>::
+raw-sess45-trial012-PING-PONG-WFE.csv::Translation::5775199194210939470::1789973365::1789973410::1::::<><><>0<>0<>9ae2415bd42d61bf5cac7b138e4fa499<>::
+raw-sess45-trial013-PING-PONG-WFE.csv::Translation::2893378247962359940::1789973397::1789973410::1::::<><><>0<>0<>97c8524a27a1252724c5188ce015fa32<>::
+raw-sess47-trial014-PING-PONG-WFE.csv::Translation::7776418765050251632::1789974997::1789975074::1::::<><><>0<>0<>85f2550f2e2b06c0a61548faa3faeb39<>::
+raw-sess47-trial015-PING-PONG-WFE.csv::Translation::2610214458666972074::1789975067::1789975074::1::::<><><>0<>0<>57a87ee1a5c5410f2e5006c0585a2b65<>::
 ::res://data/DEVMODE10/rom/::1789718153
 FPS-rom.APromMax.translation::OptimizedTranslation::183707382617043598::1789718153::0::1::::<><><>0<>0<><>::
 FPS-rom.APromMin.translation::OptimizedTranslation::2082561343577061883::1789718153::0::1::::<><><>0<>0<><>::
@@ -465,8 +499,8 @@ WFE-rom.csv::Translation::3678522534123993622::1789717554::1789718153::1::::<><>
 WFE-rom.IsCPM.translation::OptimizedTranslation::5122405294252351114::1789718153::0::1::::<><><>0<>0<><>::
 WFE-rom.PromMax.translation::OptimizedTranslation::6378945297541021551::1789718153::0::1::::<><><>0<>0<><>::
 WFE-rom.PromMin.translation::OptimizedTranslation::5870704604578954292::1789718153::0::1::::<><><>0<>0<><>::
-::res://data/DEVMODE10/session/::1789799546
-sessions.csv::Translation::3623363798893292780::1789799713::1789803408::1::::<><><>0<>0<>a9862e054d3de742ce56cfc5305e0de2<>::
+::res://data/DEVMODE10/session/::1789973410
+sessions.csv::Translation::3623363798893292780::1789975067::1789975074::1::::<><><>0<>0<>a9862e054d3de742ce56cfc5305e0de2<>::
 ::res://game/::1789181928
 ::res://game/FRUIT_BASKET/::1789030463
 ::res://game/FRUIT_BASKET/audio/::1789442930
@@ -518,10 +552,10 @@ level-up.wav::AudioStreamWAV::8507905277102758070::1770866193::1789185283::1::::
 loose.wav::AudioStreamWAV::4567718339677239884::1770866193::1789185283::1::::<><><>0<>0<>264f8d73c1295dec229e19097fd9f4ed<>res://.godot/imported/loose.wav-b85c0026614cd63d5d998f0fe273f292.sample::
 Super Mario Bros Soundtrack.mp3::AudioStreamMP3::7785414712420877132::1770866193::1789185273::1::::<><><>0<>0<>03857b4663f84eab6d6a21dc088eeebd<>res://.godot/imported/Super Mario Bros Soundtrack.mp3-36560af18b8923a9e30c00c4fb5a796d.mp3str::
 win.wav::AudioStreamWAV::1634981436973899449::1770866193::1789185283::1::::<><><>0<>0<>2ccf8b90987973b5a9b1cf1e556f445e<>res://.godot/imported/win.wav-c8c33ec61a33b364c81697577372810e.sample::
-::res://game/PING_PONG/scene/::1789724194
-PingPongScene.tscn::PackedScene::6945690099318393305::1789724194::0::1::::<><><>0<>0<><>::uid://chm5588eh5gpw::::res://game/PING_PONG/scripts/ping_pong_game.gd<>uid://cyk4c2t57ntje::::res://unityScripts/Ping Pong/Sprites/white.png<>uid://dlb0dx4vp30e5::::res://unityScripts/Ping Pong/Sprites/Grey.png<>uid://bm0jcwry5rsnl::::res://unityScripts/Ping Pong/audio/bounce.wav<>uid://xj851vtre2wr::::res://unityScripts/Ping Pong/audio/win.wav<>uid://b6cvwhxefqge3::::res://unityScripts/Ping Pong/audio/loose.wav<>uid://di6kv4et6snqy::::res://unityScripts/Ping Pong/audio/Super Mario Bros Soundtrack.mp3<>uid://bhhylg23cl6gb::::res://unityScripts/Ping Pong/Sprites/PPBall.png<>uid://c84gtrxfnkjio::::res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png<>uid://cs5al7mnnn6u6::::res://scenes/CelebrationCard.tscn
-::res://game/PING_PONG/scripts/::1789799584
-ping_pong_game.gd::GDScript::5290812673942670028::1789799584::0::1::::<>Control<><>0<>0<><>::
+::res://game/PING_PONG/scene/::1789974902
+PingPongScene.tscn::PackedScene::6945690099318393305::1789974902::0::1::::<><><>0<>0<><>::uid://chm5588eh5gpw::::res://game/PING_PONG/scripts/ping_pong_game.gd<>uid://cyk4c2t57ntje::::res://unityScripts/Ping Pong/Sprites/white.png<>uid://dlb0dx4vp30e5::::res://unityScripts/Ping Pong/Sprites/Grey.png<>uid://bm0jcwry5rsnl::::res://unityScripts/Ping Pong/audio/bounce.wav<>uid://xj851vtre2wr::::res://unityScripts/Ping Pong/audio/win.wav<>uid://b6cvwhxefqge3::::res://unityScripts/Ping Pong/audio/loose.wav<>uid://di6kv4et6snqy::::res://unityScripts/Ping Pong/audio/Super Mario Bros Soundtrack.mp3<>uid://bhhylg23cl6gb::::res://unityScripts/Ping Pong/Sprites/PPBall.png<>uid://c84gtrxfnkjio::::res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png<>uid://cs5al7mnnn6u6::::res://scenes/CelebrationCard.tscn
+::res://game/PING_PONG/scripts/::1789974877
+ping_pong_game.gd::GDScript::5290812673942670028::1789974877::0::1::::<>Control<><>0<>0<><>::
 ::res://game/PING_PONG/Sprites/::1789185282
 4370817.png::CompressedTexture2D::8036739936188171827::1770866384::1789185276::1::::<><><>0<>0<>56666d55c7ad032ca30a6c44cb06d8f4<>res://.godot/imported/4370817.png-fd3a31dc1e8e80dac3ee60ddaa8e8ba1.ctex::
 9486932.jpg::CompressedTexture2D::8574777827398112499::1770866384::1789185281::1::::<><><>0<>0<>888ef9382efa5fa64d5e1c9ea3da99c1<>res://.godot/imported/9486932.jpg-715dcc1f9f9264d1dbbca8e49f88f3a8.ctex::
@@ -622,7 +656,7 @@ rockSnowDown.png::CompressedTexture2D::5536250436057078278::1770866192::17891852
 starBronze.png::CompressedTexture2D::2100524893885289551::1770866192::1789185273::1::::<><><>0<>0<>debf7317701e05c5c188aeb1589511ef<>res://.godot/imported/starBronze.png-8002a88281b17cd7b66ea9d5a763f505.ctex::
 starGold.png::CompressedTexture2D::8823001155527745858::1770866192::1789185273::1::::<><><>0<>0<>c2bd57bdf443d9676a0cae3f7e76593c<>res://.godot/imported/starGold.png-bb2090fd0f764b5b548d8be6c95e130a.ctex::
 starSilver.png::CompressedTexture2D::5631821620520512717::1770866192::1789185273::1::::<><><>0<>0<>3c5132780e1d1cb80924a0a387e15a12<>res://.godot/imported/starSilver.png-dae0dee14c8832f93b4d3f8e63ef8aa6.ctex::
-::res://scenes/::1789728487
+::res://scenes/::1789969663
 AssessmentScene.tscn::PackedScene::8255514447024690385::1789020602::0::1::::<><><>0<>0<><>::uid://ccs7kolkjeg36::::res://scripts/assessment_scene.gd
 AssistProfileScene.tscn::PackedScene::6147274498383180519::1789541595::0::1::::<><><>0<>0<><>::uid://cwlfoantwg5fg::::res://scripts/assist_profile_scene.gd
 CalibrationScene.tscn::PackedScene::5562335846791101153::1789020602::0::1::::<><><>0<>0<><>::uid://drxnjew7bgub5::::res://scripts/calibration_scene.gd
@@ -630,7 +664,7 @@ CelebrationCard.tscn::PackedScene::6098193229118970139::1789723843::0::1::::<><>
 ChooseGameScene.tscn::PackedScene::8952016454284949542::1789724717::0::1::::<><><>0<>0<><>::uid://bq0summpb3dw4::::res://scripts/choose_game_scene.gd<>uid://djyitj4bsm7g0::::res://Assets/hat.png<>uid://yju0q0e4igrp::::res://game/FRUIT_BASKET/sprites/fruitbasket.png<>uid://bpyudfyxj3jx6::::res://game/RNR/sprites/plant_stage5.png<>uid://dkomb1vckjciw::::res://Assets/auto-removebg-preview.png<>uid://dnhlkiqrpp33l::::res://unityScripts/Ping Pong/Sprites/—Pngtree—vector ping pong icon_4046610.png
 ChooseMechanism.tscn::PackedScene::3428067828213702216::1789555134::0::1::::<><><>0<>0<><>::uid://bemjp706fgwl1::::res://scripts/choose_mechanism_scene.gd
 ConnectScene.tscn::PackedScene::8362670541967484895::1789020602::0::1::::<><><>0<>0<><>::uid://bloyh5wh20430::::res://scripts/connect_scene.gd
-MainScene.tscn::PackedScene::5737060573601125673::1789728487::0::1::::<><><>0<>0<><>::uid://dkr6r86s0n70l::::res://scripts/main_scene.gd<>uid://iu4sbf7q18wm::::res://Assets/Pluto.png
+MainScene.tscn::PackedScene::5737060573601125673::1789969663::0::1::::<><><>0<>0<><>::uid://dkr6r86s0n70l::::res://scripts/main_scene.gd<>uid://iu4sbf7q18wm::::res://Assets/Pluto.png
 PlanSetupScene.tscn::PackedScene::8375045283501551082::1789617640::0::1::::<><><>0<>0<><>::uid://dpf3q1jkuysxi::::res://scripts/plan_setup_scene.gd<>uid://c70imiinu5yop::::res://Assets/mechanismImages/KNOB.png<>uid://ccj63yjvhlmox::::res://Assets/mechanismImages/keyknob_outline.png<>uid://c17cydgi1l64y::::res://Assets/mechanismImages/Pron_supin_out.png<>uid://bbrlyfedhew5g::::res://Assets/mechanismImages/hoc.png<>uid://qh1g7dk2bj8b::::res://Assets/mechanismImages/FE.png<>uid://br05qovq1rfjm::::res://Assets/mechanismImages/ulnar_radial_out2.png
 RegisterScene.tscn::PackedScene::-1::1789020602::0::1::::<><><>0<>0<><>::res://scripts/register_scene.gd
 SetDurationScene.tscn::PackedScene::3213848652454251469::1789616505::0::1::::<><><>0<>0<><>::uid://be371ec8g8ryp::::res://scripts/set_duration_scene.gd

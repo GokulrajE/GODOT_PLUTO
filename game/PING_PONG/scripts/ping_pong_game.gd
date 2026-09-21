@@ -31,6 +31,10 @@ var _player_h: float = 120.0
 var _enemy_w:  float = 18.0
 var _enemy_h:  float = 120.0
 var _ball_sz:  float = 28.0
+var _player_hw: float = 9.5
+var _player_hh: float = 55.0
+var _enemy_hw:  float = 9.0
+var _enemy_hh:  float = 55.0
 
 # ── State machine ─────────────────────────────────────────────────────────────
 enum State { WAITING, START, MOVE, SCORE_FLASH, STOP, DONE, PAUSED }
@@ -72,8 +76,8 @@ var _prom:  Array = []
 var _arom:  Array = []
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
-@onready var _player_paddle: TextureRect       = $PlayerPaddle
-@onready var _enemy_paddle:  TextureRect       = $EnemyPaddle
+@onready var _player_paddle: TextureRect = $PlayerPaddle
+@onready var _enemy_paddle:  TextureRect = $EnemyPaddle
 @onready var _ball_node:     TextureRect       = $Ball
 @onready var _timer_lbl:     Label             = $UI/Header/TimerLabel
 @onready var _score_lbl:     Label             = $UI/Header/ScoreLabel
@@ -97,8 +101,11 @@ func _ready() -> void:
 	_player_h = _player_paddle.size.y
 	_enemy_w  = _enemy_paddle.size.x
 	_enemy_h  = _enemy_paddle.size.y
-	_ball_node.size = Vector2(20.0, 20.0)
-	_ball_sz  = 20.0
+	_player_hw = _player_w * 0.5
+	_player_hh = _player_h * 0.5
+	_enemy_hw  = _enemy_w  * 0.5
+	_enemy_hh  = _enemy_h  * 0.5
+	_ball_sz = _ball_node.size.x
 
 	_create_center_dashes()
 	_init_rom_data()
@@ -335,7 +342,6 @@ func _process(delta: float) -> void:
 	_refresh_ui()
 	_update_log_state()
 	_update_prediction_line()
-
 func _tick(delta: float) -> void:
 	var playing := (_state != State.WAITING and _state != State.PAUSED
 					and _state != State.STOP  and _state != State.DONE
@@ -374,8 +380,47 @@ func _tick(delta: float) -> void:
 				_aan.update(PlutoComm.angle, delta, false)
 				if _aan.state_change: _update_pluto_aan_target()
 
-			_ball_x += _ball_vx * delta
-			_ball_y += _ball_vy * delta
+			# Swept paddle collision: compute exact hit time so ball never tunnels inside paddle
+			var _moved: bool = false
+			if _ball_vx > 0.0:
+				var paddle_left: float = PLAYER_X - _player_hw
+				var t_hit: float = (paddle_left - (_ball_x + _ball_sz * 0.5)) / _ball_vx
+				if t_hit >= 0.0 and t_hit <= delta:
+					var hit_y: float = _ball_y + _ball_vy * t_hit
+					if abs(hit_y - _player_y) < (_player_hh + _ball_sz * 0.5):
+						_ball_x   = paddle_left - _ball_sz * 0.5
+						_ball_y   = hit_y
+						_ball_vx  = -abs(_ball_vx)
+						_ball_vy += (hit_y - _player_y) * 2.5
+						_ball_vy  = clamp(_ball_vy, -_ball_speed * 1.2, _ball_speed * 1.2)
+						_ball_x  += _ball_vx * (delta - t_hit)
+						_ball_y  += _ball_vy * (delta - t_hit)
+						n_success += 1
+						_bounce_sfx.pitch_scale = 1.2
+						_bounce_sfx.play()
+						_moved = true
+			elif _ball_vx < 0.0:
+				var paddle_right: float = ENEMY_X + _enemy_hw
+				var t_hit: float = (paddle_right - (_ball_x - _ball_sz * 0.5)) / _ball_vx
+				if t_hit >= 0.0 and t_hit <= delta:
+					var hit_y: float = _ball_y + _ball_vy * t_hit
+					if abs(hit_y - _enemy_y) < (_enemy_hh + _ball_sz * 0.5):
+						_ball_x   = paddle_right + _ball_sz * 0.5
+						_ball_y   = hit_y
+						_ball_vx  = abs(_ball_vx)
+						_ball_vy += (hit_y - _enemy_y) * 2.5
+						_ball_vy  = clamp(_ball_vy, -_ball_speed * 1.2, _ball_speed * 1.2)
+						_ball_x  += _ball_vx * (delta - t_hit)
+						_ball_y  += _ball_vy * (delta - t_hit)
+						n_targets += 1
+						_bounce_sfx.pitch_scale = 1.0
+						_bounce_sfx.play()
+						_moved = true
+			if not _moved:
+				_ball_x += _ball_vx * delta
+				_ball_y += _ball_vy * delta
+
+			
 
 			if _ball_y - _ball_sz * 0.5 < GAME_TOP:
 				_ball_y  = GAME_TOP + _ball_sz * 0.5
@@ -383,26 +428,6 @@ func _tick(delta: float) -> void:
 			elif _ball_y + _ball_sz * 0.5 > GAME_BOTTOM:
 				_ball_y  = GAME_BOTTOM - _ball_sz * 0.5
 				_ball_vy = -abs(_ball_vy)
-
-			if _ball_vx > 0.0 and _ball_x + _ball_sz * 0.5 >= PLAYER_X - _player_w * 0.5:
-				if abs(_ball_y - _player_y) < (_player_h * 0.5 + _ball_sz * 0.5):
-					_ball_x   = PLAYER_X - _player_w * 0.5 - _ball_sz * 0.5
-					_ball_vx  = -abs(_ball_vx) * _speed_bump()
-					_ball_vy += (_ball_y - _player_y) * 2.5
-					_ball_vy  = clamp(_ball_vy, -_ball_speed * 1.2, _ball_speed * 1.2)
-					n_success += 1
-					_bounce_sfx.pitch_scale = 1.2
-					_bounce_sfx.play()
-
-			if _ball_vx < 0.0 and _ball_x - _ball_sz * 0.5 <= ENEMY_X + _enemy_w * 0.5:
-				if abs(_ball_y - _enemy_y) < (_enemy_h * 0.5 + _ball_sz * 0.5):
-					_ball_x   = ENEMY_X + _enemy_w * 0.5 + _ball_sz * 0.5
-					_ball_vx  = abs(_ball_vx)
-					_ball_vy += (_ball_y - _enemy_y) * 2.5
-					_ball_vy  = clamp(_ball_vy, -_ball_speed * 1.2, _ball_speed * 1.2)
-					n_targets += 1
-					_bounce_sfx.pitch_scale = 1.0
-					_bounce_sfx.play()
 
 			if _ball_x + _ball_sz * 0.5 > GAME_RIGHT:
 				n_failure += 1

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="2_star"]
 [ext_resource type="Texture2D" uid="uid://cowri6e0awm1f" path="res://Assets/pngwing.com (5).png" id="3_confetti"]
 [ext_resource type="Texture2D" uid="uid://c5i451ggcxque" path="res://Assets/pngwing.com (8).png" id="4_ribbon"]
+[ext_resource type="Texture2D" uid="uid://bq6ep54ymx0ni" path="res://Assets/pngwing.com (2).png" id="4_y0i7g"]
 [ext_resource type="Texture2D" uid="uid://bn5vocq4ddeet" path="res://Assets/pngwing.com (3).png" id="5_popper"]
 [ext_resource type="AudioStream" uid="uid://bnrcuqebc16to" path="res://Assets/audio/celebration.mp3" id="6_audio"]
 
@@ -81,6 +82,27 @@ texture = ExtResource("4_ribbon")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Sprite2D" type="Sprite2D" parent="Card/Ribbon" unique_id=828729341]
+modulate = Color(0.9392995, 0.6008409, 0.32783866, 1)
+position = Vector2(164, 42)
+rotation = -0.4956735
+scale = Vector2(0.11125007, 0.119375)
+texture = ExtResource("4_y0i7g")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Card/Ribbon" unique_id=546855858]
+modulate = Color(0.9411765, 0.6, 0.32941177, 1)
+position = Vector2(264, 23)
+rotation = 0.055850536
+scale = Vector2(0.11125007, 0.119375)
+texture = ExtResource("4_y0i7g")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Card/Ribbon" unique_id=770277176]
+modulate = Color(0.9411765, 0.6, 0.32941177, 1)
+position = Vector2(368, 41.99997)
+rotation = 0.4956735
+scale = Vector2(0.11125007, 0.119375)
+texture = ExtResource("4_y0i7g")
+
 [node name="PopperLeft" type="TextureRect" parent="Card" unique_id=410693949]
 layout_mode = 1
 anchors_preset = 2
@@ -146,7 +168,7 @@ alignment = 1
 [node name="TitleLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=1840170640]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.871, 0.722, 0.259, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 31
 text = "NEW PERSONAL BEST!"
 horizontal_alignment = 1
 
@@ -156,21 +178,21 @@ layout_mode = 2
 [node name="ArrowLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=390708187]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4, 0.9, 0.6, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 24
 text = "▲  You improved!  ▲"
 horizontal_alignment = 1
 
 [node name="YesterdayLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=1595734802]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.72, 0.8, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 29
 text = "Yesterday:  24 catches"
 horizontal_alignment = 1
 
 [node name="TodayLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=937493658]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.871, 0.722, 0.259, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 37
 text = "Today:  30 catches"
 horizontal_alignment = 1
 

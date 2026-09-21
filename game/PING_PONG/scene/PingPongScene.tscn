@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c84gtrxfnkjio" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="9_star"]
 [ext_resource type="PackedScene" uid="uid://cs5al7mnnn6u6" path="res://scenes/CelebrationCard.tscn" id="10_celeb"]
 
+
 [sub_resource type="StyleBoxFlat" id="sb_header"]
 bg_color = Color(0.04, 0.05, 0.1, 0.92)
 border_width_bottom = 1
@@ -140,31 +141,34 @@ color = Color(0.04, 0.04, 0.1, 1)
 [node name="PlayerPaddle" type="TextureRect" parent="." unique_id=1300560853]
 modulate = Color(0.059, 0.718, 0.333, 1)
 layout_mode = 0
-offset_left = 1088.0
-offset_top = 264.225
-offset_right = 1107.055
-offset_bottom = 374.00012
+offset_left = 1097.0
+offset_top = 281.0
+offset_right = 1116.055
+offset_bottom = 390.77512
 texture = ExtResource("2_q2lub")
 expand_mode = 1
+
 
 [node name="EnemyPaddle" type="TextureRect" parent="." unique_id=1834967196]
 modulate = Color(1, 0.354, 0.354, 1)
 layout_mode = 0
 offset_left = 46.0
-offset_top = 259.0
+offset_top = 269.0
 offset_right = 64.0
-offset_bottom = 369.0
+offset_bottom = 379.0
 texture = ExtResource("2_q2lub")
 expand_mode = 1
+
 
 [node name="Ball" type="TextureRect" parent="." unique_id=1587932847]
 modulate = Color(0.22106755, 0.50473887, 1, 1)
 layout_mode = 0
-offset_left = 562.0
-offset_top = 341.0
-offset_right = 590.0
-offset_bottom = 369.0
+offset_left = 971.0
+offset_top = 163.0
+offset_right = 1035.0
+offset_bottom = 227.0
 texture = ExtResource("3_xxhgn")
+expand_mode = 1
 
 [node name="BounceSound" type="AudioStreamPlayer" parent="." unique_id=2134912039]
 stream = ExtResource("4_lxhjv")
