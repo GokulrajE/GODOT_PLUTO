@@ -240,8 +240,9 @@ func _update_done_button() -> void:
 	            + AppData.config_hoc + AppData.config_fme1 + AppData.config_fme2
 	var fme1_ok = AppData.config_fme1 == 0 or AppData.config_fme1_id >= 0
 	var fme2_ok = AppData.config_fme2 == 0 or AppData.config_fme2_id >= 0
-	var fme_diff = (AppData.config_fme1_id < 0 or AppData.config_fme2_id < 0) \
-	             or (AppData.config_fme1_id != AppData.config_fme2_id)
+	# Knob conflict only matters when BOTH FMEs have time allocated
+	var both_fme_active = AppData.config_fme1 > 0 and AppData.config_fme2 > 0
+	var fme_diff = not both_fme_active or (AppData.config_fme1_id != AppData.config_fme2_id)
 
 	var valid = (total == 60 and fme1_ok and fme2_ok and fme_diff)
 	_done_button.disabled = not valid

@@ -1,11 +1,11 @@
-Sprite2D
 CollisionShape2D
+ColorRect
+Sprite2D
 TextEdit
 Panel
 Label
 Control
 Button
-ColorRect
 HBoxContainer
 GridContainer
 Container

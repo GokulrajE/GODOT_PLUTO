@@ -14,8 +14,6 @@ const GAP_H:           float = 188.0
 const SPAWN_X:         float = 1240.0
 const DESPAWN_X:       float = -110.0
 const BG_W:            float = 1200.0
-const HIT_MARGIN_X:    float = 65.0
-const HIT_MARGIN_Y:    float = 85.0
 
 # ── Speed ─────────────────────────────────────────────────────────────────────
 const MIN_SPEED:          float = 10.0
@@ -27,7 +25,7 @@ const MIN_SPAWN_INTERVAL: float = 0.9
 const MAX_SPAWN_INTERVAL: float = 3.2
 
 # ── State machine ─────────────────────────────────────────────────────────────
-enum State { WAITING, START, MOVE, FAILURE, STOP, DONE, PAUSED }
+enum State { WAITING, START,SPAWNROCK,MOVE,FAILURE, SUCCESS,STOP, DONE, PAUSED }
 var _state:      State = State.WAITING
 var _prev_state: State = State.WAITING
 
@@ -53,6 +51,8 @@ var _scroll_speed:   float = 200.0
 var _spawn_interval: float = 2.0
 var _spawn_timer:    float = 0.5
 var _game_speed:     float = 10.0
+var _mech_min_duration: float = 0.5
+var _mech_max_duration: float = 4.0
 var _fail_flash_t:   float = 0.0
 var _pass_flash_t:   float = 0.0
 var _anim_t:         float = 0.0
@@ -73,6 +73,7 @@ var _arom_nodes:   Array      = []
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _player:         TextureRect       = $Player
+@onready var _collision_rect: ColorRect         = $Player/collision
 @onready var _rock_container: Control           = $RockContainer
 @onready var _timer_lbl:      Label             = $UI/Header/TimerLabel
 @onready var _score_lbl:      Label             = $UI/Header/ScoreLabel
@@ -163,6 +164,7 @@ func _init_rom_data() -> void:
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
+	set_min_max_duration_of_mech()
 
 func _calc_speed() -> void:
 	_game_speed = MIN_SPEED
@@ -171,8 +173,9 @@ func _calc_speed() -> void:
 	_recalc_from_game_speed()
 
 func _recalc_from_game_speed() -> void:
-	var t: float    = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
-	_scroll_speed   = lerp(MIN_SCROLL, MAX_SCROLL, t)
+	var t: float        = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
+	var duration: float = get_target_end_time(_game_speed)
+	_scroll_speed   = (SPAWN_X - PLAYER_X) / duration
 	_spawn_interval = lerp(MAX_SPAWN_INTERVAL, MIN_SPAWN_INTERVAL, t)
 
 func _increase_speed() -> void:
@@ -190,7 +193,35 @@ func _refresh_speed_label() -> void:
 func _save_speed() -> void:
 	if AppData.speed_data != null:
 		AppData.speed_data.set_game_speed(_game_speed)
-		AppData.speed_data.set_move_duration(_spawn_interval)
+		AppData.speed_data.set_move_duration(get_target_end_time(_game_speed))
+
+func set_min_max_duration_of_mech() -> void:
+	if AppData.selected_mechanism == null:
+		return
+	var mech: String = AppData.selected_mechanism.name
+	var range_size: float = abs(_aprom[1] - _aprom[0])
+	var calc_min: float = range_size / HomerTherapy.MAX_SPEED
+	var calc_max: float = range_size / HomerTherapy.MIN_SPEED
+	var threshold_min: float
+	var threshold_max: float
+	match mech:
+		"WFE", "WURD":
+			threshold_min = HomerTherapy.min_duration_of_mech_wfe_and_wurd
+			threshold_max = HomerTherapy.max_duration_of_mech_wfe_and_wurd
+		"HOC":
+			threshold_min = HomerTherapy.min_duration_of_mech_hoc
+			threshold_max = HomerTherapy.max_duration_of_mech_hoc
+		_:
+			threshold_min = HomerTherapy.min_duration_of_mech_fps_and_fme
+			threshold_max = HomerTherapy.max_duration_of_mech_fps_and_fme
+	_mech_min_duration = maxf(calc_min, threshold_min)
+	_mech_max_duration = minf(calc_max, threshold_max)
+	print("mech min duration: ", _mech_min_duration, ", max: ", _mech_max_duration)
+
+func get_target_end_time(game_speed: float) -> float:
+	var t: float = (game_speed - HomerTherapy.MIN_SPEED) / (HomerTherapy.MAX_SPEED - HomerTherapy.MIN_SPEED)
+	t = clampf(t, 0.0, 1.0)
+	return lerpf(_mech_max_duration, _mech_min_duration, t)
 
 # ── Angle ↔ Screen ────────────────────────────────────────────────────────────
 func angle_to_screen_y(angle: float) -> float:
@@ -231,7 +262,7 @@ func _spawn_column() -> void:
 	if _rock_tex: bot.texture = _rock_tex
 	_rock_container.add_child(bot)
 
-	_columns.append({"top": top, "bot": bot, "gap_y": gap_y, "x": SPAWN_X, "scored": false})
+	_columns.append({"top": top, "bot": bot, "gap_y": gap_y, "x": SPAWN_X, "scored": false, "collided": false})
 
 func _clear_columns() -> void:
 	for col in _columns:
@@ -245,10 +276,11 @@ func _update_columns(delta: float) -> void:
 		col.x -= _scroll_speed * delta
 		(col.top as TextureRect).position.x = col.x - ROCK_W * 0.5
 		(col.bot as TextureRect).position.x = col.x - ROCK_W * 0.5
-		# Score when column fully passes the player
+		# Score when column fully passes the player (skip if it already caused a collision)
 		if not col.scored and (col.x + ROCK_W * 0.5) < (PLAYER_X - _player_w * 0.5):
 			col.scored = true
-			if _state != State.FAILURE:
+			if _state != State.FAILURE and not col.collided:
+				_state = State.SUCCESS
 				n_success += 1
 				_pass_sfx.play()
 				_pass_flash_t = 0.35
@@ -260,17 +292,15 @@ func _update_columns(delta: float) -> void:
 		_columns.erase(col)
 
 func _check_collision() -> bool:
-	# Use a smaller hitbox inset from the sprite edges for fair collision
-	var hw: float = (_player_w - HIT_MARGIN_X * 2.0) * 0.5
-	var hh: float = (_player_h - HIT_MARGIN_Y * 2.0) * 0.5
-	var pr := Rect2(PLAYER_X - hw, _player_y - hh, hw * 2.0, hh * 2.0)
-	if _player_y - hh < GAME_TOP or _player_y + hh > GAME_BOTTOM:
+	var pr := _collision_rect.get_global_rect()
+	if pr.position.y < GAME_TOP or pr.end.y > GAME_BOTTOM:
 		return true
 	for col in _columns:
 		if abs(col.x - PLAYER_X) > ROCK_W * 2.0: continue
 		var top_r := Rect2(col.x - ROCK_W * 0.5, col.gap_y - GAP_H * 0.5 - ROCK_H, ROCK_W, ROCK_H)
 		var bot_r := Rect2(col.x - ROCK_W * 0.5, col.gap_y + GAP_H * 0.5, ROCK_W, ROCK_H)
 		if pr.intersects(top_r) or pr.intersects(bot_r):
+			col.collided = true
 			return true
 	return false
 
@@ -326,9 +356,12 @@ func _tick(delta: float) -> void:
 
 		State.START:
 			_begin_game()
-			_spawn_timer = 0.4
+			# _spawn_timer = 0.4
+			_state = State.SPAWNROCK
+		State.SPAWNROCK:
+			_clear_columns()
+			_spawn_column()
 			_state = State.MOVE
-
 		State.MOVE:
 			# Player Y from PLUTO (or keyboard in debug)
 			var ty: float = angle_to_screen_y(PlutoComm.angle)
@@ -346,11 +379,11 @@ func _tick(delta: float) -> void:
 				var pulse: float = 0.88 + sin(_anim_t * 5.0) * 0.12
 				_player.modulate = Color(1.0, 1.0, pulse, 1.0)
 
-			# Spawn and scroll columns
-			_spawn_timer -= delta
-			if _spawn_timer <= 0.0:
-				_spawn_column()
-				_spawn_timer = _spawn_interval
+			#awn and scroll columns
+			# _spawn_timer -= delta
+			# if _spawn_timer <= 0.0:
+			# 	_spawn_column()
+			# 	_spawn_timer = _spawn_interval
 			_update_columns(delta)
 			_scroll_bg(delta)
 
@@ -374,9 +407,18 @@ func _tick(delta: float) -> void:
 				_fail_flash_t = 0.75
 				_die_sfx.play()
 				_state = State.FAILURE
-
+			
 			if _time_left <= 0.0:
 				_state = State.STOP
+		State.SUCCESS:
+			_pass_flash_t = maxf(_pass_flash_t - delta, 0.0)
+			_player.modulate = Color(1.0, 1.0, lerp(1.0, 0.2, _pass_flash_t / 0.35), 1.0)
+			_update_player_node()
+			_update_columns(delta)
+			_scroll_bg(delta)
+			if _pass_flash_t <= 0.0:
+				_aan_target_gap_y = -1.0
+				_state = State.SPAWNROCK if _time_left > 0.0 else State.STOP
 
 		State.FAILURE:
 			_fail_flash_t -= delta
@@ -392,7 +434,7 @@ func _tick(delta: float) -> void:
 				_player.modulate = Color.WHITE
 				_pass_flash_t    = 0.0
 				_aan_target_gap_y = -1.0
-				_state = State.MOVE
+				_state = State.SPAWNROCK if _time_left > 0.0 else State.STOP
 
 		State.STOP:
 			if _use_aan and _aan != null:
@@ -456,6 +498,10 @@ func _setup_aan() -> void:
 func _end_game() -> void:
 	_game_finished = true
 	$Music.stop()
+	# Count any in-flight columns that never resolved (passed or collided) as failures
+	for col in _columns:
+		if not col.scored and not col.collided:
+			n_failure += 1
 	_clear_columns()
 	_save_speed()
 	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
@@ -498,6 +544,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
 		for n in _arom_nodes: n.visible = _speed_panel.visible
+		_collision_rect.color = Color(0.0, 1.0, 0.2, 0.4) if _speed_panel.visible else Color(1, 1, 1, 0)
 		_refresh_speed_label()
 
 func _on_pluto_button() -> void:
@@ -514,8 +561,12 @@ func _toggle_pause() -> void:
 		_state = _prev_state; _pause_panel.visible = false
 
 func _on_exit_pressed() -> void:
+	PlutoComm.set_control_type("NONE")
 	$Music.stop()
 	if not _game_finished:
+		for col in _columns:
+			if not col.scored and not col.collided:
+				n_failure += 1
 		_clear_columns()
 		_save_speed()
 		AppData.stop_trial(n_targets, n_success, n_failure)

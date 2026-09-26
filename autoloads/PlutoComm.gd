@@ -238,7 +238,8 @@ func _parse_packet(raw: PackedByteArray) -> void:
 
 	if raw.size() > 34:
 		control_bound = raw[33] / 255.0
-		control_dir   = raw[34]
+		var _d        = raw[34]
+		control_dir   = _d if _d <= 127 else _d - 256
 
 	if raw.size() > 36:
 		button = raw[36]

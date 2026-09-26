@@ -24,6 +24,8 @@ const MAX_ENEMY_SPEED: float = 440.0
 var _game_speed:  float = MIN_SPEED
 var _ball_speed:  float = MIN_BALL_SPEED
 var _enemy_speed: float = MIN_ENEMY_SPEED
+var _mech_min_duration: float = 0.5
+var _mech_max_duration: float = 4.0
 
 # ── Paddle/ball dimensions read from scene nodes in _ready() ──────────────────
 var _player_w: float = 18.0
@@ -148,9 +150,10 @@ func _calc_speed() -> void:
 	_recalc_from_game_speed()
 
 func _recalc_from_game_speed() -> void:
-	var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
-	_ball_speed  = lerp(MIN_BALL_SPEED,  MAX_BALL_SPEED,  t)
-	_enemy_speed = lerp(MIN_ENEMY_SPEED, MAX_ENEMY_SPEED, t)
+	var duration: float = get_target_end_time(_game_speed)
+	var distance: float = PLAYER_X - ENEMY_X
+	_ball_speed  = distance / duration
+	_enemy_speed = distance / duration
 
 func _increase_speed() -> void:
 	if _game_speed >= MAX_SPEED: return
@@ -162,11 +165,39 @@ func _decrease_speed() -> void:
 
 func _refresh_speed_label() -> void:
 	_speed_lbl.text      = "%d" % int(_game_speed)
-	_speed_info_lbl.text = "Ball: %.0f px/s\nBound: %.2f" % [_ball_speed, AppData.assist_bound]
+	_speed_info_lbl.text = "Duration: %.1f s\nBound: %.2f" % [get_target_end_time(_game_speed), AppData.assist_bound]
 
 func _save_speed() -> void:
 	if AppData.speed_data != null:
 		AppData.speed_data.set_game_speed(_game_speed)
+
+func set_min_max_duration_of_mech() -> void:
+	if AppData.selected_mechanism == null:
+		return
+	var mech: String = AppData.selected_mechanism.name
+	var range_size: float = abs(_aprom[1] - _aprom[0])
+	var calc_min: float = range_size / HomerTherapy.MAX_SPEED
+	var calc_max: float = range_size / HomerTherapy.MIN_SPEED
+	var threshold_min: float
+	var threshold_max: float
+	match mech:
+		"WFE", "WURD":
+			threshold_min = HomerTherapy.min_duration_of_mech_wfe_and_wurd
+			threshold_max = HomerTherapy.max_duration_of_mech_wfe_and_wurd
+		"HOC":
+			threshold_min = HomerTherapy.min_duration_of_mech_hoc
+			threshold_max = HomerTherapy.max_duration_of_mech_hoc
+		_:
+			threshold_min = HomerTherapy.min_duration_of_mech_fps_and_fme
+			threshold_max = HomerTherapy.max_duration_of_mech_fps_and_fme
+	_mech_min_duration = maxf(calc_min, threshold_min)
+	_mech_max_duration = minf(calc_max, threshold_max)
+	print("mech min duration: ", _mech_min_duration, ", max: ", _mech_max_duration)
+
+func get_target_end_time(game_speed: float) -> float:
+	var t: float = (game_speed - HomerTherapy.MIN_SPEED) / (HomerTherapy.MAX_SPEED - HomerTherapy.MIN_SPEED)
+	t = clampf(t, 0.0, 1.0)
+	return lerpf(_mech_max_duration, _mech_min_duration, t)
 
 # ── Init ──────────────────────────────────────────────────────────────────────
 func _create_center_dashes() -> void:
@@ -194,6 +225,7 @@ func _init_rom_data() -> void:
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
+	set_min_max_duration_of_mech()
 
 # ── Angle ↔ Screen ────────────────────────────────────────────────────────────
 func angle_to_screen_y(angle: float) -> float:
@@ -593,6 +625,7 @@ func _toggle_pause() -> void:
 		_state = _prev_state; _pause_panel.visible = false
 
 func _on_exit_pressed() -> void:
+	PlutoComm.set_control_type("NONE")
 	_music.stop()
 	if not _game_finished:
 		_save_speed()

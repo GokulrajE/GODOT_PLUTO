@@ -160,7 +160,8 @@ func start_new_trial() -> void:
 		mechanism_name,
 		type_name)
 	_trial_raw_logger = _DataLogger.new(trial_raw_file, "")
-	EventBus.new_sensor_data.connect(_on_raw_log)
+	if not EventBus.new_sensor_data.is_connected(_on_raw_log):
+		EventBus.new_sensor_data.connect(_on_raw_log)
 
 	DataManager.log_info("AppData",
 		"StartTrial | Day=%d Sess=%d Type=%s DesiredSR=%.1f File=%s" % [
@@ -172,6 +173,8 @@ func start_new_trial() -> void:
 
 func stop_trial(targets: int, hits: int, misses: int) -> void:
 	if selected_mechanism == null or selected_game == null:
+		return
+	if trial_start_time.is_empty():
 		return
 	var n_targets    = max(targets, 1)
 	success_rate     = 100.0 * hits / n_targets
@@ -217,6 +220,9 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 	DataManager.log_info("AppData",
 		"CtrlBound: %.3f → %.3f (SR=%.1f%% desired=%.1f%%)" % [
 			current_bound, next_bound, success_rate, desired_success_rate])
+
+	trial_start_time = ""
+	trial_raw_file   = ""
 
 	if EventBus.new_sensor_data.is_connected(_on_raw_log):
 		EventBus.new_sensor_data.disconnect(_on_raw_log)

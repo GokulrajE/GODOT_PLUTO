@@ -1,0 +1,1173 @@
+[gd_scene format=3 uid="uid://b7o7lj0w4eh0g"]
+
+[ext_resource type="Script" uid="uid://bn2lxurf4e7ba" path="res://scripts/summary_scene.gd" id="1_sumsc"]
+[ext_resource type="Script" uid="uid://diaa1chs3jurq" path="res://scripts/line_graph.gd" id="2_lngph"]
+
+[sub_resource type="StyleBoxFlat" id="sb_header"]
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_done_n"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.082, 0.502, 0.212, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_done_p"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.047, 0.31, 0.129, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_done_h"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.059, 0.392, 0.165, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.082, 0.502, 0.212, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_card"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.153, 0.714, 0.376, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SummaryScene" type="Control" unique_id=2006846952]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sumsc")
+
+[node name="BGColor" type="ColorRect" parent="." unique_id=559848564]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.941, 0.969, 0.945, 1)
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=248688194]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=589831163]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="HeaderPanel" type="Panel" parent="Margin/VBox" unique_id=1543769843]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_header")
+
+[node name="TitleLabel" type="Label" parent="Margin/VBox/HeaderPanel" unique_id=248211270]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 600.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 22
+text = "Summary"
+
+[node name="PatientLabel" type="Label" parent="Margin/VBox/HeaderPanel" unique_id=200020791]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 44.0
+offset_right = 600.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "Patient: —"
+
+[node name="DoneButton" type="Button" parent="Margin/VBox/HeaderPanel" unique_id=1178225126]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("sb_done_n")
+theme_override_styles/pressed = SubResource("sb_done_p")
+theme_override_styles/hover = SubResource("sb_done_h")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "Done"
+
+[node name="StatsRow" type="HBoxContainer" parent="Margin/VBox" unique_id=947854841]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="TodayCard" type="Panel" parent="Margin/VBox/StatsRow" unique_id=731083600]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="TodayMargin" type="MarginContainer" parent="Margin/VBox/StatsRow/TodayCard" unique_id=479635277]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 6
+
+[node name="TodayVBox" type="VBoxContainer" parent="Margin/VBox/StatsRow/TodayCard/TodayMargin" unique_id=1513139045]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="TodayLabel" type="Label" parent="Margin/VBox/StatsRow/TodayCard/TodayMargin/TodayVBox" unique_id=523250933]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "Today's Stars"
+horizontal_alignment = 1
+
+[node name="TodayValue" type="Label" parent="Margin/VBox/StatsRow/TodayCard/TodayMargin/TodayVBox" unique_id=1725668285]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.78, 0, 1)
+theme_override_font_sizes/font_size = 26
+text = "★  0"
+horizontal_alignment = 1
+
+[node name="PrevCard" type="Panel" parent="Margin/VBox/StatsRow" unique_id=21413182]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="PrevMargin" type="MarginContainer" parent="Margin/VBox/StatsRow/PrevCard" unique_id=1857184368]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 6
+
+[node name="PrevVBox" type="VBoxContainer" parent="Margin/VBox/StatsRow/PrevCard/PrevMargin" unique_id=974124279]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="PrevLabel" type="Label" parent="Margin/VBox/StatsRow/PrevCard/PrevMargin/PrevVBox" unique_id=2053780667]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 12
+text = "Historical Total"
+horizontal_alignment = 1
+
+[node name="PrevValue" type="Label" parent="Margin/VBox/StatsRow/PrevCard/PrevMargin/PrevVBox" unique_id=528317404]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
+theme_override_font_sizes/font_size = 26
+text = "★  0"
+horizontal_alignment = 1
+
+[node name="MechLabel" type="Label" parent="Margin/VBox" unique_id=90271324]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Mechanism Progress"
+
+[node name="MechGrid" type="GridContainer" parent="Margin/VBox" unique_id=1940569236]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="WFECard" type="Panel" parent="Margin/VBox/MechGrid" unique_id=1454368013]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="MechMargin" type="MarginContainer" parent="Margin/VBox/MechGrid/WFECard" unique_id=1854467034]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin" unique_id=620718722]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox" unique_id=1260418398]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "WFE"
+
+[node name="FullLabel" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox" unique_id=544743480]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Wrist Flex/Ext"
+
+[node name="Stars" type="HBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox" unique_id=1605014504]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="VBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars" unique_id=23611492]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star1" unique_id=710000884]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star1" unique_id=1376977648]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Fruit"
+horizontal_alignment = 1
+
+[node name="Star2" type="VBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars" unique_id=695159038]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star2" unique_id=103312178]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star2" unique_id=345745441]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Hat"
+horizontal_alignment = 1
+
+[node name="Star3" type="VBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars" unique_id=651507005]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star3" unique_id=1451740]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star3" unique_id=977726835]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pong"
+horizontal_alignment = 1
+
+[node name="Star4" type="VBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars" unique_id=1498434163]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star4" unique_id=1822594954]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star4" unique_id=1123554483]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "RNR"
+horizontal_alignment = 1
+
+[node name="Star5" type="VBoxContainer" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars" unique_id=845339202]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star5" unique_id=1104609321]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WFECard/MechMargin/HBox/Stars/Star5" unique_id=1350300120]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Tuk"
+horizontal_alignment = 1
+
+[node name="WURDCard" type="Panel" parent="Margin/VBox/MechGrid" unique_id=1418580186]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="MechMargin" type="MarginContainer" parent="Margin/VBox/MechGrid/WURDCard" unique_id=856676675]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin" unique_id=437322273]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox" unique_id=1835227623]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "WURD"
+
+[node name="FullLabel" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox" unique_id=2030242932]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Wrist Ulnar/Radial"
+
+[node name="Stars" type="HBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox" unique_id=1121313882]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="VBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars" unique_id=865613641]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star1" unique_id=1862963466]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star1" unique_id=1077552913]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Fruit"
+horizontal_alignment = 1
+
+[node name="Star2" type="VBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars" unique_id=1550955936]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star2" unique_id=1546719395]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star2" unique_id=587891485]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Hat"
+horizontal_alignment = 1
+
+[node name="Star3" type="VBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars" unique_id=1629588321]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star3" unique_id=897391823]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star3" unique_id=1607410501]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pong"
+horizontal_alignment = 1
+
+[node name="Star4" type="VBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars" unique_id=669904770]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star4" unique_id=991665955]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star4" unique_id=173239987]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "RNR"
+horizontal_alignment = 1
+
+[node name="Star5" type="VBoxContainer" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars" unique_id=1544640115]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star5" unique_id=1313539596]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/WURDCard/MechMargin/HBox/Stars/Star5" unique_id=1189536063]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Tuk"
+horizontal_alignment = 1
+
+[node name="FPSCard" type="Panel" parent="Margin/VBox/MechGrid" unique_id=1224639811]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="MechMargin" type="MarginContainer" parent="Margin/VBox/MechGrid/FPSCard" unique_id=132285384]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin" unique_id=1887909718]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox" unique_id=1246102595]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "FPS"
+
+[node name="FullLabel" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox" unique_id=1493054541]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Forearm Pron/Sup"
+
+[node name="Stars" type="HBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox" unique_id=1864413878]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="VBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars" unique_id=994321198]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star1" unique_id=1716612702]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star1" unique_id=142146828]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Fruit"
+horizontal_alignment = 1
+
+[node name="Star2" type="VBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars" unique_id=2134584358]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star2" unique_id=1725907807]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star2" unique_id=680550729]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Hat"
+horizontal_alignment = 1
+
+[node name="Star3" type="VBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars" unique_id=113452721]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star3" unique_id=520979615]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star3" unique_id=2043489368]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pong"
+horizontal_alignment = 1
+
+[node name="Star4" type="VBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars" unique_id=232120843]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star4" unique_id=941629391]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star4" unique_id=667636308]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "RNR"
+horizontal_alignment = 1
+
+[node name="Star5" type="VBoxContainer" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars" unique_id=991112066]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star5" unique_id=1934810473]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FPSCard/MechMargin/HBox/Stars/Star5" unique_id=1403674261]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Tuk"
+horizontal_alignment = 1
+
+[node name="HOCCard" type="Panel" parent="Margin/VBox/MechGrid" unique_id=203988230]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="MechMargin" type="MarginContainer" parent="Margin/VBox/MechGrid/HOCCard" unique_id=1636528423]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin" unique_id=2035219452]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox" unique_id=1662675872]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "HOC"
+
+[node name="FullLabel" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox" unique_id=1463828910]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Hand Open/Close"
+
+[node name="Stars" type="HBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox" unique_id=1270962960]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="VBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars" unique_id=734497429]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star1" unique_id=132747308]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star1" unique_id=2101194184]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Fruit"
+horizontal_alignment = 1
+
+[node name="Star2" type="VBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars" unique_id=1448763042]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star2" unique_id=699427582]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star2" unique_id=1322223484]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Hat"
+horizontal_alignment = 1
+
+[node name="Star3" type="VBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars" unique_id=971554664]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star3" unique_id=1308562376]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star3" unique_id=65757373]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pong"
+horizontal_alignment = 1
+
+[node name="Star4" type="VBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars" unique_id=286771550]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star4" unique_id=2009405585]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star4" unique_id=1866191225]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "RNR"
+horizontal_alignment = 1
+
+[node name="Star5" type="VBoxContainer" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars" unique_id=121420859]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star5" unique_id=1683912078]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/HOCCard/MechMargin/HBox/Stars/Star5" unique_id=983292655]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Tuk"
+horizontal_alignment = 1
+
+[node name="FME1Card" type="Panel" parent="Margin/VBox/MechGrid" unique_id=312197782]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="MechMargin" type="MarginContainer" parent="Margin/VBox/MechGrid/FME1Card" unique_id=1098232027]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin" unique_id=806095582]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox" unique_id=439930863]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "FME1"
+
+[node name="FullLabel" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox" unique_id=522218434]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Functional 1"
+
+[node name="Stars" type="HBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox" unique_id=310201595]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars" unique_id=682388035]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star1" unique_id=146737940]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star1" unique_id=2132619996]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Fruit"
+horizontal_alignment = 1
+
+[node name="Star2" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars" unique_id=1580355658]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star2" unique_id=1365421166]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star2" unique_id=615319715]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Hat"
+horizontal_alignment = 1
+
+[node name="Star3" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars" unique_id=1783972095]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star3" unique_id=1807367264]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star3" unique_id=1549687040]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pong"
+horizontal_alignment = 1
+
+[node name="Star4" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars" unique_id=1441733687]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star4" unique_id=1041069982]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star4" unique_id=1669529619]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "RNR"
+horizontal_alignment = 1
+
+[node name="Star5" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars" unique_id=254273499]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star5" unique_id=1683384257]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME1Card/MechMargin/HBox/Stars/Star5" unique_id=345585019]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Tuk"
+horizontal_alignment = 1
+
+[node name="FME2Card" type="Panel" parent="Margin/VBox/MechGrid" unique_id=1796277717]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="MechMargin" type="MarginContainer" parent="Margin/VBox/MechGrid/FME2Card" unique_id=516396601]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin" unique_id=1897742551]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox" unique_id=2119872281]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 13
+text = "FME2"
+
+[node name="FullLabel" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox" unique_id=939136460]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme_override_font_sizes/font_size = 11
+text = "Functional 2"
+
+[node name="Stars" type="HBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox" unique_id=299083916]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars" unique_id=610052537]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star1" unique_id=959115729]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star1" unique_id=1664729380]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Fruit"
+horizontal_alignment = 1
+
+[node name="Star2" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars" unique_id=924232810]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star2" unique_id=712441149]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star2" unique_id=1339569418]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Hat"
+horizontal_alignment = 1
+
+[node name="Star3" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars" unique_id=939811364]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star3" unique_id=490484829]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star3" unique_id=605787651]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pong"
+horizontal_alignment = 1
+
+[node name="Star4" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars" unique_id=8628428]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star4" unique_id=1721734548]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star4" unique_id=146523645]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "RNR"
+horizontal_alignment = 1
+
+[node name="Star5" type="VBoxContainer" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars" unique_id=1547591804]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="S" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star5" unique_id=1324730049]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="Margin/VBox/MechGrid/FME2Card/MechMargin/HBox/Stars/Star5" unique_id=572218526]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "Tuk"
+horizontal_alignment = 1
+
+[node name="GraphLabel" type="Label" parent="Margin/VBox" unique_id=1004052471]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 14
+text = "Daily Usage (minutes)"
+
+[node name="GraphCard" type="Panel" parent="Margin/VBox" unique_id=1536698262]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("sb_card")
+
+[node name="LineGraph" type="Control" parent="Margin/VBox/GraphCard" unique_id=1571634336]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_lngph")

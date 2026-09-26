@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://8geb3p4s7ofa"]
 
-[ext_resource type="Script" path="res://scripts/register_scene.gd" id="1_reg"]
+[ext_resource type="Script" uid="uid://c6ncifbfo0rpu" path="res://scripts/register_scene.gd" id="1_reg"]
 
 [sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(1.0, 1.0, 1.0, 1)
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -19,48 +19,12 @@ bg_color = Color(0.824, 0.929, 0.839, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
-bg_color = Color(0.153, 0.714, 0.376, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-bg_color = Color(0.114, 0.557, 0.286, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
-bg_color = Color(0.078, 0.404, 0.204, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
-bg_color = Color(0.749, 0.878, 0.761, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
-bg_color = Color(1.0, 1.0, 1.0, 1)
+[sub_resource type="StyleBoxFlat" id="sb_input_n"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.8456132, 0.9705917, 0.847429, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -70,12 +34,55 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_input_f"]
+content_margin_left = 13.0
+content_margin_top = 7.0
+content_margin_right = 13.0
+content_margin_bottom = 7.0
+bg_color = Color(0.98, 0.996, 0.98, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.749, 0.878, 0.761, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.824, 0.929, 0.839, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="sb_btn_gh"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
 bg_color = Color(0.906, 0.961, 0.914, 1)
 border_width_left = 1
 border_width_top = 1
@@ -86,21 +93,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
-bg_color = Color(0.824, 0.929, 0.839, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="sb_focus"]
 draw_center = false
@@ -114,239 +106,255 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="sb_input_n"]
-bg_color = Color(0.980, 0.996, 0.980, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
+[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.153, 0.714, 0.376, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
 
-[sub_resource type="StyleBoxFlat" id="sb_input_f"]
-bg_color = Color(0.980, 0.996, 0.980, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.153, 0.714, 0.376, 1)
+[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.078, 0.404, 0.204, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-content_margin_left = 13.0
-content_margin_top = 7.0
-content_margin_right = 13.0
-content_margin_bottom = 7.0
 
-[node name="RegisterScene" type="Control"]
+[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.114, 0.557, 0.286, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
+bg_color = Color(0.749, 0.878, 0.761, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="RegisterScene" type="Control" unique_id=121871352]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_reg")
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1610370627]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.941, 0.969, 0.945, 1)
 
-[node name="FormCard" type="Panel" parent="."]
+[node name="FormCard" type="Panel" parent="." unique_id=2039662663]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.23
 anchor_top = 0.02
 anchor_right = 0.77
 anchor_bottom = 0.98
 theme_override_styles/panel = SubResource("sb_card")
 
-[node name="FormCardHeader" type="Panel" parent="."]
+[node name="FormCardHeader" type="Panel" parent="." unique_id=224889661]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.23
 anchor_top = 0.02
 anchor_right = 0.77
+anchor_bottom = 0.02
 offset_bottom = 86.0
 theme_override_styles/panel = SubResource("sb_hdr")
 
-[node name="AppNameLabel" type="Label" parent="FormCardHeader"]
+[node name="AppNameLabel" type="Label" parent="FormCardHeader" unique_id=951456706]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 10.0
 offset_right = 576.0
 offset_bottom = 46.0
-theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 26
 text = "PLUTO"
 
-[node name="HeaderSubLabel" type="Label" parent="FormCardHeader"]
+[node name="HeaderSubLabel" type="Label" parent="FormCardHeader" unique_id=2067008267]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 50.0
 offset_right = 576.0
 offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "Register New Patient"
 
-[node name="FormPanel" type="VBoxContainer" parent="."]
+[node name="FormPanel" type="VBoxContainer" parent="." unique_id=1715761]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.02
 anchor_right = 0.75
 anchor_bottom = 0.98
-offset_top = 100.0
 offset_left = 16.0
+offset_top = 100.0
 offset_right = -16.0
 offset_bottom = -16.0
 theme_override_constants/separation = 8
 
-[node name="PatientIDLabel" type="Label" parent="FormPanel"]
+[node name="PatientIDLabel" type="Label" parent="FormPanel" unique_id=507631414]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "PATIENT ID  *"
 
-[node name="PatientIDInput" type="LineEdit" parent="FormPanel"]
-layout_mode = 2
+[node name="PatientIDInput" type="LineEdit" parent="FormPanel" unique_id=1357893885]
 custom_minimum_size = Vector2(0, 46)
-theme_override_font_sizes/font_size = 17
+layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
+theme_override_colors/font_placeholder_color = Color(0.20080826, 0.20080876, 0.2008084, 0.6)
+theme_override_colors/caret_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "e.g. P001"
 
-[node name="StartDateLabel" type="Label" parent="FormPanel"]
+[node name="StartDateLabel" type="Label" parent="FormPanel" unique_id=1556019912]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
-text = "START DATE  (YYYY-MM-DD)"
+text = "START DATE  📅"
 
-[node name="StartDateInput" type="LineEdit" parent="FormPanel"]
-layout_mode = 2
+[node name="StartDateInput" type="LineEdit" parent="FormPanel" unique_id=585021125]
 custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.045282617, 0.42787057, 0.2173562, 1)
+theme_override_colors/font_placeholder_color = Color(0.3647059, 0.3647059, 0.3647059, 0.654902)
+theme_override_colors/selection_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
 theme_override_styles/normal = SubResource("sb_input_n")
-theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "2026-09-05"
 
-[node name="EndDateLabel" type="Label" parent="FormPanel"]
+[node name="EndDateLabel" type="Label" parent="FormPanel" unique_id=1983141429]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
-text = "END DATE  (YYYY-MM-DD)"
+text = "END DATE  📅 "
 
-[node name="EndDateInput" type="LineEdit" parent="FormPanel"]
-layout_mode = 2
+[node name="EndDateInput" type="LineEdit" parent="FormPanel" unique_id=1587117528]
 custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme_override_colors/font_placeholder_color = Color(0.24985042, 0.24985093, 0.24985051, 0.6)
 theme_override_font_sizes/font_size = 17
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
 theme_override_styles/normal = SubResource("sb_input_n")
-theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "2026-12-05"
 
-[node name="TrainingSideLabel" type="Label" parent="FormPanel"]
+[node name="TrainingSideLabel" type="Label" parent="FormPanel" unique_id=204038200]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "TRAINING SIDE"
 
-[node name="TrainingSideRow" type="HBoxContainer" parent="FormPanel"]
+[node name="TrainingSideRow" type="HBoxContainer" parent="FormPanel" unique_id=111603186]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="LeftButton" type="Button" parent="FormPanel/TrainingSideRow"]
-layout_mode = 2
+[node name="LeftButton" type="Button" parent="FormPanel/TrainingSideRow" unique_id=1199942843]
 custom_minimum_size = Vector2(140, 46)
-theme_override_font_sizes/font_size = 16
+layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
-theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("sb_btn_gn")
-theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Left"
 
-[node name="RightButton" type="Button" parent="FormPanel/TrainingSideRow"]
-layout_mode = 2
+[node name="RightButton" type="Button" parent="FormPanel/TrainingSideRow" unique_id=778003348]
 custom_minimum_size = Vector2(140, 46)
-theme_override_font_sizes/font_size = 16
+layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
-theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("sb_btn_gn")
-theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Right"
 
-[node name="LocationLabel" type="Label" parent="FormPanel"]
+[node name="LocationLabel" type="Label" parent="FormPanel" unique_id=1948666344]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "LOCATION"
 
-[node name="LocationInput" type="LineEdit" parent="FormPanel"]
-layout_mode = 2
+[node name="LocationInput" type="LineEdit" parent="FormPanel" unique_id=1380198585]
 custom_minimum_size = Vector2(0, 46)
-theme_override_font_sizes/font_size = 17
+layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/placeholder_color = Color(0.600, 0.749, 0.612, 1)
+theme_override_colors/font_uneditable_color = Color(0.8745098, 0.8745098, 0.8745098, 0.41960785)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.6862745)
+theme_override_colors/caret_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("sb_input_n")
-theme_override_styles/focus = SubResource("sb_input_f")
 placeholder_text = "e.g. Mumbai"
 
-[node name="ButtonsRow" type="HBoxContainer" parent="FormPanel"]
+[node name="ButtonsRow" type="HBoxContainer" parent="FormPanel" unique_id=245916651]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="BackButton" type="Button" parent="FormPanel/ButtonsRow"]
+[node name="BackButton" type="Button" parent="FormPanel/ButtonsRow" unique_id=758670720]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 48)
-theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
-theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("sb_btn_gn")
-theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/pressed = SubResource("sb_btn_gp")
+theme_override_styles/hover = SubResource("sb_btn_gh")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Back"
 
-[node name="RegisterButton" type="Button" parent="FormPanel/ButtonsRow"]
+[node name="RegisterButton" type="Button" parent="FormPanel/ButtonsRow" unique_id=1811857309]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 48)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.5, 0.65, 0.51, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_disabled_color = Color(0.500, 0.650, 0.510, 1)
 theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/hover = SubResource("sb_btn_ph")
 theme_override_styles/pressed = SubResource("sb_btn_pp")
+theme_override_styles/hover = SubResource("sb_btn_ph")
 theme_override_styles/disabled = SubResource("sb_btn_dis")
 theme_override_styles/focus = SubResource("sb_focus")
 text = "Register"
 
-[node name="StatusLabel" type="Label" parent="FormPanel"]
-layout_mode = 2
+[node name="StatusLabel" type="Label" parent="FormPanel" unique_id=666531640]
 custom_minimum_size = Vector2(0, 32)
-theme_override_font_sizes/font_size = 14
+layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-text = ""
+theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3

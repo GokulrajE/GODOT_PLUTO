@@ -279,6 +279,49 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id="sb_quit_n"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(1.0, 1.0, 1.0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_quit_h"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.824, 0.929, 0.839, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.153, 0.714, 0.376, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_quit_p"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.749, 0.918, 0.773, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="ChooseMechanismScene" type="Control" unique_id=1380763505]
 layout_mode = 3
 anchors_preset = 15
@@ -327,6 +370,23 @@ offset_bottom = 74.0
 theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 12
 text = "Select the rehabilitation mechanism to use"
+
+[node name="SummaryButton" type="Button" parent="HeaderPanel"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_right = -16.0
+offset_top = 16.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_hover_color = Color(0.059, 0.412, 0.188, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("sb_quit_n")
+theme_override_styles/hover = SubResource("sb_quit_h")
+theme_override_styles/pressed = SubResource("sb_quit_p")
+theme_override_styles/focus = SubResource("sb_focus")
+text = "End Session"
 
 [node name="MechGrid" type="GridContainer" parent="." unique_id=646683858]
 layout_mode = 1

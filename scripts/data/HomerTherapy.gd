@@ -13,7 +13,34 @@ const GAME_SPEED_INCREMENTS: Dictionary = {
 	"FRUITCH":   1.0,
 	"RNR":       1.0,
 }
+static var max_duration_of_mech_fps_and_fme: float:
+	get:
+		return calculate_mech_duration(AppData.CALIB_ANGLE[3], MIN_SPEED)
 
+static var min_duration_of_mech_fps_and_fme: float:
+	get:
+		return calculate_mech_duration(AppData.CALIB_ANGLE[3], MAX_SPEED)
+
+static var max_duration_of_mech_wfe_and_wurd: float:
+	get:
+		return calculate_mech_duration(AppData.CALIB_ANGLE[1], MIN_SPEED)
+
+static var min_duration_of_mech_wfe_and_wurd: float:
+	get:
+		return calculate_mech_duration(AppData.CALIB_ANGLE[1], MAX_SPEED)
+
+static var max_duration_of_mech_hoc: float:
+	get:
+		return calculate_mech_duration(AppData.CALIB_ANGLE[4], MIN_SPEED)
+
+static var min_duration_of_mech_hoc: float:
+	get:
+		return calculate_mech_duration(AppData.CALIB_ANGLE[4], MAX_SPEED)
+
+
+static func calculate_mech_duration(max_angle: float, speed: float) -> float:
+	return max_angle / speed
+	
 enum TrialType { SR85PCTRAIN, SR85PCCATCH, TRAIN }
 
 const SUCCESS_RATE_FOR_TRIALS: Array = [

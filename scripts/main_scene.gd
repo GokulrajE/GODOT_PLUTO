@@ -77,11 +77,11 @@ func _animate_to_dashboard() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
 
-	# Slide login card to the right side and shrink height
+	# Slide login card to the right side and shrink height (keep centered at 50%)
 	tween.tween_property(login_card, "anchor_left",   0.52, 0.45)
 	tween.tween_property(login_card, "anchor_right",  0.96, 0.45)
-	tween.tween_property(login_card, "anchor_top",    0.05, 0.45)
-	tween.tween_property(login_card, "anchor_bottom", 0.65, 0.45)
+	tween.tween_property(login_card, "anchor_top",    0.25, 0.45)
+	tween.tween_property(login_card, "anchor_bottom", 0.75, 0.45)
 
 	# Drop dash card into the left position
 	tween.tween_property(dash_card, "offset_top",    0.0, 0.50).set_delay(0.15)

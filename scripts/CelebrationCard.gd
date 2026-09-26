@@ -9,7 +9,7 @@ signal celebration_done
 
 @onready var _overlay:   ColorRect          = $Overlay
 @onready var _card:      Panel              = $Card
-@onready var _ribbon:    TextureRect        = $Card/Ribbon
+@onready var _ribbon:    Sprite2D            = $Card/Ribbon
 @onready var _trophy:    TextureRect        = $Card/BodyHBox/Trophy
 @onready var _title_lbl: Label              = $Card/BodyHBox/ScoreVBox/TitleLabel
 @onready var _arr_lbl:   Label              = $Card/BodyHBox/ScoreVBox/ArrowLabel

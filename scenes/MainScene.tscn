@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dkr6r86s0n70l" path="res://scripts/main_scene.gd" id="1_main"]
 [ext_resource type="Texture2D" uid="uid://iu4sbf7q18wm" path="res://Assets/Pluto.png" id="2_pluto"]
+[ext_resource type="Texture2D" uid="uid://be73246ox7t08" path="res://Assets/cmc.png" id="3_c6dvc"]
+[ext_resource type="Texture2D" uid="uid://ctlrhku5y7rhf" path="res://Assets/biorehab.png" id="4_611at"]
 
 [sub_resource type="StyleBoxFlat" id="sb_card"]
 content_margin_left = 0.0
@@ -215,7 +217,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.941, 0.969, 0.945, 0.72)
+color = Color(1, 1, 1, 0)
 
 [node name="DashCard" type="Panel" parent="." unique_id=687705538]
 unique_name_in_owner = true
@@ -223,13 +225,9 @@ visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.01
-anchor_top = 0.05
+anchor_top = 0.2
 anchor_right = 0.49
-anchor_bottom = 0.68
-offset_left = -5.5199995
-offset_top = -30.400002
-offset_right = -5.5200195
-offset_bottom = -30.400024
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("sb_card")
@@ -624,13 +622,13 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.23
-anchor_top = 0.05
+anchor_top = 0.12
 anchor_right = 0.77
-anchor_bottom = 0.95
-offset_left = 14.040009
-offset_top = 63.6
-offset_right = 14.039978
-offset_bottom = -107.99997
+anchor_bottom = 0.88
+offset_left = -4.9599915
+offset_top = 7.2400055
+offset_right = -4.960022
+offset_bottom = 7.23999
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("sb_card")
@@ -702,6 +700,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme_override_colors/font_placeholder_color = Color(0.56415933, 0.5641603, 0.5641596, 1)
+theme_override_colors/caret_color = Color(0.082, 0.157, 0.094, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("sb_input_n")
 theme_override_styles/focus = SubResource("sb_input_f")
@@ -775,3 +775,13 @@ theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="cmc_logo" type="Sprite2D" parent="." unique_id=1616017977]
+position = Vector2(36.000004, 39)
+scale = Vector2(0.3, 0.268)
+texture = ExtResource("3_c6dvc")
+
+[node name="biorehab_logo" type="Sprite2D" parent="." unique_id=2054769142]
+position = Vector2(183, 40.999985)
+scale = Vector2(0.48469388, 0.43449783)
+texture = ExtResource("4_611at")

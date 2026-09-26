@@ -38,6 +38,9 @@ func _ready() -> void:
 	PlutoComm.calibrate_start("NOMECH")
 	PlutoComm.set_control_gain(1.0)
 
+	$HeaderPanel/SummaryButton.pressed.connect(func():
+		get_tree().change_scene_to_file("res://scenes/SummaryScene.tscn"))
+
 	var config: Dictionary = {
 		"WFE":  AppData.config_wfe,
 		"WURD": AppData.config_wurd,

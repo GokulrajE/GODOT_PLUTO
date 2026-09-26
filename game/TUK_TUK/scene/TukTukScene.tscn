@@ -159,10 +159,10 @@ stretch_mode = 6
 
 [node name="Player" type="TextureRect" parent="." unique_id=539897594]
 layout_mode = 0
-offset_left = 14.0
+offset_left = 5.0
 offset_top = 229.0
 offset_right = 226.0
-offset_bottom = 458.0
+offset_bottom = 398.0
 texture = ExtResource("4_yj5hl")
 expand_mode = 1
 stretch_mode = 4
@@ -187,6 +187,14 @@ texture = ExtResource("6_xbcjy")
 position = Vector2(47, 100.00001)
 scale = Vector2(0.16964924, 0.2100985)
 texture = ExtResource("7_u6c7a")
+
+[node name="collision" type="ColorRect" parent="Player" unique_id=1488208528]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 35.0
+offset_right = 148.0
+offset_bottom = 131.0
+color = Color(1, 1, 1, 0)
 
 [node name="DieSound" type="AudioStreamPlayer" parent="." unique_id=1546002800]
 stream = ExtResource("4_die")
@@ -482,5 +490,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="CelebrationCard" parent="UI" unique_id=888999111 instance=ExtResource("13_celeb")]
+offset_top = 1.0
+offset_bottom = 1.0
 trophy_texture = ExtResource("13_kti1y")
 score_unit = "gaps"

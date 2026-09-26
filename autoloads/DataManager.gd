@@ -86,13 +86,18 @@ func _count_session_rows() -> int:
 	var file = FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return 1
-	var count = 0
+	var max_sess := 0
 	while not file.eof_reached():
 		var line = file.get_line().strip_edges()
-		if not line.is_empty() and not line.begins_with(":") and line != SESSION_HEADER:
-			count += 1
+		if line.is_empty() or line.begins_with(":") or line == SESSION_HEADER:
+			continue
+		var parts = line.split(",")
+		if parts.size() > 0:
+			var n := parts[0].strip_edges().to_int()
+			if n > max_sess:
+				max_sess = n
 	file.close()
-	return count + 1
+	return max_sess + 1
 
 func write_session_row(row: Dictionary) -> void:
 	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
@@ -318,19 +323,32 @@ func read_control_bound(mech: String) -> float:
 		if p.size() < 17:
 			continue
 		if p[8].strip_edges() == mech:
-			var val := float(p[16])
-			if val > 0.0:
-				last_bound = val
+			var raw := p[16].strip_edges()
+			if raw.is_valid_float():
+				var val := float(raw)
+				if val > 0.0:
+					last_bound = val
 	file.close()
 	return last_bound
 
-# Returns {date_string → total_move_seconds} for the past `days` calendar days.
-func read_daily_usage(days: int) -> Dictionary:
+# Returns {date_string → total_move_seconds}.
+# Rolling mode (default): past `days` calendar days.
+# Range mode: when start_date is provided, covers start_date..end_date (or today).
+func read_daily_usage(days: int = 7, start_date: String = "", end_date: String = "") -> Dictionary:
 	var result := {}
-	var today_unix := int(Time.get_unix_time_from_system())
-	for i in range(days - 1, -1, -1):
-		var date := Time.get_date_string_from_unix_time(today_unix - i * 86400)
-		result[date] = 0.0
+	if start_date != "":
+		var _end := end_date if end_date != "" else Time.get_date_string_from_system()
+		var cur_unix := _date_to_unix(start_date)
+		var end_unix := _date_to_unix(_end)
+		var count := 0
+		while cur_unix <= end_unix + 3600.0 and count < 730:
+			result[Time.get_date_string_from_unix_time(int(cur_unix))] = 0.0
+			cur_unix += 86400.0
+			count += 1
+	else:
+		var today_unix := int(Time.get_unix_time_from_system())
+		for i in range(days - 1, -1, -1):
+			result[Time.get_date_string_from_unix_time(today_unix - i * 86400)] = 0.0
 
 	if not AppData.is_patient_loaded:
 		return result
@@ -352,6 +370,65 @@ func read_daily_usage(days: int) -> Dictionary:
 			result[date_str] += float(p[17].strip_edges())
 	file.close()
 	return result
+
+func _date_to_unix(date_str: String) -> float:
+	var p := date_str.split("-")
+	if p.size() != 3:
+		return Time.get_unix_time_from_system()
+	return float(Time.get_unix_time_from_datetime_dict({
+		"year": int(p[0]), "month": int(p[1]), "day": int(p[2]),
+		"hour": 12, "minute": 0, "second": 0, "dst": false
+	}))
+
+# Returns star summary for all mechanism+game combos.
+# today_total   = sum of CurrentStar earned today
+# previous_total = all-time cumulative before today
+# mech_game     = { mech: { game: { today, cumulative } } }
+func read_summary_stars() -> Dictionary:
+	const _GAMES := ["FRUIT-BASKET", "HAT-TRICK", "PING-PONG", "RNR", "TUK-TUK"]
+	const _MECHS := ["WFE", "WURD", "FPS", "HOC", "FME1", "FME2"]
+	var mech_game := {}
+	for mech in _MECHS:
+		mech_game[mech] = {}
+		for game in _GAMES:
+			mech_game[mech][game] = {"today": 0, "cumulative": 0}
+
+	if not AppData.is_patient_loaded:
+		return {"today_total": 0, "previous_total": 0, "mech_game": mech_game}
+
+	var path := DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	if not FileAccess.file_exists(path):
+		return {"today_total": 0, "previous_total": 0, "mech_game": mech_game}
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return {"today_total": 0, "previous_total": 0, "mech_game": mech_game}
+
+	var today := Time.get_date_string_from_system()
+	while not file.eof_reached():
+		var line := file.get_line().strip_edges()
+		if line.is_empty() or line.begins_with(":"):
+			continue
+		var p := line.split(",")
+		if p.size() < 26 or not p[0].strip_edges().is_valid_int():
+			continue
+		var mech := p[8].strip_edges()
+		var game := p[9].strip_edges()
+		if not mech_game.has(mech) or not mech_game[mech].has(game):
+			continue
+		mech_game[mech][game]["cumulative"] = int(p[25])
+		if p[1].begins_with(today):
+			mech_game[mech][game]["today"] += int(p[24])
+	file.close()
+
+	var today_total    := 0
+	var previous_total := 0
+	for mech in _MECHS:
+		for game in _GAMES:
+			var gd: Dictionary = mech_game[mech][game]
+			today_total    += gd["today"]
+			previous_total += gd["cumulative"] - gd["today"]
+
+	return {"today_total": today_total, "previous_total": previous_total, "mech_game": mech_game}
 
 # ══ Path helpers ════════════════════════════════════════════════════════
 

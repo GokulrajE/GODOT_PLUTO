@@ -52,6 +52,8 @@ var _aprom:                 Array = []
 var _prom:                  Array = []
 var _arom:                  Array = []
 var _move_duration:         float = 2.0
+var _mech_min_duration: float = MIN_MOVE_DURATION
+var _mech_max_duration: float = MAX_MOVE_DURATION
 var _cloud_x:               float = 583.0
 var _target_seed:           int   = -1
 var _rain_timer:            float = 0.0
@@ -261,6 +263,7 @@ func _init_rom_data() -> void:
 	if _aprom.size() < 2: _aprom = [-45.0, 45.0]
 	if _arom.size()  < 2: _arom  = [-30.0, 30.0]
 	if _prom.size()  < 2: _prom  = [-45.0, 45.0]
+	set_min_max_duration_of_mech()
 
 func _calc_speed() -> void:
 	_game_speed = MIN_SPEED
@@ -268,9 +271,37 @@ func _calc_speed() -> void:
 		_game_speed = clamp(AppData.speed_data.game_speed, MIN_SPEED, MAX_SPEED)
 	_recalc_from_game_speed()
 
+func set_min_max_duration_of_mech() -> void:
+	if AppData.selected_mechanism == null:
+		return
+	var mech: String = AppData.selected_mechanism.name
+	var range_size: float = abs(_aprom[1] - _aprom[0])
+	var calc_min: float = range_size / HomerTherapy.MAX_SPEED
+	var calc_max: float = range_size / HomerTherapy.MIN_SPEED
+	var threshold_min: float
+	var threshold_max: float
+	match mech:
+		"WFE", "WURD":
+			threshold_min = HomerTherapy.min_duration_of_mech_wfe_and_wurd
+			threshold_max = HomerTherapy.max_duration_of_mech_wfe_and_wurd
+		"HOC":
+			threshold_min = HomerTherapy.min_duration_of_mech_hoc
+			threshold_max = HomerTherapy.max_duration_of_mech_hoc
+		_:
+			threshold_min = HomerTherapy.min_duration_of_mech_fps_and_fme
+			threshold_max = HomerTherapy.max_duration_of_mech_fps_and_fme
+	_mech_min_duration = maxf(calc_min, threshold_min)
+	_mech_max_duration = minf(calc_max, threshold_max)
+	print("mech min duration: ", _mech_min_duration, ", max: ", _mech_max_duration)
+
+func get_target_end_time(game_speed: float) -> float:
+	var t: float = (game_speed - HomerTherapy.MIN_SPEED) / (HomerTherapy.MAX_SPEED - HomerTherapy.MIN_SPEED)
+	t = clampf(t, 0.0, 1.0)
+	return lerpf(_mech_max_duration, _mech_min_duration, t)
+
 func _recalc_from_game_speed() -> void:
 	var t: float = clamp((_game_speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED), 0.0, 1.0)
-	_move_duration         = lerp(MAX_MOVE_DURATION, MIN_MOVE_DURATION, t)
+	_move_duration         = get_target_end_time(_game_speed)
 	_rain_duration_to_grow = lerp(0.5, 0.15, t)
 
 func _increase_speed() -> void:
@@ -647,6 +678,7 @@ func _toggle_pause() -> void:
 		_state = _prev_state; _pause_panel.visible = false
 
 func _on_exit_pressed() -> void:
+	PlutoComm.set_control_type("NONE")
 	if not _game_finished:
 		_is_raining = false
 		_hide_all_highlights()
