@@ -1,5 +1,8 @@
 extends Control
 
+const GameInput = preload("res://scripts/gameplay/game_input.gd")
+const ArcadeAssets = preload("res://scripts/ui/arcade_assets.gd")
+
 const _PlutoAAN = preload("res://scripts/PlutoAAN.gd")
 
 # ── Layout ────────────────────────────────────────────────────────────────────
@@ -128,11 +131,11 @@ func _exit_tree() -> void:
 # ── Build ─────────────────────────────────────────────────────────────────────
 func _load_textures() -> void:
 	for p in [
-		"res://game/FRUIT_BASKET/sprites/apple.png",
-		"res://game/FRUIT_BASKET/sprites/lemon.png",
-		"res://game/FRUIT_BASKET/sprites/orange.png",
-		"res://game/FRUIT_BASKET/sprites/strawberry.png",
-		"res://game/FRUIT_BASKET/sprites/blueberry.png",
+		"res://Assets/Arcade/Fruits/apple.svg",
+		"res://Assets/Arcade/Fruits/lemon.svg",
+		"res://Assets/Arcade/Fruits/orange.svg",
+		"res://Assets/Arcade/Fruits/strawberry.svg",
+		"res://Assets/Arcade/Fruits/blueberry.svg",
 	]:
 		_fruit_textures.append(load(p))
 
@@ -145,6 +148,10 @@ func _build_baskets() -> void:
 	for i in SLOT_COUNT:
 		# Use the Sprite2D already placed in the scene — no runtime texture loading needed
 		var basket := _basket_container.get_node(basket_names[i]) as Sprite2D
+		basket.texture = ArcadeAssets.sprite("basket")
+		basket.modulate = Color.WHITE
+		basket.scale = Vector2(150.0 / 470.0, 150.0 / 470.0)
+		basket.position = Vector2(120.0 + i * 231.5, 560.0)
 		var cx:     float = basket.position.x
 		var rest_y: float = basket.position.y
 		_slot_positions.append(cx)
@@ -191,14 +198,14 @@ func _build_baskets() -> void:
 
 		# Fruit type icon on basket — larger and fully opaque so it's clearly visible
 		var fruit_idx: int = _slot_fruit_type[i]
-		var icon := TextureRect.new()
-		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-		icon.size         = Vector2(56.0, 56.0)
-		icon.position     = Vector2(cx - 28.0, rest_y - 88.0)
-		if fruit_idx < _fruit_textures.size() and _fruit_textures[fruit_idx] != null:
-			icon.texture = _fruit_textures[fruit_idx]
-		_basket_container.add_child(icon)
+		var icon = _basket_container.get_node_or_null("FilledFruit%d" % i)
+		if not icon:
+			icon = preload("res://scripts/effects/filled_basket.gd").new()
+			icon.name = "FilledFruit%d" % i
+			_basket_container.add_child(icon)
+		icon.size = Vector2(150, 85)
+		icon.position = Vector2(cx - 75, rest_y - 72)
+		icon.fruit_texture = _fruit_textures[fruit_idx]
 		_basket_icon_nodes.append(icon)
 
 		# Flash overlay — Panel so rounded corners work
@@ -330,16 +337,13 @@ func _place_arom_lines() -> void:
 		_arom_nodes.append(line)
 
 func _process(delta: float) -> void:
+	if _state == State.PAUSED: return
 	_anim_t      += delta
 	_flash_timer   = maxf(_flash_timer - delta, 0.0)
 	_tick(delta)
 	var active: bool = _state not in [State.WAITING, State.PAUSED, State.STOP, State.DONE]
 	if active and _current_fruit != null:
-		var sx: float = angle_to_screen(PlutoComm.angle)
-		if Input.is_key_pressed(KEY_LEFT):
-			sx = _fruit_x - 400.0 * delta
-		elif Input.is_key_pressed(KEY_RIGHT):
-			sx = _fruit_x + 400.0 * delta
+		var sx: float = GameInput.horizontal(_fruit_x, angle_to_screen(PlutoComm.angle), delta)
 		_set_fruit_x(clamp(sx, GAME_LEFT + FRUIT_SIZE * 0.5, GAME_RIGHT - FRUIT_SIZE * 0.5))
 		_current_fruit.position.y += _fall_speed * delta
 		_check_collision()
@@ -363,12 +367,12 @@ func _animate_baskets(active: bool) -> void:
 
 		if is_target:
 			# Bounce basket, icon, and counter together
-			var bounce: float = sin(_anim_t * 6.5) * 9.0
+			var bounce: float = 0.0 if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)) else sin(_anim_t * 4.0) * 3.0
 			basket.position.y    = rest_y + bounce
-			bicon.position.y     = rest_y - 88.0 + bounce
+			bicon.position.y     = rest_y - 72.0 + bounce
 			count_lbl.position.y = rest_y - 130.0 + bounce
 			basket.position.x    = cx
-			bicon.position.x     = cx - 28.0
+			bicon.position.x     = cx - 75.0
 			count_lbl.position.x = cx - 32.0
 			aura.visible = true
 			ring.visible = true
@@ -378,12 +382,12 @@ func _animate_baskets(active: bool) -> void:
 			var aura_sbox := aura.get_theme_stylebox("panel") as StyleBoxFlat
 			aura_sbox.bg_color     = Color(1.0, 0.85, 0.1, aura_alpha)
 			var ring_sbox := ring.get_theme_stylebox("panel") as StyleBoxFlat
-			ring_sbox.bg_color     = Color(1.0, 0.85, 0.1, aura_alpha * 0.25)
+			ring_sbox.bg_color     = Color(1.0, 0.85, 0.1, 0.0)
 			ring_sbox.border_color = Color(1.0, 0.93, 0.2, ring_alpha)
 		else:
 			# Reset to rest position
 			basket.position.y    = rest_y
-			bicon.position.y     = rest_y - 88.0
+			bicon.position.y     = rest_y - 72.0
 			count_lbl.position.y = rest_y - 130.0
 			aura.visible = false
 			ring.visible = false
@@ -393,21 +397,21 @@ func _animate_baskets(active: bool) -> void:
 		if i == _flash_slot and _flash_timer > 0.0:
 			var pct: float = _flash_timer / 0.55
 			if _flash_is_wrong:
-				flash_sbox.bg_color = Color(1.0, 0.1, 0.1, pct * 0.55)
-				var shake: float = sin(_anim_t * 55.0) * (pct * 9.0)
+				flash_sbox.bg_color = Color(1.0, 0.1, 0.1, pct * 0.12)
+				var shake: float = 0.0 if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)) else sin(_anim_t * 30.0) * (pct * 4.0)
 				basket.position.x    = cx + shake
-				bicon.position.x     = cx - 28.0 + shake
+				bicon.position.x     = cx - 75.0 + shake
 				count_lbl.position.x = cx - 32.0 + shake
 			else:
-				flash_sbox.bg_color  = Color(0.15, 1.0, 0.35, pct * 0.5)
+				flash_sbox.bg_color  = Color(0.15, 1.0, 0.35, pct * 0.08)
 				basket.position.x    = cx
-				bicon.position.x     = cx - 28.0
+				bicon.position.x     = cx - 75.0
 				count_lbl.position.x = cx - 32.0
 		else:
 			flash_sbox.bg_color = Color(0, 0, 0, 0)
 			if not is_target:
 				basket.position.x    = cx
-				bicon.position.x     = cx - 28.0
+				bicon.position.x     = cx - 75.0
 				count_lbl.position.x = cx - 32.0
 
 		# Move all caught icons with the basket (same dx/dy as the basket sprite)
@@ -552,18 +556,8 @@ func _caught_icon_rest_pos(slot: int, idx: int) -> Vector2:
 	return Vector2(start_x + col * CAUGHT_ICON_W,
 				   rest_y - BASKET_RIM_OFFSET - row * CAUGHT_ICON_W)
 
-func _place_caught_icon(slot: int, fruit_type: int) -> void:
-	if fruit_type >= _fruit_textures.size() or _fruit_textures[fruit_type] == null:
-		return
-	var count: int = _basket_counts[slot]   # already incremented
-	var icon := TextureRect.new()
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-	icon.size         = Vector2(CAUGHT_ICON_W, CAUGHT_ICON_W)
-	icon.texture      = _fruit_textures[fruit_type]
-	icon.position     = _caught_icon_rest_pos(slot, count - 1)
-	_basket_container.add_child(icon)
-	_caught_icon_nodes[slot].append(icon)
+func _place_caught_icon(slot: int, _fruit_type: int) -> void:
+	_basket_icon_nodes[slot].set_caught(_basket_counts[slot] + 1)
 
 func _kill_fruit() -> void:
 	if _current_fruit:
@@ -573,6 +567,7 @@ func _kill_fruit() -> void:
 func _spawn_fruit() -> void:
 	n_targets += 1
 	var fruit := TextureRect.new()
+	fruit.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 	fruit.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	fruit.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
 	fruit.size         = Vector2(FRUIT_SIZE, FRUIT_SIZE)
@@ -609,7 +604,7 @@ func _begin_game() -> void:
 
 func _setup_aan() -> void:
 	var mech = AppData.mechanism_name
-	_use_aan = PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
+	_use_aan = not AppData.demo_mode and PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
 	_aan     = _PlutoAAN.new()
 	if _arom.size() >= 2: _aan.arom = _arom.duplicate()
 	if _prom.size()  >= 2: _aan.prom = _prom.duplicate()
@@ -659,7 +654,7 @@ func _update_log_state() -> void:
 
 # ── Input ─────────────────────────────────────────────────────────────────────
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed: return
+	if not (event is InputEventKey) or not event.pressed or event.echo: return
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible

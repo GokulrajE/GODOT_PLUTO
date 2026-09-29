@@ -1,83 +1,104 @@
 [gd_scene format=3 uid="uid://dpvbd8atxpkkn"]
 
-[ext_resource type="Script" uid="uid://ccs7kolkjeg36" path="res://scripts/assessment_scene.gd" id="1_3q2po"]
+[ext_resource type="Script" path="res://scripts/assessment_scene.gd" id="1_3q2po"]
+[ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_qhu72"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_65j5c"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_uec7x"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-secondary.svg" id="5_v1837"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_d2h58"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="7_imstg"]
 
-[sub_resource type="StyleBoxFlat" id="sb_hdr"]
-bg_color = Color(0.824, 0.929, 0.839, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8mdkw"]
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_exit_n"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.78, 0.129, 0.129, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.6, 0.094, 0.094, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m452q"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_exit_p"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.498, 0.067, 0.067, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u7dd6"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_v1837")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_exit_h"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.635, 0.094, 0.094, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43jn0"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="sb_focus"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gcc3d"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_v1837")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0newd"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnrom"]
+bg_color = Color(1, 1, 1, 0)
 draw_center = false
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.082, 0.502, 0.212, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="sb_arom_badge"]
-bg_color = Color(0.82, 0.941, 0.835, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3qf6o"]
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_014ne"]
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxFlat" id="sb_track"]
 bg_color = Color(0.918, 0.949, 0.922, 1)
@@ -112,91 +133,445 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.153, 0.714, 0.376, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_74ube"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.078, 0.404, 0.204, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dvccl"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.114, 0.557, 0.286, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_46vah"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="sb_prom_badge"]
-bg_color = Color(0.776, 0.914, 0.8, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.627, 0.82, 0.643, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lx167"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v43mn"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdnw5"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3f2cr"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.824, 0.929, 0.839, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q3eiu"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_gh"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.906, 0.961, 0.914, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4fjkp"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w3w7m"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gruhk"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5n1k"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8qjpn"]
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jr5lh"]
+texture = ExtResource("4_uec7x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_45qgc"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ur8kv"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6dw58"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nt2yk"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ywar3"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll1mt"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b0g3r"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kshg0"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7yvn"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j6t1w"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_40pdq"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m86oe"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pk35t"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oytg6"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnjpv"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f5gc3"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjw5k"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epds2"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v8wce"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gsfar"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cp0l8"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sj7j"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_imstg")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g715d"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_d2h58")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eimlw"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
 [node name="AssessmentScene" type="Control" unique_id=125083249]
 layout_mode = 3
@@ -205,7 +580,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_qhu72")
 script = ExtResource("1_3q2po")
+metadata/arcade_authored = true
+metadata/arcade_authored_control = true
+
+[node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=1691854908]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("1_qhu72")
+texture = ExtResource("3_65j5c")
+expand_mode = 1
+stretch_mode = 0
+metadata/arcade_authored_control = true
 
 [node name="BGColor" type="ColorRect" parent="." unique_id=96149233]
 layout_mode = 1
@@ -214,7 +603,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.941, 0.969, 0.945, 1)
+mouse_filter = 2
+theme = ExtResource("1_qhu72")
+color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
 [node name="HeaderPanel" type="Panel" parent="." unique_id=1715483422]
 layout_mode = 1
@@ -224,7 +616,10 @@ offset_left = 20.0
 offset_top = 14.0
 offset_right = -20.0
 offset_bottom = 86.0
-theme_override_styles/panel = SubResource("sb_hdr")
+grow_horizontal = 2
+theme = ExtResource("1_qhu72")
+theme_override_styles/panel = SubResource("StyleBoxTexture_8mdkw")
+metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="HeaderPanel" unique_id=217979142]
 layout_mode = 0
@@ -232,9 +627,11 @@ offset_left = 24.0
 offset_top = 12.0
 offset_right = 700.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 20
 text = "Assessment — Range of Motion"
+metadata/arcade_authored_control = true
 
 [node name="MechLabel" type="Label" parent="HeaderPanel" unique_id=2071568100]
 layout_mode = 0
@@ -242,9 +639,11 @@ offset_left = 24.0
 offset_top = 44.0
 offset_right = 700.0
 offset_bottom = 68.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
-text = "WRIST FLEXION EXTENSION"
+text = "NOMECH"
+metadata/arcade_authored_control = true
 
 [node name="ExitButton" type="Button" parent="HeaderPanel" unique_id=1798912227]
 layout_mode = 1
@@ -256,15 +655,25 @@ offset_left = -110.0
 offset_top = 13.0
 offset_right = -16.0
 offset_bottom = -13.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("sb_exit_n")
-theme_override_styles/pressed = SubResource("sb_exit_p")
-theme_override_styles/hover = SubResource("sb_exit_h")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_m452q")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u7dd6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_43jn0")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_gcc3d")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_0newd")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wnrom")
 text = "Exit"
+metadata/arcade_authored_control = true
 
 [node name="AromPanel" type="Panel" parent="." unique_id=1641066457]
 layout_mode = 1
@@ -273,14 +682,19 @@ anchor_left = 0.01
 anchor_top = 0.13
 anchor_right = 0.5
 anchor_bottom = 0.9
-theme_override_styles/panel = SubResource("sb_card")
+theme = ExtResource("1_qhu72")
+theme_override_styles/panel = SubResource("StyleBoxTexture_3qf6o")
+metadata/arcade_authored_control = true
 
 [node name="AromHeaderBar" type="Panel" parent="AromPanel" unique_id=50298795]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 54.0
-theme_override_styles/panel = SubResource("sb_arom_badge")
+grow_horizontal = 2
+theme = ExtResource("1_qhu72")
+theme_override_styles/panel = SubResource("StyleBoxTexture_014ne")
+metadata/arcade_authored_control = true
 
 [node name="AromTitle" type="Label" parent="AromPanel" unique_id=1361646677]
 layout_mode = 0
@@ -288,9 +702,11 @@ offset_left = 16.0
 offset_top = 12.0
 offset_right = 400.0
 offset_bottom = 42.0
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 17
 text = "ACTIVE RANGE OF MOTION"
+metadata/arcade_authored_control = true
 
 [node name="AromSubLabel" type="Label" parent="AromPanel" unique_id=670650518]
 layout_mode = 0
@@ -298,9 +714,11 @@ offset_left = 16.0
 offset_top = 60.0
 offset_right = 530.0
 offset_bottom = 82.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Make voluntary movements to explore your range"
+metadata/arcade_authored_control = true
 
 [node name="SliderContainer" type="Control" parent="AromPanel" unique_id=1942175377]
 anchors_preset = 0
@@ -308,13 +726,17 @@ offset_left = 16.0
 offset_top = 88.0
 offset_right = 530.0
 offset_bottom = 168.0
+theme = ExtResource("1_qhu72")
+metadata/arcade_authored_control = true
 
 [node name="SliderTrack" type="Panel" parent="AromPanel/SliderContainer" unique_id=1614123548]
 layout_mode = 0
 offset_top = 36.0
 offset_right = 514.0
 offset_bottom = 56.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_track")
+metadata/arcade_authored_control = true
 
 [node name="MinCursor" type="Panel" parent="AromPanel/SliderContainer" unique_id=1146874548]
 layout_mode = 0
@@ -322,7 +744,9 @@ offset_left = 248.0
 offset_top = 26.0
 offset_right = 264.0
 offset_bottom = 66.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_cursor_min")
+metadata/arcade_authored_control = true
 
 [node name="MaxCursor" type="Panel" parent="AromPanel/SliderContainer" unique_id=1777862038]
 layout_mode = 0
@@ -330,15 +754,19 @@ offset_left = 268.0
 offset_top = 26.0
 offset_right = 284.0
 offset_bottom = 66.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_cursor_max")
+metadata/arcade_authored_control = true
 
 [node name="CurrentCursor" type="Panel" parent="AromPanel/SliderContainer" unique_id=2074637848]
 layout_mode = 0
-offset_left = 257.0
+offset_left = 249.0
 offset_top = 30.0
-offset_right = 273.0
+offset_right = 265.0
 offset_bottom = 62.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_cursor_curr")
+metadata/arcade_authored_control = true
 
 [node name="LeftLabel" type="Label" parent="AromPanel" unique_id=113060840]
 layout_mode = 0
@@ -346,20 +774,24 @@ offset_left = 14.0
 offset_top = 170.0
 offset_right = 100.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Flexion"
+metadata/arcade_authored_control = true
 
 [node name="CenterLabel" type="Label" parent="AromPanel" unique_id=1610057442]
+visible = false
 layout_mode = 0
 offset_left = 220.0
 offset_top = 170.0
 offset_right = 326.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
-text = "Closed"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="RightLabel" type="Label" parent="AromPanel" unique_id=1438497542]
 layout_mode = 0
@@ -367,10 +799,12 @@ offset_left = 440.0
 offset_top = 170.0
 offset_right = 540.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Extension"
 horizontal_alignment = 2
+metadata/arcade_authored_control = true
 
 [node name="AngleLabel" type="Label" parent="AromPanel" unique_id=740449730]
 layout_mode = 0
@@ -378,10 +812,12 @@ offset_left = 16.0
 offset_top = 200.0
 offset_right = 530.0
 offset_bottom = 256.0
-theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 48
-text = "---"
+text = "0.0"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="AngleUnitLabel" type="Label" parent="AromPanel" unique_id=510886166]
 layout_mode = 0
@@ -389,10 +825,12 @@ offset_left = 16.0
 offset_top = 254.0
 offset_right = 530.0
 offset_bottom = 274.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "degrees"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="StatusLabel" type="Label" parent="AromPanel" unique_id=898480443]
 layout_mode = 0
@@ -400,42 +838,67 @@ offset_left = 16.0
 offset_top = 282.0
 offset_right = 530.0
 offset_bottom = 390.0
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
+text = "AROM Assessment
+5 cycles
+
+Press PLUTO button to start
+[Esc] to bypass"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="StartButton" type="Button" parent="AromPanel" unique_id=1185815589]
+visible = false
 layout_mode = 0
 offset_left = 30.0
 offset_top = 406.0
 offset_right = 190.0
 offset_bottom = 446.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_74ube")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dvccl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_46vah")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lx167")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_v43mn")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kdnw5")
 text = "Start AROM"
+metadata/arcade_authored_control = true
 
 [node name="NextButton" type="Button" parent="AromPanel" unique_id=1701442711]
+visible = false
 layout_mode = 0
 offset_left = 356.0
 offset_top = 406.0
 offset_right = 516.0
 offset_bottom = 446.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3f2cr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_q3eiu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4fjkp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_w3w7m")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_gruhk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y5n1k")
 text = "Finish AROM"
+metadata/arcade_authored_control = true
 
 [node name="PrevAromLabel" type="Label" parent="AromPanel" unique_id=918185045]
 layout_mode = 0
@@ -443,10 +906,12 @@ offset_left = 16.0
 offset_top = 460.0
 offset_right = 530.0
 offset_bottom = 484.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
-text = "Prev AROM: —"
+text = "Prev AROM: 0° : 0° (0°)"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="PromPanel" type="Panel" parent="." unique_id=2075633618]
 layout_mode = 1
@@ -455,14 +920,19 @@ anchor_left = 0.51
 anchor_top = 0.13
 anchor_right = 0.99
 anchor_bottom = 0.9
-theme_override_styles/panel = SubResource("sb_card")
+theme = ExtResource("1_qhu72")
+theme_override_styles/panel = SubResource("StyleBoxTexture_8qjpn")
+metadata/arcade_authored_control = true
 
 [node name="PromHeaderBar" type="Panel" parent="PromPanel" unique_id=1606362355]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 54.0
-theme_override_styles/panel = SubResource("sb_prom_badge")
+grow_horizontal = 2
+theme = ExtResource("1_qhu72")
+theme_override_styles/panel = SubResource("StyleBoxTexture_jr5lh")
+metadata/arcade_authored_control = true
 
 [node name="PromTitle" type="Label" parent="PromPanel" unique_id=387476539]
 layout_mode = 0
@@ -470,9 +940,11 @@ offset_left = 16.0
 offset_top = 12.0
 offset_right = 400.0
 offset_bottom = 42.0
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 17
 text = "PASSIVE RANGE OF MOTION"
+metadata/arcade_authored_control = true
 
 [node name="PromSubLabel" type="Label" parent="PromPanel" unique_id=1079888494]
 layout_mode = 0
@@ -480,9 +952,11 @@ offset_left = 16.0
 offset_top = 60.0
 offset_right = 544.0
 offset_bottom = 82.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Clinician gently moves the limb through full range"
+metadata/arcade_authored_control = true
 
 [node name="SliderContainer" type="Control" parent="PromPanel" unique_id=1701920226]
 anchors_preset = 0
@@ -490,13 +964,17 @@ offset_left = 16.0
 offset_top = 88.0
 offset_right = 544.0
 offset_bottom = 168.0
+theme = ExtResource("1_qhu72")
+metadata/arcade_authored_control = true
 
 [node name="SliderTrack" type="Panel" parent="PromPanel/SliderContainer" unique_id=1155364831]
 layout_mode = 0
 offset_top = 36.0
 offset_right = 528.0
 offset_bottom = 56.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_track")
+metadata/arcade_authored_control = true
 
 [node name="MinCursor" type="Panel" parent="PromPanel/SliderContainer" unique_id=1232522111]
 layout_mode = 0
@@ -504,7 +982,9 @@ offset_left = 256.0
 offset_top = 26.0
 offset_right = 272.0
 offset_bottom = 66.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_cursor_min")
+metadata/arcade_authored_control = true
 
 [node name="MaxCursor" type="Panel" parent="PromPanel/SliderContainer" unique_id=595187786]
 layout_mode = 0
@@ -512,15 +992,20 @@ offset_left = 276.0
 offset_top = 26.0
 offset_right = 292.0
 offset_bottom = 66.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_cursor_max")
+metadata/arcade_authored_control = true
 
 [node name="CurrentCursor" type="Panel" parent="PromPanel/SliderContainer" unique_id=1960593199]
+visible = false
 layout_mode = 0
 offset_left = 265.0
 offset_top = 30.0
 offset_right = 281.0
 offset_bottom = 62.0
+theme = ExtResource("1_qhu72")
 theme_override_styles/panel = SubResource("sb_cursor_curr")
+metadata/arcade_authored_control = true
 
 [node name="LeftLabel" type="Label" parent="PromPanel" unique_id=1148405872]
 layout_mode = 0
@@ -528,20 +1013,24 @@ offset_left = 14.0
 offset_top = 170.0
 offset_right = 100.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Flexion"
+metadata/arcade_authored_control = true
 
 [node name="CenterLabel" type="Label" parent="PromPanel" unique_id=1451742962]
+visible = false
 layout_mode = 0
 offset_left = 230.0
 offset_top = 170.0
 offset_right = 330.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
-text = "Closed"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="RightLabel" type="Label" parent="PromPanel" unique_id=2129716923]
 layout_mode = 0
@@ -549,10 +1038,12 @@ offset_left = 460.0
 offset_top = 170.0
 offset_right = 554.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Extension"
 horizontal_alignment = 2
+metadata/arcade_authored_control = true
 
 [node name="AngleLabel" type="Label" parent="PromPanel" unique_id=2043605458]
 layout_mode = 0
@@ -560,10 +1051,12 @@ offset_left = 16.0
 offset_top = 200.0
 offset_right = 544.0
 offset_bottom = 256.0
-theme_override_colors/font_color = Color(0.059, 0.412, 0.188, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 48
 text = "---"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="AngleUnitLabel" type="Label" parent="PromPanel" unique_id=1241578310]
 layout_mode = 0
@@ -571,10 +1064,12 @@ offset_left = 16.0
 offset_top = 254.0
 offset_right = 544.0
 offset_bottom = 274.0
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "degrees"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="StatusLabel" type="Label" parent="PromPanel" unique_id=2068719201]
 layout_mode = 0
@@ -582,42 +1077,63 @@ offset_left = 16.0
 offset_top = 282.0
 offset_right = 544.0
 offset_bottom = 390.0
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
+text = "Waiting for AROM..."
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="StartButton" type="Button" parent="PromPanel" unique_id=2123437333]
+visible = false
 layout_mode = 0
 offset_left = 30.0
 offset_top = 406.0
 offset_right = 200.0
 offset_bottom = 446.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_45qgc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ur8kv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6dw58")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nt2yk")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ywar3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ll1mt")
 text = "Start PROM"
+metadata/arcade_authored_control = true
 
 [node name="NextButton" type="Button" parent="PromPanel" unique_id=1886595500]
+visible = false
 layout_mode = 0
 offset_left = 360.0
 offset_top = 406.0
 offset_right = 524.0
 offset_bottom = 446.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_b0g3r")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kshg0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_j7yvn")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_j6t1w")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_40pdq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_m86oe")
 text = "Finish PROM"
+metadata/arcade_authored_control = true
 
 [node name="BottomButtons" type="HBoxContainer" parent="." unique_id=839398573]
 layout_mode = 1
@@ -626,32 +1142,50 @@ anchor_left = 0.01
 anchor_top = 0.91
 anchor_right = 0.5
 anchor_bottom = 0.98
+theme = ExtResource("1_qhu72")
 theme_override_constants/separation = 16
+metadata/arcade_authored_control = true
 
 [node name="RedoAromButton" type="Button" parent="BottomButtons" unique_id=1583381634]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
-theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("sb_btn_gn")
-theme_override_styles/pressed = SubResource("sb_btn_gp")
-theme_override_styles/hover = SubResource("sb_btn_gh")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pk35t")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_oytg6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xnjpv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_f5gc3")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_cjw5k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_epds2")
 text = "Redo AROM"
+metadata/arcade_authored_control = true
 
 [node name="ChangeMechButton" type="Button" parent="BottomButtons" unique_id=175785845]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
-theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.082, 0.157, 0.094, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_qhu72")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("sb_btn_gn")
-theme_override_styles/pressed = SubResource("sb_btn_gp")
-theme_override_styles/hover = SubResource("sb_btn_gh")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_v8wce")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gsfar")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cp0l8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_8sj7j")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_g715d")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eimlw")
 text = "Change Mechanism"
+metadata/arcade_authored_control = true

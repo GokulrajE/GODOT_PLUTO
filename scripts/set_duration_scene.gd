@@ -14,17 +14,16 @@ const MECH_LABELS = {
 const MIN_DURATION = 10
 const MAX_PER_MECH = 40
 const TOTAL_TIME   = 60
-const MIN_MECHS    = 3
 
 # ── Colors — light green clinical theme (matches AssessmentScene) ───────
-const CLR_ROW_OFF     = Color(1.000, 1.000, 1.000)
-const CLR_ROW_ON      = Color(0.824, 0.929, 0.839)
-const CLR_ROW_BORDER  = Color(0.749, 0.878, 0.761)
-const CLR_ROW_ON_BDR  = Color(0.153, 0.714, 0.376)
-const CLR_DIM         = Color(0.353, 0.510, 0.369)
-const CLR_NORMAL      = Color(0.082, 0.157, 0.094)
-const CLR_ACCENT      = Color(0.059, 0.502, 0.259)
-const CLR_WARN        = Color(0.600, 0.400, 0.050)
+const CLR_ROW_OFF     = Color("f4f8fb")
+const CLR_ROW_ON      = Color("def4ef")
+const CLR_ROW_BORDER  = Color("a3b9ca")
+const CLR_ROW_ON_BDR  = Color("087f83")
+const CLR_DIM         = Color("526b82")
+const CLR_NORMAL      = Color("20354f")
+const CLR_ACCENT      = Color("087f83")
+const CLR_WARN        = Color("805005")
 
 @onready var _total_label: Label  = $Root/SummaryPad/SummaryVBox/TotalLabel
 @onready var _error_label: Label  = $Root/SummaryPad/SummaryVBox/ErrorLabel
@@ -111,13 +110,6 @@ func _load_from_appdata() -> void:
 
 func _on_mech_toggled(mech: String, is_on: bool) -> void:
 	if is_on:
-		if _selected_mechs.size() >= MIN_MECHS and not _selected_mechs.has(mech):
-			var cb: CheckBox = _checkboxes[mech]
-			cb.set_block_signals(true)
-			cb.button_pressed = false
-			cb.set_block_signals(false)
-			return
-
 		if not _selected_mechs.has(mech):
 			_selected_mechs.append(mech)
 		var sl: HSlider = _sliders[mech]
@@ -213,8 +205,8 @@ func _apply_alloc_bar_positions(_total: int) -> void:
 		offset_x    += w
 
 func _validate(total: int) -> bool:
-	if _selected_mechs.size() < MIN_MECHS:
-		_set_error("Select exactly %d mechanisms. Currently: %d" % [MIN_MECHS, _selected_mechs.size()])
+	if _selected_mechs.size() < 1:
+		_set_error("Select at least 1 mechanism.")
 		return false
 
 	for mech in _selected_mechs:

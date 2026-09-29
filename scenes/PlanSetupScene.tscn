@@ -1,209 +1,928 @@
 [gd_scene format=3 uid="uid://drk61iw62sxk1"]
 
-[ext_resource type="Script" uid="uid://dpf3q1jkuysxi" path="res://scripts/plan_setup_scene.gd" id="1_ps001"]
-[ext_resource type="Texture2D" uid="uid://c70imiinu5yop" path="res://Assets/mechanismImages/KNOB.png" id="tex_fme1"]
-[ext_resource type="Texture2D" uid="uid://ccj63yjvhlmox" path="res://Assets/mechanismImages/keyknob_outline.png" id="tex_fme2"]
-[ext_resource type="Texture2D" uid="uid://c17cydgi1l64y" path="res://Assets/mechanismImages/Pron_supin_out.png" id="tex_fps"]
-[ext_resource type="Texture2D" uid="uid://bbrlyfedhew5g" path="res://Assets/mechanismImages/hoc.png" id="tex_hoc"]
-[ext_resource type="Texture2D" uid="uid://qh1g7dk2bj8b" path="res://Assets/mechanismImages/FE.png" id="tex_wfe"]
-[ext_resource type="Texture2D" uid="uid://br05qovq1rfjm" path="res://Assets/mechanismImages/ulnar_radial_out2.png" id="tex_wurd"]
+[ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_kjbep"]
+[ext_resource type="Script" path="res://scripts/plan_setup_scene.gd" id="1_ps001"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_q03nr"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="4_m87tk"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="5_nkp3y"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_0s8pw"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="7_31h8x"]
+[ext_resource type="Texture2D" path="res://Assets/mechanismImages/KNOB.png" id="tex_fme1"]
+[ext_resource type="Texture2D" path="res://Assets/mechanismImages/keyknob_outline.png" id="tex_fme2"]
+[ext_resource type="Texture2D" path="res://Assets/mechanismImages/Pron_supin_out.png" id="tex_fps"]
+[ext_resource type="Texture2D" path="res://Assets/mechanismImages/hoc.png" id="tex_hoc"]
+[ext_resource type="Texture2D" path="res://Assets/mechanismImages/FE.png" id="tex_wfe"]
+[ext_resource type="Texture2D" path="res://Assets/mechanismImages/ulnar_radial_out2.png" id="tex_wurd"]
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_prim_n"]
+[ext_resource type="Script" path="res://scripts/ui/mechanism_contrast.gd" id="icon_contrast"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2fc0l"]
 content_margin_left = 16.0
-content_margin_top = 8.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.059, 0.502, 0.259, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_prim_p"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nhht"]
 content_margin_left = 16.0
-content_margin_top = 8.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.039, 0.329, 0.169, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_prim_h"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m1gi3"]
 content_margin_left = 16.0
-content_margin_top = 8.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.082, 0.58, 0.298, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="sb_focus"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bmrii"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jdqlu"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_votql"]
+bg_color = Color(1, 1, 1, 0)
 draw_center = false
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.082, 0.502, 0.212, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lcp0y"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_badge"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gb1c4"]
 content_margin_left = 8.0
 content_margin_right = 8.0
-bg_color = Color(0.82, 0.85, 0.83, 1)
+bg_color = Color(0.94, 0.97, 0.99, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_card_n"]
-content_margin_left = 10.0
-content_margin_top = 6.0
-content_margin_right = 10.0
-content_margin_bottom = 6.0
-bg_color = Color(0.824, 0.929, 0.839, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_entr5"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_card_p"]
-content_margin_left = 10.0
-content_margin_top = 6.0
-content_margin_right = 10.0
-content_margin_bottom = 6.0
-bg_color = Color(0.588, 0.784, 0.608, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r1fel"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_card_h"]
-content_margin_left = 10.0
-content_margin_top = 6.0
-content_margin_right = 10.0
-content_margin_bottom = 6.0
-bg_color = Color(0.706, 0.855, 0.722, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dimod"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_sec_n"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tfx84"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_sec_p"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.624, 0.8, 0.643, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ljbh"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_sec_h"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.749, 0.878, 0.761, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="sb_popup"]
-bg_color = Color(0.941, 0.969, 0.945, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nymus"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_close_n"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.906, 0.906, 0.906, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_or7ad"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_close_p"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.78, 0.78, 0.78, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ufit"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.94, 0.97, 0.99, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_close_h"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.85, 0.85, 0.85, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34q5v"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xgjl6"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nywfw"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xshkj"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ytos"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4e7f"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7l6ao"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymjbw"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.94, 0.97, 0.99, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v83hw"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6snit"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ispcj"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ekfc"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ayrbp"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wol8d"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryd7a"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8ufe"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.94, 0.97, 0.99, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pmgsd"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ut8sg"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_73ido"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oo2dv"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y8imi"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t70ce"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r0ur6"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7p3f"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.94, 0.97, 0.99, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dqfl4"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_glrqy"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4tjx"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lgfor"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mtlr4"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t56rg"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1x8ir"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x1fdi"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0vabj"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xb5cq"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_53wpw"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66iym"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n3khk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5f7g"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.94, 0.97, 0.99, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kf1or"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qatlx"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hh07y"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h6rdt"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m4h5v"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qm2p"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nwg67"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wtogx"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gbb2d"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tvbui"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_plgbv"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b37op"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fldfi"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fu6k5"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kqanj"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vt4ke"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0qvjl"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj8ei"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vp81g"]
+texture = ExtResource("7_31h8x")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_njxb3"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iw86q"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ppyt2"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rxop6"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_nkp3y")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r7lt8"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_0s8pw")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcm3d"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
 [node name="PlanSetupScene" type="Control" unique_id=1207578385]
 layout_mode = 3
@@ -212,7 +931,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 script = ExtResource("1_ps001")
+metadata/arcade_authored = true
+metadata/arcade_authored_control = true
+
+[node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=221088218]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("1_kjbep")
+texture = ExtResource("3_q03nr")
+expand_mode = 1
+stretch_mode = 0
+metadata/arcade_authored_control = true
 
 [node name="BG" type="ColorRect" parent="." unique_id=693417726]
 layout_mode = 1
@@ -221,7 +954,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.941, 0.969, 0.945, 1)
+mouse_filter = 2
+theme = ExtResource("1_kjbep")
+color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
 [node name="Root" type="VBoxContainer" parent="." unique_id=1800458609]
 layout_mode = 1
@@ -230,98 +966,137 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Header" type="HBoxContainer" parent="Root" unique_id=1687072973]
 custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 12
+metadata/arcade_authored_control = true
 
 [node name="HeaderBG" type="ColorRect" parent="Root/Header" unique_id=1163053153]
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.824, 0.929, 0.839, 1)
+theme = ExtResource("1_kjbep")
+color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
 [node name="TitlePad" type="MarginContainer" parent="Root/Header" unique_id=1140625086]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
+metadata/arcade_authored_control = true
 
 [node name="TitleVBox" type="VBoxContainer" parent="Root/Header/TitlePad" unique_id=1322581057]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 2
+metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=857829576]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_m87tk")
 theme_override_font_sizes/font_size = 24
 text = "Plan Setup"
+metadata/arcade_authored_control = true
 
 [node name="ReadyCountLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=1461052523]
-modulate = Color(0, 0, 0, 1)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
+text = "Patient:   ·  0 / 6 mechanisms ready"
+metadata/arcade_authored_control = true
 
 [node name="ErrorLabel" type="Label" parent="Root/Header" unique_id=171566390]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.78, 0.129, 0.129, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
+text = "Assess each mechanism first, then set the duration."
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="BtnPad" type="MarginContainer" parent="Root/Header" unique_id=552911633]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_right = 16
+metadata/arcade_authored_control = true
 
 [node name="DoneButton" type="Button" parent="Root/Header/BtnPad" unique_id=1594290208]
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.45)
-theme_override_styles/normal = SubResource("sb_btn_prim_n")
-theme_override_styles/pressed = SubResource("sb_btn_prim_p")
-theme_override_styles/hover = SubResource("sb_btn_prim_h")
-theme_override_styles/disabled = SubResource("sb_btn_prim_n")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_2fc0l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6nhht")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m1gi3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_bmrii")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jdqlu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_votql")
 disabled = true
 text = "Done  →"
+metadata/arcade_authored_control = true
 
 [node name="Divider" type="ColorRect" parent="Root" unique_id=418641158]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 color = Color(0.749, 0.878, 0.761, 1)
+metadata/arcade_authored_control = true
 
 [node name="Scroll" type="ScrollContainer" parent="Root" unique_id=644905128]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
+metadata/arcade_authored_control = true
 
 [node name="CardPad" type="MarginContainer" parent="Root/Scroll" unique_id=1490157613]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+metadata/arcade_authored_control = true
 
 [node name="MechGrid" type="GridContainer" parent="Root/Scroll/CardPad" unique_id=1227257447]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 3
+metadata/arcade_authored_control = true
 
 [node name="WFECard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=622614059]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_card")
+size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_lcp0y")
+metadata/arcade_authored_control = true
 
 [node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard" unique_id=800300278]
 layout_mode = 1
@@ -330,45 +1105,60 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox" unique_id=380401642]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content" unique_id=606419409]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=885376354]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 texture = ExtResource("tex_wfe")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
+script = ExtResource("icon_contrast")
 [node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=1537437030]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
 text = "Wrist Flex / Ext"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=684042305]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox/BadgeRow" unique_id=801022145]
 custom_minimum_size = Vector2(80, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_badge")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gb1c4")
+metadata/arcade_authored_control = true
 
 [node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1151705959]
 layout_mode = 1
@@ -379,25 +1169,40 @@ offset_left = -3.5
 offset_right = 3.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "Not prescribed"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/WFECard/VBox/Content/InnerVBox" unique_id=405553977]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_entr5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_r1fel")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dimod")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_tfx84")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ljbh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_nymus")
 text = "Calibrate & Assess"
+metadata/arcade_authored_control = true
 
 [node name="WURDCard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=1189872572]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_card")
+size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_or7ad")
+metadata/arcade_authored_control = true
 
 [node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard" unique_id=84749813]
 layout_mode = 1
@@ -406,46 +1211,60 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox" unique_id=50795748]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content" unique_id=898013090]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=719010122]
-modulate = Color(0.06136909, 0.0613691, 0.06136909, 1)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 texture = ExtResource("tex_wurd")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
+script = ExtResource("icon_contrast")
 [node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=285897146]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
 text = "Wrist Ulnar / Radial"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=495235299]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox/BadgeRow" unique_id=870425481]
 custom_minimum_size = Vector2(80, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_badge")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ufit")
+metadata/arcade_authored_control = true
 
 [node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=306494121]
 layout_mode = 1
@@ -454,25 +1273,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "Not prescribed"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/WURDCard/VBox/Content/InnerVBox" unique_id=1907529083]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_34q5v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xgjl6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nywfw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_xshkj")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_3ytos")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i4e7f")
 text = "Calibrate & Assess"
+metadata/arcade_authored_control = true
 
 [node name="FPSCard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=535977638]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_card")
+size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7l6ao")
+metadata/arcade_authored_control = true
 
 [node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard" unique_id=522253642]
 layout_mode = 1
@@ -481,46 +1315,60 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox" unique_id=810107276]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content" unique_id=1765874324]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=238432346]
-modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 texture = ExtResource("tex_fps")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
+script = ExtResource("icon_contrast")
 [node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=1620600886]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
 text = "Forearm Pron / Sup"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=1573830667]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox/BadgeRow" unique_id=818411918]
 custom_minimum_size = Vector2(80, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_badge")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ymjbw")
+metadata/arcade_authored_control = true
 
 [node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1313329560]
 layout_mode = 1
@@ -529,25 +1377,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "Not prescribed"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FPSCard/VBox/Content/InnerVBox" unique_id=250262692]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_v83hw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6snit")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ispcj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_0ekfc")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ayrbp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wol8d")
 text = "Calibrate & Assess"
+metadata/arcade_authored_control = true
 
 [node name="HOCCard" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=570200279]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_card")
+size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ryd7a")
+metadata/arcade_authored_control = true
 
 [node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard" unique_id=475731641]
 layout_mode = 1
@@ -556,46 +1419,60 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox" unique_id=1604685643]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content" unique_id=1318371564]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=41968386]
-modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 texture = ExtResource("tex_hoc")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
+script = ExtResource("icon_contrast")
 [node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=1898808688]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
 text = "Hand Open / Close"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=325590405]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox/BadgeRow" unique_id=1421367017]
 custom_minimum_size = Vector2(80, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_badge")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxFlat_t8ufe")
+metadata/arcade_authored_control = true
 
 [node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=114831456]
 layout_mode = 1
@@ -604,25 +1481,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "Not prescribed"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/HOCCard/VBox/Content/InnerVBox" unique_id=485736869]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_pmgsd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ut8sg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_73ido")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_oo2dv")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y8imi")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t70ce")
 text = "Calibrate & Assess"
+metadata/arcade_authored_control = true
 
 [node name="FME1Card" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=164542139]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_card")
+size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_r0ur6")
+metadata/arcade_authored_control = true
 
 [node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card" unique_id=704380234]
 layout_mode = 1
@@ -631,46 +1523,61 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox" unique_id=1245386315]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content" unique_id=1413711099]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=113945271]
-modulate = Color(0, 0, 0, 1)
+visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 texture = ExtResource("tex_fme1")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
+script = ExtResource("icon_contrast")
 [node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=1005245698]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
 text = "Functional Mech 1"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=1862425975]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox/BadgeRow" unique_id=2033642723]
 custom_minimum_size = Vector2(80, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_badge")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l7p3f")
+metadata/arcade_authored_control = true
 
 [node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1802584967]
 layout_mode = 1
@@ -679,43 +1586,71 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "Not prescribed"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=903074026]
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_dqfl4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glrqy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f4tjx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lgfor")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_mtlr4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t56rg")
 text = "Calibrate & Assess"
+metadata/arcade_authored_control = true
 
 [node name="KnobButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=22754212]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_1x8ir")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x1fdi")
+theme_override_styles/hover = SubResource("StyleBoxTexture_0vabj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_xb5cq")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_53wpw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_66iym")
 text = "Select Knob"
+metadata/arcade_authored_control = true
 
 [node name="KnobPreview" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME1Card/VBox/Content/InnerVBox" unique_id=95471695]
 visible = false
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
 [node name="FME2Card" type="Panel" parent="Root/Scroll/CardPad/MechGrid" unique_id=561016781]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_card")
+size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_n3khk")
+metadata/arcade_authored_control = true
 
 [node name="VBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card" unique_id=609859876]
 layout_mode = 1
@@ -724,46 +1659,61 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Content" type="MarginContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox" unique_id=1892640835]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="InnerVBox" type="VBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content" unique_id=1254229872]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="MechImage" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=1388126215]
-modulate = Color(0, 0, 0, 1)
+visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 texture = ExtResource("tex_fme2")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
+script = ExtResource("icon_contrast")
 [node name="NameLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=83189396]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
 text = "Functional Mech 2"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="BadgeRow" type="HBoxContainer" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=94805255]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 6
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="DurationBadge" type="Panel" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox/BadgeRow" unique_id=384646717]
 custom_minimum_size = Vector2(80, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_badge")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i5f7g")
+metadata/arcade_authored_control = true
 
 [node name="DurationLabel" type="Label" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox/BadgeRow/DurationBadge" unique_id=1385173473]
 layout_mode = 1
@@ -772,83 +1722,130 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "Not prescribed"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="CalibrateButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=1977944842]
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_kf1or")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qatlx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hh07y")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_h6rdt")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_m4h5v")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7qm2p")
 text = "Calibrate & Assess"
+metadata/arcade_authored_control = true
 
 [node name="KnobButton" type="Button" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=620953449]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_card_n")
-theme_override_styles/pressed = SubResource("sb_btn_card_p")
-theme_override_styles/hover = SubResource("sb_btn_card_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_nwg67")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wtogx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_gbb2d")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_tvbui")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_plgbv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_b37op")
 text = "Select Knob"
+metadata/arcade_authored_control = true
 
 [node name="KnobPreview" type="TextureRect" parent="Root/Scroll/CardPad/MechGrid/FME2Card/VBox/Content/InnerVBox" unique_id=837312905]
 visible = false
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("1_kjbep")
 expand_mode = 3
 stretch_mode = 5
+metadata/arcade_authored_control = true
 
 [node name="BottomDivider" type="ColorRect" parent="Root" unique_id=627805024]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 color = Color(0.749, 0.878, 0.761, 1)
+metadata/arcade_authored_control = true
 
 [node name="BottomBar" type="HBoxContainer" parent="Root" unique_id=54755038]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="BottomBG" type="ColorRect" parent="Root/BottomBar" unique_id=707273289]
 layout_mode = 2
 mouse_filter = 2
+theme = ExtResource("1_kjbep")
 color = Color(0.824, 0.929, 0.839, 1)
+metadata/arcade_authored_control = true
 
 [node name="BottomPad" type="MarginContainer" parent="Root/BottomBar" unique_id=546887542]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 0
+metadata/arcade_authored_control = true
 
 [node name="BottomHBox" type="HBoxContainer" parent="Root/BottomBar/BottomPad" unique_id=1809458556]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 10
+metadata/arcade_authored_control = true
 
 [node name="SetDurationButton" type="Button" parent="Root/BottomBar/BottomPad/BottomHBox" unique_id=1147211404]
 custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_sec_n")
-theme_override_styles/pressed = SubResource("sb_btn_sec_p")
-theme_override_styles/hover = SubResource("sb_btn_sec_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_fldfi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fu6k5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kqanj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_vt4ke")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_0qvjl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_fj8ei")
 text = "Set Duration"
+metadata/arcade_authored_control = true
 
 [node name="HintLabel" type="Label" parent="Root/BottomBar/BottomPad/BottomHBox" unique_id=177252709]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Prescribe time for each mechanism After assessing."
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="KnobPopup" type="Control" parent="." unique_id=1961600828]
 visible = false
@@ -858,6 +1855,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
+metadata/arcade_authored_control = true
 
 [node name="KnobOverlay" type="ColorRect" parent="KnobPopup" unique_id=993466467]
 layout_mode = 1
@@ -866,7 +1865,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 color = Color(0, 0, 0, 0.55)
+metadata/arcade_authored_control = true
 
 [node name="PopupPanel" type="Panel" parent="KnobPopup" unique_id=1612196693]
 layout_mode = 1
@@ -881,7 +1882,9 @@ offset_right = 280.0
 offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("sb_popup")
+theme = ExtResource("1_kjbep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_vp81g")
+metadata/arcade_authored_control = true
 
 [node name="PopupVBox" type="VBoxContainer" parent="KnobPopup/PopupPanel" unique_id=830428472]
 layout_mode = 1
@@ -890,44 +1893,66 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/separation = 8
+metadata/arcade_authored_control = true
 
 [node name="TitlePad" type="MarginContainer" parent="KnobPopup/PopupPanel/PopupVBox" unique_id=440829583]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 0
+metadata/arcade_authored_control = true
 
 [node name="PopupTitle" type="Label" parent="KnobPopup/PopupPanel/PopupVBox/TitlePad" unique_id=918924426]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 17
 text = "Select Knob"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="KnobScroll" type="ScrollContainer" parent="KnobPopup/PopupPanel/PopupVBox" unique_id=1535564056]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_kjbep")
+metadata/arcade_authored_control = true
 
 [node name="KnobGrid" type="GridContainer" parent="KnobPopup/PopupPanel/PopupVBox/KnobScroll" unique_id=840679387]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 4
+metadata/arcade_authored_control = true
 
 [node name="ClosePad" type="MarginContainer" parent="KnobPopup/PopupPanel/PopupVBox" unique_id=801548870]
 layout_mode = 2
+theme = ExtResource("1_kjbep")
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 10
+metadata/arcade_authored_control = true
 
 [node name="CloseButton" type="Button" parent="KnobPopup/PopupPanel/PopupVBox/ClosePad" unique_id=1424338833]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_close_n")
-theme_override_styles/pressed = SubResource("sb_btn_close_p")
-theme_override_styles/hover = SubResource("sb_btn_close_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_kjbep")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_njxb3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iw86q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ppyt2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rxop6")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_r7lt8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_fcm3d")
 text = "Close"
+metadata/arcade_authored_control = true

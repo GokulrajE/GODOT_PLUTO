@@ -1,5 +1,8 @@
 extends Control
 
+const GameInput = preload("res://scripts/gameplay/game_input.gd")
+const ArcadeAssets = preload("res://scripts/ui/arcade_assets.gd")
+
 const _PlutoAAN = preload("res://scripts/PlutoAAN.gd")
 
 # ── Layout ────────────────────────────────────────────────────────────────────
@@ -94,6 +97,9 @@ func _ready() -> void:
 	_setup_scrolling_bg()
 	_init_rom_data()
 	_calc_speed()
+	_player.size = Vector2(150, 111)
+	_collision_rect.position = Vector2(12, 12)
+	_collision_rect.size = Vector2(126, 88)
 	_player_w = _player.size.x if _player.size.x > 0.0 else 72.0
 	_player_h = _player.size.y if _player.size.y > 0.0 else 72.0
 	_player_y = (GAME_TOP + GAME_BOTTOM) * 0.5
@@ -124,10 +130,11 @@ func _exit_tree() -> void:
 
 # ── Init ──────────────────────────────────────────────────────────────────────
 func _load_textures() -> void:
-	_rock_tex      = load("res://game/TUK_TUK/sprites/New level/rock.png")
-	_rock_down_tex = load("res://game/TUK_TUK/sprites/New level/rockDown.png")
+	_rock_tex      = load("res://Assets/Arcade/rock-column.svg")
+	_rock_down_tex = load("res://Assets/Arcade/rock-column.svg")
 
 func _setup_scrolling_bg() -> void:
+	if has_node("ArcadeGameBackground"): return
 	var tex: Texture2D = load("res://game/TUK_TUK/sprites/New level/background.png")
 	if tex == null: return
 	$Background.visible = false
@@ -260,6 +267,7 @@ func _spawn_column() -> void:
 	bot.size         = Vector2(ROCK_W, ROCK_H)
 	bot.position     = Vector2(SPAWN_X - ROCK_W * 0.5, gap_y + GAP_H * 0.5)
 	if _rock_tex: bot.texture = _rock_tex
+	bot.flip_v = true
 	_rock_container.add_child(bot)
 
 	_columns.append({"top": top, "bot": bot, "gap_y": gap_y, "x": SPAWN_X, "scored": false, "collided": false})
@@ -292,7 +300,7 @@ func _update_columns(delta: float) -> void:
 		_columns.erase(col)
 
 func _check_collision() -> bool:
-	var pr := _collision_rect.get_global_rect()
+	var pr := Rect2(_player.position + _collision_rect.position, _collision_rect.size)
 	if pr.position.y < GAME_TOP or pr.end.y > GAME_BOTTOM:
 		return true
 	for col in _columns:
@@ -339,6 +347,7 @@ func _place_arom_lines() -> void:
 		_arom_nodes.append(line)
 
 func _process(delta: float) -> void:
+	if _state == State.PAUSED: return
 	_anim_t += delta
 	_tick(delta)
 	_refresh_ui()
@@ -364,9 +373,7 @@ func _tick(delta: float) -> void:
 			_state = State.MOVE
 		State.MOVE:
 			# Player Y from PLUTO (or keyboard in debug)
-			var ty: float = angle_to_screen_y(PlutoComm.angle)
-			if Input.is_key_pressed(KEY_UP):   ty = _player_y - 350.0 * delta
-			elif Input.is_key_pressed(KEY_DOWN): ty = _player_y + 350.0 * delta
+			var ty: float = GameInput.vertical(_player_y, angle_to_screen_y(PlutoComm.angle), delta, 350.0)
 			_player_y = clamp(ty, GAME_TOP + _player_h * 0.5, GAME_BOTTOM - _player_h * 0.5)
 			_player.visible = true
 			_update_player_node()
@@ -422,7 +429,7 @@ func _tick(delta: float) -> void:
 
 		State.FAILURE:
 			_fail_flash_t -= delta
-			_shake_x = sin(_fail_flash_t * 40.0) * 10.0
+			_shake_x = 0.0 if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)) else sin(_fail_flash_t * 30.0) * 4.0
 			_player.modulate  = Color.WHITE
 			_player.visible   = fmod(_fail_flash_t * 10.0, 1.0) > 0.5
 			_update_player_node()
@@ -486,7 +493,7 @@ func _begin_game() -> void:
 
 func _setup_aan() -> void:
 	var mech = AppData.mechanism_name
-	_use_aan = PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
+	_use_aan = not AppData.demo_mode and PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
 	_aan     = _PlutoAAN.new()
 	if _arom.size() >= 2: _aan.arom = _arom.duplicate()
 	if _prom.size()  >= 2: _aan.prom = _prom.duplicate()
@@ -539,7 +546,7 @@ func _update_log_state() -> void:
 
 # ── Input ─────────────────────────────────────────────────────────────────────
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed: return
+	if not (event is InputEventKey) or not event.pressed or event.echo: return
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible

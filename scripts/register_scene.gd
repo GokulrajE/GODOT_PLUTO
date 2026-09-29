@@ -64,7 +64,7 @@ func _style_date_field(field: LineEdit) -> void:
 	sb.content_margin_right  = 14.0
 	sb.content_margin_bottom = 8.0
 	field.add_theme_stylebox_override("read_only", sb)
-	field.add_theme_color_override("font_uneditable_color", Color(0.059, 0.502, 0.259, 1))
+	field.add_theme_color_override("font_uneditable_color", Color("123f47"))
 
 # ── Patient ID check ───────────────────────────────────────────────────
 
@@ -84,8 +84,10 @@ func _check_patient_id() -> void:
 # ── Side buttons ───────────────────────────────────────────────────────
 
 func _update_side_buttons() -> void:
-	left_button.modulate  = Color("#2ecc71") if _training_side == "Left"  else Color.WHITE
-	right_button.modulate = Color("#2ecc71") if _training_side == "Right" else Color.WHITE
+	for button: Button in [left_button, right_button]:
+		button.toggle_mode = true
+		button.modulate = Color.WHITE
+		button.set_pressed_no_signal(button == left_button if _training_side == "Left" else button == right_button)
 
 # ── Register ───────────────────────────────────────────────────────────
 
@@ -142,14 +144,14 @@ func _build_calendar_popup() -> void:
 	_cal_popup = Panel.new()
 
 	var sb := StyleBoxFlat.new()
-	sb.bg_color     = Color(1.0, 1.0, 1.0, 1.0)
-	sb.border_color = Color(0.153, 0.714, 0.376, 1.0)
+	sb.bg_color     = Color("ffffff")
+	sb.border_color = Color("c5dce8")
 	sb.set_border_width_all(1)
 	sb.set_corner_radius_all(10)
 	sb.shadow_color = Color(0.0, 0.0, 0.0, 0.18)
 	sb.shadow_size  = 8
 	_cal_popup.add_theme_stylebox_override("panel", sb)
-	_cal_popup.custom_minimum_size = Vector2(294, 300)
+	_cal_popup.custom_minimum_size = Vector2(330, 350)
 	_cal_popup.visible             = false
 	_cal_popup.z_index             = 100
 	add_child(_cal_popup)
@@ -175,7 +177,7 @@ func _build_calendar_popup() -> void:
 	_cal_header = Label.new()
 	_cal_header.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_cal_header.horizontal_alignment  = HORIZONTAL_ALIGNMENT_CENTER
-	_cal_header.add_theme_color_override("font_color", Color(0.082, 0.157, 0.094, 1))
+	_cal_header.add_theme_color_override("font_color", Color("20354f"))
 	_cal_header.add_theme_font_size_override("font_size", 15)
 	hdr.add_child(_cal_header)
 
@@ -193,7 +195,7 @@ func _build_calendar_popup() -> void:
 		lbl.horizontal_alignment     = HORIZONTAL_ALIGNMENT_CENTER
 		lbl.custom_minimum_size      = Vector2(38, 22)
 		lbl.add_theme_font_size_override("font_size", 11)
-		lbl.add_theme_color_override("font_color", Color(0.353, 0.510, 0.369, 1))
+		lbl.add_theme_color_override("font_color", Color("526b82"))
 		dow_grid.add_child(lbl)
 
 	# ── Day buttons ──
@@ -208,6 +210,7 @@ func _build_calendar_popup() -> void:
 		var btn := Button.new()
 		btn.custom_minimum_size = Vector2(38, 36)
 		btn.flat                = true
+		btn.set_meta("secondary", true)
 		btn.add_theme_font_size_override("font_size", 13)
 		var idx := i
 		btn.pressed.connect(func(): _cal_day_pressed(idx))
@@ -218,10 +221,11 @@ func _nav_button(txt: String) -> Button:
 	var btn := Button.new()
 	btn.text = txt
 	btn.flat = true
+	btn.set_meta("secondary", true)
 	btn.custom_minimum_size = Vector2(32, 32)
 	btn.add_theme_font_size_override("font_size", 22)
-	btn.add_theme_color_override("font_color",       Color(0.082, 0.502, 0.212, 1))
-	btn.add_theme_color_override("font_hover_color", Color(0.059, 0.329, 0.169, 1))
+	btn.add_theme_color_override("font_color",       Color("087f83"))
+	btn.add_theme_color_override("font_hover_color", Color("79e0cf"))
 	return btn
 
 func _show_calendar(field: LineEdit) -> void:
@@ -284,9 +288,9 @@ func _cal_refresh() -> void:
 				and _cal_month == int(today.month)
 				and _cal_year  == int(today.year))
 			if is_sel:
-				_cal_set_style(btn, Color(0.082, 0.502, 0.212, 1), Color.WHITE)
+				_cal_set_style(btn, Color("087f83"), Color.WHITE)
 			elif is_today:
-				_cal_set_style(btn, Color(0.824, 0.929, 0.839, 1), Color(0.059, 0.502, 0.259, 1))
+				_cal_set_style(btn, Color("79e0cf"), Color("123f47"))
 			else:
 				_cal_clear_style(btn)
 
@@ -304,8 +308,8 @@ func _cal_clear_style(btn: Button) -> void:
 	btn.remove_theme_stylebox_override("normal")
 	btn.remove_theme_stylebox_override("hover")
 	btn.remove_theme_stylebox_override("pressed")
-	btn.add_theme_color_override("font_color",       Color(0.082, 0.157, 0.094, 1))
-	btn.add_theme_color_override("font_hover_color", Color(0.153, 0.714, 0.376, 1))
+	btn.add_theme_color_override("font_color",       Color("20354f"))
+	btn.add_theme_color_override("font_hover_color", Color("79e0cf"))
 
 func _cal_day_pressed(idx: int) -> void:
 	var btn: Button = _cal_day_btns[idx]

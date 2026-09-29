@@ -4,14 +4,16 @@ extends Control
 @onready var status_label: Label = $Header/StatusLabel
 
 func _ready() -> void:
-	mech_label.text   = _get_mech_display_name()
-	status_label.text = "Press PLUTO button or select a game below"
+	preload("res://scripts/ui/game_picker_ui.gd").configure($GameGrid)
+	mech_label.text   = "FIVE WAYS TO MOVE. ONE BRIGHTER DAY." if AppData.demo_mode else _get_mech_display_name()
+	status_label.text = "Keyboard demo • no patient data recorded" if AppData.demo_mode else "Choose a game to begin your session"
 
 	$GameGrid/HatTrickButton.pressed.connect(_on_hat_trick_pressed)
 	$GameGrid/FruitBasketButton.pressed.connect(_on_fruit_basket_pressed)
 	$GameGrid/RNRButton.pressed.connect(_on_rnr_pressed)
 	$GameGrid/TukTukButton.pressed.connect(_on_tuk_tuk_pressed)
 	$GameGrid/PingPongButton.pressed.connect(_on_ping_pong_pressed)
+	if AppData.demo_mode: $BackButton.text = "← Back to home"
 	$BackButton.pressed.connect(_on_back_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
 
@@ -43,6 +45,10 @@ func _on_ping_pong_pressed() -> void:
 	get_tree().change_scene_to_file("res://game/PING_PONG/scene/PingPongScene.tscn")
 
 func _on_back_pressed() -> void:
+	if AppData.demo_mode:
+		AppData.exit_demo()
+		get_tree().change_scene_to_file("res://scenes/MainScene.tscn")
+		return
 	get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
 
 func _get_mech_display_name() -> String:

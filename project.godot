@@ -25,9 +25,15 @@ AppData="*res://autoloads/AppData.gd"
 DataManager="*res://autoloads/DataManager.gd"
 PlutoComm="*uid://0l07lk2j6cve"
 StatusOverlay="*res://autoloads/StatusOverlay.gd"
+UIManager="*res://scripts/ui/ui_manager.gd"
+MenuMusic="*res://scripts/ui/menu_music.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=800
+window/size/window_width_override=1280
+window/size/window_height_override=800
 window/stretch/mode="canvas_items"
 
 [editor_plugins]

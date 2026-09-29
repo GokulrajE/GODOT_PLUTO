@@ -1,5 +1,8 @@
 extends Control
 
+const GameInput = preload("res://scripts/gameplay/game_input.gd")
+const ArcadeAssets = preload("res://scripts/ui/arcade_assets.gd")
+
 const _PlutoAAN = preload("res://scripts/PlutoAAN.gd")
 
 # ── Layout ──────────────────────────────────────────────────────────────────
@@ -9,17 +12,17 @@ const CLOUD_W:       float = 160.0
 const CLOUD_H:       float = 90.0
 const CLOUD_Y:       float = 105.0     # cloud top Y
 const CLOUD_HALF:    float = 80.0      # half-width for movement clamping
-const SEED_Y:        float = 535.0     # baseline Y (bottom of seed/plant sprite)
+const SEED_Y:        float = 620.0     # baseline Y (bottom of seed/plant sprite)
 const SEED_COUNT:    int   = 5
 const SEED_SIZE:     float = 44.0      # seed sprite size (smaller)
 const SEED_HALF_W:   float = 36.0      # cloud-over-seed detection radius
 const RAIN_DROP_COUNT: int = 30
-const RAIN_DROP_W:   float = 4.0       # width of each raindrop streak
-const RAIN_DROP_H:   float = 10.0      # height of each raindrop streak
+const RAIN_DROP_W:   float = 18.0       # width of each raindrop streak
+const RAIN_DROP_H:   float = 29.0      # height of each raindrop streak
 const RAIN_COL_W:    float = 72.0      # rain column total width
 
 # plant sizes per stage (0=seed … 4=final, bigger each stage)
-const PLANT_SIZES = [44.0, 200.0, 200.0, 250.0, 300.0]
+const PLANT_SIZES = [44.0, 95.0, 135.0, 180.0, 210.0]
 
 # ── Speed ────────────────────────────────────────────────────────────────────
 const MIN_SPEED:          float = 10.0
@@ -131,16 +134,14 @@ func _build_slot_positions() -> void:
 		_slot_positions.append(GAME_LEFT + margin + step * float(i))
 
 func _load_seed_textures() -> void:
-	for p in [
-		"res://game/RNR/sprites/seed.png",
-		"res://game/RNR/sprites/plant_stage2.png",
-		"res://game/RNR/sprites/plant_stage3.png",
-		"res://game/RNR/sprites/plant_stage4.png",
-		"res://game/RNR/sprites/plant_stage5.png",
-	]:
-		_seed_textures.append(load(p))
+	for i in 5:
+		_seed_textures.append(ArcadeAssets.plant(i))
 
 func _spawn_seeds() -> void:
+	for child in _seed_container.get_children():
+		if child.has_meta("authored_seed"):
+			_seed_container.remove_child(child)
+			child.queue_free()
 	_seed_nodes.clear()
 	_ring_nodes.clear()
 	_bar_bg_nodes.clear()
@@ -225,6 +226,7 @@ func _spawn_seeds() -> void:
 
 		# ── Seed / plant sprite (added before ring so ring draws on top) ────
 		var seed_node := TextureRect.new()
+		seed_node.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 		seed_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		seed_node.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
 		seed_node.size         = Vector2(SEED_SIZE, SEED_SIZE)
@@ -232,6 +234,8 @@ func _spawn_seeds() -> void:
 		seed_node.position     = Vector2(cx - SEED_SIZE * 0.5, SEED_Y - SEED_SIZE)
 		if _seed_textures.size() > 0 and _seed_textures[0] != null:
 			seed_node.texture = _seed_textures[0]
+			seed_node.size.x = SEED_SIZE * seed_node.texture.get_width() / seed_node.texture.get_height()
+			seed_node.position.x = cx - seed_node.size.x * 0.5
 		_seed_container.add_child(seed_node)
 		_seed_nodes.append(seed_node)
 		_seed_stage.append(0)
@@ -243,9 +247,12 @@ func _spawn_seeds() -> void:
 func _build_rain_drops() -> void:
 	_drop_nodes.clear()
 	for _i in RAIN_DROP_COUNT:
-		var drop := ColorRect.new()
-		drop.color   = Color(0.55, 0.82, 1.0, 0.9)
-		drop.size    = Vector2(RAIN_DROP_W, RAIN_DROP_H)
+		var drop := TextureRect.new()
+		drop.texture = preload("res://Assets/Arcade/water-drop.svg")
+		drop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		drop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		drop.custom_minimum_size = Vector2(RAIN_DROP_W, RAIN_DROP_H)
+		drop.size = Vector2(RAIN_DROP_W, RAIN_DROP_H)
 		drop.visible = false
 		_seed_container.add_child(drop)
 		_drop_nodes.append(drop)
@@ -345,6 +352,7 @@ func _draw() -> void:
 	draw_line(Vector2(x_right, 82.0), Vector2(x_right, 540.0), col, 2.0)
 
 func _process(delta: float) -> void:
+	if _state == State.PAUSED: return
 	_move_cloud(delta)
 	_tick(delta)
 	_animate_visuals(delta)
@@ -353,15 +361,17 @@ func _process(delta: float) -> void:
 	_update_log_state()
 
 func _move_cloud(delta: float) -> void:
-	var sx := angle_to_screen(PlutoComm.angle)
-	if Input.is_key_pressed(KEY_LEFT):
-		sx = _cloud_x - 400.0 * delta
-	elif Input.is_key_pressed(KEY_RIGHT):
-		sx = _cloud_x + 400.0 * delta
+	var sx := GameInput.horizontal(_cloud_x, angle_to_screen(PlutoComm.angle), delta)
 	_set_cloud_x(clamp(sx, GAME_LEFT + CLOUD_HALF, GAME_RIGHT - CLOUD_HALF))
 
 # ── Animate highlight + rain drops each frame ─────────────────────────────────
 func _animate_visuals(delta: float) -> void:
+	for i in _seed_nodes.size():
+		var plant: TextureRect = _seed_nodes[i]
+		var target: float = plant.get_meta("growth_target", 1.0)
+		var factor: float = target if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)) else lerpf(plant.scale.x, target, 1.0 - exp(-10.0 * delta))
+		plant.scale = Vector2.ONE * factor
+		plant.position = Vector2(float(_slot_positions[i]) - plant.size.x * factor * 0.5, SEED_Y - plant.size.y * factor)
 	_pulse_t    += delta
 	_rain_anim_t += delta
 
@@ -396,11 +406,13 @@ func _animate_visuals(delta: float) -> void:
 	var rain_visible: bool  = _is_raining and active
 	var col_top:      float = _cloud.position.y + _cloud.size.y
 	var col_bottom:   float = SEED_Y - SEED_SIZE - 4.0
+	if _target_seed >= 0 and _target_seed < _seed_nodes.size():
+		col_bottom = maxf(col_top + 20, _seed_nodes[_target_seed].position.y + 8)
 	var col_height:   float = col_bottom - col_top
 	var slot_cx:      float = float(_slot_positions[_target_seed]) if _target_seed >= 0 and _target_seed < _slot_positions.size() else 583.0
 
 	for j in RAIN_DROP_COUNT:
-		var drop := _drop_nodes[j] as ColorRect
+		var drop := _drop_nodes[j] as TextureRect
 		if rain_visible:
 			drop.visible = true
 			# Stagger vertical start positions across the column height
@@ -413,7 +425,7 @@ func _animate_visuals(delta: float) -> void:
 			var wobble: float  = sin(float(j) * 2.3 + _rain_anim_t * 1.5) * 4.0
 			drop.position = Vector2(slot_cx - RAIN_DROP_W * 0.5 + lane + wobble, drop_y)
 			var fade: float = 1.0 - abs(drop_y - (col_top + col_height * 0.5)) / (col_height * 0.5)
-			drop.modulate.a = clamp(fade * 0.92, 0.15, 0.92)
+			drop.modulate.a = 1.0
 		else:
 			drop.visible = false
 
@@ -479,6 +491,8 @@ func _tick(delta: float) -> void:
 				_state = State.SUCCESS
 			elif _highlight_timer >= _move_duration and not _seed_grown:
 				_seed_missed = true
+				n_failure += 1
+				_miss_sfx.play()
 				_state = State.FAILURE
 
 		State.SUCCESS, State.FAILURE:
@@ -546,9 +560,10 @@ func _grow_seed(idx: int) -> void:
 	node.texture      = _seed_textures[new_stage] if new_stage < _seed_textures.size() else null
 	# Scale uniformly from base SEED_SIZE so the texture's natural aspect ratio is kept
 	var factor: float = sz / SEED_SIZE
-	node.scale        = Vector2(factor, factor)
+	node.size = Vector2(SEED_SIZE * node.texture.get_width() / node.texture.get_height(), SEED_SIZE)
+	node.set_meta("growth_target", factor)
 	# Reanchor to bottom-center (scale expands from top-left corner)
-	node.position     = Vector2(cx - SEED_SIZE * factor * 0.5, SEED_Y - SEED_SIZE * factor)
+	node.position = Vector2(cx - node.size.x * node.scale.x * 0.5, SEED_Y - node.size.y * node.scale.y)
 	n_success        += 1
 	_success_sfx.play()
 
@@ -605,7 +620,7 @@ func _begin_game() -> void:
 
 func _setup_aan() -> void:
 	var mech  = AppData.mechanism_name
-	_use_aan = PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
+	_use_aan = not AppData.demo_mode and PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
 	_aan     = _PlutoAAN.new()
 	if _arom.size() >= 2: _aan.arom = _arom.duplicate()
 	if _prom.size() >= 2: _aan.prom = _prom.duplicate()
@@ -656,7 +671,7 @@ func _update_log_state() -> void:
 
 # ── Input ─────────────────────────────────────────────────────────────────────
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed: return
+	if not (event is InputEventKey) or not event.pressed or event.echo: return
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible

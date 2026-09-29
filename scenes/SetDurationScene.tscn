@@ -1,61 +1,84 @@
 [gd_scene format=3 uid="uid://bl12vaekughd2"]
 
+[ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_cfs8r"]
 [ext_resource type="Script" uid="uid://be371ec8g8ryp" path="res://scripts/set_duration_scene.gd" id="1_sd001"]
+[ext_resource type="Texture2D" uid="uid://1mpygqquiwpt" path="res://Assets/Arcade/daylight-background.svg" id="3_oqrxx"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="4_gf8wt"]
+[ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="5_3ym8o"]
+[ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="6_tqfd7"]
+[ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="7_cu0rp"]
+[ext_resource type="Texture2D" uid="uid://xlgqeatescof" path="res://Assets/Arcade/daylight-primary.svg" id="8_ltngj"]
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_sec_n"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1qt36"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_sec_p"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.624, 0.800, 0.643, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6hc0s"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_sec_h"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.749, 0.878, 0.761, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.553, 0.753, 0.573, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6b3ho"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="sb_focus"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w8ahr"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yjwsg"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngak3"]
+bg_color = Color(1, 1, 1, 0)
 draw_center = false
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.082, 0.502, 0.212, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="sb_track"]
 bg_color = Color(0.918, 0.949, 0.922, 1)
@@ -69,52 +92,568 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="sb_row"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7qhct"]
 content_margin_left = 12.0
+content_margin_top = 0.0
 content_margin_right = 12.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 0.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_prim_n"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ty3yk"]
 content_margin_left = 16.0
-content_margin_top = 8.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.059, 0.502, 0.259, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_prim_p"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7qbpv"]
 content_margin_left = 16.0
-content_margin_top = 8.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.039, 0.329, 0.169, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_prim_h"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6y83x"]
 content_margin_left = 16.0
-content_margin_top = 8.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.082, 0.58, 0.298, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_33ofr"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_387vj"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gettn"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k23mj"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o84rw"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u7mcd"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7yims"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qpjr4"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3mf5m"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjcsm"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ubqff"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7x2ey"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8717u"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsegi"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5avlx"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scx3w"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw68a"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j4b0s"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_11f5g"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_26d5s"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c4em8"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7mu1d"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8geoy"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3r3ux"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mc55p"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h1hm6"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ubf3y"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l1hlg"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m8q47"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8axex"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql1wb"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gs5ef"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmk8u"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3xync"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_emhi1"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_3ym8o")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_anqvv"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_tqfd7")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rcmu6"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqims"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5aj1"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_ltngj")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4x5mv"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_ltngj")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_myryd"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_ltngj")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e2b3g"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_ltngj")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_by5h5"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_cu0rp")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfab4"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
 
 [node name="SetDurationScene" type="Control" unique_id=1877646585]
 layout_mode = 3
@@ -123,7 +662,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 script = ExtResource("1_sd001")
+metadata/arcade_authored = true
+metadata/arcade_authored_control = true
+
+[node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=493698147]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("1_cfs8r")
+texture = ExtResource("3_oqrxx")
+expand_mode = 1
+metadata/arcade_authored_control = true
 
 [node name="BG" type="ColorRect" parent="." unique_id=1418421640]
 layout_mode = 1
@@ -132,7 +684,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.941, 0.969, 0.945, 1)
+mouse_filter = 2
+theme = ExtResource("1_cfs8r")
+color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
 [node name="Root" type="VBoxContainer" parent="." unique_id=145716048]
 layout_mode = 1
@@ -141,241 +696,338 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Header" type="HBoxContainer" parent="Root" unique_id=2095600281]
 custom_minimum_size = Vector2(0, 68)
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 12
+metadata/arcade_authored_control = true
 
 [node name="HeaderBG" type="ColorRect" parent="Root/Header" unique_id=1508677831]
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.824, 0.929, 0.839, 1)
+theme = ExtResource("1_cfs8r")
+color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
 [node name="TitlePad" type="MarginContainer" parent="Root/Header" unique_id=564338154]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_cfs8r")
 theme_override_constants/margin_left = 20
+metadata/arcade_authored_control = true
 
 [node name="TitleVBox" type="VBoxContainer" parent="Root/Header/TitlePad" unique_id=1998405024]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 2
+metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=1547462188]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_gf8wt")
 theme_override_font_sizes/font_size = 24
 text = "Set Duration"
+metadata/arcade_authored_control = true
 
 [node name="SubLabel" type="Label" parent="Root/Header/TitlePad/TitleVBox" unique_id=1286797110]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Select exactly 3 mechanisms  ·  Allocate 60 min total  ·  Min 10 / Max 40 min each"
+metadata/arcade_authored_control = true
 
 [node name="BtnPad" type="MarginContainer" parent="Root/Header" unique_id=635801512]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/margin_right = 16
+metadata/arcade_authored_control = true
 
 [node name="BackButton" type="Button" parent="Root/Header/BtnPad" unique_id=1608794591]
 custom_minimum_size = Vector2(100, 42)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_styles/normal = SubResource("sb_btn_sec_n")
-theme_override_styles/pressed = SubResource("sb_btn_sec_p")
-theme_override_styles/hover = SubResource("sb_btn_sec_h")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_1qt36")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6hc0s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6b3ho")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_w8ahr")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_yjwsg")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ngak3")
 text = "← Back"
+metadata/arcade_authored_control = true
 
 [node name="Divider" type="ColorRect" parent="Root" unique_id=1298815428]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 color = Color(0.749, 0.878, 0.761, 1)
+metadata/arcade_authored_control = true
 
 [node name="AllocBar" type="MarginContainer" parent="Root" unique_id=1032630031]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 6
+metadata/arcade_authored_control = true
 
 [node name="AllocVBox" type="VBoxContainer" parent="Root/AllocBar" unique_id=1377157586]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="AllocTitleLabel" type="Label" parent="Root/AllocBar/AllocVBox" unique_id=1811479623]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "Allocation"
+metadata/arcade_authored_control = true
 
 [node name="AllocTrack" type="Panel" parent="Root/AllocBar/AllocVBox" unique_id=501586994]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_cfs8r")
 theme_override_styles/panel = SubResource("sb_track")
+metadata/arcade_authored_control = true
 
 [node name="WFESeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=981397378]
 visible = false
 layout_mode = 1
+theme = ExtResource("1_cfs8r")
 color = Color(0.18, 0.48, 0.82, 1)
+metadata/arcade_authored_control = true
 
 [node name="WURDSeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=1629368237]
 visible = false
 layout_mode = 1
+theme = ExtResource("1_cfs8r")
 color = Color(0.82, 0.42, 0.06, 1)
+metadata/arcade_authored_control = true
 
 [node name="FPSSeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=1227979089]
 visible = false
 layout_mode = 1
+theme = ExtResource("1_cfs8r")
 color = Color(0.72, 0.12, 0.12, 1)
+metadata/arcade_authored_control = true
 
 [node name="HOCSeg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=2084518140]
 visible = false
 layout_mode = 1
+theme = ExtResource("1_cfs8r")
 color = Color(0.06, 0.55, 0.26, 1)
+metadata/arcade_authored_control = true
 
 [node name="FME1Seg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=16078934]
 visible = false
 layout_mode = 1
+theme = ExtResource("1_cfs8r")
 color = Color(0.55, 0.12, 0.72, 1)
+metadata/arcade_authored_control = true
 
 [node name="FME2Seg" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocTrack" unique_id=996285762]
 visible = false
 layout_mode = 1
+theme = ExtResource("1_cfs8r")
 color = Color(0.7, 0.55, 0.04, 1)
+metadata/arcade_authored_control = true
 
 [node name="AllocLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox" unique_id=1616776785]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="WFELegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=1695236287]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/WFELegend" unique_id=740905990]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.18, 0.48, 0.82, 1)
+metadata/arcade_authored_control = true
 
 [node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/WFELegend" unique_id=1636221328]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "WFE"
+metadata/arcade_authored_control = true
 
 [node name="WURDLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=675553420]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/WURDLegend" unique_id=1072423981]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.82, 0.42, 0.06, 1)
+metadata/arcade_authored_control = true
 
 [node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/WURDLegend" unique_id=436076952]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "WURD"
+metadata/arcade_authored_control = true
 
 [node name="FPSLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=152438978]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/FPSLegend" unique_id=1809461355]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.72, 0.12, 0.12, 1)
+metadata/arcade_authored_control = true
 
 [node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/FPSLegend" unique_id=815998501]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "FPS"
+metadata/arcade_authored_control = true
 
 [node name="HOCLegend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=43194352]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/HOCLegend" unique_id=1520710765]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.06, 0.55, 0.26, 1)
+metadata/arcade_authored_control = true
 
 [node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/HOCLegend" unique_id=939821503]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "HOC"
+metadata/arcade_authored_control = true
 
 [node name="FME1Legend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=893123056]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/FME1Legend" unique_id=277887249]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.55, 0.12, 0.72, 1)
+metadata/arcade_authored_control = true
 
 [node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/FME1Legend" unique_id=2055642740]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "FME1"
+metadata/arcade_authored_control = true
 
 [node name="FME2Legend" type="HBoxContainer" parent="Root/AllocBar/AllocVBox/AllocLegend" unique_id=1264394267]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 4
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/AllocBar/AllocVBox/AllocLegend/FME2Legend" unique_id=1581121161]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.7, 0.55, 0.04, 1)
+metadata/arcade_authored_control = true
 
 [node name="Lbl" type="Label" parent="Root/AllocBar/AllocVBox/AllocLegend/FME2Legend" unique_id=174512913]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "FME2"
+metadata/arcade_authored_control = true
 
 [node name="Scroll" type="ScrollContainer" parent="Root" unique_id=650732107]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_cfs8r")
+metadata/arcade_authored_control = true
 
 [node name="RowPad" type="MarginContainer" parent="Root/Scroll" unique_id=596467739]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_cfs8r")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 12
+metadata/arcade_authored_control = true
 
 [node name="RowsVBox" type="VBoxContainer" parent="Root/Scroll/RowPad" unique_id=1751252685]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 8
+metadata/arcade_authored_control = true
 
 [node name="WFERow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=1451340344]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_row")
+theme = ExtResource("1_cfs8r")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7qhct")
+metadata/arcade_authored_control = true
 
 [node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/WFERow" unique_id=1056316568]
 layout_mode = 1
@@ -384,48 +1036,76 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1853258733]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ty3yk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7qbpv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6y83x")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_33ofr")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_387vj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_gettn")
+disabled = true
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1755178767]
 custom_minimum_size = Vector2(8, 36)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.18, 0.48, 0.82, 1)
+metadata/arcade_authored_control = true
 
 [node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1221389808]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "Wrist Flex / Ext"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1511169485]
 custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 max_value = 0.0
 editable = false
+metadata/arcade_authored_control = true
 
 [node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WFERow/RowHBox" unique_id=1373028438]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "— min"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="WURDRow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=447719526]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_row")
+theme = ExtResource("1_cfs8r")
+theme_override_styles/panel = SubResource("StyleBoxTexture_k23mj")
+metadata/arcade_authored_control = true
 
 [node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/WURDRow" unique_id=1479036164]
 layout_mode = 1
@@ -434,48 +1114,76 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=423203541]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_o84rw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u7mcd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7yims")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_qpjr4")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_3mf5m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hjcsm")
+disabled = true
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=2037535029]
 custom_minimum_size = Vector2(8, 36)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.82, 0.42, 0.06, 1)
+metadata/arcade_authored_control = true
 
 [node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=1060521688]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "Wrist Ulnar / Radial"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=254840491]
 custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 max_value = 0.0
 editable = false
+metadata/arcade_authored_control = true
 
 [node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/WURDRow/RowHBox" unique_id=846657786]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "— min"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="FPSRow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=539015526]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_row")
+theme = ExtResource("1_cfs8r")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ubqff")
+metadata/arcade_authored_control = true
 
 [node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/FPSRow" unique_id=1581660617]
 layout_mode = 1
@@ -484,48 +1192,76 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=4625978]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_7x2ey")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8717u")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lsegi")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_5avlx")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_scx3w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_bw68a")
+disabled = true
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=1371043104]
 custom_minimum_size = Vector2(8, 36)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.72, 0.12, 0.12, 1)
+metadata/arcade_authored_control = true
 
 [node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=1827319641]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "Forearm Pron / Sup"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=1421820302]
 custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 max_value = 0.0
 editable = false
+metadata/arcade_authored_control = true
 
 [node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FPSRow/RowHBox" unique_id=647947217]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "— min"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="HOCRow" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=1996084896]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_row")
+theme = ExtResource("1_cfs8r")
+theme_override_styles/panel = SubResource("StyleBoxTexture_j4b0s")
+metadata/arcade_authored_control = true
 
 [node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/HOCRow" unique_id=1306654172]
 layout_mode = 1
@@ -534,48 +1270,76 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=334029539]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_11f5g")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_26d5s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_c4em8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_7mu1d")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8geoy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3r3ux")
+disabled = true
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=2010726339]
 custom_minimum_size = Vector2(8, 36)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.06, 0.55, 0.26, 1)
+metadata/arcade_authored_control = true
 
 [node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=653156812]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "Hand Open / Close"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=1292031034]
 custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 max_value = 0.0
 editable = false
+metadata/arcade_authored_control = true
 
 [node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/HOCRow/RowHBox" unique_id=1059967780]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "— min"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="FME1Row" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=26371607]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_row")
+theme = ExtResource("1_cfs8r")
+theme_override_styles/panel = SubResource("StyleBoxTexture_mc55p")
+metadata/arcade_authored_control = true
 
 [node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/FME1Row" unique_id=583730621]
 layout_mode = 1
@@ -584,48 +1348,75 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=1109292732]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_h1hm6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ubf3y")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1hlg")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_m8q47")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8axex")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ql1wb")
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=1238898233]
 custom_minimum_size = Vector2(8, 36)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.55, 0.12, 0.72, 1)
+metadata/arcade_authored_control = true
 
 [node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=578963332]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "Functional Mech 1"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=2090581754]
 custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 max_value = 0.0
 editable = false
+metadata/arcade_authored_control = true
 
 [node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME1Row/RowHBox" unique_id=866313339]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "— min"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="FME2Row" type="Panel" parent="Root/Scroll/RowPad/RowsVBox" unique_id=681783469]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_row")
+theme = ExtResource("1_cfs8r")
+theme_override_styles/panel = SubResource("StyleBoxTexture_gs5ef")
+metadata/arcade_authored_control = true
 
 [node name="RowHBox" type="HBoxContainer" parent="Root/Scroll/RowPad/RowsVBox/FME2Row" unique_id=356750042]
 layout_mode = 1
@@ -634,86 +1425,132 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 14
+metadata/arcade_authored_control = true
 
 [node name="Check" type="CheckBox" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=1881549410]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_kmk8u")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3xync")
+theme_override_styles/hover = SubResource("StyleBoxTexture_emhi1")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_anqvv")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_rcmu6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kqims")
+metadata/arcade_authored_control = true
 
 [node name="Dot" type="ColorRect" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=1810103734]
 custom_minimum_size = Vector2(8, 36)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 color = Color(0.7, 0.55, 0.04, 1)
+metadata/arcade_authored_control = true
 
 [node name="NameLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=1215849508]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "Functional Mech 2"
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slider" type="HSlider" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=683762345]
 custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("1_cfs8r")
 max_value = 0.0
 editable = false
+metadata/arcade_authored_control = true
 
 [node name="ValueLabel" type="Label" parent="Root/Scroll/RowPad/RowsVBox/FME2Row/RowHBox" unique_id=608482137]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 text = "— min"
 horizontal_alignment = 2
 vertical_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="SummaryDivider" type="ColorRect" parent="Root" unique_id=2129299839]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 color = Color(0.749, 0.878, 0.761, 1)
+metadata/arcade_authored_control = true
 
 [node name="SummaryPad" type="MarginContainer" parent="Root" unique_id=305145011]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 14
+metadata/arcade_authored_control = true
 
 [node name="SummaryVBox" type="VBoxContainer" parent="Root/SummaryPad" unique_id=1037995385]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 theme_override_constants/separation = 6
+metadata/arcade_authored_control = true
 
 [node name="TotalLabel" type="Label" parent="Root/SummaryPad/SummaryVBox" unique_id=1570116220]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 18
+text = "Total: 0 / 60 min  (60 min remaining)"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="ErrorLabel" type="Label" parent="Root/SummaryPad/SummaryVBox" unique_id=1541145346]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.129, 0.129, 1)
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
+text = "Select at least 1 mechanism."
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="BtnRow" type="HBoxContainer" parent="Root/SummaryPad/SummaryVBox" unique_id=19560497]
 layout_mode = 2
+theme = ExtResource("1_cfs8r")
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="ConfirmButton" type="Button" parent="Root/SummaryPad/SummaryVBox/BtnRow" unique_id=1164256775]
 custom_minimum_size = Vector2(180, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.45)
-theme_override_styles/normal = SubResource("sb_btn_prim_n")
-theme_override_styles/pressed = SubResource("sb_btn_prim_p")
-theme_override_styles/hover = SubResource("sb_btn_prim_h")
-theme_override_styles/disabled = SubResource("sb_btn_prim_n")
-theme_override_styles/focus = SubResource("sb_focus")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_cfs8r")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_x5aj1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4x5mv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_myryd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e2b3g")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_by5h5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_nfab4")
 disabled = true
 text = "Confirm & Save"
+metadata/arcade_authored_control = true

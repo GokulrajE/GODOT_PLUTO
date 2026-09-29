@@ -1,34 +1,38 @@
 [gd_scene format=3 uid="uid://cn0csxfwylyhd"]
 
 [ext_resource type="Script" uid="uid://dkr6r86s0n70l" path="res://scripts/main_scene.gd" id="1_main"]
+[ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_pjux3"]
 [ext_resource type="Texture2D" uid="uid://iu4sbf7q18wm" path="res://Assets/Pluto.png" id="2_pluto"]
 [ext_resource type="Texture2D" uid="uid://be73246ox7t08" path="res://Assets/cmc.png" id="3_c6dvc"]
+[ext_resource type="Texture2D" uid="uid://1mpygqquiwpt" path="res://Assets/Arcade/daylight-background.svg" id="3_o3jky"]
 [ext_resource type="Texture2D" uid="uid://ctlrhku5y7rhf" path="res://Assets/biorehab.png" id="4_611at"]
+[ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="5_kp0ql"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="6_08o8g"]
+[ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="7_0cxu4"]
+[ext_resource type="Texture2D" uid="uid://xlgqeatescof" path="res://Assets/Arcade/daylight-primary.svg" id="8_xnxdc"]
+[ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="9_0ehpd"]
 
-[sub_resource type="StyleBoxFlat" id="sb_card"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8wjpf"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_hdr"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25dfr"]
 content_margin_left = 24.0
 content_margin_top = 14.0
 content_margin_right = 24.0
 content_margin_bottom = 14.0
-bg_color = Color(0.824, 0.929, 0.839, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxFlat" id="sb_goal_line"]
 bg_color = Color(0.059, 0.502, 0.259, 0.55)
@@ -38,157 +42,448 @@ bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 
-[sub_resource type="StyleBoxFlat" id="sb_chip"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kjvyo"]
 content_margin_left = 10.0
 content_margin_top = 6.0
 content_margin_right = 10.0
 content_margin_bottom = 6.0
-bg_color = Color(0.918, 0.949, 0.922, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_input_n"]
-content_margin_left = 14.0
-content_margin_top = 8.0
-content_margin_right = 14.0
-content_margin_bottom = 8.0
-bg_color = Color(0.98, 0.996, 0.98, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2phbr"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_input_f"]
-content_margin_left = 13.0
-content_margin_top = 7.0
-content_margin_right = 13.0
-content_margin_bottom = 7.0
-bg_color = Color(0.98, 0.996, 0.98, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.153, 0.714, 0.376, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mkg2b"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ns3k"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a7pbh"]
+content_margin_left = 24.0
+content_margin_top = 14.0
+content_margin_right = 24.0
+content_margin_bottom = 14.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ye0jt"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.153, 0.714, 0.376, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7wwop"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.078, 0.404, 0.204, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jcw2p"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.114, 0.557, 0.286, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qavw1"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.749, 0.878, 0.761, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_focus"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i7ifx"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3sjc"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fto0a"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mekmn"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3o4o"]
+bg_color = Color(1, 1, 1, 0)
 draw_center = false
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.082, 0.502, 0.212, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_gn"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kwqb8"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_gp"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y15d6"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.824, 0.929, 0.839, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("9_0ehpd")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_gh"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u55b3"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.906, 0.961, 0.914, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wsqty"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("9_0ehpd")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oiest"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4jp2"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kik7w"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ikpr"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_doyhq"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2so2y"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("8_xnxdc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7yh6i"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwxld"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cw1g3"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yc0gu"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("9_0ehpd")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qnen4"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5chl"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("9_0ehpd")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j2mks"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ha8j"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xuwja"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g8282"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("9_0ehpd")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7tuqu"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("5_kp0ql")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e65ta"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("9_0ehpd")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fupde"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_0cxu4")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ell2e"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
+shadow_offset = Vector2(0, 4)
 
 [node name="MainScene" type="Control" unique_id=256012806]
 layout_mode = 3
@@ -197,18 +492,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 script = ExtResource("1_main")
+metadata/arcade_authored = true
+metadata/arcade_authored_control = true
+
+[node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=1969061458]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("1_pjux3")
+texture = ExtResource("3_o3jky")
+expand_mode = 1
+metadata/arcade_authored_control = true
 
 [node name="BackgroundImage" type="TextureRect" parent="." unique_id=631643585]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 texture = ExtResource("2_pluto")
 expand_mode = 1
 stretch_mode = 6
+metadata/arcade_authored_control = true
 
 [node name="BackgroundTint" type="ColorRect" parent="." unique_id=1381552949]
 layout_mode = 1
@@ -217,7 +528,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_pjux3")
 color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
 [node name="DashCard" type="Panel" parent="." unique_id=687705538]
 unique_name_in_owner = true
@@ -230,7 +544,9 @@ anchor_right = 0.49
 anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("sb_card")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_8wjpf")
+metadata/arcade_authored_control = true
 
 [node name="DashCardVBox" type="VBoxContainer" parent="DashCard" unique_id=1750666833]
 layout_mode = 1
@@ -239,12 +555,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="DashCardHeader" type="Panel" parent="DashCard/DashCardVBox" unique_id=825795050]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_hdr")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_25dfr")
+metadata/arcade_authored_control = true
 
 [node name="DashHeaderHBox" type="HBoxContainer" parent="DashCard/DashCardVBox/DashCardHeader" unique_id=1236351993]
 layout_mode = 1
@@ -255,38 +575,50 @@ offset_left = 18.48
 offset_right = -10.52002
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="DashTitle" type="Label" parent="DashCard/DashCardVBox/DashCardHeader/DashHeaderHBox" unique_id=708334988]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 16
 text = " Dashboard"
+metadata/arcade_authored_control = true
 
 [node name="DashPeriodLabel" type="Label" parent="DashCard/DashCardVBox/DashCardHeader/DashHeaderHBox" unique_id=468618272]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
 text = "Last 7 days"
 horizontal_alignment = 2
+metadata/arcade_authored_control = true
 
 [node name="DashBodyPad" type="MarginContainer" parent="DashCard/DashCardVBox" unique_id=226123153]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 14
+metadata/arcade_authored_control = true
 
 [node name="DashBodyVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad" unique_id=412262989]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 10
+metadata/arcade_authored_control = true
 
 [node name="ChartContainer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox" unique_id=975499060]
 clip_contents = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="GoalLine" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer" unique_id=290616580]
 unique_name_in_owner = true
@@ -296,16 +628,20 @@ anchor_top = 0.3
 anchor_right = 1.0
 anchor_bottom = 0.3
 offset_bottom = 2.0
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_goal_line")
+metadata/arcade_authored_control = true
 
 [node name="GoalLineLabel" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/GoalLine" unique_id=1134294226]
 layout_mode = 0
 offset_left = 4.0
 offset_top = -14.0
 offset_right = 54.0
-theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 0.9)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 text = "Goal"
+metadata/arcade_authored_control = true
 
 [node name="BarsHBox" type="HBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer" unique_id=459795782]
 unique_name_in_owner = true
@@ -315,220 +651,296 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 2
+metadata/arcade_authored_control = true
 
 [node name="Slot0" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1036925122]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=457042687]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=1732854685]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=446157531]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot0" unique_id=1235566512]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slot1" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1082607986]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=1068346315]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=2083901989]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=1133034028]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot1" unique_id=361387638]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slot2" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1882833242]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=1241366809]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=879231885]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=121681772]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot2" unique_id=1771276785]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slot3" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1461336182]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=1859786050]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=386773141]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=555594987]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot3" unique_id=1469038454]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slot4" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=159180643]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=1365059811]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=221881307]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=1396856859]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot4" unique_id=563176724]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slot5" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=557686867]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1454163419]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1658100711]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1010120639]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot5" unique_id=1937834363]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Slot6" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox" unique_id=1709332549]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="Val" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=85033812]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="Spacer" type="Control" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=366157216]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
+metadata/arcade_authored_control = true
 
 [node name="Bar" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=415539592]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_pjux3")
 theme_override_styles/panel = SubResource("sb_bar_base")
+metadata/arcade_authored_control = true
 
 [node name="Day" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/ChartContainer/BarsHBox/Slot6" unique_id=1087051549]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="StatHBox" type="HBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox" unique_id=347721323]
 layout_mode = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 8
+metadata/arcade_authored_control = true
 
 [node name="StreakChip" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox" unique_id=932303802]
 custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_chip")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_kjvyo")
+metadata/arcade_authored_control = true
 
 [node name="ChipVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip" unique_id=327864920]
 layout_mode = 1
@@ -537,29 +949,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 2
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="StreakValue" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip/ChipVBox" unique_id=1137538626]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 20
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="StreakDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip/ChipVBox" unique_id=520677429]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "Day streak"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="TotalChip" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox" unique_id=634681178]
 custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_chip")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_2phbr")
+metadata/arcade_authored_control = true
 
 [node name="ChipVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip" unique_id=1106563175]
 layout_mode = 1
@@ -568,29 +988,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 2
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="TotalValue" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip/ChipVBox" unique_id=1213563812]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 20
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="TotalDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip/ChipVBox" unique_id=667865749]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "This week"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="GoalChip" type="Panel" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox" unique_id=1233408819]
 custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_chip")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_mkg2b")
+metadata/arcade_authored_control = true
 
 [node name="ChipVBox" type="VBoxContainer" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip" unique_id=1010634925]
 layout_mode = 1
@@ -599,39 +1027,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 2
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="GoalValue" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip/ChipVBox" unique_id=611504671]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.059, 0.502, 0.259, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 20
 text = "—"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="GoalDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip/ChipVBox" unique_id=190167353]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 11
 text = "Daily goal"
 horizontal_alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="LoginCard" type="Panel" parent="." unique_id=1417357449]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.23
-anchor_top = 0.12
-anchor_right = 0.77
-anchor_bottom = 0.88
-offset_left = -4.9599915
-offset_top = 7.2400055
-offset_right = -4.960022
-offset_bottom = 7.23999
+anchor_left = 0.28
+anchor_top = 0.2
+anchor_right = 0.72
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("sb_card")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_1ns3k")
+metadata/arcade_authored_control = true
 
 [node name="LoginCardVBox" type="VBoxContainer" parent="LoginCard" unique_id=156750519]
 layout_mode = 1
@@ -640,12 +1072,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="LoginCardHeader" type="Panel" parent="LoginCard/LoginCardVBox" unique_id=1893586975]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-theme_override_styles/panel = SubResource("sb_hdr")
+theme = ExtResource("1_pjux3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_a7pbh")
+metadata/arcade_authored_control = true
 
 [node name="HeaderVBox" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginCardHeader" unique_id=1676850649]
 layout_mode = 1
@@ -656,125 +1092,173 @@ offset_left = 19.0
 offset_right = -15.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
 alignment = 1
+metadata/arcade_authored_control = true
 
 [node name="AppLabel" type="Label" parent="LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox" unique_id=1842741904]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_08o8g")
 theme_override_font_sizes/font_size = 28
-text = "PLUTO"
+text = "Welcome to PLUTO"
+metadata/arcade_authored_control = true
 
 [node name="SubLabel" type="Label" parent="LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox" unique_id=1879535386]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 13
-text = "Rehabilitation Platform"
+text = "Your next step toward better movement"
+metadata/arcade_authored_control = true
 
 [node name="LoginBodyPad" type="MarginContainer" parent="LoginCard/LoginCardVBox" unique_id=390927515]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_pjux3")
 theme_override_constants/margin_left = 22
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 18
+metadata/arcade_authored_control = true
 
 [node name="LoginBodyVBox" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginBodyPad" unique_id=1153941261]
 layout_mode = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 0
+metadata/arcade_authored_control = true
 
 [node name="LoginContent" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox" unique_id=1111632877]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 16
+metadata/arcade_authored_control = true
 
 [node name="LoginTitle" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1667289755]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 18
 text = "Patient Login"
+metadata/arcade_authored_control = true
 
 [node name="PatientIDInput" type="LineEdit" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=919872438]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_placeholder_color = Color(0.56415933, 0.5641603, 0.5641596, 1)
-theme_override_colors/caret_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_uneditable_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_placeholder_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/caret_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/selection_color = Color(0.44705883, 0.26666668, 0.74509805, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("sb_input_n")
-theme_override_styles/focus = SubResource("sb_input_f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ye0jt")
+theme_override_styles/read_only = SubResource("StyleBoxTexture_7wwop")
+theme_override_styles/focus = SubResource("StyleBoxTexture_jcw2p")
 placeholder_text = "Enter Patient ID"
+metadata/arcade_authored_control = true
 
 [node name="LoginButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1664489903]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.5, 0.65, 0.51, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/disabled = SubResource("sb_btn_dis")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qavw1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_i7ifx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_r3sjc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_fto0a")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_mekmn")
+theme_override_styles/focus = SubResource("StyleBoxFlat_l3o4o")
 text = "Login"
+metadata/arcade_authored_control = true
 
 [node name="RegisterButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=945927648]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.502, 0.212, 1)
-theme_override_colors/font_pressed_color = Color(0.082, 0.157, 0.094, 1)
-theme_override_colors/font_hover_color = Color(0.082, 0.502, 0.212, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("sb_btn_gn")
-theme_override_styles/pressed = SubResource("sb_btn_gp")
-theme_override_styles/hover = SubResource("sb_btn_gh")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_kwqb8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y15d6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_u55b3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wsqty")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_oiest")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f4jp2")
 text = "Register New Patient"
+metadata/arcade_authored_control = true
 
 [node name="LoginStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=758653041]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="ConnectContent" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox" unique_id=1022892582]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+theme = ExtResource("1_pjux3")
 theme_override_constants/separation = 12
+metadata/arcade_authored_control = true
 
 [node name="ConnectButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/ConnectContent" unique_id=2010326072]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.5, 0.65, 0.51, 1)
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/disabled = SubResource("sb_btn_dis")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_kik7w")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4ikpr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_doyhq")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2so2y")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7yh6i")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pwxld")
 text = "Connect to PLUTO"
+metadata/arcade_authored_control = true
 
 [node name="ConnectStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/ConnectContent" unique_id=652265936]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.353, 0.51, 0.369, 1)
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
 
 [node name="cmc_logo" type="Sprite2D" parent="." unique_id=1616017977]
 position = Vector2(36.000004, 39)
@@ -782,6 +1266,81 @@ scale = Vector2(0.3, 0.268)
 texture = ExtResource("3_c6dvc")
 
 [node name="biorehab_logo" type="Sprite2D" parent="." unique_id=2054769142]
-position = Vector2(183, 40.999985)
-scale = Vector2(0.48469388, 0.43449783)
+position = Vector2(124, 36)
+scale = Vector2(0.24471661, 0.20918454)
 texture = ExtResource("4_611at")
+
+[node name="ReducedMotion" type="CheckButton" parent="." unique_id=1972111240]
+layout_mode = 0
+offset_left = 1030.0
+offset_top = 24.0
+offset_right = 1250.0
+offset_bottom = 68.0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_cw1g3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yc0gu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qnen4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_q5chl")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_j2mks")
+theme_override_styles/focus = SubResource("StyleBoxFlat_5ha8j")
+text = "Reduced motion"
+metadata/arcade_authored_control = true
+
+[node name="DemoButton" type="Button" parent="." unique_id=1098579655]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -80.0
+offset_right = 240.0
+offset_bottom = -32.0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_xuwja")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_g8282")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7tuqu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e65ta")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_fupde")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ell2e")
+text = "TRY THE GAMES  •  KEYBOARD DEMO"
+metadata/secondary = true
+metadata/arcade_authored_control = true
+
+[node name="MusicToggle" type="CheckButton" parent="." unique_id=288764627]
+layout_mode = 0
+offset_left = 840.0
+offset_top = 24.0
+offset_right = 1024.0
+offset_bottom = 68.0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_pjux3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_cw1g3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yc0gu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qnen4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_q5chl")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_j2mks")
+theme_override_styles/focus = SubResource("StyleBoxFlat_5ha8j")
+button_pressed = true
+text = "Music"
+metadata/arcade_authored_control = true

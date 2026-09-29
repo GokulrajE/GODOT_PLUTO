@@ -8,11 +8,11 @@ const _VAL_H      := 18.0
 const _DAY_H      := 20.0
 const _BAR_AREA_H := 162.0
 
-const _CLR_FULL  := Color(0.059, 0.502, 0.259, 1.0)
-const _CLR_PART  := Color(0.153, 0.714, 0.376, 1.0)
-const _CLR_NONE  := Color(0.824, 0.929, 0.839, 1.0)
-const _CLR_TODAY := Color(0.039, 0.329, 0.169, 1.0)
-const _CLR_TXT_TODAY := Color(0.039, 0.329, 0.169, 1.0)
+const _CLR_FULL  := Color("a6ee32")
+const _CLR_PART  := Color("9b79ed")
+const _CLR_NONE  := Color("4e4b70")
+const _CLR_TODAY := Color("087f83")
+const _CLR_TXT_TODAY := Color("087f83")
 
 # ── Shared card (login → connect) ─────────────────────────────────────
 @onready var login_card:      Panel         = %LoginCard
@@ -39,6 +39,7 @@ const _CLR_TXT_TODAY := Color(0.039, 0.329, 0.169, 1.0)
 @onready var _bars_hbox: HBoxContainer = %BarsHBox
 
 func _ready() -> void:
+	if not has_meta("arcade_authored"): preload("res://scripts/ui/login_ui.gd").configure(login_card, $LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox/AppLabel, sub_label)
 	login_status.text = ""
 	login_button.pressed.connect(_on_login_pressed)
 	register_button.pressed.connect(func():
@@ -65,27 +66,9 @@ func _on_login_pressed() -> void:
 		_set_login_status("Failed to load patient data.", true)
 
 func _animate_to_dashboard() -> void:
-	# Place dash card above the screen (offset shifts the whole node up)
-	dash_card.offset_top    = -900.0
-	dash_card.offset_bottom = -900.0
-	dash_card.visible       = true
-	await get_tree().process_frame  # let layout compute before chart populate
+	preload("res://scripts/ui/dashboard_motion.gd").open(login_card, dash_card)
+	await get_tree().process_frame
 	_populate_dashboard()
-
-	var tween := create_tween()
-	tween.set_parallel(true)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_CUBIC)
-
-	# Slide login card to the right side and shrink height (keep centered at 50%)
-	tween.tween_property(login_card, "anchor_left",   0.52, 0.45)
-	tween.tween_property(login_card, "anchor_right",  0.96, 0.45)
-	tween.tween_property(login_card, "anchor_top",    0.25, 0.45)
-	tween.tween_property(login_card, "anchor_bottom", 0.75, 0.45)
-
-	# Drop dash card into the left position
-	tween.tween_property(dash_card, "offset_top",    0.0, 0.50).set_delay(0.15)
-	tween.tween_property(dash_card, "offset_bottom", 0.0, 0.50).set_delay(0.15)
 
 func _on_connect_pressed() -> void:
 	connect_button.disabled = true

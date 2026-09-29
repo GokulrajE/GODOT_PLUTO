@@ -327,27 +327,25 @@ func _save_and_proceed() -> void:
 	else:
 		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 
+func _cursor_x(angle: float, width: float) -> float:
+	# A missing/zero range must never produce NaN scene coordinates.
+	var limit := absf(_ang_limit)
+	var t := 0.5
+	if is_finite(limit) and limit > 0.001 and is_finite(angle):
+		t = clampf((angle + limit) / (2.0 * limit), 0.0, 1.0)
+	return slider_track.position.x + t * maxf(0, slider_track.size.x - width)
+
 func _update_curr_cursor(angle: float) -> void:
-	var tw = slider_track.size.x
-	if tw == 0:
-		return
-	var t = (angle + _ang_limit) / (_ang_limit * 2.0)
-	curr_cursor.position.x = (
-		slider_track.position.x + clamp(t, 0.0, 1.0) * tw - curr_cursor.size.x / 2.0
-	)
+	curr_cursor.position.x = _cursor_x(angle, curr_cursor.size.x)
 
 func _update_min_max_cursors() -> void:
-	var tw = slider_track.size.x
-	if tw == 0:
-		return
-	var min_t = (_tmin + _ang_limit) / (_ang_limit * 2.0)
-	var max_t = (_tmax + _ang_limit) / (_ang_limit * 2.0)
-	min_cursor.position.x = (
-		slider_track.position.x + clamp(min_t, 0.0, 1.0) * tw - min_cursor.size.x / 2.0
-	)
-	max_cursor.position.x = (
-		slider_track.position.x + clamp(max_t, 0.0, 1.0) * tw - max_cursor.size.x / 2.0
-	)
+	min_cursor.position.x = _cursor_x(_tmin, min_cursor.size.x)
+	max_cursor.position.x = _cursor_x(_tmax, max_cursor.size.x)
+	min_cursor.get_node("Value").text = "MIN %.0f°" % _tmin
+	max_cursor.get_node("Value").text = "MAX %.0f°" % _tmax
+	for cursor in [min_cursor, max_cursor]:
+		var label: Label = cursor.get_node("Value")
+		label.position.x = clampf(cursor.position.x + 18, 0, slider_track.size.x - label.size.x) - cursor.position.x
 
 func _setup_labels() -> void:
 	var mech_idx = AppData.mechanism_index - 1

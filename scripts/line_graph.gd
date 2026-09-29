@@ -4,12 +4,12 @@ var values: Array      = []
 var date_labels: Array = []
 var goal_minutes: float = 60.0
 
-const _CLR_LINE  = Color(0.082, 0.502, 0.212, 1.0)
-const _CLR_FILL  = Color(0.082, 0.502, 0.212, 0.12)
-const _CLR_GOAL  = Color(1.0,   0.55,  0.0,   0.85)
-const _CLR_GRID  = Color(0.75,  0.85,  0.78,  1.0)
-const _CLR_LABEL = Color(0.353, 0.510, 0.369, 1.0)
-const _CLR_DOT   = Color(0.082, 0.157, 0.094, 1.0)
+const _CLR_LINE  = Color("087f83")
+const _CLR_FILL  = Color("087f8320")
+const _CLR_GOAL  = Color("926000")
+const _CLR_GRID  = Color("c5d3df")
+const _CLR_LABEL = Color("526b82")
+const _CLR_DOT   = Color("087f83")
 
 const _PAD_L := 44.0
 const _PAD_R := 10.0

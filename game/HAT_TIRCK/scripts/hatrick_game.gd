@@ -1,5 +1,8 @@
 extends Control
 
+const GameInput = preload("res://scripts/gameplay/game_input.gd")
+const ArcadeAssets = preload("res://scripts/ui/arcade_assets.gd")
+
 const _PlutoAAN = preload("res://scripts/PlutoAAN.gd")
 
 # ── Layout ──────────────────────────────────────────────────────────────────
@@ -9,11 +12,11 @@ const BALL_START_Y: float    = 72.0
 const BALL_MISS_Y: float     = 610.0   # below catch zone (hat brim ~496 + catch height)
 const HAT_Y_TOP: float       = 490.0   # hat moved to Y≈496 in scene
 const HAT_H: float           = 130.0
-const HAT_HALF_W: float      = 100.0   # collision half-width
-const HAT_W: float           = 200.0   # collision width
-const HAT_VISUAL_HALF: float = 71.0    # (202 layout px * 0.7 scale) / 2 — for visual centering and clamping
-const CATCH_Y_TOP: float     = 490.0   # aligned to hat brim Y
-const CATCH_Y_H: float       = 65.0    # catch window height
+const HAT_HALF_W: float      = 80.0   # collision half-width
+const HAT_W: float           = 160.0   # collision width
+const HAT_VISUAL_HALF: float = 90.0    # (202 layout px * 0.7 scale) / 2 — for visual centering and clamping
+const CATCH_Y_TOP: float     = 510.0   # aligned to hat brim Y
+const CATCH_Y_H: float       = 36.0    # catch window height
 const BALL_SIZE: float       = 80.0    # bowling ball (square)
 const BOMB_W:    float       = 150.0   # bomb width
 const BOMB_H:    float       = 150.0   # bomb height
@@ -219,6 +222,7 @@ func _set_hat_x(x: float) -> void:
 	_hat_front.position.x = x - HAT_VISUAL_HALF
 
 func _process(delta: float) -> void:
+	if _state == State.PAUSED: return
 	_move_hat(delta)
 	_tick(delta)
 	var active = _state not in [State.WAITING, State.PAUSED, State.STOP, State.DONE]
@@ -247,12 +251,7 @@ func _update_log_state() -> void:
 		AppData.log_aan_state  = ""
 
 func _move_hat(delta: float) -> void:
-	var sx := angle_to_screen(PlutoComm.angle)
-	# Keyboard fallback for testing without PLUTO hardware
-	if Input.is_key_pressed(KEY_LEFT):
-		sx = _hat_x - 400.0 * delta
-	elif Input.is_key_pressed(KEY_RIGHT):
-		sx = _hat_x + 400.0 * delta
+	var sx := GameInput.horizontal(_hat_x, angle_to_screen(PlutoComm.angle), delta)
 	_set_hat_x(clamp(sx, GAME_LEFT + HAT_VISUAL_HALF, GAME_RIGHT - HAT_VISUAL_HALF))
 
 func _tick(delta: float) -> void:
@@ -373,6 +372,7 @@ func _kill_ball() -> void:
 func _spawn_ball() -> void:
 	n_targets += 1
 	var ball := TextureRect.new()
+	ball.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 	ball.stretch_mode = TextureRect.STRETCH_SCALE
 	ball.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
 	var display_size := Vector2(BALL_SIZE, BALL_SIZE)
@@ -418,7 +418,7 @@ func _begin_game() -> void:
 
 func _setup_aan() -> void:
 	var mech = AppData.mechanism_name
-	_use_aan = PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
+	_use_aan = not AppData.demo_mode and PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
 	_aan = _PlutoAAN.new()
 	if _arom.size() >= 2:
 		_aan.arom = _arom.duplicate()
@@ -459,7 +459,7 @@ func _refresh_ui() -> void:
 	_score_lbl.text = "Score: %02d"  % n_success
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed:
+	if not (event is InputEventKey) or not event.pressed or event.echo:
 		return
 	if event.keycode == KEY_SPACE:
 		_on_pluto_button()

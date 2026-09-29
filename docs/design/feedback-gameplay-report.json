@@ -1,0 +1,32 @@
+{
+	"checks": 200,
+	"failures": [],
+	"games": {
+		"fruit": {
+			"hits": 11,
+			"misses": 4,
+			"targets": 15
+		},
+		"garden": {
+			"hits": 22,
+			"misses": 3,
+			"targets": 25
+		},
+		"hat": {
+			"hits": 14,
+			"misses": 5,
+			"targets": 19
+		},
+		"pong": {
+			"hits": 5,
+			"misses": 2,
+			"targets": 7
+		},
+		"tuk": {
+			"hits": 6,
+			"misses": 7,
+			"targets": 13
+		}
+	},
+	"patient_data_unchanged": true
+}

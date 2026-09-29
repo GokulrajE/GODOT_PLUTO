@@ -63,6 +63,9 @@ func _ready() -> void:
 		btn.pressed.connect(_on_mech_selected.bind(mech))
 
 func _populate_button(btn: Button, mech: String, time_val: int) -> void:
+	for child in btn.get_children():
+		btn.remove_child(child)
+		child.queue_free()
 	btn.text = ""
 
 	var vb := VBoxContainer.new()

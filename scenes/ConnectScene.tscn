@@ -1,110 +1,162 @@
 [gd_scene format=3 uid="uid://dre67ydokkfgp"]
 
-[ext_resource type="Script" uid="uid://bloyh5wh20430" path="res://scripts/connect_scene.gd" id="1_cth24"]
+[ext_resource type="Script" path="res://scripts/connect_scene.gd" id="1_cth24"]
+[ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_i2dw3"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_na5em"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_0edvu"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="5_y86ne"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="6_pxg31"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="7_qencu"]
 
-[sub_resource type="StyleBoxFlat" id="sb_card"]
-bg_color = Color(1.0, 1.0, 1.0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.749, 0.878, 0.761, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryjva"]
+texture = ExtResource("4_0edvu")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_hdr"]
-bg_color = Color(0.824, 0.929, 0.839, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tdq5n"]
+texture = ExtResource("4_0edvu")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pn"]
-bg_color = Color(0.153, 0.714, 0.376, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2vlw"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_pxg31")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_ph"]
-bg_color = Color(0.114, 0.557, 0.286, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ihi50"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_pxg31")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_pp"]
-bg_color = Color(0.078, 0.404, 0.204, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6o0uk"]
 content_margin_left = 16.0
-content_margin_top = 12.0
+content_margin_top = 10.0
 content_margin_right = 16.0
-content_margin_bottom = 12.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_pxg31")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+modulate_color = Color(1.15, 1.15, 1.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="sb_btn_dis"]
-bg_color = Color(0.749, 0.878, 0.761, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0a0kc"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("6_pxg31")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="sb_focus"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ibrq"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_qencu")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj1py"]
+bg_color = Color(1, 1, 1, 0)
 draw_center = false
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.082, 0.502, 0.212, 0.7)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_width_bottom = 5
+border_color = Color(1, 0.8117647, 0.3882353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_offset = Vector2(0, 4)
 
 [node name="ConnectScene" type="Control" unique_id=1364837092]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_i2dw3")
 script = ExtResource("1_cth24")
+metadata/arcade_authored = true
+metadata/arcade_authored_control = true
+
+[node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=793501711]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("1_i2dw3")
+texture = ExtResource("3_na5em")
+expand_mode = 1
+stretch_mode = 0
+metadata/arcade_authored_control = true
 
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=2005726731]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.941, 0.969, 0.945, 1)
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_i2dw3")
+color = Color(1, 1, 1, 0)
+metadata/arcade_authored_control = true
 
-[node name="ConnectCard" type="Panel" parent="."]
+[node name="ConnectCard" type="Panel" parent="." unique_id=261313700]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.28
-anchor_top = 0.20
+anchor_top = 0.2
 anchor_right = 0.72
-anchor_bottom = 0.80
-theme_override_styles/panel = SubResource("sb_card")
+anchor_bottom = 0.8
+theme = ExtResource("1_i2dw3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ryjva")
+metadata/arcade_authored_control = true
 
-[node name="ConnectCardHeader" type="Panel" parent="."]
+[node name="ConnectCardHeader" type="Panel" parent="." unique_id=2106935826]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.28
-anchor_top = 0.20
+anchor_top = 0.2
 anchor_right = 0.72
+anchor_bottom = 0.2
 offset_bottom = 70.0
-theme_override_styles/panel = SubResource("sb_hdr")
+theme = ExtResource("1_i2dw3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_tdq5n")
+metadata/arcade_authored_control = true
 
 [node name="HeaderPanel" type="Control" parent="ConnectCardHeader" unique_id=1128504806]
-layout_mode = 0
+anchors_preset = 0
 offset_right = 500.0
 offset_bottom = 70.0
+theme = ExtResource("1_i2dw3")
+metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="ConnectCardHeader" unique_id=824476217]
 layout_mode = 0
@@ -112,55 +164,74 @@ offset_left = 24.0
 offset_top = 12.0
 offset_right = 476.0
 offset_bottom = 46.0
+theme = ExtResource("1_i2dw3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("5_y86ne")
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
 text = "PLUTO"
+metadata/arcade_authored_control = true
 
-[node name="TaglineLabel" type="Label" parent="ConnectCardHeader"]
+[node name="TaglineLabel" type="Label" parent="ConnectCardHeader" unique_id=1258320593]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 48.0
 offset_right = 476.0
 offset_bottom = 66.0
+theme = ExtResource("1_i2dw3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.353, 0.510, 0.369, 1)
 text = "Device Connection"
+metadata/arcade_authored_control = true
 
 [node name="CenterContainer" type="VBoxContainer" parent="." unique_id=1681990217]
 layout_mode = 1
-anchor_left = 0.30
-anchor_top = 0.20
-anchor_right = 0.70
-anchor_bottom = 0.80
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.2
+anchor_right = 0.7
+anchor_bottom = 0.8
 offset_top = 86.0
 offset_bottom = -20.0
+theme = ExtResource("1_i2dw3")
 theme_override_constants/separation = 20
+metadata/arcade_authored_control = true
 
 [node name="ConnectButton" type="Button" parent="CenterContainer" unique_id=1839161868]
-layout_mode = 2
 custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_i2dw3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_pressed_color = Color(1.0, 1.0, 1.0, 1)
-theme_override_colors/font_disabled_color = Color(0.500, 0.650, 0.510, 1)
-theme_override_styles/normal = SubResource("sb_btn_pn")
-theme_override_styles/hover = SubResource("sb_btn_ph")
-theme_override_styles/pressed = SubResource("sb_btn_pp")
-theme_override_styles/disabled = SubResource("sb_btn_dis")
-theme_override_styles/focus = SubResource("sb_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_y2vlw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ihi50")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6o0uk")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_0a0kc")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_4ibrq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tj1py")
 text = "Connect to PLUTO"
+metadata/arcade_authored_control = true
 
 [node name="StatusLabel" type="Label" parent="." unique_id=1779154011]
 layout_mode = 1
-anchor_left = 0.30
-anchor_top = 0.20
-anchor_right = 0.70
-anchor_bottom = 0.80
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.2
+anchor_right = 0.7
+anchor_bottom = 0.8
 offset_top = 200.0
 offset_bottom = -20.0
+theme = ExtResource("1_i2dw3")
+theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(0.082, 0.157, 0.094, 1)
-text = ""
+text = "Port: COM45"
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true

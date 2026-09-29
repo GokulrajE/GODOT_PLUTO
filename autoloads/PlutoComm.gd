@@ -66,6 +66,7 @@ func _process(delta: float) -> void:
 
 # ── Connection ────────────────────────────────────────────────────────
 func connect_device(port: String) -> bool:
+	if AppData.demo_mode: return false
 	_port_name = port
 	_manager = GdSerialManager.new()
 	_manager.data_received.connect(_on_raw_data)
@@ -150,6 +151,7 @@ func set_diagnostic_mode() -> void:
 
 # ── JEDI frame builder ────────────────────────────────────────────────
 func _send_bytes(payload: PackedByteArray) -> void:
+	if AppData.demo_mode: return
 	if _manager == null or not is_connected:
 		return
 	var out = PackedByteArray()

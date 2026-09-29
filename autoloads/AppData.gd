@@ -1,5 +1,27 @@
 extends Node
 
+var demo_mode: bool = false
+var _demo_snapshot: Dictionary = {}
+
+func enter_demo() -> void:
+	if demo_mode: return
+	for key in ["patient_id", "is_patient_loaded", "selected_mechanism", "selected_game", "speed_data", "mechanism_name", "mechanism_index", "selected_game_name"]:
+		_demo_snapshot[key] = get(key)
+	demo_mode = true
+	patient_id = ""
+	is_patient_loaded = false
+	selected_mechanism = null
+	selected_game = null
+	speed_data = null
+	mechanism_name = "NOMECH"
+	mechanism_index = 0
+
+func exit_demo() -> void:
+	if not demo_mode: return
+	for key in _demo_snapshot: set(key, _demo_snapshot[key])
+	_demo_snapshot.clear()
+	demo_mode = false
+
 const SETTINGS_PATH: String = "user://game_settings.cfg"
 
 const _PlutoMechanism = preload("res://scripts/data/PlutoMechanism.gd")
@@ -95,6 +117,7 @@ func load_settings() -> void:
 		ping_pong_easy_mode = cfg.get_value("ping_pong", "easy_mode", true)
 
 func save_settings() -> void:
+	if demo_mode: return
 	var cfg := ConfigFile.new()
 	cfg.load(SETTINGS_PATH)
 	cfg.set_value("ping_pong", "easy_mode", ping_pong_easy_mode)
@@ -144,6 +167,7 @@ func set_game(game_name: String) -> void:
 
 # ── Trial lifecycle ───────────────────────────────────────────────────
 func start_new_trial() -> void:
+	if demo_mode: return
 	if selected_mechanism == null:
 		return
 	trial_start_time = Time.get_datetime_string_from_system()
@@ -172,6 +196,7 @@ func start_new_trial() -> void:
 			trial_raw_file.get_file()])
 
 func stop_trial(targets: int, hits: int, misses: int) -> void:
+	if demo_mode: return
 	if selected_mechanism == null or selected_game == null:
 		return
 	if trial_start_time.is_empty():

@@ -1,0 +1,1 @@
+Original vector fruit artwork created for this project. Transparent SVGs use distinct silhouettes, dark outlines and contrasting fills. Shared by falling fruits and basket piles. No external bitmap edits.

@@ -18,21 +18,21 @@ const KNOB_IMAGES = [
 	"res://Assets/mechanismImages/keyknob_outline.png",
 ]
 
-# ── Colors — light green clinical theme (matches AssessmentScene) ──────
-const CLR_CARD_DEFAULT = Color(1.000, 1.000, 1.000)
-const CLR_CARD_ASSESSED= Color(0.918, 0.949, 0.922)
-const CLR_CARD_READY   = Color(0.824, 0.929, 0.839)
-const CLR_ACCENT_OFF   = Color(0.820, 0.850, 0.825)
-const CLR_ACCENT_ASSESS= Color(0.153, 0.714, 0.376)
-const CLR_ACCENT_READY = Color(0.059, 0.502, 0.259)
-const CLR_BORDER_OFF   = Color(0.749, 0.878, 0.761)
-const CLR_BORDER_ASSESS= Color(0.153, 0.714, 0.376)
-const CLR_BORDER_READY = Color(0.059, 0.502, 0.259)
-const CLR_TEXT_DIM     = Color(0.353, 0.510, 0.369)
-const CLR_TEXT_NORMAL  = Color(0.082, 0.157, 0.094)
-const CLR_BADGE_NONE   = Color(0.820, 0.850, 0.830)
-const CLR_BADGE_TIME   = Color(0.153, 0.714, 0.376)
-const CLR_BADGE_READY  = Color(0.059, 0.502, 0.259)
+# ── Colors — arcade status variants ──────
+const CLR_CARD_DEFAULT = Color("f4f8fb")
+const CLR_CARD_ASSESSED= Color("eee7fb")
+const CLR_CARD_READY   = Color("def4ef")
+const CLR_ACCENT_OFF   = Color("656980")
+const CLR_ACCENT_ASSESS= Color("7656ac")
+const CLR_ACCENT_READY = Color("087f83")
+const CLR_BORDER_OFF   = Color("a3b9ca")
+const CLR_BORDER_ASSESS= Color("7656ac")
+const CLR_BORDER_READY = Color("087f83")
+const CLR_TEXT_DIM     = Color("526b82")
+const CLR_TEXT_NORMAL  = Color("20354f")
+const CLR_BADGE_NONE   = Color("e5edf3")
+const CLR_BADGE_TIME   = Color("7846b3")
+const CLR_BADGE_READY  = Color("386047")
 
 @onready var _done_button:        Button        = $Root/Header/BtnPad/DoneButton
 @onready var _error_label:        Label         = $Root/Header/ErrorLabel
@@ -169,7 +169,7 @@ func _refresh_cards() -> void:
 
 		_card_panels[mech].add_theme_stylebox_override("panel", sb)
 
-		var stripe: ColorRect = _card_panels[mech].get_node("VBox/Stripe")
+		var stripe: ColorRect = _card_panels[mech].get_node_or_null("VBox/Stripe")
 		if stripe:
 			if is_ready:
 				stripe.color = CLR_ACCENT_READY
@@ -282,7 +282,7 @@ func _update_popup_buttons() -> void:
 		btn.modulate = Color(0.6, 0.6, 0.6, 1.0) if btn.disabled else Color.WHITE
 		if i == this_id:
 			var sb_sel := StyleBoxFlat.new()
-			sb_sel.bg_color = Color(0.059, 0.502, 0.259, 1.0)
+			sb_sel.bg_color = Color("c7eee0")
 			sb_sel.set_border_width_all(2)
 			sb_sel.border_color = Color(0.039, 0.329, 0.169, 1.0)
 			sb_sel.set_corner_radius_all(8)

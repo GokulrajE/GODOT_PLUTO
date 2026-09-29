@@ -1,15 +1,18 @@
 extends Control
 
+const GameInput = preload("res://scripts/gameplay/game_input.gd")
+const ArcadeAssets = preload("res://scripts/ui/arcade_assets.gd")
+
 const _PlutoAAN = preload("res://scripts/PlutoAAN.gd")
 
 # ── Layout ────────────────────────────────────────────────────────────────────
 const GAME_TOP:    float = 82.0
 const GAME_BOTTOM: float = 628.0
 const GAME_LEFT:   float = 0.0
-const GAME_RIGHT:  float = 1152.0
+const GAME_RIGHT:  float = 1166.0
 
 # Player on RIGHT (green), Enemy on LEFT (red) — matches Unity layout
-const PLAYER_X:       float = 1097.0
+const PLAYER_X:       float = 1111.0
 const ENEMY_X:        float = 55.0
 const TRIAL_DURATION: float = 60.0
 
@@ -370,6 +373,7 @@ func _update_prediction_line() -> void:
 		i += 1
 
 func _process(delta: float) -> void:
+	if _state == State.PAUSED: return
 	_tick(delta)
 	_refresh_ui()
 	_update_log_state()
@@ -390,9 +394,7 @@ func _tick(delta: float) -> void:
 			_state = State.MOVE
 
 		State.MOVE:
-			var ty: float = angle_to_screen_y(PlutoComm.angle)
-			if Input.is_key_pressed(KEY_UP):   ty = _player_y - 420.0 * delta
-			elif Input.is_key_pressed(KEY_DOWN): ty = _player_y + 420.0 * delta
+			var ty: float = GameInput.vertical(_player_y, angle_to_screen_y(PlutoComm.angle), delta, 420.0)
 			_player_y = clamp(ty, GAME_TOP + _player_h * 0.5, GAME_BOTTOM - _player_h * 0.5)
 
 			if _ball_vx < 0.0:
@@ -557,7 +559,7 @@ func _begin_game() -> void:
 
 func _setup_aan() -> void:
 	var mech: String = AppData.mechanism_name
-	_use_aan = PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
+	_use_aan = not AppData.demo_mode and PlutoComm.is_connected and mech != "FME1" and mech != "FME2" and mech != "NOMECH"
 	_aan     = _PlutoAAN.new()
 	if _arom.size() >= 2: _aan.arom = _arom.duplicate()
 	if _prom.size()  >= 2: _aan.prom = _prom.duplicate()
@@ -577,7 +579,7 @@ func _end_game() -> void:
 	if _earned_star:
 		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
-	_final_lbl.text     = "You: %d  |  CPU: %d\nPress PLUTO button to play again" % [n_success, n_targets]
+	_final_lbl.text     = "You: %d  |  CPU: %d\nSuccessful returns: %d" % [_player_score, _cpu_score, n_success]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
 	if _earned_star:
@@ -587,7 +589,7 @@ func _end_game() -> void:
 # ── UI ────────────────────────────────────────────────────────────────────────
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
-	_score_lbl.text = "You %d  :  %d CPU" % [n_success, n_targets]
+	_score_lbl.text = "You %d  :  %d CPU" % [_player_score, _cpu_score]
 
 func _update_log_state() -> void:
 	AppData.log_player_x   = PLAYER_X
@@ -604,7 +606,7 @@ func _update_log_state() -> void:
 
 # ── Input ─────────────────────────────────────────────────────────────────────
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed: return
+	if not (event is InputEventKey) or not event.pressed or event.echo: return
 	if event.keycode == KEY_SPACE: _on_pluto_button()
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
