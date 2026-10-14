@@ -1,0 +1,61 @@
+extends "res://tests/gameplay/arcade_integration.gd"
+func _run() -> void:
+	app = root.get_node("AppData")
+	var original_side: String = app.patient_training_side
+	var original_easy: bool = app.ping_pong_easy_mode
+	app.enter_demo()
+	for side in ["Right", "Left"]:
+		app.patient_training_side = side
+		await _load_game("pong")
+		game.call("_begin_game")
+		game.set("_state", 2)
+		game.call("_refresh_ui")
+		_check(game.get_node("UI/Header/ScoreLabel").text == "0 : 0", "zero score " + side)
+		var easy: CheckButton = game.get_node("UI/EasyModeToggle")
+		_check(easy.is_visible_in_tree() and easy.size.x >= 160, "Easy Mode visible without ROM setup")
+		easy.button_pressed = true
+		game.set("_ball_vx", 400.0)
+		game.call("_update_prediction_line")
+		_check(app.ping_pong_easy_mode and game.get("_pred_segs")[0].visible, "Easy Mode enables trajectory")
+		easy.button_pressed = false
+		game.call("_update_prediction_line")
+		_check(not app.ping_pong_easy_mode and not game.get("_pred_segs")[0].visible, "Easy Mode hides trajectory")
+		var over = game.get_node("UI/GameOverPanel")
+		_check(over.sound.stream.resource_path.ends_with("game-over.ogg") and over.sound.volume_db == -6, "new louder Game Over sound")
+
+		_check(game.get_node("EnemyPaddle").size.y == 546.0, "full-height stationary opponent")
+		_check((game.get_node("PlayerPaddle").position.x < 583) == (side == "Left"), "player matches affected side")
+		game.set("_ball_x", 1065.0)
+		game.set("_ball_y", game.get("_player_y"))
+		game.set("_ball_vx", 500.0)
+		game.set("_ball_vy", 0.0)
+		game.call("_process", 0.04)
+		_check(game.get("_player_score") == 1 and game.get("_cpu_score") == 0, "only player hit earns player point")
+		_check(game.get_node("UI/Header/ScoreLabel").text == ("0 : 1" if side == "Right" else "1 : 0"), "score follows paddle side")
+		game.call("_process", 0.01)
+		_check(game.get("_player_score") == 1, "contact counted once")
+		game.set("_ball_x", 108.0)
+		game.set("_ball_y", 120.0)
+		game.set("_ball_vx", -500.0)
+		game.set("_ball_vy", 0.0)
+		game.call("_process", 0.04)
+		_check(game.get("_cpu_score") == 1, "opponent hit earns opponent point near court edge")
+		_check(game.get_node("UI/Header/ScoreLabel").text == "1 : 1", "both returns display one each")
+		_check(game.get("_enemy_y") == 355.0, "opponent never follows ball")
+		game.set("_ball_x", 1165.0)
+		game.set("_ball_vx", 500.0)
+		game.call("_process", 0.02)
+		_check(game.get("_cpu_score") == 1 and game.get("_player_score") == 1, "player miss awards no points")
+		game.set("_state", 2)
+		game.set("_ball_x", -40.0)
+		game.set("_ball_vx", -500.0)
+		game.call("_process", 0.02)
+		_check(game.get("_cpu_score") == 1 and game.get("_player_score") == 1, "opponent miss awards no points")
+		game.call("_begin_game")
+		_check(game.get("_cpu_score") == 0 and game.get("_player_score") == 0, "replay resets score")
+		await _capture("pong-side-" + side.to_lower())
+	app.patient_training_side = original_side
+	app.ping_pong_easy_mode = original_easy
+	app.save_settings()
+	print("PONG HIT TESTS: ", checks, " checks, ", failures.size(), " failures")
+	quit(0 if failures.is_empty() else 1)

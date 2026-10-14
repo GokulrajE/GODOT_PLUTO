@@ -19,7 +19,7 @@ static func sprite(key: String) -> Texture2D:
 	return cache[key]
 
 static func background(key: String = "hat") -> Texture2D:
-	var files := {"hat": "twilight-garden", "basket": "orchard-v2", "cloud": "garden-v2", "tuk": "canyon-v2", "pong": "arena-v2"}
+	var files := {"hat": "twilight-garden", "basket": "orchard-v2", "cloud": "garden-v2", "tuk": "tuk-hill-country", "pong": "arena-v2"}
 	return load("res://Assets/Arcade/" + str(files.get(key, "twilight-garden")) + ".png")
 
 static func plant(stage: int) -> Texture2D:

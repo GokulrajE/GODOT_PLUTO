@@ -2,10 +2,12 @@
 
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_0ser4"]
 [ext_resource type="Script" path="res://scripts/assist_profile_scene.gd" id="1_s3fxf"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_qtm31"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_qtm31"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_iedyb"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="5_fyngl"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_v8n6b"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v6ifv"]
 texture = ExtResource("4_iedyb")
@@ -446,4 +448,15 @@ text = "MAX 0°"
 horizontal_alignment = 1
 theme_override_colors/font_color = Color(0.08, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 16
+metadata/arcade_authored_control = true
+
+[node name="MenuAmbience" type="Control" parent="ArcadeBackdrop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("patient_ambience")
 metadata/arcade_authored_control = true

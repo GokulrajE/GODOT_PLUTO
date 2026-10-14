@@ -98,30 +98,28 @@ func _populate_button(btn: Button, mech: String, time_val: int) -> void:
 		vb.add_child(tex)
 
 	var name_lbl := Label.new()
+	name_lbl.set_meta("arcade_authored_control", true)
 	name_lbl.text = mech
 	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	name_lbl.add_theme_font_size_override("font_size", 20)
-	name_lbl.add_theme_color_override("font_color", Color(0.082, 0.157, 0.094))
+	name_lbl.add_theme_color_override("font_color", Color("55489a"))
 	name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(name_lbl)
 
 	var full_lbl := Label.new()
+	full_lbl.set_meta("arcade_authored_control", true)
 	full_lbl.text = MECH_LABELS.get(mech, "")
 	full_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	full_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD
 	full_lbl.add_theme_font_size_override("font_size", 13)
-	full_lbl.add_theme_color_override("font_color", Color(0.353, 0.510, 0.369))
+	full_lbl.add_theme_color_override("font_color", Color("465774"))
 	full_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(full_lbl)
 
-	if time_val > 0:
-		var time_lbl := Label.new()
-		time_lbl.text = "%d min" % time_val
-		time_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		time_lbl.add_theme_font_size_override("font_size", 14)
-		time_lbl.add_theme_color_override("font_color", Color(0.059, 0.502, 0.259))
-		time_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		vb.add_child(time_lbl)
+	var progress := preload("res://scripts/ui/mechanism_time.gd").new()
+	progress.mechanism = mech
+	progress.name = "DailyTime"
+	vb.add_child(progress)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed \

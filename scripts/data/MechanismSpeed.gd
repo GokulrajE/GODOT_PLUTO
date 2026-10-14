@@ -23,12 +23,16 @@ func _init(mech_name: String) -> void:
 	_evaluate_and_update_speed()
 
 func set_game_speed(speed: float) -> void:
-	game_speed = speed
-	_write_to_mech_params(speed, SPEED_MODES[1])
+	var bounded := clampf(speed, HomerTherapy.MIN_SPEED, HomerTherapy.MAX_SPEED)
+	if is_equal_approx(game_speed, bounded): return
+	game_speed = bounded
+	_write_to_mech_params(bounded, SPEED_MODES[1])
 
 func update_game_speed_from_game(speed: float) -> void:
-	game_speed = speed
-	_write_to_mech_params(speed, SPEED_MODES[1])
+	var bounded := clampf(speed, HomerTherapy.MIN_SPEED, HomerTherapy.MAX_SPEED)
+	if is_equal_approx(game_speed, bounded): return
+	game_speed = bounded
+	_write_to_mech_params(bounded, SPEED_MODES[1])
 
 func set_move_duration(duration: float) -> void:
 	move_duration = duration
@@ -70,8 +74,13 @@ func _try_auto_update() -> void:
 	if dates.size() < 3:
 		return
 
-	var day1_rows: Array = by_date[dates[0]]
-	var day3_rows: Array = by_date[dates[2]]
+	var eligible: Array = []
+	for day in dates:
+		if day >= last_update_date and day < today: eligible.append(day)
+	if eligible.size() < 3: return
+	var day1_rows: Array = by_date[eligible[-3]]
+	var day3_rows: Array = by_date[eligible[-1]]
+	if not _has_adaptation_samples(day1_rows, col_map) or not _has_adaptation_samples(day3_rows, col_map): return
 
 	var train_sr_d1 := _get_avg_success_rate(day1_rows, "SR85PCTRAIN", col_map)
 	var train_sr_d3 := _get_avg_success_rate(day3_rows, "SR85PCTRAIN", col_map)
@@ -249,3 +258,13 @@ func _write_to_mech_params(speed: float, mode: String) -> void:
 	file.close()
 	DataManager.log_info("MechanismSpeed",
 		"%s — speed updated to %.1f deg/s (%s)" % [_mech_name, speed, mode])
+
+func _has_adaptation_samples(rows: Array, columns: Dictionary) -> bool:
+	var trains := 0
+	var catches := 0
+	var index: int = columns.get("TrialType", 4)
+	for row in rows:
+		if row.size() <= index: continue
+		if row[index] == "SR85PCTRAIN": trains += 1
+		if row[index] == "SR85PCCATCH": catches += 1
+	return trains >= 4 and catches >= 1

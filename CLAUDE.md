@@ -10,9 +10,9 @@ A Godot 4.6 application for interfacing with the **PLUTO** (Portable Lower Limb 
 
 Open in **Godot 4.6** (Forward Plus renderer). Press **F5** to run or use the Godot editor's Play button. There are no build scripts — the project runs directly in the editor.
 
-The main scene is `scenes/ConnectScene.tscn`. For raw serial debugging without the full workflow, run `serial_test.tscn` directly.
+The main scene is `scenes/MainScene.tscn`. For raw serial debugging without the full workflow, run `serial_test.tscn` directly.
 
-**Serial port:** Currently hardcoded to `"COM45"` in `scripts/connect_scene.gd` and `SerialTest.gd`. Change this to match the connected device's port.
+**Serial port:** Main Scene reads `[serial] port` from `Documents/PLUTO/device.cfg` on each connection attempt. `SerialTest.gd` is a separate development utility.
 
 ## Architecture
 
@@ -27,7 +27,7 @@ Two autoloads are registered in `project.godot` and available everywhere:
 ### Scene Flow (linear, one-way)
 
 ```
-ConnectScene → ChooseMechanism → CalibrationScene → AssessmentScene → AssistProfileScene
+MainScene (login and connection) → ChooseMechanism → CalibrationScene → AssessmentScene → AssistProfileScene
 ```
 
 Each scene script (`scripts/*.gd`) attaches to its matching `.tscn` in `scenes/`. Scene transitions happen by calling `get_tree().change_scene_to_file(...)`.

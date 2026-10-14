@@ -1,6 +1,7 @@
 extends Control
 
-const PORT = "COM45"
+var PORT: String:
+	get: return AppStorage.device_port()
 
 # Chart layout constants (must match ChartContainer custom_minimum_size in scene)
 const _CHART_H    := 200.0
@@ -40,14 +41,29 @@ const _CLR_TXT_TODAY := Color("087f83")
 
 func _ready() -> void:
 	if not has_meta("arcade_authored"): preload("res://scripts/ui/login_ui.gd").configure(login_card, $LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox/AppLabel, sub_label)
-	login_status.text = ""
+	login_status.text = AppStorage.error_message
+	login_button.disabled = not AppStorage.error_message.is_empty()
 	login_button.pressed.connect(_on_login_pressed)
 	register_button.pressed.connect(func():
+		if AppUpdater.blocks_login(): return
 		get_tree().change_scene_to_file("res://scenes/RegisterScene.tscn")
 	)
 	connect_button.pressed.connect(_on_connect_pressed)
+	$VersionLabel.text = "PLUTO v" + AppUpdater.version()
+	AppUpdater.changed.connect(_update_gate)
+	$UpdatePanel/UpdateAction.pressed.connect(func():
+		if AppUpdater.state == "required": AppUpdater.download_update()
+		else: AppUpdater.check_updates()
+	)
+	AppUpdater.confirm_startup()
+	AppUpdater.check_updates()
+	_update_gate()
 
 func _on_login_pressed() -> void:
+	if AppUpdater.blocks_login(): return
+	if not AppStorage.error_message.is_empty():
+		_set_login_status(AppStorage.error_message, true)
+		return
 	var pid := patient_id_input.text.strip_edges()
 	if pid.is_empty():
 		_set_login_status("Please enter a Patient ID.", true)
@@ -59,6 +75,7 @@ func _on_login_pressed() -> void:
 		sub_label.text     = "Patient: " + pid
 		login_content.visible  = false
 		connect_content.visible = true
+		$UpdatePanel.hide()
 		connect_status.text    = "Port: " + PORT
 		connect_status.modulate = Color.WHITE
 		_animate_to_dashboard()
@@ -71,6 +88,9 @@ func _animate_to_dashboard() -> void:
 	_populate_dashboard()
 
 func _on_connect_pressed() -> void:
+	if PORT.is_empty():
+		connect_status.text = "Set [serial] port in Documents/PLUTO/device.cfg, then retry."
+		return
 	connect_button.disabled = true
 	connect_status.text     = "Connecting to " + PORT + "..."
 	connect_status.modulate = Color("#888888")
@@ -177,3 +197,16 @@ func _calc_streak(usage: Dictionary, dates: Array) -> int:
 func _set_login_status(msg: String, is_error: bool) -> void:
 	login_status.text     = msg
 	login_status.modulate = Color("#e74c3c") if is_error else Color("#2ecc71")
+
+func _update_gate() -> void:
+	var blocked := AppUpdater.blocks_login()
+	login_button.disabled = blocked or not AppStorage.error_message.is_empty()
+	register_button.disabled = blocked or not AppStorage.error_message.is_empty()
+	$DemoButton.disabled = blocked
+	$UpdatePanel.visible = AppUpdater.enabled and login_content.visible
+	$UpdatePanel/UpdateStatus.text = AppUpdater.message
+	$UpdatePanel/UpdateProgress.visible = AppUpdater.state == "downloading"
+	$UpdatePanel/UpdateProgress.value = 100.0 * AppUpdater.downloaded / maxf(1.0, AppUpdater.total)
+	$UpdatePanel/UpdateAction.disabled = AppUpdater.state in ["checking", "downloading", "installing"]
+	$UpdatePanel/UpdateAction.text = "Download & restart" if AppUpdater.state == "required" and not AppUpdater.release_asset(AppUpdater.release).is_empty() else "Check again"
+	$UpdatePanel/UpdateProgress.tooltip_text = "%.1f / %.1f MB" % [AppUpdater.downloaded / 1048576.0, AppUpdater.total / 1048576.0]

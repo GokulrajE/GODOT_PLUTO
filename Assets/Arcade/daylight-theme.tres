@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://o0pld3buj8af"]
 
-[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="1_j3vd0"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="1_j3vd0"]
 [ext_resource type="Texture2D" uid="uid://4t51je14f30" path="res://Assets/Arcade/slider-handle.svg" id="contrast_handle"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpks4"]

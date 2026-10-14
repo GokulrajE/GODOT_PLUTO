@@ -1,6 +1,9 @@
 extends Node
 
-const DATA_ROOT = "res://data/"
+var data_root: String = ""
+
+func _ready() -> void:
+	data_root = AppStorage.root_path + "data/"
 
 const CONFIG_HEADER  = "PatientID,StartDate,EndDate,TotalTime,WFE,WURD,FPS,HOC,FME1,FME2,FME1ID,FME2ID,TrainingSide,Location"
 const SESSION_HEADER = "SessionNumber,DateTime,TrialNumberDay,TrialNumberSession,TrialType,TrialStartTime,TrialStopTime,TrialRawDataFile,Mechanism,GameName,GameParameter,GameSpeed,AssistMode,DesiredSuccessRate,SuccessRate,CurrentControlBound,NextControlBound,MoveTime,CurrentTargets,CurrentHits,CurrentMisses,CummulativeTargets,CummulativeHits,CummulativeMisses,CurrentStar,CummulativeStars"
@@ -11,10 +14,10 @@ var _log_file_path: String = ""
 # ══ Patient ═══════════════════════════════════════════════════════════
 
 func patient_exists(patient_id: String) -> bool:
-	return FileAccess.file_exists(DATA_ROOT + patient_id + "/configdata")
+	return FileAccess.file_exists(data_root + patient_id + "/configdata")
 
 func create_patient(patient_id: String, start_date: String, end_date: String, training_side: String, location: String) -> bool:
-	var base = DATA_ROOT + patient_id + "/"
+	var base = data_root + patient_id + "/"
 	for folder in ["applog", "rawdata", "rom", "mech", "session"]:
 		var err = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(base + folder))
 		if err != OK:
@@ -33,7 +36,7 @@ func create_patient(patient_id: String, start_date: String, end_date: String, tr
 	return true
 
 func load_patient(patient_id: String) -> bool:
-	var file = FileAccess.open(DATA_ROOT + patient_id + "/configdata", FileAccess.READ)
+	var file = FileAccess.open(data_root + patient_id + "/configdata", FileAccess.READ)
 	if file == null:
 		return false
 	var _hdr  = file.get_line()
@@ -69,7 +72,7 @@ func load_patient(patient_id: String) -> bool:
 # ══ Session ════════════════════════════════════════════════════════════
 
 func _init_session_file() -> void:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	if FileAccess.file_exists(path):
 		return
 	var file = FileAccess.open(path, FileAccess.WRITE)
@@ -82,7 +85,7 @@ func _init_session_file() -> void:
 	file.close()
 
 func _count_session_rows() -> int:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	var file = FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return 1
@@ -100,7 +103,7 @@ func _count_session_rows() -> int:
 	return max_sess + 1
 
 func write_session_row(row: Dictionary) -> void:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	var file = FileAccess.open(path, FileAccess.READ_WRITE)
 	if file == null:
 		return
@@ -118,7 +121,7 @@ func write_session_row(row: Dictionary) -> void:
 # Naming: raw-sess{SS}-trial{TTT}-{game}-{mech}.csv
 func create_raw_file(trial_no: int, game: String, mech: String, trial_type: String) -> String:
 	var sess = AppData.session_number
-	var path = DATA_ROOT + AppData.patient_id + "/rawdata/raw-sess%02d-trial%03d-%s-%s.csv" % [
+	var path = data_root + AppData.patient_id + "/rawdata/raw-sess%02d-trial%03d-%s-%s.csv" % [
 		sess, trial_no, game, mech
 	]
 	var file = FileAccess.open(path, FileAccess.WRITE)
@@ -159,7 +162,7 @@ func append_raw_row(file_path: String, row: Dictionary) -> void:
 
 func _init_log_file() -> void:
 	var dt = Time.get_datetime_string_from_system().replace(":", "-").replace(" ", "-")
-	_log_file_path = DATA_ROOT + AppData.patient_id + "/applog/" + dt + "-application.log"
+	_log_file_path = data_root + AppData.patient_id + "/applog/" + dt + "-application.log"
 	var file = FileAccess.open(_log_file_path, FileAccess.WRITE)
 	if file:
 		file.store_line("[%s] INFO    [%s] >> Application started" % [
@@ -196,7 +199,7 @@ func _write_log(level: String, scene: String, msg: String) -> void:
 
 # Returns [trial_number_day, trial_number_session] for a mechanism today.
 func read_trial_numbers(mech: String, sess_no: int) -> Array:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return [0, 0]
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -224,7 +227,7 @@ func read_trial_numbers(mech: String, sess_no: int) -> Array:
 
 # Returns [cumulative_targets, cumulative_hits, cumulative_misses] for a game+mech pair.
 func read_cumulative_scores(game_name: String, mech: String) -> Array:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return [0, 0, 0]
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -248,7 +251,7 @@ func read_cumulative_scores(game_name: String, mech: String) -> Array:
 
 # Returns [cumulative_stars, today_stars] for a game+mech pair.
 func read_star_counts(game_name: String, mech: String) -> Array:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return [0, 0]
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -283,7 +286,7 @@ func read_yesterday_hits(game_name: String, mech: String) -> int:
 	return _sum_hits_for_date(game_name, mech, yesterday)
 
 func _sum_hits_for_date(game_name: String, mech: String, date: String) -> int:
-	var path := DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path := data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return 0
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -307,7 +310,7 @@ func _sum_hits_for_date(game_name: String, mech: String, date: String) -> int:
 # Returns the NextControlBound from the last session row for this mechanism,
 # or -1.0 if none exists (caller should use the default then).
 func read_control_bound(mech: String) -> float:
-	var path = DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return -1.0
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -352,7 +355,7 @@ func read_daily_usage(days: int = 7, start_date: String = "", end_date: String =
 
 	if not AppData.is_patient_loaded:
 		return result
-	var path := DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path := data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return result
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -396,7 +399,7 @@ func read_summary_stars() -> Dictionary:
 	if not AppData.is_patient_loaded:
 		return {"today_total": 0, "previous_total": 0, "mech_game": mech_game}
 
-	var path := DATA_ROOT + AppData.patient_id + "/session/sessions.csv"
+	var path := data_root + AppData.patient_id + "/session/sessions.csv"
 	if not FileAccess.file_exists(path):
 		return {"today_total": 0, "previous_total": 0, "mech_game": mech_game}
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -433,7 +436,7 @@ func read_summary_stars() -> Dictionary:
 # ══ Path helpers ════════════════════════════════════════════════════════
 
 func save_config() -> void:
-	var path = DATA_ROOT + AppData.patient_id + "/configdata"
+	var path = data_root + AppData.patient_id + "/configdata"
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
 		push_error("DataManager: cannot write configdata")
@@ -459,7 +462,7 @@ func save_config() -> void:
 	log_info("DataManager", "Config saved for " + AppData.patient_id)
 
 func has_rom_data(mech_name: String) -> bool:
-	var path = DATA_ROOT + AppData.patient_id + "/rom/" + mech_name + "-rom.csv"
+	var path = data_root + AppData.patient_id + "/rom/" + mech_name + "-rom.csv"
 	if not FileAccess.file_exists(path):
 		return false
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -479,9 +482,31 @@ func has_rom_data(mech_name: String) -> bool:
 		return false
 	return float(p[3]) != 0.0 or float(p[4]) != 0.0
 
-func get_patient_path() -> String: return DATA_ROOT + AppData.patient_id + "/"
-func get_rom_path()     -> String: return DATA_ROOT + AppData.patient_id + "/rom/"
-func get_mech_path()    -> String: return DATA_ROOT + AppData.patient_id + "/mech/"
-func get_raw_path()     -> String: return DATA_ROOT + AppData.patient_id + "/rawdata/"
-func get_session_path() -> String: return DATA_ROOT + AppData.patient_id + "/session/"
-func get_log_path()     -> String: return DATA_ROOT + AppData.patient_id + "/applog/"
+func get_patient_path() -> String: return data_root + AppData.patient_id + "/"
+func get_rom_path()     -> String: return data_root + AppData.patient_id + "/rom/"
+func get_mech_path()    -> String: return data_root + AppData.patient_id + "/mech/"
+func get_raw_path()     -> String: return data_root + AppData.patient_id + "/rawdata/"
+func get_session_path() -> String: return data_root + AppData.patient_id + "/session/"
+func get_log_path()     -> String: return data_root + AppData.patient_id + "/applog/"
+
+var _activity_cache := {}
+var _activity_cache_key := ""
+func daily_activity() -> Dictionary:
+	var key: String = AppData.patient_id + ":" + Time.get_date_string_from_system()
+	if key != _activity_cache_key:
+		_activity_cache = preload("res://scripts/data/DailyActivity.gd").summarize(get_session_path(), Time.get_date_string_from_system())
+		_activity_cache_key = key
+	return _activity_cache
+
+func write_active_time(raw_file: String, mech: String, game: String, days: Dictionary) -> void:
+	var path := get_session_path() + "active-time.csv"
+	var exists := FileAccess.file_exists(path)
+	var file := FileAccess.open(path, FileAccess.READ_WRITE if exists else FileAccess.WRITE)
+	if file == null:
+		push_error("Unable to save active play time")
+		return
+	if not exists: file.store_csv_line(["Date", "TrialRawDataFile", "Mechanism", "GameName", "ActiveSeconds"])
+	file.seek_end()
+	for day in days: file.store_csv_line([day, raw_file.get_file(), mech, game, "%.3f" % days[day]])
+	file.close()
+	_activity_cache_key = ""

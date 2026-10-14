@@ -2,10 +2,14 @@
 
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_jm4fr"]
 [ext_resource type="Script" path="res://scripts/calibration_scene.gd" id="1_t0c77"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_6l4wy"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_6l4wy"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_10wki"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-secondary.svg" id="5_xa70r"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_txbrv"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/Online/Icons/arrow-left.svg" id="patient_icon_arrow-left"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3q0vr"]
 texture = ExtResource("4_10wki")
@@ -156,7 +160,7 @@ offset_top = 12.0
 offset_right = 500.0
 offset_bottom = 44.0
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 22
 text = "Calibration"
 metadata/arcade_authored_control = true
@@ -168,7 +172,7 @@ offset_top = 48.0
 offset_right = 700.0
 offset_bottom = 70.0
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 12
 text = "Auto-calibrate the selected mechanism before assessment"
 metadata/arcade_authored_control = true
@@ -187,12 +191,12 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxTexture_hsgbf")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_2778m")
@@ -203,6 +207,9 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_xraw1")
 text = "← Mechanism"
 metadata/arcade_authored_control = true
 
+icon = ExtResource("patient_icon_arrow-left")
+theme_override_constants/icon_max_width = 20
+theme_override_constants/h_separation = 10
 [node name="MainCard" type="Panel" parent="." unique_id=704802773]
 layout_mode = 1
 anchors_preset = -1
@@ -230,7 +237,7 @@ offset_top = 26.32
 offset_right = 8.0
 offset_bottom = 26.320007
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 14
 text = "NOMECH"
 horizontal_alignment = 1
@@ -248,7 +255,7 @@ offset_top = 41.95999
 offset_right = 4.0
 offset_bottom = 41.95999
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "CURRENT ANGLE"
 horizontal_alignment = 1
@@ -281,7 +288,7 @@ offset_top = 24.59999
 offset_right = 3.0
 offset_bottom = 24.599976
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 80
 text = "---"
 horizontal_alignment = 1
@@ -300,7 +307,7 @@ offset_top = 35.76001
 offset_right = 4.0
 offset_bottom = 35.76001
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "degrees"
 horizontal_alignment = 1
@@ -318,9 +325,20 @@ offset_top = 50.880005
 offset_right = 9.0
 offset_bottom = 50.880005
 theme = ExtResource("1_jm4fr")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "Press the PLUTO button to calibrate."
 horizontal_alignment = 1
 autowrap_mode = 3
+metadata/arcade_authored_control = true
+
+[node name="MenuAmbience" type="Control" parent="ArcadeBackdrop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("patient_ambience")
 metadata/arcade_authored_control = true

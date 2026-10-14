@@ -1,36 +1,45 @@
 [gd_scene format=3 uid="uid://dfy3nax1abc2p"]
 
-[ext_resource type="Script" path="res://game/FRUIT_BASKET/scripts/fruit_basket_game.gd" id="1_game"]
-[ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_ynl6r"]
-[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/Forest1.jpg" id="2_td2ea"]
-[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/groundgrass.png" id="3_ground"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/orchard-v2.png" id="3_jbjqe"]
-[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/catch.wav" id="5_catch"]
-[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/drop.wav" id="6_miss"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/sprites-source.png" id="6_n8xxp"]
-[ext_resource type="AudioStream" path="res://game/FRUIT_BASKET/audio/fruitch.mp3" id="6_td2ea"]
-[ext_resource type="PackedScene" path="res://scenes/CelebrationCard.tscn" id="8_celeb"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="10_jgvko"]
-[ext_resource type="Texture2D" path="res://game/FRUIT_BASKET/sprites/fruitbasket.png" id="10_rawg5"]
+[ext_resource type="Script" uid="uid://bxkqm5uar2wfn" path="res://game/FRUIT_BASKET/scripts/fruit_basket_game.gd" id="1_game"]
+[ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_ynl6r"]
+[ext_resource type="Texture2D" uid="uid://rjavbv01qrre" path="res://game/FRUIT_BASKET/sprites/Forest1.jpg" id="2_td2ea"]
+[ext_resource type="Texture2D" uid="uid://b2lknlhkoicmr" path="res://game/FRUIT_BASKET/sprites/groundgrass.png" id="3_ground"]
+[ext_resource type="Texture2D" uid="uid://c1yacq6xs2cx7" path="res://Assets/Arcade/orchard-v2.png" id="3_jbjqe"]
+[ext_resource type="AudioStream" uid="uid://b2svifws5og7g" path="res://game/FRUIT_BASKET/audio/catch.wav" id="5_catch"]
+[ext_resource type="AudioStream" uid="uid://cc6lwfsm1al7h" path="res://game/FRUIT_BASKET/audio/drop.wav" id="6_miss"]
+[ext_resource type="Texture2D" uid="uid://du1wiyrovrrvi" path="res://Assets/Arcade/sprites-source.png" id="6_n8xxp"]
+[ext_resource type="AudioStream" uid="uid://vshbjov1wo4h" path="res://game/FRUIT_BASKET/audio/fruitch.mp3" id="6_td2ea"]
+[ext_resource type="PackedScene" uid="uid://cs5al7mnnn6u6" path="res://scenes/CelebrationCard.tscn" id="8_celeb"]
+[ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="10_jgvko"]
+[ext_resource type="Texture2D" uid="uid://yju0q0e4igrp" path="res://game/FRUIT_BASKET/sprites/fruitbasket.png" id="10_rawg5"]
 [ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="11_qelep"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="12_1de3p"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-secondary.svg" id="13_7vle7"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/fruit-button.svg" id="14_6bfqe"]
-[ext_resource type="Script" path="res://scripts/CelebrationCard.gd" id="16_j6jdi"]
-[ext_resource type="Script" path="res://scripts/gameplay/game_presentation.gd" id="18_6inaa"]
-
-[ext_resource type="Script" path="res://scripts/effects/filled_basket.gd" id="fruit_pile"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/Fruits/apple.svg" id="fruit_color_0"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/Fruits/lemon.svg" id="fruit_color_1"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/Fruits/orange.svg" id="fruit_color_2"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/Fruits/strawberry.svg" id="fruit_color_3"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/Fruits/blueberry.svg" id="fruit_color_4"]
-
-[ext_resource type="Script" path="res://scripts/ui/gameover_card.gd" id="gameover_motion"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/gameover-panel.svg" id="gameover_art"]
-
-[ext_resource type="Shader" path="res://Assets/Arcade/playfield_contrast.gdshader" id="world_shader"]
+[ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="12_1de3p"]
+[ext_resource type="Texture2D" uid="uid://c2un4xvn0urec" path="res://Assets/Arcade/fruit-button.svg" id="14_6bfqe"]
+[ext_resource type="Script" uid="uid://doghg5pxn5t4x" path="res://scripts/gameplay/game_presentation.gd" id="18_6inaa"]
+[ext_resource type="Texture2D" uid="uid://cuy7wqv3td26k" path="res://Assets/Arcade/HUD/fruit-hud.svg" id="arcade_hud_art"]
+[ext_resource type="Script" path="res://scripts/ui/arcade_hud.gd" id="arcade_hud_script"]
+[ext_resource type="Texture2D" uid="uid://bte3wmv23oni7" path="res://Assets/Arcade/Fruits/apple.svg" id="fruit_color_0"]
+[ext_resource type="Texture2D" uid="uid://dvsho82rxyuby" path="res://Assets/Arcade/Fruits/lemon.svg" id="fruit_color_1"]
+[ext_resource type="Texture2D" uid="uid://b21bu24y3b3gp" path="res://Assets/Arcade/Fruits/orange.svg" id="fruit_color_2"]
+[ext_resource type="Texture2D" uid="uid://c2dx0hlcpafwt" path="res://Assets/Arcade/Fruits/strawberry.svg" id="fruit_color_3"]
+[ext_resource type="Texture2D" uid="uid://p6cubhf5rw8" path="res://Assets/Arcade/Fruits/blueberry.svg" id="fruit_color_4"]
+[ext_resource type="Script" uid="uid://cso7l3hluwgvy" path="res://scripts/effects/filled_basket.gd" id="fruit_pile"]
+[ext_resource type="Texture2D" uid="uid://bdyrq3souyn8l" path="res://Assets/Arcade/gameover-panel.svg" id="gameover_art"]
+[ext_resource type="Script" uid="uid://xyjjpxw7ryei" path="res://scripts/ui/gameover_card.gd" id="gameover_motion"]
 [ext_resource type="Material" path="res://Assets/Arcade/sprite-contrast.tres" id="sprite_shader"]
+[ext_resource type="Shader" uid="uid://bot0fisknxbk7" path="res://Assets/Arcade/playfield_contrast.gdshader" id="world_shader"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/arcade-dialog.svg" id="arcade_dialog_art"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/pause-icon.svg" id="hud_pause_icon"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/exit-icon.svg" id="hud_exit_icon"]
+
+[sub_resource type="ShaderMaterial" id="world_material"]
+shader = ExtResource("world_shader")
+shader_parameter/saturation = 0.78
+shader_parameter/exposure = 0.82
+shader_parameter/atmosphere = Color(0.1, 0.23, 0.31, 1)
+shader_parameter/atmosphere_mix = 0.08
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1nxqj"]
 atlas = ExtResource("6_n8xxp")
@@ -41,95 +50,37 @@ filter_clip = true
 radius = 67.319824
 height = 669.9999
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ilgqv"]
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6bu6y"]
-content_margin_left = 16.0
-content_margin_top = 4.0
-content_margin_right = 16.0
-content_margin_bottom = 4.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ps0di"]
-content_margin_left = 16.0
-content_margin_top = 4.0
-content_margin_right = 16.0
-content_margin_bottom = 4.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxTexture" id="arcade_hud_panel"]
+texture = ExtResource("arcade_hud_art")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0xd2"]
 atlas = ExtResource("6_n8xxp")
 region = Rect2(1056, 539, 411, 395)
 filter_clip = true
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uatd6"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxFlat" id="arcade_hud_button"]
+bg_color = Color(0.12, 0.21, 0.34, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.48, 0.71, 0.87, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sde7"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("13_7vle7")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lp8hj"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yimob"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("13_7vle7")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6j108"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxFlat" id="arcade_hud_hover"]
+bg_color = Color(0.22, 0.36, 0.52, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.94, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu007"]
 bg_color = Color(1, 1, 1, 0)
@@ -143,75 +94,10 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5b3h"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_08u4e"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xasu"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("13_7vle7")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ydul0"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nua12"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("13_7vle7")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q8dmy"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxEmpty" id="arcade_hud_empty"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebg6k"]
 bg_color = Color(1, 1, 1, 0)
@@ -225,7 +111,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k2foc"]
@@ -303,7 +189,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_whr54"]
@@ -381,71 +267,11 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tuqso"]
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w61hj"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_78vm4"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("13_7vle7")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4f0v"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("10_jgvko")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwp8s"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("13_7vle7")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scf0i"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxTexture" id="gameover_style"]
+texture = ExtResource("gameover_art")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8ee2"]
 bg_color = Color(1, 1, 1, 0)
@@ -459,64 +285,8 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_byepq"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("14_6bfqe")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t3pk1"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("14_6bfqe")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_06am6"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("14_6bfqe")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ggtj"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("14_6bfqe")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1uqgx"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("12_1de3p")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cm0v"]
 bg_color = Color(1, 1, 1, 0)
@@ -530,7 +300,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kjh0k"]
@@ -608,7 +378,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gwxxf"]
@@ -679,7 +449,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bggn6"]
@@ -693,27 +463,28 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_size = 5
 shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxTexture" id="gameover_style"]
-texture = ExtResource("gameover_art")
+[sub_resource type="StyleBoxTexture" id="arcade_dialog_panel"]
+texture = ExtResource("arcade_dialog_art")
 texture_margin_left = 24.0
-texture_margin_right = 24.0
 texture_margin_top = 24.0
+texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxFlat" id="game_accent_title"]
-bg_color = Color(1, 0.88, 0.66, 1)
+[sub_resource type="StyleBoxFlat" id="arcade_dialog_primary"]
+bg_color = Color(0.97, 0.77, 0.37, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(1, 0.92, 0.67, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
 corner_radius_bottom_right = 12
-
-[sub_resource type="ShaderMaterial" id="world_material"]
-shader = ExtResource("world_shader")
-shader_parameter/exposure = 0.82
 
 [node name="FruitBasketScene" type="Control" unique_id=988390006]
 layout_mode = 3
@@ -728,6 +499,7 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeGameBackground" type="TextureRect" parent="." unique_id=380500123]
+material = SubResource("world_material")
 layout_mode = 0
 offset_right = 1166.0
 offset_bottom = 784.0
@@ -737,7 +509,6 @@ texture = ExtResource("3_jbjqe")
 expand_mode = 1
 metadata/arcade_authored_control = true
 
-material = SubResource("world_material")
 [node name="Sky" type="TextureRect" parent="." unique_id=867300664]
 visible = false
 layout_mode = 1
@@ -780,39 +551,89 @@ theme = ExtResource("1_ynl6r")
 metadata/arcade_authored_control = true
 
 [node name="barsket1" type="Sprite2D" parent="BasketContainer" unique_id=1685522957]
+material = ExtResource("sprite_shader")
 position = Vector2(120, 560)
 scale = Vector2(0.31914893, 0.31914893)
 texture = SubResource("AtlasTexture_1nxqj")
 
-material = ExtResource("sprite_shader")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BasketContainer/barsket1" unique_id=1688721661]
 rotation = 1.580087
 shape = SubResource("CapsuleShape2D_rawg5")
 
 [node name="barsket2" type="Sprite2D" parent="BasketContainer" unique_id=1465032973]
+material = ExtResource("sprite_shader")
 position = Vector2(351.5, 560)
 scale = Vector2(0.31914893, 0.31914893)
 texture = SubResource("AtlasTexture_1nxqj")
 
-material = ExtResource("sprite_shader")
 [node name="barsket3" type="Sprite2D" parent="BasketContainer" unique_id=1515209572]
+material = ExtResource("sprite_shader")
 position = Vector2(583, 560)
 scale = Vector2(0.31914893, 0.31914893)
 texture = SubResource("AtlasTexture_1nxqj")
 
-material = ExtResource("sprite_shader")
 [node name="barsket4" type="Sprite2D" parent="BasketContainer" unique_id=413329658]
+material = ExtResource("sprite_shader")
 position = Vector2(814.5, 560)
 scale = Vector2(0.31914893, 0.31914893)
 texture = SubResource("AtlasTexture_1nxqj")
 
-material = ExtResource("sprite_shader")
 [node name="barsket5" type="Sprite2D" parent="BasketContainer" unique_id=1608515019]
+material = ExtResource("sprite_shader")
 position = Vector2(1046, 560)
 scale = Vector2(0.31914893, 0.31914893)
 texture = SubResource("AtlasTexture_1nxqj")
 
-material = ExtResource("sprite_shader")
+[node name="FilledFruit0" type="TextureRect" parent="BasketContainer" unique_id=1434742815]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 488.0
+offset_right = 195.0
+offset_bottom = 573.0
+mouse_filter = 2
+script = ExtResource("fruit_pile")
+fruit_texture = ExtResource("fruit_color_0")
+
+[node name="FilledFruit1" type="TextureRect" parent="BasketContainer" unique_id=216415766]
+layout_mode = 0
+offset_left = 276.5
+offset_top = 488.0
+offset_right = 426.5
+offset_bottom = 573.0
+mouse_filter = 2
+script = ExtResource("fruit_pile")
+fruit_texture = ExtResource("fruit_color_1")
+
+[node name="FilledFruit2" type="TextureRect" parent="BasketContainer" unique_id=1434177174]
+layout_mode = 0
+offset_left = 508.0
+offset_top = 488.0
+offset_right = 658.0
+offset_bottom = 573.0
+mouse_filter = 2
+script = ExtResource("fruit_pile")
+fruit_texture = ExtResource("fruit_color_2")
+
+[node name="FilledFruit3" type="TextureRect" parent="BasketContainer" unique_id=117470569]
+layout_mode = 0
+offset_left = 739.5
+offset_top = 488.0
+offset_right = 889.5
+offset_bottom = 573.0
+mouse_filter = 2
+script = ExtResource("fruit_pile")
+fruit_texture = ExtResource("fruit_color_3")
+
+[node name="FilledFruit4" type="TextureRect" parent="BasketContainer" unique_id=1273344121]
+layout_mode = 0
+offset_left = 971.0
+offset_top = 488.0
+offset_right = 1121.0
+offset_bottom = 573.0
+mouse_filter = 2
+script = ExtResource("fruit_pile")
+fruit_texture = ExtResource("fruit_color_4")
+
 [node name="FruitContainer" type="Control" parent="." unique_id=738383670]
 layout_mode = 1
 anchors_preset = 15
@@ -844,24 +665,26 @@ offset_top = 8.0
 offset_right = 1154.0
 offset_bottom = 66.0
 theme = ExtResource("1_ynl6r")
-theme_override_styles/panel = SubResource("StyleBoxTexture_ilgqv")
+theme_override_styles/panel = SubResource("arcade_hud_panel")
+script = ExtResource("arcade_hud_script")
 metadata/arcade_authored_control = true
 
 [node name="TimerLabel" type="Label" parent="UI/Header" unique_id=468780562]
 layout_mode = 0
-offset_left = 214.0
+offset_left = 261.0
 offset_top = 8.0
 offset_right = 394.0
 offset_bottom = 48.0
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.14, 0.23, 0.33, 1)
 theme_override_fonts/font = ExtResource("11_qelep")
-theme_override_font_sizes/font_size = 22
-text = "Time: 60 s"
+theme_override_font_sizes/font_size = 30
+text = "01:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
 
+tooltip_text = "Time remaining"
 [node name="ScoreLabel" type="Label" parent="UI/Header" unique_id=507665188]
 layout_mode = 1
 offset_left = 414.0
@@ -871,10 +694,10 @@ offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_fonts/font = ExtResource("11_qelep")
-theme_override_font_sizes/font_size = 22
-text = "Score: 00"
+theme_override_font_sizes/font_size = 28
+text = "00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
@@ -905,8 +728,8 @@ metadata/arcade_authored_control = true
 [node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=765432198]
 layout_mode = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0.96, 0.98, 1, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_qelep")
 theme_override_font_sizes/font_size = 28
@@ -924,22 +747,24 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_uatd6")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8sde7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_lp8hj")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_yimob")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_6j108")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_fu007")
 text = "Exit"
 metadata/arcade_authored_control = true
 
+icon = ExtResource("hud_exit_icon")
+theme_override_constants/icon_max_width = 18
 [node name="GameName" type="Label" parent="UI/Header" unique_id=2069193787]
 layout_mode = 0
 offset_left = 14.0
@@ -947,15 +772,15 @@ offset_top = 8.0
 offset_right = 204.0
 offset_bottom = 49.0
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.06, 0.1, 0.18, 1)
 theme_override_fonts/font = ExtResource("11_qelep")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("arcade_hud_empty")
 text = "FRUIT BASKET"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
 
-theme_override_styles/normal = SubResource("game_accent_title")
 [node name="PauseButton" type="Button" parent="UI/Header" unique_id=633167331]
 layout_mode = 0
 offset_left = 916.0
@@ -965,23 +790,25 @@ offset_bottom = 48.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_08u4e")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_4xasu")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ydul0")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nua12")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_q8dmy")
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ebg6k")
 disabled = true
 text = "Pause"
 metadata/secondary = true
 metadata/arcade_authored_control = true
 
+icon = ExtResource("hud_pause_icon")
+theme_override_constants/icon_max_width = 18
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1110122292]
 anchors_preset = -1
 offset_left = 303.0
@@ -989,7 +816,7 @@ offset_top = 135.0
 offset_right = 863.0
 offset_bottom = 525.0
 theme = ExtResource("1_ynl6r")
-theme_override_styles/panel = SubResource("StyleBoxTexture_k2foc")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="GameTitle" type="Label" parent="UI/WaitPanel" unique_id=1021408433]
@@ -1000,7 +827,7 @@ offset_right = 536.0
 offset_bottom = 211.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_qelep")
@@ -1017,7 +844,7 @@ offset_right = 532.0
 offset_bottom = 246.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 17
 text = "Guide the falling fruit into the correct basket!"
 horizontal_alignment = 1
@@ -1032,7 +859,7 @@ offset_right = 532.0
 offset_bottom = 287.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 17
 text = "Press SPACE or choose Play"
 horizontal_alignment = 1
@@ -1060,17 +887,17 @@ offset_bottom = 358.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_bad05")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wlxlj")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ktj5s")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3gv3t")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_wy7ce")
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_dialog_primary")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_dialog_primary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_olh7g")
 text = "PLAY"
 metadata/arcade_authored_control = true
@@ -1083,7 +910,7 @@ offset_top = 185.0
 offset_right = 833.0
 offset_bottom = 460.0
 theme = ExtResource("1_ynl6r")
-theme_override_styles/panel = SubResource("StyleBoxTexture_whr54")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="PauseTitle" type="Label" parent="UI/PausePanel" unique_id=290156723]
@@ -1094,7 +921,7 @@ offset_right = 475.0
 offset_bottom = 95.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_qelep")
@@ -1111,7 +938,7 @@ offset_right = 475.0
 offset_bottom = 159.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "Take your time. Your session is paused."
 horizontal_alignment = 1
@@ -1126,17 +953,17 @@ offset_bottom = 237.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_tmws2")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_gxeir")
-theme_override_styles/hover = SubResource("StyleBoxTexture_wongh")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_v42oi")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_fcc61")
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_dialog_primary")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_dialog_primary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_x0ngg")
 text = "RESUME"
 metadata/arcade_authored_control = true
@@ -1150,9 +977,9 @@ offset_right = 863.0
 offset_bottom = 510.0
 theme = ExtResource("1_ynl6r")
 theme_override_styles/panel = SubResource("gameover_style")
+script = ExtResource("gameover_motion")
 metadata/arcade_authored_control = true
 
-script = ExtResource("gameover_motion")
 [node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=2088286249]
 layout_mode = 1
 offset_left = 24.0
@@ -1161,7 +988,7 @@ offset_right = 536.0
 offset_bottom = 97.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_qelep")
@@ -1179,7 +1006,7 @@ offset_top = 106.0
 offset_bottom = 140.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "Fruits caught:"
 horizontal_alignment = 1
@@ -1193,7 +1020,7 @@ offset_right = 536.0
 offset_bottom = 215.0
 grow_horizontal = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_qelep")
@@ -1211,18 +1038,18 @@ offset_right = 522.0
 offset_bottom = 315.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxTexture_w61hj")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_78vm4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_i4f0v")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_dwp8s")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_scf0i")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_q8ee2")
 text = "Return to Game Select"
 metadata/arcade_authored_control = true
@@ -1236,17 +1063,17 @@ offset_bottom = 315.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_byepq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_t3pk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_06am6")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3ggtj")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_1uqgx")
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_2cm0v")
 text = "PLAY AGAIN"
 metadata/arcade_authored_control = true
@@ -1257,9 +1084,9 @@ z_index = 20
 offset_left = 16.0
 offset_top = 80.0
 offset_right = 230.0
-offset_bottom = 218.0
+offset_bottom = 242.0
 theme = ExtResource("1_ynl6r")
-theme_override_styles/panel = SubResource("StyleBoxTexture_kjh0k")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="UI/SpeedPanel" unique_id=1090686740]
@@ -1268,8 +1095,8 @@ offset_top = 10.0
 offset_right = 214.0
 offset_bottom = 34.0
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
+theme_override_font_sizes/font_size = 13
 text = "GAME SPEED  (Ctrl+G)"
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -1289,18 +1116,18 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_x1ygc")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_chnop")
-theme_override_styles/hover = SubResource("StyleBoxTexture_njwsc")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_dohsq")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_vuh0j")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_7ytvm")
 text = "−"
 metadata/arcade_authored_control = true
@@ -1309,7 +1136,7 @@ metadata/arcade_authored_control = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_qelep")
@@ -1324,18 +1151,18 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_gwxxf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_4co3o")
-theme_override_styles/hover = SubResource("StyleBoxTexture_qvxde")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_y6ax6")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_4bqqw")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_auq4r")
 text = "+"
 metadata/arcade_authored_control = true
@@ -1345,30 +1172,20 @@ layout_mode = 0
 offset_left = 1.0
 offset_top = 102.0
 offset_right = 215.0
-offset_bottom = 128.0
+offset_bottom = 148.0
 theme = ExtResource("1_ynl6r")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
 text = "Duration: 4.0 s
 Bound: 0.60"
 horizontal_alignment = 1
 autowrap_mode = 3
 metadata/arcade_authored_control = true
 
-[node name="CelebrationCard" type="Control" parent="UI" unique_id=654321987 instance=ExtResource("8_celeb")]
+[node name="CelebrationCard" parent="UI" unique_id=654321987 instance=ExtResource("8_celeb")]
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_ynl6r")
-script = ExtResource("16_j6jdi")
 trophy_texture = ExtResource("10_rawg5")
 score_unit = "fruits"
-metadata/arcade_authored = true
-metadata/arcade_authored_control = true
 
 [node name="SessionProgress" type="ProgressBar" parent="UI" unique_id=944651668]
 offset_left = 28.0
@@ -1397,48 +1214,3 @@ metadata/arcade_authored_control = true
 
 [node name="ArcadePresentation" type="Node2D" parent="." unique_id=1516015192]
 script = ExtResource("18_6inaa")
-
-[node name="FilledFruit0" type="TextureRect" parent="BasketContainer"]
-offset_left = 45.0
-offset_top = 488.0
-offset_right = 195.0
-offset_bottom = 573.0
-mouse_filter = 2
-script = ExtResource("fruit_pile")
-fruit_texture = ExtResource("fruit_color_0")
-
-[node name="FilledFruit1" type="TextureRect" parent="BasketContainer"]
-offset_left = 276.5
-offset_top = 488.0
-offset_right = 426.5
-offset_bottom = 573.0
-mouse_filter = 2
-script = ExtResource("fruit_pile")
-fruit_texture = ExtResource("fruit_color_1")
-
-[node name="FilledFruit2" type="TextureRect" parent="BasketContainer"]
-offset_left = 508.0
-offset_top = 488.0
-offset_right = 658.0
-offset_bottom = 573.0
-mouse_filter = 2
-script = ExtResource("fruit_pile")
-fruit_texture = ExtResource("fruit_color_2")
-
-[node name="FilledFruit3" type="TextureRect" parent="BasketContainer"]
-offset_left = 739.5
-offset_top = 488.0
-offset_right = 889.5
-offset_bottom = 573.0
-mouse_filter = 2
-script = ExtResource("fruit_pile")
-fruit_texture = ExtResource("fruit_color_3")
-
-[node name="FilledFruit4" type="TextureRect" parent="BasketContainer"]
-offset_left = 971.0
-offset_top = 488.0
-offset_right = 1121.0
-offset_bottom = 573.0
-mouse_filter = 2
-script = ExtResource("fruit_pile")
-fruit_texture = ExtResource("fruit_color_4")

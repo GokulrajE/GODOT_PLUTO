@@ -7,8 +7,8 @@ func _ready() -> void:
 	effects = preload("res://scripts/effects/game_effects.gd").new()
 	add_child(effects)
 	sound = AudioStreamPlayer.new()
-	sound.stream = preload("res://Assets/Arcade/Online/celebration.ogg")
-	sound.volume_db = -16
+	sound.stream = preload("res://Assets/Arcade/Online/game-over.ogg")
+	sound.volume_db = -6
 	add_child(sound)
 	visibility_changed.connect(_reveal)
 

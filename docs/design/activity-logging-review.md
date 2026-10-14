@@ -1,0 +1,13 @@
+# Activity logging and speed review — 2026-10-14
+
+Read-only audit: 11 saved trials, HOC (6) and FPS (5), 132,796 raw sensor rows. Session/raw references exist; raw tables have matching column counts; mechanism labels match; device runtime is monotonic; inspected sensor/position numbers are finite; success rates and cumulative target/hit/miss/star totals agree with session history. This verifies stored-data consistency, not physical sensor calibration or device accuracy.
+
+Found an early-exited HOC Tuk Tuk trial with 35 seconds wall time but a hardcoded 60-second MoveTime. Historical files were not edited. Legacy daily totals use min(recorded MoveTime, wall duration), marked ~ because pauses cannot be recovered exactly. For this date that gives HOC approximately 5:35 and FPS approximately 5:00, against 10-minute configured targets for each.
+
+New trials: each game records the same active delta consumed by its countdown. Paused/waiting/result time is excluded. Partial exits retain actual played time. sessions.csv keeps its existing columns; MoveTime now stores actual active seconds. A companion active-time.csv records active seconds by date, mechanism, game and raw-trial filename, including midnight splits. Daily totals prefer this measured ledger without double-counting sessions.csv. Demo records nothing. Abrupt process termination before trial stop is not crash-recovered.
+
+UI: mechanism selection shows played/target time and a goal-reached suggestion. Game selection shows mechanism progress. In-game footer shows live mechanism progress plus today's current-game time. This is an indication, not a forced stop. Goal targets remain the configured prescription; no target is automatically changed.
+
+Speed fixes: saving an unchanged speed no longer writes a fresh MANUAL row that resets adaptation timing. Manual settings clamp to 10–40. Auto adaptation uses recent eligible completed days with four training and one catch trial in both comparison days, instead of repeatedly using the first days in history. Existing improvement conditions and +10% capped increase are retained. Current real records cover only one date, insufficient to validate multi-day adaptation from real history.
+
+Validation: activity_logging.gd writes only to .godot/activity-fixtures and checks real patient file hashes remain unchanged. 261 checks passed: trial/session/raw links, duplicate-stop guard, measured durations, per-game and per-mechanism separation, goal threshold, unchanged-speed persistence, limits, simulated multi-day adaptation and same-day repeat prevention, plus actual scenes for both HOC/FPS with pause/partial-exit/speed checks. Raw hardware capture was audited from existing files; a new physical-device session was not performed.

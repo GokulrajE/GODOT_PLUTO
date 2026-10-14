@@ -6,7 +6,7 @@ extends Control
 func _ready() -> void:
 	preload("res://scripts/ui/game_picker_ui.gd").configure($GameGrid)
 	mech_label.text   = "FIVE WAYS TO MOVE. ONE BRIGHTER DAY." if AppData.demo_mode else _get_mech_display_name()
-	status_label.text = "Keyboard demo • no patient data recorded" if AppData.demo_mode else "Choose a game to begin your session"
+	status_label.text = "Keyboard demo • no patient data recorded" if AppData.demo_mode else AppData.daily_progress_text()
 
 	$GameGrid/HatTrickButton.pressed.connect(_on_hat_trick_pressed)
 	$GameGrid/FruitBasketButton.pressed.connect(_on_fruit_basket_pressed)

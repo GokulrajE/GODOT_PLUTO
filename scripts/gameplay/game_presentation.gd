@@ -24,6 +24,8 @@ func _ready() -> void:
 	effects = Effects.new()
 	effects.yellow_stars = kind.contains("HAT_TIRCK")
 	effects.vivid_feedback = kind.contains("FRUIT_BASKET") or kind.contains("RNR")
+	effects.soft_sparkles = kind.contains("FRUIT_BASKET") or kind.contains("RNR")
+	effects.clear_feedback = effects.soft_sparkles
 	game.add_child(effects)
 	_setup_art()
 	_setup_hud()
@@ -235,7 +237,7 @@ func _process(delta: float) -> void:
 	last_misses = misses
 	var trail_at := Vector2.INF
 	if kind.contains("PING_PONG") and not waiting and not done:
-		trail_at = Vector2(game.get("_ball_x"), game.get("_ball_y"))
+		trail_at = Vector2(game.call("_screen_x", game.get("_ball_x")), game.get("_ball_y"))
 		var vx: float = game.get("_ball_vx")
 		var vy: float = game.get("_ball_vy")
 		if (vx * last_ball_vx < 0 or vy * last_ball_vy < 0) and not paused: effects.burst(trail_at, true, false)

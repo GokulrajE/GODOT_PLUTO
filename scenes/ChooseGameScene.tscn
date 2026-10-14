@@ -1,19 +1,21 @@
 [gd_scene format=3 uid="uid://d0sonx8j3ioxa"]
 
-[ext_resource type="Script" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
-[ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_muk0j"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_o4483"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_vglxf"]
-[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="5_dxjs5"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-secondary.svg" id="6_nq0wi"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="7_3r834"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/twilight-garden.png" id="8_gtsbo"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/sprites-source.png" id="9_8r1i5"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/orchard-v2.png" id="10_qrd2o"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/garden-v2.png" id="11_1iuks"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/canyon-v2.png" id="12_628qv"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/sprites-driver-v2.png" id="13_fyw8g"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/arena-v2.png" id="14_3qpw1"]
+[ext_resource type="Script" uid="uid://bq0summpb3dw4" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
+[ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_muk0j"]
+[ext_resource type="Texture2D" uid="uid://c0id5s7b44ywi" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_vglxf"]
+[ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="4_vglxf"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="5_dxjs5"]
+[ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="6_nq0wi"]
+[ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="7_3r834"]
+[ext_resource type="Texture2D" uid="uid://iexna6jy5cmt" path="res://Assets/Arcade/twilight-garden.png" id="8_gtsbo"]
+[ext_resource type="Texture2D" uid="uid://du1wiyrovrrvi" path="res://Assets/Arcade/sprites-source.png" id="9_8r1i5"]
+[ext_resource type="Texture2D" uid="uid://c1yacq6xs2cx7" path="res://Assets/Arcade/orchard-v2.png" id="10_qrd2o"]
+[ext_resource type="Texture2D" uid="uid://b1gqymosuh4lr" path="res://Assets/Arcade/garden-v2.png" id="11_1iuks"]
+[ext_resource type="Texture2D" uid="uid://cde51pluy473l" path="res://Assets/Arcade/canyon-v2.png" id="12_628qv"]
+[ext_resource type="Texture2D" uid="uid://ruurlt5aiwfd" path="res://Assets/Arcade/sprites-driver-v2.png" id="13_fyw8g"]
+[ext_resource type="Texture2D" uid="uid://cfxplvjhkg52h" path="res://Assets/Arcade/arena-v2.png" id="14_3qpw1"]
+[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
+[ext_resource type="Texture2D" uid="uid://dh8spggqwauku" path="res://Assets/Arcade/Online/Icons/arrow-left.svg" id="patient_icon_arrow-left"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8s5b"]
 texture = ExtResource("4_vglxf")
@@ -90,8 +92,10 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
+
+[sub_resource type="Theme" id="Theme_muk0j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vkesn"]
 atlas = ExtResource("9_8r1i5")
@@ -166,7 +170,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1nxqj"]
@@ -242,7 +246,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e41ru"]
@@ -318,7 +322,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmo7k"]
@@ -394,7 +398,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8vf64"]
@@ -470,7 +474,7 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-shadow_color = Color(0.12, 0.25, 0.35, 0.10)
+shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
 [node name="ChooseGameScene" type="Control" unique_id=1357170814]
@@ -486,14 +490,24 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=653967447]
-anchors_preset = 0
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
-texture = ExtResource("3_o4483")
+texture = ExtResource("3_vglxf")
 expand_mode = 1
-stretch_mode = 0
+metadata/arcade_authored_control = true
+
+[node name="MenuAmbience" type="Control" parent="ArcadeBackdrop" unique_id=402818707]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("patient_ambience")
 metadata/arcade_authored_control = true
 
 [node name="BGColor" type="ColorRect" parent="." unique_id=1194295764]
@@ -528,8 +542,8 @@ offset_top = 12.0
 offset_right = 700.0
 offset_bottom = 48.0
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 26
@@ -543,7 +557,7 @@ offset_top = 52.0
 offset_right = 700.0
 offset_bottom = 70.0
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 12
 text = "Five ways to move. One brighter day."
 metadata/arcade_authored_control = true
@@ -561,7 +575,7 @@ offset_bottom = -14.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Choose a game to begin your session"
 horizontal_alignment = 2
@@ -591,12 +605,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 19
 theme_override_styles/normal = SubResource("StyleBoxTexture_gjpr3")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_7kmb3")
@@ -616,20 +630,23 @@ offset_top = 12.0
 offset_right = -12.0
 offset_bottom = -200.0
 mouse_filter = 2
-theme = ExtResource("1_muk0j")
+theme = SubResource("Theme_muk0j")
 texture = ExtResource("8_gtsbo")
 expand_mode = 1
 stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="@VBoxContainer@134" type="VBoxContainer" parent="GameGrid/HatTrickButton" unique_id=1360253904]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 14.0
-offset_top = 26.0
+offset_top = 65.0
 offset_right = -14.0
-offset_bottom = -24.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
 theme_override_constants/separation = 18
@@ -649,7 +666,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@136" type="Label" parent="GameGrid/HatTrickButton/@VBoxContainer@134" unique_id=1180728576]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 23
 text = "HAT-TRICK"
@@ -660,7 +677,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 15
 text = "Catch the falling balls"
 horizontal_alignment = 1
@@ -670,8 +687,8 @@ metadata/arcade_authored_control = true
 [node name="PlayLabel" type="Label" parent="GameGrid/HatTrickButton/@VBoxContainer@134" unique_id=1830122233]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 24
@@ -686,12 +703,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 19
 theme_override_styles/normal = SubResource("StyleBoxTexture_2ar0l")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hrmpu")
@@ -718,13 +735,16 @@ stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="@VBoxContainer@137" type="VBoxContainer" parent="GameGrid/FruitBasketButton" unique_id=1523045668]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 14.0
-offset_top = 26.0
+offset_top = 63.0
 offset_right = -14.0
-offset_bottom = -24.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
 theme_override_constants/separation = 18
@@ -744,7 +764,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@139" type="Label" parent="GameGrid/FruitBasketButton/@VBoxContainer@137" unique_id=1302960949]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 23
 text = "FRUIT BASKET"
@@ -755,7 +775,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 15
 text = "Match fruit to its basket"
 horizontal_alignment = 1
@@ -765,8 +785,8 @@ metadata/arcade_authored_control = true
 [node name="PlayLabel" type="Label" parent="GameGrid/FruitBasketButton/@VBoxContainer@137" unique_id=341123816]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 24
@@ -781,12 +801,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 19
 theme_override_styles/normal = SubResource("StyleBoxTexture_5rmdv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_cfveg")
@@ -813,13 +833,16 @@ stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="@VBoxContainer@140" type="VBoxContainer" parent="GameGrid/RNRButton" unique_id=1263569938]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = 26.0
-offset_right = -14.0
-offset_bottom = -24.0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = -16.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
 theme_override_constants/separation = 18
@@ -839,7 +862,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@142" type="Label" parent="GameGrid/RNRButton/@VBoxContainer@140" unique_id=1583067937]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 23
 text = "R-N-R"
@@ -850,7 +873,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 15
 text = "Water your growing garden"
 horizontal_alignment = 1
@@ -860,8 +883,8 @@ metadata/arcade_authored_control = true
 [node name="PlayLabel" type="Label" parent="GameGrid/RNRButton/@VBoxContainer@140" unique_id=187006138]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 24
@@ -876,12 +899,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 19
 theme_override_styles/normal = SubResource("StyleBoxTexture_s5ong")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_f7rod")
@@ -908,13 +931,16 @@ stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="@VBoxContainer@143" type="VBoxContainer" parent="GameGrid/TukTukButton" unique_id=1513027566]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 14.0
 offset_top = 26.0
 offset_right = -14.0
-offset_bottom = -24.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
 theme_override_constants/separation = 18
@@ -934,7 +960,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@145" type="Label" parent="GameGrid/TukTukButton/@VBoxContainer@143" unique_id=401513760]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 23
 text = "TUK-TUK"
@@ -945,7 +971,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 15
 text = "Navigate the rocky gaps"
 horizontal_alignment = 1
@@ -955,8 +981,8 @@ metadata/arcade_authored_control = true
 [node name="PlayLabel" type="Label" parent="GameGrid/TukTukButton/@VBoxContainer@143" unique_id=394649444]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 24
@@ -971,12 +997,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 19
 theme_override_styles/normal = SubResource("StyleBoxTexture_5hgmi")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xy3i3")
@@ -1003,13 +1029,16 @@ stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="@VBoxContainer@146" type="VBoxContainer" parent="GameGrid/PingPongButton" unique_id=144002162]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 14.0
 offset_top = 26.0
 offset_right = -14.0
-offset_bottom = -24.0
+offset_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
 theme_override_constants/separation = 18
@@ -1029,7 +1058,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@148" type="Label" parent="GameGrid/PingPongButton/@VBoxContainer@146" unique_id=200812771]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 23
 text = "PING-PONG"
@@ -1040,7 +1069,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 15
 text = "Keep the rally going"
 horizontal_alignment = 1
@@ -1050,8 +1079,8 @@ metadata/arcade_authored_control = true
 [node name="PlayLabel" type="Label" parent="GameGrid/PingPongButton/@VBoxContainer@146" unique_id=1534718082]
 layout_mode = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_dxjs5")
 theme_override_font_sizes/font_size = 24
@@ -1073,12 +1102,14 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_muk0j")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_6jf80")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_4w483")
@@ -1087,4 +1118,5 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_pfie1")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_svol7")
 theme_override_styles/focus = SubResource("StyleBoxFlat_hck6c")
 text = "← Choose Mechanism"
+icon = ExtResource("patient_icon_arrow-left")
 metadata/arcade_authored_control = true

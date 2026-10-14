@@ -357,6 +357,7 @@ func _tick(delta: float) -> void:
 	var playing := (_state != State.WAITING and _state != State.PAUSED
 					and _state != State.STOP  and _state != State.DONE)
 	if playing and _time_left > 0.0:
+		AppData.record_active_time(minf(delta, _time_left))
 		_time_left -= delta
 
 	match _state:

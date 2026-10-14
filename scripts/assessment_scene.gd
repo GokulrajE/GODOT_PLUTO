@@ -149,9 +149,9 @@ func _process(delta: float) -> void:
 		return
 	var angle = PlutoComm.angle
 	if _arom_selected:
-		arom_angle_label.text = "%.1f" % angle
+		arom_angle_label.text = "%.1f" % (AppData.hoc_to_cm(angle) if AppData.mechanism_name == "HOC" else angle)
 	if _prom_selected:
-		prom_angle_label.text = "%.1f" % angle
+		prom_angle_label.text = "%.1f" % (AppData.hoc_to_cm(angle) if AppData.mechanism_name == "HOC" else angle)
 	_update_curr_cursor(angle)
 
 	if _arom_selected:
@@ -583,8 +583,8 @@ func _update_cycle_marker_positions() -> void:
 	var tx: float      = arom_track.position.x
 	var ty: float      = arom_track.position.y
 	for m in _cycle_marker_data:
-		var lo_t: float = (m.lo + _ang_limit) / (_ang_limit * 2.0)
-		var hi_t: float = (m.hi + _ang_limit) / (_ang_limit * 2.0)
+		var lo_t: float = _display_fraction(m.lo)
+		var hi_t: float = _display_fraction(m.hi)
 		var lo_x: float = tx + clamp(lo_t, 0.0, 1.0) * tw - MARKER_W * 0.5
 		var hi_x: float = tx + clamp(hi_t, 0.0, 1.0) * tw - MARKER_W * 0.5
 		m.lo_node.position = Vector2(lo_x, ty)
@@ -805,8 +805,8 @@ func _update_arom_cursors(min_val: float, max_val: float) -> void:
 	var tw = arom_track.size.x
 	if tw == 0:
 		return
-	var min_t = (min_val + _ang_limit) / (_ang_limit * 2.0)
-	var max_t = (max_val + _ang_limit) / (_ang_limit * 2.0)
+	var min_t = _display_fraction(min_val)
+	var max_t = _display_fraction(max_val)
 	arom_min_cursor.position.x = (
 		arom_track.position.x + clamp(min_t, 0.0, 1.0) * tw - arom_min_cursor.size.x / 2.0
 	)
@@ -818,8 +818,8 @@ func _update_prom_cursors(min_val: float, max_val: float) -> void:
 	var tw = prom_track.size.x
 	if tw == 0:
 		return
-	var min_t = (min_val + _ang_limit) / (_ang_limit * 2.0)
-	var max_t = (max_val + _ang_limit) / (_ang_limit * 2.0)
+	var min_t = _display_fraction(min_val)
+	var max_t = _display_fraction(max_val)
 	prom_min_cursor.position.x = (
 		prom_track.position.x + clamp(min_t, 0.0, 1.0) * tw - prom_min_cursor.size.x / 2.0
 	)
@@ -832,7 +832,7 @@ func _update_curr_cursor(angle: float) -> void:
 		var tw = arom_track.size.x
 		if tw == 0:
 			return
-		var t = (angle + _ang_limit) / (_ang_limit * 2.0)
+		var t = _display_fraction(angle)
 		arom_curr_cursor.position.x = (
 			arom_track.position.x + clamp(t, 0.0, 1.0) * tw - arom_curr_cursor.size.x / 2.0
 		)
@@ -840,12 +840,14 @@ func _update_curr_cursor(angle: float) -> void:
 		var tw = prom_track.size.x
 		if tw == 0:
 			return
-		var t = (angle + _ang_limit) / (_ang_limit * 2.0)
+		var t = _display_fraction(angle)
 		prom_curr_cursor.position.x = (
 			prom_track.position.x + clamp(t, 0.0, 1.0) * tw - prom_curr_cursor.size.x / 2.0
 		)
 
 func _setup_labels() -> void:
+	$AromPanel/AngleUnitLabel.text = "centimetres" if AppData.mechanism_name == "HOC" else "degrees"
+	$PromPanel/AngleUnitLabel.text = "centimetres" if AppData.mechanism_name == "HOC" else "degrees"
 	var mech_idx = AppData.mechanism_index - 1
 	var is_hoc   = AppData.mechanism_name == "HOC"
 	if mech_idx >= 0 and mech_idx < DIRECTION_TEXT.size():
@@ -853,8 +855,8 @@ func _setup_labels() -> void:
 		arom_right_label.text = DIRECTION_TEXT[mech_idx][1]
 		prom_left_label.text  = DIRECTION_TEXT[mech_idx][0]
 		prom_right_label.text = DIRECTION_TEXT[mech_idx][1]
-	arom_center_label.visible = is_hoc
-	prom_center_label.visible = is_hoc
+	arom_center_label.visible = false
+	prom_center_label.visible = false
 	arom_center_label.text    = "Closed" if is_hoc else ""
 	prom_center_label.text    = "Closed" if is_hoc else ""
 
@@ -896,3 +898,13 @@ func _get_mech_display_name() -> String:
 func _exit_tree() -> void:
 	if EventBus.button_released.is_connected(_on_pluto_button):
 		EventBus.button_released.disconnect(_on_pluto_button)
+
+# HOC is one-sided: opening is negative and fully closed is zero.
+# Only presentation is normalized; assessment values stay in sensor units.
+func _display_fraction(angle: float) -> float:
+	if not is_finite(angle): return 0.0
+	if AppData.mechanism_name == "HOC":
+		var span := maxf(1.0, float(AppData.calib_angle))
+		return clampf((angle + span) / span, 0.0, 1.0)
+	var span := maxf(1.0, absf(_ang_limit))
+	return clampf((angle + span) / (span * 2.0), 0.0, 1.0)

@@ -2,7 +2,7 @@ extends SceneTree
 ## Run with --script res://scripts/ui/preview_ui.gd to capture UI without a device.
 const SCENES := [
 	"res://scenes/MainScene.tscn", "res://scenes/RegisterScene.tscn",
-	"res://scenes/ConnectScene.tscn", "res://scenes/PlanSetupScene.tscn",
+	"res://scenes/PlanSetupScene.tscn",
 	"res://scenes/ChooseMechanism.tscn", "res://scenes/CalibrationScene.tscn",
 	"res://scenes/AssessmentScene.tscn", "res://scenes/AssistProfileScene.tscn",
 	"res://scenes/SetDurationScene.tscn", "res://scenes/SummaryScene.tscn",

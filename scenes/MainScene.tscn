@@ -4,13 +4,18 @@
 [ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_pjux3"]
 [ext_resource type="Texture2D" uid="uid://iu4sbf7q18wm" path="res://Assets/Pluto.png" id="2_pluto"]
 [ext_resource type="Texture2D" uid="uid://be73246ox7t08" path="res://Assets/cmc.png" id="3_c6dvc"]
-[ext_resource type="Texture2D" uid="uid://1mpygqquiwpt" path="res://Assets/Arcade/daylight-background.svg" id="3_o3jky"]
+[ext_resource type="Texture2D" uid="uid://c0id5s7b44ywi" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_xnxdc"]
 [ext_resource type="Texture2D" uid="uid://ctlrhku5y7rhf" path="res://Assets/biorehab.png" id="4_611at"]
 [ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="5_kp0ql"]
-[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="6_08o8g"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="6_08o8g"]
 [ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="7_0cxu4"]
 [ext_resource type="Texture2D" uid="uid://xlgqeatescof" path="res://Assets/Arcade/daylight-primary.svg" id="8_xnxdc"]
 [ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="9_0ehpd"]
+[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
+[ext_resource type="Texture2D" uid="uid://eielf00nhhvv" path="res://Assets/Arcade/Online/Icons/arrow-right.svg" id="patient_icon_arrow-right"]
+[ext_resource type="Texture2D" uid="uid://bxwghdgibefs6" path="res://Assets/Arcade/Online/Icons/bluetooth.svg" id="patient_icon_bluetooth"]
+[ext_resource type="Texture2D" uid="uid://cyjqxkp82sa5u" path="res://Assets/Arcade/Online/Icons/play.svg" id="patient_icon_play"]
+[ext_resource type="Texture2D" uid="uid://dmikdo8ywksjo" path="res://Assets/Arcade/Online/Icons/user-plus.svg" id="patient_icon_user-plus"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8wjpf"]
 content_margin_left = 0.0
@@ -485,6 +490,18 @@ corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
+[sub_resource type="StyleBoxFlat" id="UpdateSurface"]
+bg_color = Color(0.97, 0.97, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.33, 0.7, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [node name="MainScene" type="Control" unique_id=256012806]
 layout_mode = 3
 anchors_preset = 15
@@ -503,8 +520,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource("1_pjux3")
-texture = ExtResource("3_o3jky")
+texture = ExtResource("3_xnxdc")
 expand_mode = 1
+metadata/arcade_authored_control = true
+
+[node name="MenuAmbience" type="Control" parent="ArcadeBackdrop" unique_id=33644889]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("patient_ambience")
 metadata/arcade_authored_control = true
 
 [node name="BackgroundImage" type="TextureRect" parent="." unique_id=631643585]
@@ -582,7 +610,7 @@ metadata/arcade_authored_control = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 16
 text = " Dashboard"
 metadata/arcade_authored_control = true
@@ -590,7 +618,7 @@ metadata/arcade_authored_control = true
 [node name="DashPeriodLabel" type="Label" parent="DashCard/DashCardVBox/DashCardHeader/DashHeaderHBox" unique_id=468618272]
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 12
 text = "Last 7 days"
 horizontal_alignment = 2
@@ -638,7 +666,7 @@ offset_left = 4.0
 offset_top = -14.0
 offset_right = 54.0
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 text = "Goal"
 metadata/arcade_authored_control = true
@@ -666,7 +694,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -688,7 +716,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -705,7 +733,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -727,7 +755,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -744,7 +772,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -766,7 +794,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -783,7 +811,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -805,7 +833,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -822,7 +850,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -844,7 +872,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -861,7 +889,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -883,7 +911,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -900,7 +928,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -922,7 +950,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 10
 text = "—"
 horizontal_alignment = 1
@@ -958,7 +986,7 @@ metadata/arcade_authored_control = true
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "—"
 horizontal_alignment = 1
@@ -967,7 +995,7 @@ metadata/arcade_authored_control = true
 [node name="StreakDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/StreakChip/ChipVBox" unique_id=520677429]
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 11
 text = "Day streak"
 horizontal_alignment = 1
@@ -997,7 +1025,7 @@ metadata/arcade_authored_control = true
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "—"
 horizontal_alignment = 1
@@ -1006,7 +1034,7 @@ metadata/arcade_authored_control = true
 [node name="TotalDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/TotalChip/ChipVBox" unique_id=667865749]
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 11
 text = "This week"
 horizontal_alignment = 1
@@ -1036,7 +1064,7 @@ metadata/arcade_authored_control = true
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "—"
 horizontal_alignment = 1
@@ -1045,7 +1073,7 @@ metadata/arcade_authored_control = true
 [node name="GoalDesc" type="Label" parent="DashCard/DashCardVBox/DashBodyPad/DashBodyVBox/StatHBox/GoalChip/ChipVBox" unique_id=190167353]
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 11
 text = "Daily goal"
 horizontal_alignment = 1
@@ -1100,8 +1128,8 @@ metadata/arcade_authored_control = true
 [node name="AppLabel" type="Label" parent="LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox" unique_id=1842741904]
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("6_08o8g")
 theme_override_font_sizes/font_size = 28
@@ -1112,7 +1140,7 @@ metadata/arcade_authored_control = true
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Your next step toward better movement"
 metadata/arcade_authored_control = true
@@ -1143,7 +1171,7 @@ metadata/arcade_authored_control = true
 [node name="LoginTitle" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1667289755]
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 18
 text = "Patient Login"
 metadata/arcade_authored_control = true
@@ -1153,10 +1181,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_uneditable_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_placeholder_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/caret_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_uneditable_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_placeholder_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/caret_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/selection_color = Color(0.44705883, 0.26666668, 0.74509805, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxTexture_ye0jt")
@@ -1171,12 +1199,14 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxTexture_qavw1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_i7ifx")
@@ -1185,6 +1215,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_fto0a")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_mekmn")
 theme_override_styles/focus = SubResource("StyleBoxFlat_l3o4o")
 text = "Login"
+icon = ExtResource("patient_icon_arrow-right")
 metadata/arcade_authored_control = true
 
 [node name="RegisterButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=945927648]
@@ -1193,12 +1224,14 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxTexture_kwqb8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_y15d6")
@@ -1207,6 +1240,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wsqty")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_oiest")
 theme_override_styles/focus = SubResource("StyleBoxFlat_f4jp2")
 text = "Register New Patient"
+icon = ExtResource("patient_icon_user-plus")
 metadata/arcade_authored_control = true
 
 [node name="LoginStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=758653041]
@@ -1214,7 +1248,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -1234,12 +1268,14 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxTexture_kik7w")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_4ikpr")
@@ -1248,25 +1284,26 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2so2y")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7yh6i")
 theme_override_styles/focus = SubResource("StyleBoxFlat_pwxld")
 text = "Connect to PLUTO"
+icon = ExtResource("patient_icon_bluetooth")
 metadata/arcade_authored_control = true
 
 [node name="ConnectStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/ConnectContent" unique_id=652265936]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
 metadata/arcade_authored_control = true
 
 [node name="cmc_logo" type="Sprite2D" parent="." unique_id=1616017977]
-position = Vector2(36.000004, 39)
+position = Vector2(564, 43)
 scale = Vector2(0.3, 0.268)
 texture = ExtResource("3_c6dvc")
 
 [node name="biorehab_logo" type="Sprite2D" parent="." unique_id=2054769142]
-position = Vector2(124, 36)
+position = Vector2(657, 40)
 scale = Vector2(0.24471661, 0.20918454)
 texture = ExtResource("4_611at")
 
@@ -1278,12 +1315,12 @@ offset_right = 1250.0
 offset_bottom = 68.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_cw1g3")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_yc0gu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qnen4")
@@ -1305,12 +1342,14 @@ offset_right = 240.0
 offset_bottom = -32.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_constants/h_separation = 10
+theme_override_constants/icon_max_width = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_xuwja")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_g8282")
 theme_override_styles/hover = SubResource("StyleBoxTexture_7tuqu")
@@ -1318,6 +1357,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e65ta")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_fupde")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ell2e")
 text = "TRY THE GAMES  •  KEYBOARD DEMO"
+icon = ExtResource("patient_icon_play")
 metadata/secondary = true
 metadata/arcade_authored_control = true
 
@@ -1329,12 +1369,12 @@ offset_right = 1024.0
 offset_bottom = 68.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_cw1g3")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_yc0gu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qnen4")
@@ -1344,3 +1384,63 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_5ha8j")
 button_pressed = true
 text = "Music"
 metadata/arcade_authored_control = true
+
+[node name="VersionLabel" type="Label" parent="." unique_id=1810674101]
+layout_mode = 0
+offset_left = 1070.0
+offset_top = 770.0
+offset_right = 1250.0
+offset_bottom = 795.0
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_font_sizes/font_size = 14
+text = "PLUTO v1.0.0"
+horizontal_alignment = 2
+metadata/arcade_authored_control = true
+
+[node name="UpdatePanel" type="Panel" parent="." unique_id=1381006123]
+visible = false
+layout_mode = 0
+offset_left = 360.0
+offset_top = 505.0
+offset_right = 920.0
+offset_bottom = 704.0
+theme_override_styles/panel = SubResource("UpdateSurface")
+metadata/arcade_authored_control = true
+
+[node name="UpdateTitle" type="Label" parent="UpdatePanel" unique_id=1401697393]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 12.0
+offset_right = 540.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.33, 0.28, 0.6, 1)
+theme_override_font_sizes/font_size = 20
+text = "Application updates"
+metadata/arcade_authored_control = true
+
+[node name="UpdateStatus" type="Label" parent="UpdatePanel" unique_id=1859436007]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 42.0
+offset_right = 540.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_font_sizes/font_size = 15
+text = "Checking for updates…"
+autowrap_mode = 3
+metadata/arcade_authored_control = true
+
+[node name="UpdateProgress" type="ProgressBar" parent="UpdatePanel" unique_id=517726703]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 118.0
+offset_right = 540.0
+offset_bottom = 138.0
+
+[node name="UpdateAction" type="Button" parent="UpdatePanel" unique_id=1693790016]
+layout_mode = 0
+offset_left = 290.0
+offset_top = 146.0
+offset_right = 540.0
+offset_bottom = 184.0
+text = "Download & restart"

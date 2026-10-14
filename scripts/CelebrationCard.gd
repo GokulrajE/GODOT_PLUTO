@@ -56,7 +56,7 @@ func show_celebration(yesterday_hits: int, today_hits: int, header_star_rect: Re
 	_overlay.color = Color(0.18, 0.28, 0.36, 0.25)
 	_star.show()
 	show()
-	$Audio.volume_db = -14
+	$Audio.volume_db = -5
 	$Audio.play()
 	if not reduced:
 		confetti.burst(size * 0.5 + Vector2(-220, -110), true, false)

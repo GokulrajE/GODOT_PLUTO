@@ -27,6 +27,14 @@
 [ext_resource type="Shader" path="res://Assets/Arcade/playfield_contrast.gdshader" id="world_shader"]
 [ext_resource type="Material" path="res://Assets/Arcade/sprite-contrast.tres" id="sprite_shader"]
 
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/rain-hud.svg" id="arcade_hud_art"]
+[ext_resource type="Script" path="res://scripts/ui/arcade_hud.gd" id="arcade_hud_script"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/arcade-dialog.svg" id="arcade_dialog_art"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/pause-icon.svg" id="hud_pause_icon"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/exit-icon.svg" id="hud_exit_icon"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_e41ru"]
 atlas = ExtResource("6_jbb7g")
 region = Rect2(1027, 99, 480, 348)
@@ -831,10 +839,10 @@ shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxTexture" id="gameover_style"]
 texture = ExtResource("gameover_art")
-texture_margin_left = 24.0
-texture_margin_right = 24.0
-texture_margin_top = 24.0
-texture_margin_bottom = 24.0
+
+
+
+
 
 [sub_resource type="StyleBoxFlat" id="game_accent_title"]
 bg_color = Color(0.65, 0.92, 0.98, 1)
@@ -846,6 +854,54 @@ corner_radius_bottom_right = 12
 [sub_resource type="ShaderMaterial" id="world_material"]
 shader = ExtResource("world_shader")
 shader_parameter/exposure = 0.84
+
+[sub_resource type="StyleBoxTexture" id="arcade_hud_panel"]
+texture = ExtResource("arcade_hud_art")
+
+[sub_resource type="StyleBoxEmpty" id="arcade_hud_empty"]
+
+[sub_resource type="StyleBoxFlat" id="arcade_hud_button"]
+bg_color = Color(0.12, 0.21, 0.34, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.48, 0.71, 0.87, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="arcade_hud_hover"]
+bg_color = Color(0.22, 0.36, 0.52, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.94, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxTexture" id="arcade_dialog_panel"]
+texture = ExtResource("arcade_dialog_art")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="arcade_dialog_primary"]
+bg_color = Color(0.97, 0.77, 0.37, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(1, 0.92, 0.67, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
 
 [node name="RNRScene" type="Control" unique_id=2079203328]
 layout_mode = 3
@@ -870,6 +926,7 @@ expand_mode = 1
 metadata/arcade_authored_control = true
 
 material = SubResource("world_material")
+
 [node name="Sky" type="TextureRect" parent="." unique_id=232026553]
 visible = false
 modulate = Color(1, 1, 1, 0.23529412)
@@ -904,6 +961,7 @@ stretch_mode = 5
 metadata/arcade_authored_control = true
 
 material = ExtResource("sprite_shader")
+
 [node name="RainRect" type="ColorRect" parent="." unique_id=712181322]
 visible = false
 layout_mode = 0
@@ -940,6 +998,7 @@ metadata/authored_seed = true
 metadata/arcade_authored_control = true
 
 material = ExtResource("sprite_shader")
+
 [node name="@TextureRect@38" type="TextureRect" parent="SeedContainer" unique_id=1784921035]
 layout_mode = 0
 offset_left = 308.0447
@@ -954,6 +1013,7 @@ metadata/authored_seed = true
 metadata/arcade_authored_control = true
 
 material = ExtResource("sprite_shader")
+
 [node name="@TextureRect@43" type="TextureRect" parent="SeedContainer" unique_id=1440560383]
 layout_mode = 0
 offset_left = 544.5447
@@ -968,6 +1028,7 @@ metadata/authored_seed = true
 metadata/arcade_authored_control = true
 
 material = ExtResource("sprite_shader")
+
 [node name="@TextureRect@48" type="TextureRect" parent="SeedContainer" unique_id=1018607729]
 layout_mode = 0
 offset_left = 781.0447
@@ -982,6 +1043,7 @@ metadata/authored_seed = true
 metadata/arcade_authored_control = true
 
 material = ExtResource("sprite_shader")
+
 [node name="@TextureRect@53" type="TextureRect" parent="SeedContainer" unique_id=1596106939]
 layout_mode = 0
 offset_left = 1017.5447
@@ -996,6 +1058,7 @@ metadata/authored_seed = true
 metadata/arcade_authored_control = true
 
 material = ExtResource("sprite_shader")
+
 [node name="SuccessSound" type="AudioStreamPlayer" parent="." unique_id=1838974578]
 stream = ExtResource("5_success")
 
@@ -1016,24 +1079,27 @@ offset_top = 8.0
 offset_right = 1154.0
 offset_bottom = 66.0
 theme = ExtResource("1_r3u3g")
-theme_override_styles/panel = SubResource("StyleBoxTexture_jewou")
+theme_override_styles/panel = SubResource("arcade_hud_panel")
 metadata/arcade_authored_control = true
+
+script = ExtResource("arcade_hud_script")
 
 [node name="TimerLabel" type="Label" parent="UI/Header" unique_id=248763253]
 layout_mode = 0
-offset_left = 214.0
+offset_left = 261.0
 offset_top = 8.0
 offset_right = 394.0
 offset_bottom = 48.0
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.14, 0.23, 0.33, 1)
 theme_override_fonts/font = ExtResource("11_kfg7f")
-theme_override_font_sizes/font_size = 22
-text = "Time: 60 s"
+theme_override_font_sizes/font_size = 30
+text = "01:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
 
+tooltip_text = "Time remaining"
 [node name="ScoreLabel" type="Label" parent="UI/Header" unique_id=609863049]
 layout_mode = 1
 offset_left = 414.0
@@ -1043,10 +1109,10 @@ offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_fonts/font = ExtResource("11_kfg7f")
-theme_override_font_sizes/font_size = 22
-text = "Score: 00"
+theme_override_font_sizes/font_size = 28
+text = "00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
@@ -1061,22 +1127,24 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_yxxhp")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_0vvwe")
-theme_override_styles/hover = SubResource("StyleBoxTexture_fny1r")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_670ts")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_4strf")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_xovde")
 text = "Exit"
 metadata/arcade_authored_control = true
 
+icon = ExtResource("hud_exit_icon")
+theme_override_constants/icon_max_width = 18
 [node name="StarDisplay" type="HBoxContainer" parent="UI/Header" unique_id=1747793515]
 layout_mode = 1
 offset_left = 790.0
@@ -1103,8 +1171,8 @@ metadata/arcade_authored_control = true
 [node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=200765544]
 layout_mode = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0.96, 0.98, 1, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_kfg7f")
 theme_override_font_sizes/font_size = 28
@@ -1119,15 +1187,16 @@ offset_top = 8.0
 offset_right = 204.0
 offset_bottom = 49.0
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.06, 0.1, 0.18, 1)
 theme_override_fonts/font = ExtResource("11_kfg7f")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 19
 text = "RAIN & RISE"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
 
-theme_override_styles/normal = SubResource("game_accent_title")
+theme_override_styles/normal = SubResource("arcade_hud_empty")
+
 [node name="PauseButton" type="Button" parent="UI/Header" unique_id=1255146466]
 layout_mode = 0
 offset_left = 916.0
@@ -1137,23 +1206,25 @@ offset_bottom = 48.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_egf3t")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3767v")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3m77d")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_yu485")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_yoqlj")
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_qyra4")
 disabled = true
 text = "Pause"
 metadata/secondary = true
 metadata/arcade_authored_control = true
 
+icon = ExtResource("hud_pause_icon")
+theme_override_constants/icon_max_width = 18
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1246371369]
 anchors_preset = -1
 offset_left = 303.0
@@ -1161,7 +1232,7 @@ offset_top = 135.0
 offset_right = 863.0
 offset_bottom = 525.0
 theme = ExtResource("1_r3u3g")
-theme_override_styles/panel = SubResource("StyleBoxTexture_p7et3")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="GameTitle" type="Label" parent="UI/WaitPanel" unique_id=971245153]
@@ -1172,7 +1243,7 @@ offset_right = 536.0
 offset_bottom = 211.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_kfg7f")
@@ -1189,7 +1260,7 @@ offset_right = 532.0
 offset_bottom = 246.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 17
 text = "Move the cloud to rain on the highlighted seed!"
 horizontal_alignment = 1
@@ -1204,7 +1275,7 @@ offset_right = 532.0
 offset_bottom = 287.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 17
 text = "Press SPACE or choose Play"
 horizontal_alignment = 1
@@ -1232,17 +1303,17 @@ offset_bottom = 358.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_wta5j")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_kv01m")
-theme_override_styles/hover = SubResource("StyleBoxTexture_speo6")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_un655")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_jo8bt")
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_dialog_primary")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_dialog_primary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5gi62")
 text = "PLAY"
 metadata/arcade_authored_control = true
@@ -1255,7 +1326,7 @@ offset_top = 185.0
 offset_right = 833.0
 offset_bottom = 460.0
 theme = ExtResource("1_r3u3g")
-theme_override_styles/panel = SubResource("StyleBoxTexture_k0c2y")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="PauseTitle" type="Label" parent="UI/PausePanel" unique_id=1443924061]
@@ -1266,7 +1337,7 @@ offset_right = 475.0
 offset_bottom = 95.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_kfg7f")
@@ -1283,7 +1354,7 @@ offset_right = 475.0
 offset_bottom = 159.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "Take your time. Your session is paused."
 horizontal_alignment = 1
@@ -1298,17 +1369,17 @@ offset_bottom = 237.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_t7onj")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_vioe7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pnajc")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lqc61")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_054vu")
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_dialog_primary")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_dialog_primary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_tvmuj")
 text = "RESUME"
 metadata/arcade_authored_control = true
@@ -1325,6 +1396,7 @@ theme_override_styles/panel = SubResource("gameover_style")
 metadata/arcade_authored_control = true
 
 script = ExtResource("gameover_motion")
+
 [node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=1966002969]
 layout_mode = 1
 offset_left = 24.0
@@ -1333,7 +1405,7 @@ offset_right = 536.0
 offset_bottom = 97.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.10, 0.14, 0.23, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_kfg7f")
@@ -1351,7 +1423,7 @@ offset_top = 106.0
 offset_bottom = 140.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "Seeds grown:"
 horizontal_alignment = 1
@@ -1365,7 +1437,7 @@ offset_right = 536.0
 offset_bottom = 215.0
 grow_horizontal = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_kfg7f")
@@ -1383,18 +1455,18 @@ offset_right = 522.0
 offset_bottom = 315.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxTexture_jlqh8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_bkuqo")
-theme_override_styles/hover = SubResource("StyleBoxTexture_og7q7")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_mwwsr")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_mfl0r")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_7c3o6")
 text = "Return to Game Select"
 metadata/arcade_authored_control = true
@@ -1408,17 +1480,17 @@ offset_bottom = 315.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_ren2v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_c633h")
-theme_override_styles/hover = SubResource("StyleBoxTexture_0f7qn")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_4emcd")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dl7ui")
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5lbeu")
 text = "PLAY AGAIN"
 metadata/arcade_authored_control = true
@@ -1429,9 +1501,9 @@ z_index = 20
 offset_left = 16.0
 offset_top = 80.0
 offset_right = 230.0
-offset_bottom = 218.0
+offset_bottom = 242.0
 theme = ExtResource("1_r3u3g")
-theme_override_styles/panel = SubResource("StyleBoxTexture_4fith")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="UI/SpeedPanel" unique_id=648048740]
@@ -1440,8 +1512,8 @@ offset_top = 10.0
 offset_right = 214.0
 offset_bottom = 34.0
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
+theme_override_font_sizes/font_size = 13
 text = "GAME SPEED  (Ctrl+G)"
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -1461,18 +1533,18 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_mdfkr")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_rkc24")
-theme_override_styles/hover = SubResource("StyleBoxTexture_q2ig1")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_7d2ma")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_u1j3g")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_20lld")
 text = "−"
 metadata/arcade_authored_control = true
@@ -1481,7 +1553,7 @@ metadata/arcade_authored_control = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_kfg7f")
@@ -1496,18 +1568,18 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_u1n2e")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_brghc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_5xka0")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_hwupn")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_06by5")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_pt5f1")
 text = "+"
 metadata/arcade_authored_control = true
@@ -1517,10 +1589,10 @@ layout_mode = 0
 offset_left = 1.0
 offset_top = 102.0
 offset_right = 215.0
-offset_bottom = 128.0
+offset_bottom = 148.0
 theme = ExtResource("1_r3u3g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
 text = "Duration: 4.0 s
 Bound: 0.60"
 horizontal_alignment = 1
@@ -1569,3 +1641,4 @@ metadata/arcade_authored_control = true
 
 [node name="ArcadePresentation" type="Node2D" parent="." unique_id=1117394646]
 script = ExtResource("18_37yhe")
+

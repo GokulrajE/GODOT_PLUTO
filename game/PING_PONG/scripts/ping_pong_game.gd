@@ -56,6 +56,7 @@ var n_targets:    int   = 0
 var n_success:    int   = 0
 var n_failure:    int   = 0
 var _flash_timer:   float = 0.0
+var _player_on_left := false
 var _player_score:  int   = 0
 var _cpu_score:     int   = 0
 
@@ -102,6 +103,8 @@ var _arom:  Array = []
 @onready var _inc_btn:       Button            = $UI/SpeedPanel/SpeedRow/IncreaseButton
 
 func _ready() -> void:
+	_player_on_left = AppData.patient_training_side.to_lower() == "left"
+	_enemy_paddle.size.y = GAME_BOTTOM - GAME_TOP
 	_player_w = _player_paddle.size.x
 	_player_h = _player_paddle.size.y
 	_enemy_w  = _enemy_paddle.size.x
@@ -136,6 +139,7 @@ func _ready() -> void:
 	_yesterday_hits = DataManager.read_yesterday_hits(AppData.selected_game_name, AppData.mechanism_name)
 	_celeb_card.star_reached_header.connect(_on_star_reached_header)
 	_update_star_display()
+	_setup_easy_mode()
 	_place_arom_lines()
 
 	if _bounce_sfx.stream is AudioStreamWAV:
@@ -251,12 +255,13 @@ func _reset_ball() -> void:
 	var rad: float = deg_to_rad(deg)
 	_ball_vx = -abs(cos(rad) * _ball_speed)
 	_ball_vy =      sin(rad) * _ball_speed
-	_ball_node.position = Vector2(_ball_x - _ball_sz * 0.5, _ball_y - _ball_sz * 0.5)
+	_limit_return_angle()
+	_ball_node.position = Vector2(_screen_x(_ball_x) - _ball_sz * 0.5, _ball_y - _ball_sz * 0.5)
 
 func _update_paddle_positions() -> void:
-	_player_paddle.position = Vector2(PLAYER_X - _player_w * 0.5, _player_y - _player_h * 0.5)
-	_enemy_paddle.position  = Vector2(ENEMY_X  - _enemy_w  * 0.5, _enemy_y  - _enemy_h  * 0.5)
-	_ball_node.position     = Vector2(_ball_x  - _ball_sz  * 0.5, _ball_y   - _ball_sz  * 0.5)
+	_player_paddle.position = Vector2(_screen_x(PLAYER_X) - _player_w * 0.5, _player_y - _player_h * 0.5)
+	_enemy_paddle.position  = Vector2(_screen_x(ENEMY_X) - _enemy_w  * 0.5, _enemy_y  - _enemy_h  * 0.5)
+	_ball_node.position     = Vector2(_screen_x(_ball_x) - _ball_sz  * 0.5, _ball_y   - _ball_sz  * 0.5)
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
 func _place_arom_lines() -> void:
@@ -275,12 +280,15 @@ func _place_arom_lines() -> void:
 		var line := ColorRect.new()
 		line.position     = d[0]
 		line.size         = d[1]
+		if _player_on_left: line.position.x = GAME_RIGHT - line.position.x - line.size.x
 		line.color        = d[2]
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		line.visible      = false
 		add_child(line)
 		move_child(line, $UI.get_index())
 		_arom_nodes.append(line)
+
+func _setup_easy_mode() -> void:
 	# Pre-allocate dashed prediction segments
 	for _i in PRED_SEG_COUNT:
 		var seg := Line2D.new()
@@ -291,16 +299,13 @@ func _place_arom_lines() -> void:
 		move_child(seg, $UI.get_index())
 		_pred_segs.append(seg)
 	# Easy Mode toggle — always visible, bottom-left corner of game area
-	var easy_btn := CheckButton.new()
+	var easy_btn: CheckButton = $UI/EasyModeToggle
 	easy_btn.text           = "Easy Mode"
 	easy_btn.button_pressed = AppData.ping_pong_easy_mode
-	easy_btn.size           = Vector2(160.0, 36.0)
-	easy_btn.position       = Vector2(8.0, GAME_BOTTOM - 44.0)
 	easy_btn.add_theme_font_size_override("font_size", 16)
 	easy_btn.toggled.connect(func(on: bool) -> void:
 		AppData.ping_pong_easy_mode = on
 		AppData.save_settings())
-	$UI.add_child(easy_btn)
 
 func _get_ball_path_points() -> PackedVector2Array:
 	if _ball_vx <= 0.0: return PackedVector2Array()
@@ -325,6 +330,8 @@ func _get_ball_path_points() -> PackedVector2Array:
 		y += vy * t_wall
 		pts.append(Vector2(x, y))
 		vy = -vy
+	if _player_on_left:
+		for i in pts.size(): pts[i].x = _screen_x(pts[i].x)
 	return PackedVector2Array(pts)
 
 func _path_pt(segs: Array, lengths: Array, dist: float) -> Vector2:
@@ -383,6 +390,7 @@ func _tick(delta: float) -> void:
 					and _state != State.STOP  and _state != State.DONE
 					and _state != State.SCORE_FLASH)
 	if playing and _time_left > 0.0:
+		AppData.record_active_time(minf(delta, _time_left))
 		_time_left -= delta
 
 	match _state:
@@ -397,10 +405,7 @@ func _tick(delta: float) -> void:
 			var ty: float = GameInput.vertical(_player_y, angle_to_screen_y(PlutoComm.angle), delta, 420.0)
 			_player_y = clamp(ty, GAME_TOP + _player_h * 0.5, GAME_BOTTOM - _player_h * 0.5)
 
-			if _ball_vx < 0.0:
-				var ey_target: float = clamp(_ball_y, GAME_TOP + _enemy_h * 0.5, GAME_BOTTOM - _enemy_h * 0.5)
-				_enemy_y = clamp(_enemy_y + clamp(ey_target - _enemy_y, -_enemy_speed * delta, _enemy_speed * delta),
-								 GAME_TOP + _enemy_h * 0.5, GAME_BOTTOM - _enemy_h * 0.5)
+			_enemy_y = (GAME_TOP + GAME_BOTTOM) * 0.5
 
 			if _use_aan and _aan != null:
 				if _ball_vx > 0.0:
@@ -426,10 +431,11 @@ func _tick(delta: float) -> void:
 						_ball_y   = hit_y
 						_ball_vx  = -abs(_ball_vx)
 						_ball_vy += (hit_y - _player_y) * 2.5
-						_ball_vy  = clamp(_ball_vy, -_ball_speed * 1.2, _ball_speed * 1.2)
+						_limit_return_angle()
 						_ball_x  += _ball_vx * (delta - t_hit)
 						_ball_y  += _ball_vy * (delta - t_hit)
 						n_success += 1
+						_player_score += 1
 						_bounce_sfx.pitch_scale = 1.2
 						_bounce_sfx.play()
 						_moved = true
@@ -443,10 +449,11 @@ func _tick(delta: float) -> void:
 						_ball_y   = hit_y
 						_ball_vx  = abs(_ball_vx)
 						_ball_vy += (hit_y - _enemy_y) * 2.5
-						_ball_vy  = clamp(_ball_vy, -_ball_speed * 1.2, _ball_speed * 1.2)
+						_limit_return_angle()
 						_ball_x  += _ball_vx * (delta - t_hit)
 						_ball_y  += _ball_vy * (delta - t_hit)
 						n_targets += 1
+						_cpu_score += 1
 						_bounce_sfx.pitch_scale = 1.0
 						_bounce_sfx.play()
 						_moved = true
@@ -456,23 +463,16 @@ func _tick(delta: float) -> void:
 
 			
 
-			if _ball_y - _ball_sz * 0.5 < GAME_TOP:
-				_ball_y  = GAME_TOP + _ball_sz * 0.5
-				_ball_vy = abs(_ball_vy)
-			elif _ball_y + _ball_sz * 0.5 > GAME_BOTTOM:
-				_ball_y  = GAME_BOTTOM - _ball_sz * 0.5
-				_ball_vy = -abs(_ball_vy)
+			_resolve_wall_contact()
 
 			if _ball_x + _ball_sz * 0.5 > GAME_RIGHT:
 				n_failure += 1
-				_cpu_score += 1
 				_lose_sfx.play()
 				_flash_rect.color   = Color(0.9, 0.1, 0.1, 0.3)
 				_flash_rect.visible = true
 				_flash_timer = 0.55
 				_state = State.SCORE_FLASH
 			elif _ball_x + _ball_sz * 0.5 < GAME_LEFT:
-				_player_score += 1
 				_win_sfx.play()
 				_flash_rect.color   = Color(0.1, 0.85, 0.3, 0.25)
 				_flash_rect.visible = true
@@ -589,12 +589,13 @@ func _end_game() -> void:
 # ── UI ────────────────────────────────────────────────────────────────────────
 func _refresh_ui() -> void:
 	_timer_lbl.text = "Time: %02d s" % maxi(0, ceili(_time_left))
-	_score_lbl.text = "You %d  :  %d CPU" % [_player_score, _cpu_score]
+	_score_lbl.text = "%d : %d" % ([_player_score, _cpu_score] if _player_on_left else [_cpu_score, _player_score])
+	_score_lbl.tooltip_text = "Player : Opponent" if _player_on_left else "Opponent : Player"
 
 func _update_log_state() -> void:
-	AppData.log_player_x   = PLAYER_X
+	AppData.log_player_x   = _screen_x(PLAYER_X)
 	AppData.log_player_y   = _player_y
-	AppData.log_target_x   = _ball_x
+	AppData.log_target_x   = _screen_x(_ball_x)
 	AppData.log_target_y   = _ball_y
 	AppData.log_game_state = State.keys()[_state]
 	if _aan != null:
@@ -660,3 +661,28 @@ func _on_star_reached_header() -> void:
 		t.tween_property(_star_img_hdr, "modulate", Color(1.6, 1.5, 0.5, 1), 0.12)
 		t.tween_property(_star_img_hdr, "modulate", Color(1.0, 1.0, 1.0, 1), 0.12)
 		await t.finished
+
+func _limit_return_angle() -> void:
+	# Less than one court height of vertical travel per paddle crossing.
+	var crossing_width: float = PLAYER_X - ENEMY_X - _player_hw - _enemy_hw - _ball_sz
+	var max_vertical: float = absf(_ball_vx) * (GAME_BOTTOM - GAME_TOP - _ball_sz) / maxf(crossing_width, 1.0) * 0.95
+	_ball_vy = clampf(_ball_vy, -max_vertical, max_vertical)
+
+func _resolve_wall_contact() -> bool:
+	var top: float = GAME_TOP + _ball_sz * 0.5
+	var bottom: float = GAME_BOTTOM - _ball_sz * 0.5
+	if _ball_y <= top:
+		_ball_y = top
+		if _ball_vy < 0:
+			_ball_vy = -_ball_vy
+			return true
+	elif _ball_y >= bottom:
+		_ball_y = bottom
+		if _ball_vy > 0:
+			_ball_vy = -_ball_vy
+			return true
+	return false
+
+func _screen_x(court_x: float) -> float:
+	# Keep physics in one coordinate system; mirror presentation and logs for left-side training.
+	return GAME_RIGHT - court_x if _player_on_left else court_x

@@ -14,9 +14,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="PLUTO-Godot-Test"
+config/name="PLUTO"
+config/version="1.0.2"
 run/main_scene="res://scenes/MainScene.tscn"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "GL Compatibility")
+config/icon="uid://iu4sbf7q18wm"
 
 [autoload]
 
@@ -27,6 +29,8 @@ PlutoComm="*uid://0l07lk2j6cve"
 StatusOverlay="*res://autoloads/StatusOverlay.gd"
 UIManager="*res://scripts/ui/ui_manager.gd"
 MenuMusic="*res://scripts/ui/menu_music.gd"
+AppStorage="*res://autoloads/AppStorage.gd"
+AppUpdater="*res://autoloads/AppUpdater.gd"
 
 [display]
 
@@ -39,3 +43,8 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdserial/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

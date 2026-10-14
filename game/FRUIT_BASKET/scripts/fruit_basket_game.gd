@@ -1,5 +1,7 @@
 extends Control
 
+var _pooled_fruit: TextureRect
+
 const GameInput = preload("res://scripts/gameplay/game_input.gd")
 const ArcadeAssets = preload("res://scripts/ui/arcade_assets.gd")
 
@@ -130,14 +132,9 @@ func _exit_tree() -> void:
 
 # ── Build ─────────────────────────────────────────────────────────────────────
 func _load_textures() -> void:
-	for p in [
-		"res://Assets/Arcade/Fruits/apple.svg",
-		"res://Assets/Arcade/Fruits/lemon.svg",
-		"res://Assets/Arcade/Fruits/orange.svg",
-		"res://Assets/Arcade/Fruits/strawberry.svg",
-		"res://Assets/Arcade/Fruits/blueberry.svg",
-	]:
-		_fruit_textures.append(load(p))
+	for fruit_name in FRUIT_NAMES:
+		var path: String = "res://Assets/Arcade/Fruits/real/" + fruit_name + ".png"
+		_fruit_textures.append(load(path) if ResourceLoader.exists(path) else load("res://Assets/Arcade/Fruits/" + fruit_name + ".svg"))
 
 func _build_baskets() -> void:
 	# Shuffle which fruit type belongs to each slot
@@ -343,9 +340,13 @@ func _process(delta: float) -> void:
 	_tick(delta)
 	var active: bool = _state not in [State.WAITING, State.PAUSED, State.STOP, State.DONE]
 	if active and _current_fruit != null:
+		var previous_x := _fruit_x
 		var sx: float = GameInput.horizontal(_fruit_x, angle_to_screen(PlutoComm.angle), delta)
 		_set_fruit_x(clamp(sx, GAME_LEFT + FRUIT_SIZE * 0.5, GAME_RIGHT - FRUIT_SIZE * 0.5))
 		_current_fruit.position.y += _fall_speed * delta
+		# Subtle roll follows horizontal movement so the realistic fruit sprite feels alive.
+		var travel_direction := signf(_fruit_x - previous_x)
+		_current_fruit.rotation = move_toward(_current_fruit.rotation, travel_direction * 0.12, delta * 0.65)
 		_check_collision()
 	_animate_baskets(active)
 	_refresh_ui()
@@ -427,6 +428,7 @@ func _tick(delta: float) -> void:
 	var playing := (_state != State.WAITING and _state != State.PAUSED
 					and _state != State.STOP and _state != State.DONE)
 	if playing and _time_left > 0.0:
+		AppData.record_active_time(minf(delta, _time_left))
 		_time_left -= delta
 
 	match _state:
@@ -561,19 +563,23 @@ func _place_caught_icon(slot: int, _fruit_type: int) -> void:
 
 func _kill_fruit() -> void:
 	if _current_fruit:
-		_current_fruit.queue_free()
+		_current_fruit.hide()
 		_current_fruit = null
 
 func _spawn_fruit() -> void:
 	n_targets += 1
-	var fruit := TextureRect.new()
+	if not is_instance_valid(_pooled_fruit):
+		_pooled_fruit = TextureRect.new()
+		_fruit_container.add_child(_pooled_fruit)
+	var fruit := _pooled_fruit
+	fruit.rotation = 0.0
+	fruit.show()
 	fruit.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 	fruit.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	fruit.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
 	fruit.size         = Vector2(FRUIT_SIZE, FRUIT_SIZE)
 	if _fruit_type < _fruit_textures.size() and _fruit_textures[_fruit_type] != null:
 		fruit.texture = _fruit_textures[_fruit_type]
-	_fruit_container.add_child(fruit)
 	fruit.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	_fruit_x       = 583.0
 	fruit.position = Vector2(_fruit_x - FRUIT_SIZE * 0.5, FRUIT_START_Y)

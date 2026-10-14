@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_gnt0c"]
 [ext_resource type="Script" path="res://scripts/choose_mechanism_scene.gd" id="1_nk2ty"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-background.svg" id="3_5ru3v"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_5ru3v"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_l25y6"]
-[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="5_d0iwi"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="5_d0iwi"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="6_khss4"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="7_wfsei"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-secondary.svg" id="8_wjj0i"]
@@ -14,6 +14,10 @@
 [ext_resource type="Texture2D" path="res://Assets/mechanismImages/hoc.png" id="12_fanfy"]
 
 [ext_resource type="Script" path="res://scripts/ui/mechanism_contrast.gd" id="icon_contrast"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
+
+[ext_resource type="Script" path="res://scripts/ui/mechanism_time.gd" id="daily_time_view"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fanfy"]
 texture = ExtResource("4_l25y6")
@@ -710,12 +714,12 @@ offset_top = 14.0
 offset_right = 700.0
 offset_bottom = 50.0
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("5_d0iwi")
 theme_override_font_sizes/font_size = 26
-text = "Choose Mechanism"
+text = "Your movement, your progress"
 metadata/arcade_authored_control = true
 
 [node name="SubtitleLabel" type="Label" parent="HeaderPanel" unique_id=939267924]
@@ -725,9 +729,9 @@ offset_top = 52.0
 offset_right = 700.0
 offset_bottom = 74.0
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 12
-text = "Select the rehabilitation mechanism to use"
+text = "Choose a movement to continue today"
 metadata/arcade_authored_control = true
 
 [node name="SummaryButton" type="Button" parent="HeaderPanel" unique_id=41585089]
@@ -740,12 +744,12 @@ offset_right = -16.0
 offset_bottom = 60.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxTexture_nahr2")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qlpud")
@@ -779,12 +783,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_6j1e5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dv5mh")
@@ -819,7 +823,7 @@ script = ExtResource("icon_contrast")
 [node name="@Label@9" type="Label" parent="MechGrid/WFE/@VBoxContainer@7" unique_id=1728139254]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "WFE"
 horizontal_alignment = 1
@@ -828,7 +832,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@10" type="Label" parent="MechGrid/WFE/@VBoxContainer@7" unique_id=97237337]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Wrist Flex / Extension"
 horizontal_alignment = 1
@@ -841,12 +845,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_iu5yc")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0bmkr")
@@ -881,7 +885,7 @@ script = ExtResource("icon_contrast")
 [node name="@Label@13" type="Label" parent="MechGrid/WURD/@VBoxContainer@11" unique_id=1119810834]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "WURD"
 horizontal_alignment = 1
@@ -890,7 +894,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@14" type="Label" parent="MechGrid/WURD/@VBoxContainer@11" unique_id=1329713518]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Wrist Ulnar Radial Dev"
 horizontal_alignment = 1
@@ -903,12 +907,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_g8gc1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_2ix4r")
@@ -943,7 +947,7 @@ script = ExtResource("icon_contrast")
 [node name="@Label@17" type="Label" parent="MechGrid/FPS/@VBoxContainer@15" unique_id=1722109039]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "FPS"
 horizontal_alignment = 1
@@ -952,7 +956,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@18" type="Label" parent="MechGrid/FPS/@VBoxContainer@15" unique_id=1835248675]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Forearm Pronation Sup"
 horizontal_alignment = 1
@@ -965,12 +969,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_4ndmu")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dcran")
@@ -1005,7 +1009,7 @@ script = ExtResource("icon_contrast")
 [node name="@Label@21" type="Label" parent="MechGrid/HOC/@VBoxContainer@19" unique_id=1113595161]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "HOC"
 horizontal_alignment = 1
@@ -1014,7 +1018,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@22" type="Label" parent="MechGrid/HOC/@VBoxContainer@19" unique_id=2112169963]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Hand Opening / Closing"
 horizontal_alignment = 1
@@ -1027,12 +1031,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_nbmp6")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qb1l7")
@@ -1055,7 +1059,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@24" type="Label" parent="MechGrid/FME1/@VBoxContainer@23" unique_id=655668923]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "FME1"
 horizontal_alignment = 1
@@ -1064,7 +1068,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@25" type="Label" parent="MechGrid/FME1/@VBoxContainer@23" unique_id=746280375]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Functional Mechanism 1"
 horizontal_alignment = 1
@@ -1077,12 +1081,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_gnt0c")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_luifv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_en0r5")
@@ -1105,7 +1109,7 @@ metadata/arcade_authored_control = true
 [node name="@Label@27" type="Label" parent="MechGrid/FME2/@VBoxContainer@26" unique_id=1659633802]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 20
 text = "FME2"
 horizontal_alignment = 1
@@ -1114,9 +1118,68 @@ metadata/arcade_authored_control = true
 [node name="@Label@28" type="Label" parent="MechGrid/FME2/@VBoxContainer@26" unique_id=2039234435]
 layout_mode = 2
 theme = SubResource("Theme_m3f7g")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 13
 text = "Functional Mechanism 2"
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/arcade_authored_control = true
+
+[node name="MenuAmbience" type="Control" parent="ArcadeBackdrop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("patient_ambience")
+metadata/arcade_authored_control = true
+
+[node name="DailyTime" type="Control" parent="MechGrid/WFE/@VBoxContainer@7"]
+custom_minimum_size = Vector2(260, 86)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("daily_time_view")
+mechanism = "WFE"
+metadata/arcade_authored_control = true
+
+[node name="DailyTime" type="Control" parent="MechGrid/WURD/@VBoxContainer@11"]
+custom_minimum_size = Vector2(260, 86)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("daily_time_view")
+mechanism = "WURD"
+metadata/arcade_authored_control = true
+
+[node name="DailyTime" type="Control" parent="MechGrid/FPS/@VBoxContainer@15"]
+custom_minimum_size = Vector2(260, 86)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("daily_time_view")
+mechanism = "FPS"
+metadata/arcade_authored_control = true
+
+[node name="DailyTime" type="Control" parent="MechGrid/HOC/@VBoxContainer@19"]
+custom_minimum_size = Vector2(260, 86)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("daily_time_view")
+mechanism = "HOC"
+metadata/arcade_authored_control = true
+
+[node name="DailyTime" type="Control" parent="MechGrid/FME1/@VBoxContainer@23"]
+custom_minimum_size = Vector2(260, 86)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("daily_time_view")
+mechanism = "FME1"
+metadata/arcade_authored_control = true
+
+[node name="DailyTime" type="Control" parent="MechGrid/FME2/@VBoxContainer@26"]
+custom_minimum_size = Vector2(260, 86)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("daily_time_view")
+mechanism = "FME2"
 metadata/arcade_authored_control = true

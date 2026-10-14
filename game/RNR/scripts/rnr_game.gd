@@ -16,10 +16,11 @@ const SEED_Y:        float = 620.0     # baseline Y (bottom of seed/plant sprite
 const SEED_COUNT:    int   = 5
 const SEED_SIZE:     float = 44.0      # seed sprite size (smaller)
 const SEED_HALF_W:   float = 36.0      # cloud-over-seed detection radius
-const RAIN_DROP_COUNT: int = 30
+const RAIN_DROP_COUNT: int = 48
+const RAIN_EMIT_INTERVAL: float = 0.025
 const RAIN_DROP_W:   float = 18.0       # width of each raindrop streak
 const RAIN_DROP_H:   float = 29.0      # height of each raindrop streak
-const RAIN_COL_W:    float = 72.0      # rain column total width
+const RAIN_COL_W:    float = 100.0      # rain column total width
 
 # plant sizes per stage (0=seed … 4=final, bigger each stage)
 const PLANT_SIZES = [44.0, 95.0, 135.0, 180.0, 210.0]
@@ -64,6 +65,8 @@ var _highlight_timer:       float = 0.0
 var _rain_duration_to_grow: float = 0.3
 var _is_raining:            bool  = false
 var _pulse_t:               float = 0.0   # drives highlight pulse animation
+var _rain_emit_clock := 0.0
+var _rain_drop_serial := 0
 var _rain_anim_t:           float = 0.0   # drives rain drop scroll animation
 
 var _seed_textures:    Array = []
@@ -403,31 +406,36 @@ func _animate_visuals(delta: float) -> void:
 				_seed_nodes[i].modulate = Color(1, 1, 1, 1)
 
 	# Rain drops + progress bar
-	var rain_visible: bool  = _is_raining and active
+	var rain_visible: bool = _is_raining and (active or _state == State.SUCCESS)
 	var col_top:      float = _cloud.position.y + _cloud.size.y
 	var col_bottom:   float = SEED_Y - SEED_SIZE - 4.0
 	if _target_seed >= 0 and _target_seed < _seed_nodes.size():
 		col_bottom = maxf(col_top + 20, _seed_nodes[_target_seed].position.y + 8)
-	var col_height:   float = col_bottom - col_top
 	var slot_cx:      float = float(_slot_positions[_target_seed]) if _target_seed >= 0 and _target_seed < _slot_positions.size() else 583.0
 
-	for j in RAIN_DROP_COUNT:
-		var drop := _drop_nodes[j] as TextureRect
-		if rain_visible:
-			drop.visible = true
-			# Stagger vertical start positions across the column height
-			var base_y: float  = col_top + (float(j) / float(RAIN_DROP_COUNT)) * col_height
-			var scroll: float  = fmod(_rain_anim_t * 220.0, col_height)
-			var drop_y: float  = base_y + scroll
-			if drop_y > col_bottom: drop_y -= col_height
-			# Distribute drops evenly across column width with slight wobble
-			var lane: float    = (float(j % 6) / 5.0 - 0.5) * RAIN_COL_W
-			var wobble: float  = sin(float(j) * 2.3 + _rain_anim_t * 1.5) * 4.0
-			drop.position = Vector2(slot_cx - RAIN_DROP_W * 0.5 + lane + wobble, drop_y)
-			var fade: float = 1.0 - abs(drop_y - (col_top + col_height * 0.5)) / (col_height * 0.5)
-			drop.modulate.a = 1.0
-		else:
-			drop.visible = false
+	# Pooled drops start at the cloud in sequence and keep falling after emission stops.
+	for drop: TextureRect in _drop_nodes:
+		if not drop.visible: continue
+		drop.position.y += float(drop.get_meta("speed", 420.0)) * delta
+		if drop.position.y >= float(drop.get_meta("bottom", col_bottom)):
+			drop.hide()
+	if rain_visible:
+		_rain_emit_clock += minf(delta, 0.1)
+		while _rain_emit_clock >= RAIN_EMIT_INTERVAL:
+			_rain_emit_clock -= RAIN_EMIT_INTERVAL
+			for drop: TextureRect in _drop_nodes:
+				if drop.visible: continue
+				var lane: float = (fmod(float(_rain_drop_serial) * 0.618034, 1.0) - 0.5) * RAIN_COL_W
+				drop.position = Vector2(_cloud_x + lane - RAIN_DROP_W * 0.5, col_top - 14)
+				drop.set_meta("speed", 390.0 + float(_rain_drop_serial % 5) * 24.0)
+				drop.position.y += float(drop.get_meta("speed")) * _rain_emit_clock
+				drop.set_meta("bottom", col_bottom)
+				drop.modulate.a = 0.85 + float(_rain_drop_serial % 3) * 0.075
+				drop.show()
+				_rain_drop_serial += 1
+				break
+	else:
+		_rain_emit_clock = 0.0
 
 	# Progress bar (show when target active)
 	const BAR_H: float = 80.0
@@ -450,6 +458,7 @@ func _tick(delta: float) -> void:
 	var playing := (_state != State.WAITING and _state != State.PAUSED
 					and _state != State.STOP and _state != State.DONE)
 	if playing and _time_left > 0.0:
+		AppData.record_active_time(minf(delta, _time_left))
 		_time_left -= delta
 
 	match _state:

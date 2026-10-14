@@ -101,7 +101,7 @@ func _load_game(id: String) -> void:
 	view = game.get_node("ArcadePresentation")
 	game.set_process(false)
 	view.set_process(false)
-	var backgrounds := {"hat": "twilight-garden.png", "fruit": "orchard-v2.png", "garden": "garden-v2.png", "tuk": "canyon-v2.png", "pong": "arena-v2.png"}
+	var backgrounds := {"hat": "twilight-garden.png", "fruit": "orchard-v2.png", "garden": "garden-v2.png", "tuk": "tuk-hill-country.png", "pong": "arena-v2.png"}
 	_check(game.get_node("ArcadeGameBackground").texture.resource_path.ends_with(backgrounds[id]), "correct game-specific background")
 	if kind == "tuk":
 		_check(game.get_node("Player").texture.atlas.resource_path.ends_with("sprites-driver-v2.png"), "driver atlas in use")
@@ -135,7 +135,36 @@ func _run() -> void:
 	for id in GAMES:
 		await _load_game(id)
 		await _capture(id + "-ready")
-		_tap(KEY_SPACE)
+		if kind == "pong":
+			var saved_y: float = game.get("_ball_y")
+			var saved_vx: float = game.get("_ball_vx")
+			var saved_vy: float = game.get("_ball_vy")
+			for edge in [82.0, 628.0]:
+				game.set("_ball_y", edge)
+				game.set("_ball_vy", -400.0 if edge == 82.0 else 400.0)
+				_check(game.call("_resolve_wall_contact"), "first wall contact bounces")
+				for repeat in 4:
+					_check(not game.call("_resolve_wall_contact"), "resting wall contact never repeats")
+			for direction in [-1.0, 1.0]:
+				for fps in [30.0, 60.0, 144.0]:
+					game.set("_ball_vx", 500.0 * direction)
+					game.set("_ball_vy", 2000.0 * direction)
+					game.set("_ball_y", 355.0)
+					game.call("_limit_return_angle")
+					var contacts := 0
+					for frame in int(1056.0 / 500.0 * fps):
+						game.set("_ball_y", float(game.get("_ball_y")) + float(game.get("_ball_vy")) / fps)
+						if game.call("_resolve_wall_contact"): contacts += 1
+					_check(contacts <= 1, "at most one wall bounce per crossing at " + str(fps) + " FPS")
+			game.set("_ball_y", saved_y)
+			game.set("_ball_vx", saved_vx)
+			game.set("_ball_vy", saved_vy)
+
+		if kind == "hat":
+			(game.get_node("UI/WaitPanel/PlayButton") as Button).pressed.emit()
+			_check(game.get("_game_started"), "visible Play button starts Hat Trick")
+		else:
+			_tap(KEY_SPACE)
 		await _step(30)
 		_check(not game.get_node("UI/WaitPanel").visible, "Space starts gameplay")
 		var pos := _axis_position()

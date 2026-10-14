@@ -1,7 +1,6 @@
 class_name ROM
 extends RefCounted
 
-const _DATA_ROOT  = "res://data/"
 const _ROM_HEADER = "DateTime,PromMin,PromMax,AromMin,AromMax,APromMin,APromMax,IsCPM"
 
 var mechanism: String = ""
@@ -48,7 +47,7 @@ func set_mechanism_name(mech: String) -> void:
 # Read the last row from {patient_id}/rom/{mech}-rom.csv into this ROM.
 # Returns true if data was found.
 func read_from_file(mech_name: String) -> bool:
-	var path = _DATA_ROOT + AppData.patient_id + "/rom/" + mech_name + "-rom.csv"
+	var path = DataManager.get_rom_path() + mech_name + "-rom.csv"
 	if not FileAccess.file_exists(path):
 		return false
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -82,7 +81,7 @@ func write_to_file() -> void:
 	if mechanism.is_empty():
 		push_error("ROM.write_to_file: mechanism not set")
 		return
-	var path        = _DATA_ROOT + AppData.patient_id + "/rom/" + mechanism + "-rom.csv"
+	var path        = DataManager.get_rom_path() + mechanism + "-rom.csv"
 	var needs_header = not FileAccess.file_exists(path)
 	var file: FileAccess
 	if needs_header:

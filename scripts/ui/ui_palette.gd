@@ -7,7 +7,7 @@ const CANVAS := Color("f1f8fc")
 const BORDER := Color("c5dce8")
 const NIGHT := Color("ffffff")
 const GOLD := Color("a56a08")
-const DISPLAY = preload("res://Assets/Arcade/Online/Nunito-Semibold.tres")
+const DISPLAY = preload("res://Assets/Arcade/Online/Outfit-Semibold.tres")
 
 static func surface(color: Color = NIGHT, radius: int = 18, border: Color = BORDER) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

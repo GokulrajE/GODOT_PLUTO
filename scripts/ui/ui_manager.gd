@@ -57,6 +57,7 @@ func _decorate_scene(scene: Control, game: bool) -> void:
 			motion.button_pressed = bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false))
 			motion.toggled.connect(func(enabled: bool): ProjectSettings.set_setting("pluto/ui/reduced_motion", enabled))
 			scene.get_node("DemoButton").pressed.connect(func():
+				if AppUpdater.blocks_login(): return
 				AppData.enter_demo()
 				get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 			)
@@ -90,6 +91,7 @@ func _decorate_scene(scene: Control, game: bool) -> void:
 		demo.position = Vector2(400, 720)
 		demo.size = Vector2(480, 48)
 		demo.pressed.connect(func():
+			if AppUpdater.blocks_login(): return
 			AppData.enter_demo()
 			get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 		)

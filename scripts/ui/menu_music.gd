@@ -5,7 +5,7 @@ var menu_active := false
 var fade: Tween
 
 func _ready() -> void:
-	stream = preload("res://Assets/Arcade/Online/menu-loop.ogg")
+	stream = preload("res://Assets/Arcade/Online/garden-menu.ogg")
 	stream.loop = true
 	volume_db = -14
 

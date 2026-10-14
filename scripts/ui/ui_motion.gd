@@ -19,7 +19,12 @@ static func bind(button: BaseButton) -> void:
 	button.pressed.connect(func():
 		var audio := AudioStreamPlayer.new()
 		audio.stream = preload("res://Assets/Arcade/Online/click.ogg")
-		audio.volume_db = -18
+		var action := str(button.name).to_lower()
+		if "back" in action or "exit" in action or "change" in action:
+			audio.stream = preload("res://Assets/Arcade/Online/menu-back.ogg")
+		elif "save" in action or "next" in action or "start" in action or "confirm" in action:
+			audio.stream = preload("res://Assets/Arcade/Online/menu-confirm.ogg")
+		audio.volume_db = -20
 		audio_root.add_child(audio)
 		audio.finished.connect(audio.queue_free)
 		audio.play()

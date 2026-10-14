@@ -25,7 +25,15 @@
 [ext_resource type="Texture2D" path="res://Assets/Arcade/gameover-panel.svg" id="gameover_art"]
 
 [ext_resource type="Texture2D" path="res://Assets/Arcade/pong-player.svg" id="paddle_player"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/pong-opponent.svg" id="paddle_opponent"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/pong-opponent-full-height.svg" id="paddle_opponent"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/pong-hud.svg" id="arcade_hud_art"]
+[ext_resource type="Script" path="res://scripts/ui/arcade_hud.gd" id="arcade_hud_script"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/arcade-dialog.svg" id="arcade_dialog_art"]
+
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/pause-icon.svg" id="hud_pause_icon"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/exit-icon.svg" id="hud_exit_icon"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hxlb"]
 texture = ExtResource("10_5nlrh")
@@ -690,10 +698,58 @@ shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxTexture" id="gameover_style"]
 texture = ExtResource("gameover_art")
+
+
+
+
+
+[sub_resource type="StyleBoxTexture" id="arcade_hud_panel"]
+texture = ExtResource("arcade_hud_art")
+
+[sub_resource type="StyleBoxEmpty" id="arcade_hud_empty"]
+
+[sub_resource type="StyleBoxFlat" id="arcade_hud_button"]
+bg_color = Color(0.12, 0.21, 0.34, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.48, 0.71, 0.87, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="arcade_hud_hover"]
+bg_color = Color(0.22, 0.36, 0.52, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.94, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxTexture" id="arcade_dialog_panel"]
+texture = ExtResource("arcade_dialog_art")
 texture_margin_left = 24.0
-texture_margin_right = 24.0
 texture_margin_top = 24.0
+texture_margin_right = 24.0
 texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="arcade_dialog_primary"]
+bg_color = Color(0.97, 0.77, 0.37, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(1, 0.92, 0.67, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
 
 [node name="PingPongScene" type="Control" unique_id=178319741]
 layout_mode = 3
@@ -766,19 +822,21 @@ expand_mode = 1
 metadata/arcade_authored_control = true
 
 z_index = 3
+
 [node name="EnemyPaddle" type="TextureRect" parent="." unique_id=1834967196]
 modulate = Color(1, 1, 1, 1)
 layout_mode = 0
 offset_left = 46.0
-offset_top = 300.0
+offset_top = 82.0
 offset_right = 64.0
-offset_bottom = 410.0
+offset_bottom = 628.0
 theme = ExtResource("1_p1olx")
 texture = ExtResource("paddle_opponent")
 expand_mode = 1
 metadata/arcade_authored_control = true
 
 z_index = 3
+
 [node name="Ball" type="TextureRect" parent="." unique_id=1587932847]
 layout_mode = 0
 offset_left = 551.0
@@ -824,24 +882,27 @@ offset_top = 8.0
 offset_right = 1154.0
 offset_bottom = 66.0
 theme = ExtResource("1_p1olx")
-theme_override_styles/panel = SubResource("StyleBoxTexture_8hxlb")
+theme_override_styles/panel = SubResource("arcade_hud_panel")
 metadata/arcade_authored_control = true
+
+script = ExtResource("arcade_hud_script")
 
 [node name="TimerLabel" type="Label" parent="UI/Header" unique_id=2138368840]
 layout_mode = 0
-offset_left = 214.0
+offset_left = 261.0
 offset_top = 8.0
 offset_right = 394.0
 offset_bottom = 48.0
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.14, 0.23, 0.33, 1)
 theme_override_fonts/font = ExtResource("11_g5fsc")
-theme_override_font_sizes/font_size = 22
-text = "Time: 60 s"
+theme_override_font_sizes/font_size = 30
+text = "01:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
 
+tooltip_text = "Time remaining"
 [node name="ScoreLabel" type="Label" parent="UI/Header" unique_id=1352248325]
 layout_mode = 1
 offset_left = 414.0
@@ -851,10 +912,10 @@ offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_fonts/font = ExtResource("11_g5fsc")
-theme_override_font_sizes/font_size = 22
-text = "You 0  :  0 CPU"
+theme_override_font_sizes/font_size = 28
+text = "0 : 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/arcade_authored_control = true
@@ -869,22 +930,24 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_ssv5f")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_xik5b")
-theme_override_styles/hover = SubResource("StyleBoxTexture_xm7xa")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rrybg")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_e52n3")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_psg5l")
 text = "Exit"
 metadata/arcade_authored_control = true
 
+icon = ExtResource("hud_exit_icon")
+theme_override_constants/icon_max_width = 18
 [node name="StarDisplay" type="HBoxContainer" parent="UI/Header" unique_id=2050158718]
 layout_mode = 1
 offset_left = 790.0
@@ -911,8 +974,8 @@ metadata/arcade_authored_control = true
 [node name="StarCountLabel" type="Label" parent="UI/Header/StarDisplay" unique_id=1358556908]
 layout_mode = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0.96, 0.98, 1, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
 theme_override_font_sizes/font_size = 28
@@ -927,9 +990,9 @@ offset_top = 8.0
 offset_right = 204.0
 offset_bottom = 49.0
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.06, 0.1, 0.18, 1)
 theme_override_fonts/font = ExtResource("11_g5fsc")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 19
 text = "PING-PONG"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -944,23 +1007,25 @@ offset_bottom = 48.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_xbrps")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_tehxj")
-theme_override_styles/hover = SubResource("StyleBoxTexture_mrvg0")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_p0pwm")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_cbs08")
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_m757m")
 disabled = true
 text = "Pause"
 metadata/secondary = true
 metadata/arcade_authored_control = true
 
+icon = ExtResource("hud_pause_icon")
+theme_override_constants/icon_max_width = 18
 [node name="WaitPanel" type="Panel" parent="UI" unique_id=1882200918]
 anchors_preset = -1
 offset_left = 303.0
@@ -968,7 +1033,7 @@ offset_top = 135.0
 offset_right = 863.0
 offset_bottom = 525.0
 theme = ExtResource("1_p1olx")
-theme_override_styles/panel = SubResource("StyleBoxTexture_m881y")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="GameTitle" type="Label" parent="UI/WaitPanel" unique_id=421150775]
@@ -979,7 +1044,7 @@ offset_right = 536.0
 offset_bottom = 211.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
@@ -996,7 +1061,7 @@ offset_right = 532.0
 offset_bottom = 246.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 17
 text = "Control your paddle and beat the CPU!"
 horizontal_alignment = 1
@@ -1011,7 +1076,7 @@ offset_right = 532.0
 offset_bottom = 287.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 17
 text = "Press SPACE or choose Play"
 horizontal_alignment = 1
@@ -1039,17 +1104,17 @@ offset_bottom = 358.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_v5eu0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_fxvvt")
-theme_override_styles/hover = SubResource("StyleBoxTexture_t38rr")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_017qw")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_nxr8g")
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_dialog_primary")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_dialog_primary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_8d5cg")
 text = "PLAY"
 metadata/arcade_authored_control = true
@@ -1062,7 +1127,7 @@ offset_top = 185.0
 offset_right = 833.0
 offset_bottom = 460.0
 theme = ExtResource("1_p1olx")
-theme_override_styles/panel = SubResource("StyleBoxTexture_1lqok")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="PauseTitle" type="Label" parent="UI/PausePanel" unique_id=1473557848]
@@ -1073,7 +1138,7 @@ offset_right = 475.0
 offset_bottom = 95.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
@@ -1090,7 +1155,7 @@ offset_right = 475.0
 offset_bottom = 159.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "Take your time. Your session is paused."
 horizontal_alignment = 1
@@ -1105,17 +1170,17 @@ offset_bottom = 237.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_uyxu2")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jgx6f")
-theme_override_styles/hover = SubResource("StyleBoxTexture_b5b8i")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e411y")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_phykt")
+theme_override_colors/font_color = Color(0.1, 0.14, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_dialog_primary")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_dialog_primary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_d33sw")
 text = "RESUME"
 metadata/arcade_authored_control = true
@@ -1132,6 +1197,7 @@ theme_override_styles/panel = SubResource("gameover_style")
 metadata/arcade_authored_control = true
 
 script = ExtResource("gameover_motion")
+
 [node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=817931745]
 layout_mode = 1
 offset_left = 24.0
@@ -1140,7 +1206,7 @@ offset_right = 536.0
 offset_bottom = 97.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.10, 0.14, 0.23, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
@@ -1157,7 +1223,7 @@ offset_right = 536.0
 offset_bottom = 215.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
@@ -1175,18 +1241,18 @@ offset_right = 522.0
 offset_bottom = 315.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxTexture_co2yk")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_mepfc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_24gyb")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_qk2ub")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_swlwp")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_eqre6")
 text = "Return to Game Select"
 metadata/arcade_authored_control = true
@@ -1200,17 +1266,17 @@ offset_bottom = 315.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_620gg")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_kojbs")
-theme_override_styles/hover = SubResource("StyleBoxTexture_s82qq")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_mx2b4")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_a1y1y")
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_jn0nw")
 text = "PLAY AGAIN"
 metadata/arcade_authored_control = true
@@ -1221,9 +1287,9 @@ z_index = 20
 offset_left = 16.0
 offset_top = 80.0
 offset_right = 230.0
-offset_bottom = 218.0
+offset_bottom = 242.0
 theme = ExtResource("1_p1olx")
-theme_override_styles/panel = SubResource("StyleBoxTexture_04w56")
+theme_override_styles/panel = SubResource("arcade_dialog_panel")
 metadata/arcade_authored_control = true
 
 [node name="TitleLabel" type="Label" parent="UI/SpeedPanel" unique_id=770120002]
@@ -1232,8 +1298,8 @@ offset_top = 10.0
 offset_right = 214.0
 offset_bottom = 34.0
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
+theme_override_font_sizes/font_size = 13
 text = "GAME SPEED  (Ctrl+G)"
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
@@ -1253,18 +1319,18 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_wxctb")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_qbikm")
-theme_override_styles/hover = SubResource("StyleBoxTexture_hlr82")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_g2i3h")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_t8o0f")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_77fyp")
 text = "−"
 metadata/arcade_authored_control = true
@@ -1273,7 +1339,7 @@ metadata/arcade_authored_control = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.52, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
@@ -1288,18 +1354,18 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_focus_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_disabled_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_62fdy")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6kdwq")
-theme_override_styles/hover = SubResource("StyleBoxTexture_h8ybm")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_i6jov")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_8bi8e")
+theme_override_styles/normal = SubResource("arcade_hud_button")
+theme_override_styles/pressed = SubResource("arcade_hud_hover")
+theme_override_styles/hover = SubResource("arcade_hud_hover")
+theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_1b7kr")
 text = "+"
 metadata/arcade_authored_control = true
@@ -1309,10 +1375,10 @@ layout_mode = 0
 offset_left = 1.0
 offset_top = 102.0
 offset_right = 215.0
-offset_bottom = 128.0
+offset_bottom = 148.0
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.93, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
 text = "Duration: 4.0 s
 Bound: 0.60"
 horizontal_alignment = 1
@@ -1364,3 +1430,15 @@ script = ExtResource("19_eeqry")
 
 [node name="PongCourt" type="Node2D" parent="." unique_id=531367462]
 script = ExtResource("20_nf4cd")
+
+[node name="EasyModeToggle" type="CheckButton" parent="UI"]
+layout_mode = 0
+offset_left = 493.0
+offset_top = 582.0
+offset_right = 673.0
+offset_bottom = 622.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 18
+text = "Easy Mode"
+tooltip_text = "Show the ball path toward your paddle"
+

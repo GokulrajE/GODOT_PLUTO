@@ -1,0 +1,41 @@
+{
+	"checks": 283,
+	"failures": [],
+	"timings": {
+		"fruit": {
+			"frames_over_25ms": 0,
+			"max_ms": 19.517,
+			"median_ms": 16.62,
+			"p95_ms": 18.285,
+			"sample_count": 180
+		},
+		"garden": {
+			"frames_over_25ms": 0,
+			"max_ms": 20.494,
+			"median_ms": 16.611,
+			"p95_ms": 17.815,
+			"sample_count": 180
+		},
+		"hat": {
+			"frames_over_25ms": 0,
+			"max_ms": 20.527,
+			"median_ms": 16.734,
+			"p95_ms": 18.16,
+			"sample_count": 180
+		},
+		"pong": {
+			"frames_over_25ms": 0,
+			"max_ms": 19.996,
+			"median_ms": 16.755,
+			"p95_ms": 17.768,
+			"sample_count": 180
+		},
+		"tuk": {
+			"frames_over_25ms": 0,
+			"max_ms": 22.823,
+			"median_ms": 16.675,
+			"p95_ms": 17.746,
+			"sample_count": 180
+		}
+	}
+}

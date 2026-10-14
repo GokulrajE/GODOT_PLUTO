@@ -1,0 +1,198 @@
+{
+  "trials": 11,
+  "mechanisms": {
+    "HOC": {
+      "trials": 6,
+      "recorded_seconds": 360.0,
+      "games": {
+        "HAT-TRICK": 1,
+        "FRUIT-BASKET": 1,
+        "RNR": 1,
+        "TUK-TUK": 2,
+        "PING-PONG": 1
+      },
+      "dates": [
+        "2026-10-14"
+      ]
+    },
+    "FPS": {
+      "trials": 5,
+      "recorded_seconds": 300.0,
+      "games": {
+        "HAT-TRICK": 1,
+        "FRUIT-BASKET": 1,
+        "RNR": 1,
+        "TUK-TUK": 1,
+        "PING-PONG": 1
+      },
+      "dates": [
+        "2026-10-14"
+      ]
+    }
+  },
+  "issues": [
+    [
+      "raw-sess01-trial004-TUK-TUK-HOC.csv",
+      "recorded movement duration exceeds wall time",
+      35.0
+    ]
+  ],
+  "raw_logs": [
+    {
+      "file": "raw-sess01-trial001-HAT-TRICK-HOC.csv",
+      "samples": 12423,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "HOC"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNBALL",
+        "STOP",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess01-trial002-FRUIT-BASKET-HOC.csv",
+      "samples": 11937,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "HOC"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNFRUIT",
+        "STOP",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess01-trial003-RNR-HOC.csv",
+      "samples": 12058,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "HOC"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNTARGET",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess01-trial004-TUK-TUK-HOC.csv",
+      "samples": 6494,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "HOC"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNROCK",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess02-trial005-TUK-TUK-HOC.csv",
+      "samples": 11318,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "HOC"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNROCK",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess02-trial006-PING-PONG-HOC.csv",
+      "samples": 11331,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "HOC"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE"
+      ]
+    },
+    {
+      "file": "raw-sess03-trial001-HAT-TRICK-FPS.csv",
+      "samples": 15199,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "FPS"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNBALL",
+        "STOP",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess03-trial002-FRUIT-BASKET-FPS.csv",
+      "samples": 15010,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "FPS"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNFRUIT",
+        "STOP",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess03-trial003-RNR-FPS.csv",
+      "samples": 12113,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "FPS"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNTARGET",
+        "STOP",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess03-trial004-TUK-TUK-FPS.csv",
+      "samples": 11332,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "FPS"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "SPAWNROCK",
+        "SUCCESS"
+      ]
+    },
+    {
+      "file": "raw-sess03-trial005-PING-PONG-FPS.csv",
+      "samples": 13581,
+      "runtime_backwards": 0,
+      "mechanisms": [
+        "FPS"
+      ],
+      "nonfinite_sensor_rows": 0,
+      "game_states": [
+        "MOVE",
+        "STOP"
+      ]
+    }
+  ]
+}

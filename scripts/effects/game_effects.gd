@@ -2,9 +2,12 @@ extends Node2D
 ## Localized, bounded effects. No timers/tweens change gameplay or collision geometry.
 const Palette = preload("res://scripts/ui/ui_palette.gd")
 const SPARKLE = preload("res://Assets/Arcade/Online/sparkle.png")
+const SOFT_SPARKLE_COLORS = [Color("9edcd3"), Color("eeb5c7"), Color("c6b5e8"), Color("eed49e")]
 const HAT_STAR = preload("res://Assets/Arcade/hat-yellow-star.svg")
 var yellow_stars := false
 var vivid_feedback := false
+var soft_sparkles := false
+var clear_feedback := false
 var particles: Array[Dictionary] = []
 var trail: Array[Vector2] = []
 var active := true
@@ -26,9 +29,9 @@ func burst(at: Vector2, success: bool = true, show_message: bool = true) -> void
 	var color := (Color("ffed27") if yellow_stars or vivid_feedback else Palette.GOLD) if success else Color("ff708e")
 	for i in 14:
 		var direction := Vector2.from_angle(float(i) * TAU / 14.0)
-		particles.append({"p": at, "v": direction * randf_range(110, 220), "life": 0.95, "color": color if yellow_stars else [Color("00eed0"), Color("ff593e"), Color("9850ff"), Color("ffdb35")][i % 4] if success else color, "star": yellow_stars and success, "size": randf_range(12, 20)})
+		particles.append({"p": at, "v": direction * randf_range(65 if soft_sparkles else 110, 130 if soft_sparkles else 220), "life": 0.95, "color": SOFT_SPARKLE_COLORS[i % SOFT_SPARKLE_COLORS.size()] if soft_sparkles else color if yellow_stars else [Color("00eed0"), Color("ff593e"), Color("9850ff"), Color("ffdb35")][i % 4] if success else color, "star": yellow_stars and success, "size": randf_range(20 if clear_feedback else 12, 30 if clear_feedback else 20)})
 	while particles.size() > 100: particles.pop_front()
-	if show_message: messages.append({"p": at + Vector2(-38, -35), "life": 1.0, "text": "+1" if success else "Try again", "color": color})
+	if show_message: messages.append({"p": at + Vector2(-38, -35), "life": 1.4 if clear_feedback else 1.0, "text": "+1" if success else "Try again", "color": color, "origin": at, "success": success})
 	while messages.size() > 4: messages.pop_front()
 
 func step(delta: float, paused: bool, ball: Vector2 = Vector2.INF) -> void:
@@ -57,9 +60,11 @@ func _draw() -> void:
 		draw_circle(trail[i], maxf(2, 12 - i * 0.8), Color(0.55, 0.72, 1.0, (1.0 - i / 12.0) * 0.55))
 	for p in particles:
 		var color: Color = p.color
-		color.a = clampf(p.life / (0.25 if vivid_feedback else 0.95), 0, 1)
-		draw_circle(p.p, p.size * 1.25, Color(color, color.a * 0.16))
-		if vivid_feedback:
+		color.a = 0.45 if soft_sparkles else clampf(p.life / (0.25 if vivid_feedback else 0.95), 0, 1)
+		draw_circle(p.p, p.size * 1.25, Color(color, color.a * (0.035 if soft_sparkles else 0.16)))
+		if soft_sparkles:
+			draw_texture_rect(SPARKLE, Rect2(p.p - Vector2.ONE * p.size, Vector2.ONE * p.size * 2), false, color)
+		elif vivid_feedback:
 			draw_circle(p.p, p.size * 0.65 + 2, Color(0.05, 0.13, 0.23, color.a))
 			draw_circle(p.p, p.size * 0.65, color)
 			draw_circle(p.p - Vector2(p.size * .18, p.size * .18), p.size * .18, Color(1, 1, 1, color.a))
@@ -68,5 +73,13 @@ func _draw() -> void:
 	for m in messages:
 		var color: Color = m.color
 		color.a = clampf(m.life / 0.3, 0, 1)
+		if clear_feedback:
+			var age: float = 1.4 - m.life
+			var accent := Color("92cfc6") if m.success else Color("e5a9bc")
+			if age < 0.65 and m.success:
+				var radius: float = 28 + age * 125
+				draw_arc(m.origin, radius, 0, TAU, 64, Color(1, 1, 1, 1.0 - age / 0.65), 6, true)
+				draw_arc(m.origin, radius + 5, 0, TAU, 64, Color(accent, 1.0 - age / 0.65), 3, true)
+			continue
 		draw_string_outline(Palette.DISPLAY, m.p, m.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 32, 5, Color(0.08, 0.12, 0.22, color.a))
 		draw_string(Palette.DISPLAY, m.p, m.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 32, color)

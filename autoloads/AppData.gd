@@ -22,7 +22,8 @@ func exit_demo() -> void:
 	_demo_snapshot.clear()
 	demo_mode = false
 
-const SETTINGS_PATH: String = "user://game_settings.cfg"
+var SETTINGS_PATH: String:
+	get: return AppStorage.settings_path()
 
 const _PlutoMechanism = preload("res://scripts/data/PlutoMechanism.gd")
 const _PlutoGame      = preload("res://scripts/data/PlutoGame.gd")
@@ -87,6 +88,8 @@ var speed_data         = null  # MechanismSpeed
 var selected_game_name: String = ""
 
 # ── Trial state ───────────────────────────────────────────────────────
+var trial_active_seconds := 0.0
+var trial_active_days := {}
 var trial_start_time:     String = ""
 var trial_raw_file:       String = ""
 var desired_success_rate: float  = 85.0
@@ -170,6 +173,8 @@ func start_new_trial() -> void:
 	if demo_mode: return
 	if selected_mechanism == null:
 		return
+	trial_active_seconds = 0.0
+	trial_active_days = {Time.get_date_string_from_system(): 0.0}
 	trial_start_time = Time.get_datetime_string_from_system()
 	selected_mechanism.next_trial()
 
@@ -232,7 +237,7 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 		"SuccessRate":         "%.3f" % success_rate,
 		"CurrentControlBound":"%.3f" % current_bound,
 		"NextControlBound":    "%.3f" % next_bound,
-		"MoveTime":           _HomerTherapy.TRIAL_DURATION,
+		"MoveTime":           snappedf(trial_active_seconds, 0.001),
 		"CurrentTargets":     selected_game.current_targets,
 		"CurrentHits":        selected_game.current_hits,
 		"CurrentMisses":      selected_game.current_misses,
@@ -246,6 +251,9 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 		"CtrlBound: %.3f → %.3f (SR=%.1f%% desired=%.1f%%)" % [
 			current_bound, next_bound, success_rate, desired_success_rate])
 
+	DataManager.write_active_time(trial_raw_file, mechanism_name, selected_game_name, trial_active_days)
+	trial_active_seconds = 0.0
+	trial_active_days.clear()
 	trial_start_time = ""
 	trial_raw_file   = ""
 
@@ -307,3 +315,27 @@ func get_new_target_position() -> float:
 	var target    = _HomerTherapy.get_new_target_position(prom[0], prom[1], _last_target, threshold)
 	_last_target  = target
 	return target
+
+func record_active_time(delta: float) -> void:
+	if demo_mode or trial_start_time.is_empty() or delta <= 0: return
+	trial_active_seconds += delta
+	var day := Time.get_date_string_from_system()
+	trial_active_days[day] = float(trial_active_days.get(day, 0.0)) + delta
+
+func daily_progress(mech: String = "") -> Dictionary:
+	if mech.is_empty(): mech = mechanism_name
+	var data: Dictionary = DataManager.daily_activity().get(mech, {"seconds": 0.0, "estimated": false, "games": {}}).duplicate(true)
+	if mech == mechanism_name and not demo_mode and not trial_start_time.is_empty():
+		var live := float(trial_active_days.get(Time.get_date_string_from_system(), 0.0))
+		data.seconds += live
+		data.games[selected_game_name] = float(data.games.get(selected_game_name, 0.0)) + live
+	data["goal"] = float(get("config_" + mech.to_lower())) * 60.0
+	data["complete"] = data.goal > 0 and data.seconds >= data.goal
+	return data
+
+func daily_progress_text(mech: String = "") -> String:
+	var data := daily_progress(mech)
+	var clock = preload("res://scripts/data/DailyActivity.gd")
+	var text := ("~" if data.estimated else "") + clock.clock_text(data.seconds)
+	if data.goal > 0: text += " / " + clock.clock_text(data.goal)
+	return text + (" • Goal reached — try another mechanism" if data.complete else " today")

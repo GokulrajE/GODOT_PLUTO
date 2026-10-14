@@ -59,6 +59,7 @@ var _hat_x:         float = 583.0
 var _target_angle:  float = 0.0
 var _current_ball:  Control = null
 var _ball_textures: Array   = []
+var _pooled_ball: TextureRect
 
 # ── AAN (Assist-As-Needed) ───────────────────────────────────────────────────
 var _aan:        RefCounted = null
@@ -105,6 +106,8 @@ func _ready() -> void:
 	_dec_btn.pressed.connect(_decrease_speed)
 	_inc_btn.pressed.connect(_increase_speed)
 	$UI/Header/ExitButton.pressed.connect(_on_exit_pressed)
+	$UI/WaitPanel/PlayButton.pressed.connect(_on_pluto_button)
+	$UI/GameOverPanel/ReplayButton.pressed.connect(_on_pluto_button)
 	$UI/GameOverPanel/ExitButton.pressed.connect(_on_exit_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
 	_yesterday_hits = DataManager.read_yesterday_hits(
@@ -117,8 +120,8 @@ func _exit_tree() -> void:
 		EventBus.button_released.disconnect(_on_pluto_button)
 
 func _load_ball_textures() -> void:
-	var t1 = load("res://game/HAT_TIRCK/Sprites/BowlingBallSprite.png")
-	var t2 = load("res://game/HAT_TIRCK/Sprites/BombSprite.png")
+	var t1 = load("res://Assets/Arcade/hat-real-ball.svg")
+	var t2 = load("res://Assets/Arcade/hat-real-ball.svg")
 	if t1: _ball_textures.append(t1)
 	if t2: _ball_textures.append(t2)
 
@@ -258,6 +261,7 @@ func _tick(delta: float) -> void:
 	var playing = (_state != State.WAITING and _state != State.PAUSED
 				   and _state != State.STOP and _state != State.DONE)
 	if playing and _time_left > 0.0:
+		AppData.record_active_time(minf(delta, _time_left))
 		_time_left -= delta
 
 	match _state:
@@ -366,12 +370,17 @@ func _ball_was_missed() -> void:
 
 func _kill_ball() -> void:
 	if _current_ball:
-		_current_ball.queue_free()
+		_current_ball.hide()
 		_current_ball = null
 
 func _spawn_ball() -> void:
 	n_targets += 1
-	var ball := TextureRect.new()
+	if not is_instance_valid(_pooled_ball):
+		_pooled_ball = TextureRect.new()
+		_ball_container.add_child(_pooled_ball)
+	var ball := _pooled_ball
+	ball.rotation = 0.0
+	ball.show()
 	ball.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 	ball.stretch_mode = TextureRect.STRETCH_SCALE
 	ball.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
@@ -379,9 +388,6 @@ func _spawn_ball() -> void:
 	if _ball_textures.size() > 0:
 		var tex_idx: int = randi() % _ball_textures.size()
 		ball.texture = _ball_textures[tex_idx]
-		if tex_idx == 1:
-			display_size = Vector2(BOMB_W, BOMB_H)
-	_ball_container.add_child(ball)
 	ball.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	var spawn_x: float = clamp(angle_to_screen(_target_angle), GAME_LEFT + display_size.x * 0.5, GAME_RIGHT - display_size.x * 0.5)
 	ball.position = Vector2(spawn_x - display_size.x * 0.5, BALL_START_Y)

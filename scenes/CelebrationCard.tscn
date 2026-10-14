@@ -3,20 +3,16 @@
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_oj0i8"]
 [ext_resource type="Script" path="res://scripts/CelebrationCard.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="2_star"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="3_4lxwa"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/celebration-panel.svg" id="3_4lxwa"]
 [ext_resource type="Texture2D" path="res://Assets/pngwing.com (5).png" id="3_confetti"]
 [ext_resource type="Texture2D" path="res://Assets/pngwing.com (8).png" id="4_ribbon"]
 [ext_resource type="Texture2D" path="res://Assets/pngwing.com (3).png" id="5_popper"]
-[ext_resource type="AudioStream" path="res://Assets/Arcade/Online/celebration.ogg" id="6_audio"]
-[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Nunito-Semibold.tres" id="6_cj0m7"]
+[ext_resource type="AudioStream" path="res://Assets/Arcade/Online/star-celebration.ogg" id="6_audio"]
+[ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="6_cj0m7"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/sprites-source.png" id="8_2pjgm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_luaou"]
 texture = ExtResource("3_4lxwa")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0xd2"]
 atlas = ExtResource("8_2pjgm")
@@ -93,8 +89,8 @@ offset_top = 24.0
 offset_right = 616.0
 offset_bottom = 74.0
 theme = ExtResource("1_oj0i8")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.10, 0.14, 0.23, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("6_cj0m7")
 theme_override_font_sizes/font_size = 32
@@ -181,8 +177,8 @@ metadata/arcade_authored_control = true
 [node name="TitleLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=1840170640]
 layout_mode = 2
 theme = ExtResource("1_oj0i8")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("6_cj0m7")
 theme_override_font_sizes/font_size = 24
@@ -198,7 +194,7 @@ metadata/arcade_authored_control = true
 [node name="ArrowLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=390708187]
 layout_mode = 2
 theme = ExtResource("1_oj0i8")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 19
 text = "A new personal best"
 horizontal_alignment = 1
@@ -207,7 +203,7 @@ metadata/arcade_authored_control = true
 [node name="YesterdayLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=1595734802]
 layout_mode = 2
 theme = ExtResource("1_oj0i8")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 19
 text = "Yesterday:  24 catches"
 horizontal_alignment = 1
@@ -216,8 +212,8 @@ metadata/arcade_authored_control = true
 [node name="TodayLabel" type="Label" parent="Card/BodyHBox/ScoreVBox" unique_id=937493658]
 layout_mode = 2
 theme = ExtResource("1_oj0i8")
-theme_override_colors/font_color = Color(0.125, 0.208, 0.31, 1)
-theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("6_cj0m7")
 theme_override_font_sizes/font_size = 24
@@ -293,3 +289,4 @@ metadata/arcade_authored_control = true
 
 [node name="Audio" type="AudioStreamPlayer" parent="." unique_id=1049159710]
 stream = ExtResource("6_audio")
+volume_db = -5.0
