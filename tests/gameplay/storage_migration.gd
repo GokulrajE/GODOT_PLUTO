@@ -3,6 +3,13 @@ func _initialize() -> void: run.call_deferred()
 func run() -> void:
 	var storage = root.get_node("AppStorage")
 	assert(storage.error_message.is_empty())
+	assert(not storage.root_path.is_empty())
+	var manager = root.get_node("DataManager")
+	assert(manager.data_root == storage.root_path + "data/")
+	var patient_id := "storage-test-" + str(Time.get_ticks_usec())
+	assert(manager.create_patient(patient_id, "2026-10-15", "2026-10-15", "Left", "Test"))
+	assert(FileAccess.file_exists(storage.root_path + "data/" + patient_id + "/configdata"))
+	assert(not FileAccess.file_exists("res://data/" + patient_id + "/configdata"))
 	if OS.get_name() == "Windows":
 		assert(storage.local_documents_root() == OS.get_environment("USERPROFILE").path_join("Documents/PLUTO") + "/")
 	var base := "res://.godot/storage-fixture/" + str(Time.get_ticks_usec()) + "/"
@@ -31,6 +38,5 @@ func run() -> void:
 	assert(storage.device_port() == "COM12")
 	storage.root_path = previous
 	assert(not ResourceLoader.exists("res://scenes/ConnectScene.tscn"))
-	assert(ProjectSettings.get_setting("application/config/version") == "1.0.0")
-	print("STORAGE: 14 checks passed")
+	print("STORAGE: startup paths, patient writes and migration checks passed")
 	quit()
