@@ -83,6 +83,7 @@ var _use_aan:    bool       = false
 var _game_speed: float      = 10.0
 var _is_cpm:     bool       = false
 var _show_arom:  bool       = false
+var _arom_guides: Control
 
 # ── Node refs ─────────────────────────────────────────────────────────────────
 @onready var _cloud:          TextureRect       = $Cloud
@@ -107,6 +108,12 @@ func _ready() -> void:
 	_build_slot_positions()
 	_load_seed_textures()
 	_init_rom_data()
+	_arom_guides = Control.new()
+	_arom_guides.name = "AromGuides"
+	_arom_guides.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_arom_guides.z_index = 5
+	add_child(_arom_guides)
+	_arom_guides.draw.connect(_draw_arom_guides)
 	_calc_speed()
 	_spawn_seeds()
 	_build_rain_drops()
@@ -346,20 +353,20 @@ func _set_cloud_x(x: float) -> void:
 	_cloud.position.x = x - CLOUD_W * 0.5
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
-func _draw() -> void:
+func _draw_arom_guides() -> void:
 	if not _show_arom or _arom.size() < 2 or _is_cpm: return
 	var x_left:  float = angle_to_screen(float(_arom[0]))
 	var x_right: float = angle_to_screen(float(_arom[1]))
-	var col:     Color = Color(0.0, 1.0, 1.0, 0.7)
-	draw_line(Vector2(x_left,  82.0), Vector2(x_left,  540.0), col, 2.0)
-	draw_line(Vector2(x_right, 82.0), Vector2(x_right, 540.0), col, 2.0)
+	for x in [x_left, x_right]:
+		_arom_guides.draw_line(Vector2(x, 82), Vector2(x, 620), Color("193d59"), 6.0)
+		_arom_guides.draw_line(Vector2(x, 82), Vector2(x, 620), Color("a6f5ff"), 3.0)
 
 func _process(delta: float) -> void:
 	if _state == State.PAUSED: return
 	_move_cloud(delta)
 	_tick(delta)
 	_animate_visuals(delta)
-	queue_redraw()
+	_arom_guides.queue_redraw()
 	_refresh_ui()
 	_update_log_state()
 
@@ -685,7 +692,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	elif event.ctrl_pressed and event.keycode == KEY_G:
 		_speed_panel.visible = !_speed_panel.visible
 		_show_arom = _speed_panel.visible
-		queue_redraw()
+		_arom_guides.queue_redraw()
 		_refresh_speed_label()
 
 func _on_pluto_button() -> void:

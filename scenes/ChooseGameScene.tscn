@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bq0summpb3dw4" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
 [ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_muk0j"]
-[ext_resource type="Texture2D" uid="uid://c0id5s7b44ywi" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_vglxf"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_vglxf"]
 [ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="4_vglxf"]
 [ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="5_dxjs5"]
 [ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="6_nq0wi"]
@@ -17,6 +17,13 @@
 [ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
 [ext_resource type="Texture2D" uid="uid://dh8spggqwauku" path="res://Assets/Arcade/Online/Icons/arrow-left.svg" id="patient_icon_arrow-left"]
 
+[ext_resource type="Script" path="res://scripts/ui/living_garden.gd" id="living_garden_script"]
+[ext_resource type="Shader" path="res://Assets/Arcade/living-garden.gdshader" id="living_garden_shader"]
+
+[sub_resource type="ShaderMaterial" id="living_garden_material"]
+resource_local_to_scene = true
+shader = ExtResource("living_garden_shader")
+shader_parameter/phase = 0.0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8s5b"]
 texture = ExtResource("4_vglxf")
 texture_margin_left = 24.0
@@ -490,6 +497,8 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=653967447]
+material = SubResource("living_garden_material")
+script = ExtResource("living_garden_script")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0

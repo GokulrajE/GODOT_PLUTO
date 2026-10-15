@@ -18,6 +18,13 @@
 
 [ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
 
+[ext_resource type="Script" path="res://scripts/ui/living_garden.gd" id="living_garden_script"]
+[ext_resource type="Shader" path="res://Assets/Arcade/living-garden.gdshader" id="living_garden_shader"]
+
+[sub_resource type="ShaderMaterial" id="living_garden_material"]
+resource_local_to_scene = true
+shader = ExtResource("living_garden_shader")
+shader_parameter/phase = 0.0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2fc0l"]
 content_margin_left = 16.0
 content_margin_top = 10.0
@@ -939,6 +946,8 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=221088218]
+material = SubResource("living_garden_material")
+script = ExtResource("living_garden_script")
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0

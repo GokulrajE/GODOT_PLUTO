@@ -175,7 +175,9 @@ func _button(parent: Node, text: String, rect: Rect2, action: Callable) -> Butto
 func _setup_dialogs() -> void:
 	if game.has_node("UI/WaitPanel/PlayButton"):
 		for path in ["UI/WaitPanel/PlayButton", "UI/PausePanel/ResumeButton", "UI/GameOverPanel/ReplayButton"]:
-			game.get_node(path).pressed.connect(func(): game.call("_on_pluto_button"))
+			var action := Callable(game, "_on_pluto_button")
+			if not game.get_node(path).pressed.is_connected(action):
+				game.get_node(path).pressed.connect(action)
 		game.get_node("UI/WaitPanel/HintLabel").text = "Press SPACE or choose Play" if not PlutoComm.is_connected else "Press the PLUTO button or choose Play"
 		return
 	var wait: Panel = game.get_node("UI/WaitPanel")

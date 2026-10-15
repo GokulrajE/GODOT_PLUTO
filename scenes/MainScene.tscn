@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_pjux3"]
 [ext_resource type="Texture2D" uid="uid://iu4sbf7q18wm" path="res://Assets/Pluto.png" id="2_pluto"]
 [ext_resource type="Texture2D" uid="uid://be73246ox7t08" path="res://Assets/cmc.png" id="3_c6dvc"]
-[ext_resource type="Texture2D" uid="uid://c0id5s7b44ywi" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_xnxdc"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_xnxdc"]
 [ext_resource type="Texture2D" uid="uid://ctlrhku5y7rhf" path="res://Assets/biorehab.png" id="4_611at"]
 [ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="5_kp0ql"]
 [ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="6_08o8g"]
@@ -17,6 +17,13 @@
 [ext_resource type="Texture2D" uid="uid://cyjqxkp82sa5u" path="res://Assets/Arcade/Online/Icons/play.svg" id="patient_icon_play"]
 [ext_resource type="Texture2D" uid="uid://dmikdo8ywksjo" path="res://Assets/Arcade/Online/Icons/user-plus.svg" id="patient_icon_user-plus"]
 
+[ext_resource type="Script" path="res://scripts/ui/living_garden.gd" id="living_garden_script"]
+[ext_resource type="Shader" path="res://Assets/Arcade/living-garden.gdshader" id="living_garden_shader"]
+
+[sub_resource type="ShaderMaterial" id="living_garden_material"]
+resource_local_to_scene = true
+shader = ExtResource("living_garden_shader")
+shader_parameter/phase = 0.0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8wjpf"]
 content_margin_left = 0.0
 content_margin_top = 0.0
@@ -515,6 +522,8 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=1969061458]
+material = SubResource("living_garden_material")
+script = ExtResource("living_garden_script")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1331,6 +1340,7 @@ text = "Reduced motion"
 metadata/arcade_authored_control = true
 
 [node name="DemoButton" type="Button" parent="." unique_id=1098579655]
+visible = false
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
@@ -1400,10 +1410,10 @@ metadata/arcade_authored_control = true
 [node name="UpdatePanel" type="Panel" parent="." unique_id=1381006123]
 visible = false
 layout_mode = 0
-offset_left = 360.0
-offset_top = 505.0
-offset_right = 920.0
-offset_bottom = 704.0
+offset_left = 362.0
+offset_top = 590.0
+offset_right = 922.0
+offset_bottom = 789.0
 theme_override_styles/panel = SubResource("UpdateSurface")
 metadata/arcade_authored_control = true
 

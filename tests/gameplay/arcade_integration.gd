@@ -17,7 +17,7 @@ var held := 0
 var app: Node
 var frame_count := 0
 var initial_data: Dictionary
-var snapshot_dir := "res://.godot/arcade-test"
+var snapshot_dir := "user://arcade-test"
 
 func _initialize() -> void:
 	_run.call_deferred()
@@ -99,6 +99,26 @@ func _load_game(id: String) -> void:
 	await process_frame
 	game = current_scene
 	view = game.get_node("ArcadePresentation")
+	if id == "hat":
+		_check(game.get_node("CatchSound").stream != null and game.get_node("MissSound").stream != null, "Hat audio dependencies load")
+		var start_actions := 0
+		for connection in game.get_node("UI/WaitPanel/PlayButton").pressed.get_connections():
+			if connection.callable == Callable(game, "_on_pluto_button"):
+				start_actions += 1
+		_check(start_actions == 1, "Play has one game-state action handler")
+	if id == "garden":
+		var guides: Control = game.get_node("AromGuides")
+		_check(not game.get("_show_arom"), "AROM guides hidden by default")
+		var toggle := InputEventKey.new()
+		toggle.keycode = KEY_G
+		toggle.ctrl_pressed = true
+		toggle.pressed = true
+		game.call("_unhandled_key_input", toggle)
+		_check(game.get("_show_arom") and game.get_node("UI/SpeedPanel").visible, "Ctrl+G shows AROM guides with speed panel")
+		game.call("_unhandled_key_input", toggle)
+		_check(not game.get("_show_arom") and not game.get_node("UI/SpeedPanel").visible, "Ctrl+G hides AROM guides with speed panel")
+		_check(guides.z_index > game.get_node("ArcadeGameBackground").z_index, "AROM guides render above background")
+		_check(guides.mouse_filter == Control.MOUSE_FILTER_IGNORE, "AROM guides do not block controls")
 	game.set_process(false)
 	view.set_process(false)
 	var backgrounds := {"hat": "twilight-garden.png", "fruit": "orchard-v2.png", "garden": "garden-v2.png", "tuk": "tuk-hill-country.png", "pong": "arena-v2.png"}
