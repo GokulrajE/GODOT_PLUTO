@@ -111,8 +111,8 @@ func _unavailable(text: String) -> void:
 	var status_path := cache_path + "updater-status.json"
 	if FileAccess.file_exists(status_path):
 		var status = JSON.parse_string(FileAccess.get_file_as_string(status_path))
-		if status is Dictionary and status.get("state", "") == "failed":
-			text = "The last installation failed; the previous version was restored. Retry the update."
+		if status is Dictionary and status.get("state", "") == "failed" and newer(str(status.get("version", "")), version()):
+			text += "\nThe update to %s previously failed. Retry the update." % str(status.get("version", ""))
 	if not release.is_empty() and newer(str(release.get("tag_name", "")), version()):
 		_set_state("required", text + "\nThe previously detected update is still required. Retry the download.")
 	else:

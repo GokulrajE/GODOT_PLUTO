@@ -6,6 +6,7 @@ func check(value: bool, label: String) -> void:
 	checks += 1
 	if not value: failures.append(label); printerr("FAIL: ", label)
 func run() -> void:
+	ProjectSettings.set_setting("application/config/version", "1.0.0")
 	var updater = root.get_node("AppUpdater")
 	updater.cache_path = "res://.godot/update-fixtures/" + str(Time.get_ticks_usec()) + "/"
 	DirAccess.make_dir_recursive_absolute(updater.cache_path)
@@ -22,6 +23,16 @@ func run() -> void:
 	check(current_scene.get_node("DemoButton").disabled, "demo cannot bypass gate")
 	updater._unavailable("Offline")
 	check(not updater.blocks_login(), "offline allowed before update detected")
+	var status_file := FileAccess.open(updater.cache_path + "updater-status.json", FileAccess.WRITE)
+	status_file.store_string(JSON.stringify({"state":"failed", "version":"1.0.0"}))
+	status_file.close()
+	updater._unavailable("Release check unavailable (HTTP 403).")
+	check(not updater.message.contains("failed") and updater.message.contains("HTTP 403"), "installed version ignores stale failure and preserves check error")
+	status_file = FileAccess.open(updater.cache_path + "updater-status.json", FileAccess.WRITE)
+	status_file.store_string(JSON.stringify({"state":"failed", "version":"1.0.1"}))
+	status_file.close()
+	updater._unavailable("Release check unavailable (HTTP 403).")
+	check(updater.message.contains("previously failed") and updater.message.contains("HTTP 403") and not updater.message.contains("restored"), "pending failure retains actual check error without claiming rollback")
 	var release := {"tag_name":"v1.0.1", "assets":[{"name":"PLUTO-windows-x86_64.zip", "browser_download_url":"https://github.com/GokulrajE/GODOT_PLUTO/releases/download/v1.0.1/PLUTO-windows-x86_64.zip", "size":1024, "digest":"sha256:" + "a".repeat(64)}]}
 	check(not updater.release_asset(release).is_empty(), "valid Windows asset")
 	var invalid := release.duplicate(true)

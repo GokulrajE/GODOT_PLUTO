@@ -30,7 +30,9 @@ foreach ($mode in @('success','failed-startup','bad-hash','traversal','wrong-ver
     'new-content' | Set-Content -LiteralPath (Join-Path $build 'asset.txt')
     $version = if ($mode -eq 'wrong-version') { '9.0.0' } else { '1.0.1' }
     & (Join-Path $repoRoot 'tools/update/package-release.ps1') -BuildDirectory $build -Version $version -OutputDirectory (Join-Path $caseRoot 'release') | Out-Null
-    $zip = Join-Path $caseRoot 'release/PLUTO-windows-x86_64.zip'
+    $zip = Join-Path $cache 'package-12345.zip'
+    Copy-Item -LiteralPath (Join-Path $caseRoot 'release/PLUTO-windows-x86_64.zip') -Destination $zip
+    'unrelated-cache-file' | Set-Content -LiteralPath (Join-Path $cache 'keep.txt')
     if ($mode -eq 'traversal') {
         $archive = [IO.Compression.ZipFile]::Open($zip,[IO.Compression.ZipArchiveMode]::Update)
         $entry = $archive.CreateEntry('../escaped.txt')
@@ -39,7 +41,7 @@ foreach ($mode in @('success','failed-startup','bad-hash','traversal','wrong-ver
     $digest = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
     if ($mode -eq 'bad-hash') { $digest = 'a' * 64 }
     $job = @{pid=2147483647;target=$target;executable='PLUTO.exe';package=$zip;sha256=$digest;version='1.0.1';token='12345';cache=$cache}
-    $jobPath = Join-Path $cache 'job.json'
+    $jobPath = Join-Path $cache 'job-12345.json'
     $job | ConvertTo-Json | Set-Content -LiteralPath $jobPath -Encoding UTF8
     & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $repoRoot 'tools/update/install-update.ps1') -JobPath $jobPath
     $status = Get-Content -LiteralPath (Join-Path $cache 'updater-status.json') -Raw | ConvertFrom-Json
@@ -47,12 +49,21 @@ foreach ($mode in @('success','failed-startup','bad-hash','traversal','wrong-ver
         Check ($status.state -eq 'complete') 'successful install and startup acknowledgement'
         Check ((Get-FileHash (Join-Path $target 'PLUTO.exe')).Hash -eq (Get-FileHash $compiled).Hash) 'new executable installed'
         Check (Test-Path -LiteralPath (Join-Path $target 'asset.txt')) 'new assets installed'
+        Check (-not (Test-Path -LiteralPath $zip)) 'successful download removed'
+        Check (-not (Test-Path -LiteralPath (Join-Path $cache 'install-12345'))) 'successful stage and backup removed'
+        Check (-not (Test-Path -LiteralPath $jobPath)) 'completed job removed'
+        Check (-not (Test-Path -LiteralPath (Join-Path $cache 'ack-12345'))) 'startup acknowledgement removed'
+        Check (-not (Test-Path -LiteralPath (Join-Path $cache 'ready-12345'))) 'ready marker removed'
     } else {
         Check ($status.state -eq 'failed') "$mode rejected"
         Check ((Get-FileHash (Join-Path $target 'PLUTO.exe')).Hash -eq (Get-FileHash $oldExe).Hash) "$mode original executable preserved"
         Check (-not (Test-Path -LiteralPath (Join-Path $target 'asset.txt'))) "$mode no new asset left behind"
+        Check (Test-Path -LiteralPath $zip) "$mode downloaded package retained"
+        Check (Test-Path -LiteralPath $jobPath) "$mode diagnostic job retained"
+        if ($mode -eq 'failed-startup') { Check (Test-Path -LiteralPath (Join-Path $cache 'install-12345/backup/PLUTO.exe')) 'failed startup retains rollback backup' }
     }
     Check ((Get-Content -LiteralPath (Join-Path $target 'patient-fixture.txt')).Trim() -eq 'keep-this-patient-record') "$mode unrelated records untouched"
+    Check (Test-Path -LiteralPath (Join-Path $cache 'keep.txt')) "$mode unrelated cache file preserved"
     Check (-not (Test-Path -LiteralPath (Join-Path $cache 'install-12345/escaped.txt'))) "$mode no path escape"
     Write-Output "$mode : $($status.state) - $($status.message)"
 }

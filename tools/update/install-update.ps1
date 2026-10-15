@@ -11,7 +11,27 @@ $changed = [Collections.Generic.List[object]]::new()
 $ready = $false
 $newProcess = $null
 function Status([string]$state, [string]$message) {
-    @{ state=$state; message=$message; version=$job.version; time=[DateTime]::UtcNow.ToString('o'); backup=$backupRoot } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $cacheRoot 'updater-status.json') -Encoding UTF8
+    @{ state=$state; message=$message; version=$job.version; time=[DateTime]::UtcNow.ToString('o'); backup=$(if (Test-Path -LiteralPath $backupRoot) { $backupRoot } else { '' }) } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $cacheRoot 'updater-status.json') -Encoding UTF8
+}
+function ClearCompletedUpdate {
+    # Only this confirmed update's files, never other jobs or patient storage.
+    $paths = @($workRoot, (Join-Path $cacheRoot ('ready-' + $job.token)), (Join-Path $cacheRoot ('ack-' + $job.token)))
+    $packagePath = [IO.Path]::GetFullPath($job.package)
+    if ([IO.Path]::GetDirectoryName($packagePath) -eq $cacheRoot.TrimEnd('\') -and [IO.Path]::GetFileName($packagePath) -match '^package-[0-9]+\.zip$') { $paths += $packagePath }
+    $expectedJob = Join-Path $cacheRoot ('job-' + $job.token + '.json')
+    if ([IO.Path]::GetFullPath($JobPath) -eq $expectedJob) { $paths += $expectedJob }
+    foreach ($path in $paths) {
+        $full = [IO.Path]::GetFullPath($path)
+        if (-not $full.StartsWith($cacheRoot.TrimEnd('\') + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'Cleanup path escaped update cache' }
+        if (-not (Test-Path -LiteralPath $full)) { continue }
+        NoLinks $full
+        if (Test-Path -LiteralPath $full -PathType Container) {
+            foreach ($child in Get-ChildItem -LiteralPath $full -Recurse -Force) {
+                if ($child.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Cleanup refused linked directory contents' }
+            }
+            Remove-Item -LiteralPath $full -Recurse -Force
+        } else { Remove-Item -LiteralPath $full -Force }
+    }
 }
 function SafePath([string]$base, [string]$relative) {
     if ([string]::IsNullOrWhiteSpace($relative) -or $relative.Contains('\') -or $relative.Contains(':') -or $relative.StartsWith('/') -or ($relative.Split('/') | Where-Object { $_ -in @('..','.') -or $_.EndsWith('.') -or $_.EndsWith(' ') })) { throw "Unsafe package path: $relative" }
@@ -100,6 +120,13 @@ try {
     while ([DateTime]::UtcNow -lt $deadline) {
         if ((Test-Path -LiteralPath $ackPath) -and (Get-Content -LiteralPath $ackPath -Raw).Trim() -eq $job.version) {
             Status 'complete' 'Update installed and application restarted.'
+            # Cleanup failure must never roll back a successfully started app.
+            try {
+                ClearCompletedUpdate
+                Status 'complete' 'Update installed and application restarted. Temporary update files removed.'
+            } catch {
+                Write-Warning ('Update succeeded, but cache cleanup was incomplete: ' + $_.Exception.Message)
+            }
             exit 0
         }
         if ($newProcess.HasExited) { throw 'Updated application exited before startup confirmation' }
