@@ -29,6 +29,8 @@ const _CLR_TXT_TODAY := Color("087f83")
 @onready var connect_button:  Button        = %ConnectButton
 @onready var connect_status:  Label         = %ConnectStatus
 
+var _diag_button: Button = null
+
 # ── Dashboard card ────────────────────────────────────────────────────
 @onready var dash_card:    Panel = %DashCard
 @onready var streak_label: Label = %StreakValue
@@ -40,6 +42,9 @@ const _CLR_TXT_TODAY := Color("087f83")
 @onready var _bars_hbox: HBoxContainer = %BarsHBox
 
 func _ready() -> void:
+	$DiagnosticsButton.pressed.connect(func():
+		if AppUpdater.blocks_login() or AppData.is_patient_loaded: return
+		get_tree().change_scene_to_file("res://scenes/DiagnosticsScene.tscn"))
 	if not has_meta("arcade_authored"): preload("res://scripts/ui/login_ui.gd").configure(login_card, $LoginCard/LoginCardVBox/LoginCardHeader/HeaderVBox/AppLabel, sub_label)
 	login_status.text = AppStorage.error_message
 	login_button.disabled = not AppStorage.error_message.is_empty()
@@ -49,6 +54,13 @@ func _ready() -> void:
 		get_tree().change_scene_to_file("res://scenes/RegisterScene.tscn")
 	)
 	connect_button.pressed.connect(_on_connect_pressed)
+	_diag_button = Button.new()
+	_diag_button.text = "Device Diagnostics"
+	_diag_button.custom_minimum_size = Vector2(0, 44)
+	_diag_button.pressed.connect(func():
+		if AppUpdater.blocks_login(): return
+		get_tree().change_scene_to_file("res://scenes/DiagnosticsScene.tscn"))
+	connect_content.add_child(_diag_button)
 	$VersionLabel.text = "PLUTO v" + AppUpdater.version()
 	AppUpdater.changed.connect(_update_gate)
 	$UpdatePanel/UpdateAction.pressed.connect(func():
@@ -204,6 +216,7 @@ func _update_gate() -> void:
 	login_button.disabled = blocked or not AppStorage.error_message.is_empty()
 	register_button.disabled = blocked or not AppStorage.error_message.is_empty()
 	$DemoButton.disabled = blocked
+	$DiagnosticsButton.disabled = blocked or AppData.is_patient_loaded
 	$UpdatePanel.visible = AppUpdater.enabled and login_content.visible
 	$UpdatePanel/UpdateStatus.text = AppUpdater.message.get_slice("\n", 0)
 	$UpdatePanel/UpdateStatus.tooltip_text = AppUpdater.message

@@ -1,0 +1,261 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://scripts/diagnostics_scene.gd" id="1"]
+[ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="2"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3"]
+[sub_resource type="StyleBoxFlat" id="surface"]
+bg_color = Color(0.97, 0.99, 0.98, 0.97)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+content_margin_left = 24.0
+content_margin_right = 24.0
+content_margin_top = 18.0
+content_margin_bottom = 18.0
+[node name="DiagnosticsScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+metadata/arcade_authored = true
+[node name="ArcadeBackdrop" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 6
+modulate = Color(1, 1, 1, 1)
+
+[node name="Layout" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 32.0
+offset_top = 20.0
+offset_right = 1248.0
+offset_bottom = 776.0
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Layout"]
+unique_name_in_owner = true
+text = "Device diagnostics"
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Toolbar" type="HBoxContainer" parent="Layout"]
+unique_name_in_owner = true
+theme_override_constants/separation = 12
+
+[node name="Port" type="LineEdit" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+placeholder_text = "Serial port"
+custom_minimum_size = Vector2(220,42)
+
+[node name="Connect" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+text = "Connect"
+custom_minimum_size = Vector2(0, 42)
+
+[node name="Connection" type="Label" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+text = "Disconnected"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Space" type="Control" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+
+[node name="Back" type="Button" parent="Layout/Toolbar"]
+unique_name_in_owner = true
+text = "Back to login"
+custom_minimum_size = Vector2(0, 42)
+
+[node name="ContentScroll" type="ScrollContainer" parent="Layout"]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Columns" type="HBoxContainer" parent="Layout/ContentScroll"]
+size_flags_horizontal = 3
+unique_name_in_owner = true
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Live" type="PanelContainer" parent="Layout/ContentScroll/Columns"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("surface")
+
+[node name="LiveContent" type="VBoxContainer" parent="Layout/ContentScroll/Columns/Live"]
+unique_name_in_owner = true
+theme_override_constants/separation = 2
+
+[node name="Controls" type="PanelContainer" parent="Layout/ContentScroll/Columns"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("surface")
+
+[node name="ControlsContent" type="VBoxContainer" parent="Layout/ContentScroll/Columns/Controls"]
+unique_name_in_owner = true
+theme_override_constants/separation = 2
+
+[node name="LiveTitle" type="Label" parent="Layout/ContentScroll/Columns/Live/LiveContent"]
+unique_name_in_owner = true
+text = "Live device data"
+theme_override_font_sizes/font_size = 23
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Telemetry" type="Label" parent="Layout/ContentScroll/Columns/Live/LiveContent"]
+unique_name_in_owner = true
+text = "Connect to view device telemetry."
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="ControlTitle" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+text = "Control output"
+theme_override_font_sizes/font_size = 23
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Enable" type="CheckButton" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+text = "Enable control"
+
+[node name="Mode" type="OptionButton" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0,38)
+
+[node name="Values" type="GridContainer" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+columns = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 2
+
+[node name="TargetLabel" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+text = "Target"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Target" type="SpinBox" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+min_value = -90
+max_value = 90
+value = 0
+step = 0.1
+suffix = "deg"
+custom_minimum_size = Vector2(150,38)
+size_flags_horizontal = 3
+
+[node name="BoundLabel" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+text = "Bound"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Bound" type="SpinBox" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+min_value = 0
+max_value = 1
+value = 0
+step = 0.01
+suffix = ""
+custom_minimum_size = Vector2(150,38)
+size_flags_horizontal = 3
+
+[node name="GainLabel" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+text = "Gain"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Gain" type="SpinBox" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+min_value = 1
+max_value = 20
+value = 1
+step = 0.1
+suffix = ""
+custom_minimum_size = Vector2(150,38)
+size_flags_horizontal = 3
+
+[node name="DurationLabel" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+text = "Duration"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Duration" type="SpinBox" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Values"]
+unique_name_in_owner = true
+min_value = 0.5
+max_value = 30
+value = 2
+step = 0.1
+suffix = "s"
+custom_minimum_size = Vector2(150,38)
+size_flags_horizontal = 3
+
+[node name="Actions" type="HBoxContainer" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+theme_override_constants/separation = 12
+
+[node name="RandomTarget" type="Button" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Actions"]
+unique_name_in_owner = true
+text = "Next random target"
+custom_minimum_size = Vector2(0, 42)
+
+[node name="Stop" type="Button" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Actions"]
+unique_name_in_owner = true
+text = "Stop output"
+custom_minimum_size = Vector2(0, 42)
+
+[node name="CalibrationTitle" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+text = "Manual calibration"
+theme_override_font_sizes/font_size = 23
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+[node name="Mechanism" type="OptionButton" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0,38)
+
+[node name="CalibrationActions" type="HBoxContainer" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+theme_override_constants/separation = 12
+
+[node name="Calibrate" type="Button" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/CalibrationActions"]
+unique_name_in_owner = true
+text = "Start calibration"
+custom_minimum_size = Vector2(0, 42)
+
+[node name="CancelCalibration" type="Button" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/CalibrationActions"]
+unique_name_in_owner = true
+text = "Cancel"
+custom_minimum_size = Vector2(0, 42)
+
+[node name="CalibrationStatus" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+text = "Choose a mechanism to calibrate manually."
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+autowrap_mode = 3
+custom_minimum_size = Vector2(0,38)
+
+[node name="Record" type="CheckButton" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
+unique_name_in_owner = true
+text = "Record diagnostics CSV"
+
+[node name="Notice" type="Label" parent="Layout"]
+unique_name_in_owner = true
+text = "Connect using the port in Documents/PLUTO/device.cfg."
+theme_override_styles/normal = SubResource("surface")
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.12,0.20,0.27,1)
+
+autowrap_mode = 3
+custom_minimum_size = Vector2(0,44)

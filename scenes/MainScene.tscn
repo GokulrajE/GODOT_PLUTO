@@ -1383,6 +1383,14 @@ button_pressed = true
 text = "Music"
 metadata/arcade_authored_control = true
 
+[node name="DiagnosticsButton" type="Button" parent="."]
+offset_left = 32.0
+offset_top = 730.0
+offset_right = 240.0
+offset_bottom = 774.0
+text = "Device diagnostics"
+metadata/secondary = true
+
 [node name="VersionLabel" type="Label" parent="." unique_id=1810674101]
 layout_mode = 0
 offset_left = 1070.0

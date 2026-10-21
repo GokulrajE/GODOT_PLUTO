@@ -23,6 +23,17 @@ const CMD_HEARTBEAT      = 0x80
 
 const MECHANISMS    = ["NOMECH","WFE","WURD","FPS","HOC","FME1","FME2"]
 const CONTROL_TYPES = ["NONE","POSITION","RESIST","TORQUE","POSITIONAAN"]
+signal diagnostics_received
+signal version_received
+var device_id := ""
+var firmware_version := ""
+var compile_date := ""
+var error_status := 0
+var actuated := false
+var control_gain := 1.0
+var control_error := 0.0
+var error_diff := 0.0
+var error_sum := 0.0
 
 # ── Live data ────────────────────────────────────────────────────────
 var angle:         float = 0.0
@@ -134,10 +145,8 @@ func set_control_dir(dir: int) -> void:
 	_send_bytes(PackedByteArray([CMD_SET_CTRL_DIR, dir & 0xFF]))
 
 func set_control_gain(gain: float) -> void:
-	var buf = PackedFloat32Array([gain]).to_byte_array()
-	var payload = PackedByteArray([CMD_SET_CTRL_GAIN])
-	payload.append_array(buf)
-	_send_bytes(payload)
+	# HOMER firmware uses a single normalized byte for the 1..20 gain range.
+	_send_bytes(PackedByteArray([CMD_SET_CTRL_GAIN, int((clampf(gain, 1.0, 20.0) - 1.0) / 19.0 * 255.0)]))
 
 func set_control_target(target_val: float) -> void:
 	var buf = PackedFloat32Array([target_val]).to_byte_array()
@@ -235,15 +244,28 @@ func _parse_packet(raw: PackedByteArray) -> void:
 	status    = raw[3]
 	data_type = (status >> 4) & 0x0F
 
-	if data_type != 0:
+	if data_type == 3:
+		if raw.size() < 9: return
+		var fields := raw.slice(7, raw.size() - 1).get_string_from_ascii().split(",")
+		if fields.size() >= 3:
+			device_id = fields[0]
+			firmware_version = fields[1]
+			compile_date = fields[2]
+			version_received.emit()
+		return
+	if data_type not in [0, 2]:
 		return
 
-	if raw.size() < 15:
+	var sensors := 8 if data_type == 2 else 5
+	var tail := 13 + sensors * 4
+	if raw.size() < tail + 5:
 		return
 
 	var prev_mech = mechanism
 	var prev_ctrl = control_type
 	mechanism    = (raw[6] >> 4) & 0x0F
+	error_status = raw.decode_u16(4)
+	actuated = (raw[6] & 1) != 0
 	calibration  = status & 0x01
 	control_type = (status & 0x0E) >> 1
 
@@ -259,19 +281,25 @@ func _parse_packet(raw: PackedByteArray) -> void:
 	target  = raw.slice(25, 29).to_float32_array()[0]
 	desired = raw.slice(29, 33).to_float32_array()[0]
 
-	if raw.size() > 34:
-		control_bound = raw[33] / 255.0
-		var _d        = raw[34]
+	if data_type == 2:
+		control_error = raw.decode_float(33)
+		error_diff = raw.decode_float(37)
+		error_sum = raw.decode_float(41)
+	if raw.size() > tail + 1:
+		control_bound = raw[tail] / 255.0
+		var _d        = raw[tail + 1]
 		control_dir   = _d if _d <= 127 else _d - 256
+		control_gain = 1.0 + 19.0 * raw[tail + 2] / 255.0
 
-	if raw.size() > 36:
-		button = raw[36]
+	if raw.size() > tail + 3:
+		button = raw[tail + 3]
 		if _prev_button == 0 and button == 1:
 			print("PlutoComm: button pressed")
 			EventBus.button_released.emit()
 		_prev_button = button
 
 	EventBus.new_sensor_data.emit()
+	if data_type == 2: diagnostics_received.emit()
 
 	if prev_ctrl != control_type:
 		EventBus.control_mode_changed.emit()
