@@ -67,6 +67,8 @@ func _process(delta: float) -> void:
 # ── Connection ────────────────────────────────────────────────────────
 func connect_device(port: String) -> bool:
 	if AppData.demo_mode: return false
+	if _manager != null: disconnect_device()
+	_reset_receive_state()
 	_port_name = port
 	_manager = GdSerialManager.new()
 	_manager.data_received.connect(_on_raw_data)
@@ -81,12 +83,31 @@ func connect_device(port: String) -> bool:
 	return false
 
 func disconnect_device() -> void:
-	if _manager:
-		_manager.close(_port_name)
+	var was_connected := is_connected
+	if is_connected and is_streaming: stop_stream()
 	is_connected = false
 	is_streaming = false
+	if _manager:
+		# Detach callbacks before closing so stale disconnect/data events cannot
+		# affect the next login's connection.
+		if _manager.data_received.is_connected(_on_raw_data):
+			_manager.data_received.disconnect(_on_raw_data)
+		if _manager.port_disconnected.is_connected(_on_disconnect):
+			_manager.port_disconnected.disconnect(_on_disconnect)
+		_manager.close(_port_name)
 	_manager     = null
-	EventBus.device_disconnected.emit()
+	_port_name = ""
+	_reset_receive_state()
+	if was_connected: EventBus.device_disconnected.emit()
+
+func _reset_receive_state() -> void:
+	_buf.clear()
+	_prev_button = 0
+	button = 0
+	_heartbeat_timer = 0.0
+
+func _exit_tree() -> void:
+	disconnect_device()
 
 func start_stream() -> void:
 	_send_bytes(PackedByteArray([CMD_START_STREAM]))

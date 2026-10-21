@@ -21,3 +21,5 @@ unityScripts/
 # Exported release artifacts
 builds/
 releases/
+__pycache__/
+*.pyc

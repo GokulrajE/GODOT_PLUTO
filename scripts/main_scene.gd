@@ -53,6 +53,7 @@ func _ready() -> void:
 	AppUpdater.changed.connect(_update_gate)
 	$UpdatePanel/UpdateAction.pressed.connect(func():
 		if AppUpdater.state == "required": AppUpdater.download_update()
+		elif AppUpdater.state == "downloaded": AppUpdater.install_download()
 		else: AppUpdater.check_updates()
 	)
 	AppUpdater.confirm_startup()
@@ -204,9 +205,13 @@ func _update_gate() -> void:
 	register_button.disabled = blocked or not AppStorage.error_message.is_empty()
 	$DemoButton.disabled = blocked
 	$UpdatePanel.visible = AppUpdater.enabled and login_content.visible
-	$UpdatePanel/UpdateStatus.text = AppUpdater.message
-	$UpdatePanel/UpdateProgress.visible = AppUpdater.state == "downloading"
+	$UpdatePanel/UpdateStatus.text = AppUpdater.message.get_slice("\n", 0)
+	$UpdatePanel/UpdateStatus.tooltip_text = AppUpdater.message
+	$UpdatePanel/UpdateProgress.visible = false
 	$UpdatePanel/UpdateProgress.value = 100.0 * AppUpdater.downloaded / maxf(1.0, AppUpdater.total)
 	$UpdatePanel/UpdateAction.disabled = AppUpdater.state in ["checking", "downloading", "installing"]
-	$UpdatePanel/UpdateAction.text = "Download & restart" if AppUpdater.state == "required" and not AppUpdater.release_asset(AppUpdater.release).is_empty() else "Check again"
+	$UpdatePanel/UpdateAction.text = "Update" if AppUpdater.state == "required" else "Check updates"
+	if AppUpdater.state == "downloaded": $UpdatePanel/UpdateAction.text = "Restart & install"
+	if AppUpdater.state == "downloading": $UpdatePanel/UpdateAction.text = "Downloading %d%%" % $UpdatePanel/UpdateProgress.value
+	if AppUpdater.state == "installing": $UpdatePanel/UpdateAction.text = "Restarting…"
 	$UpdatePanel/UpdateProgress.tooltip_text = "%.1f / %.1f MB" % [AppUpdater.downloaded / 1048576.0, AppUpdater.total / 1048576.0]

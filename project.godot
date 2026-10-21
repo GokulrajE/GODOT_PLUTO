@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="PLUTO"
-config/version="1.0.2"
+config/version="1.0.6"
 run/main_scene="res://scenes/MainScene.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://iu4sbf7q18wm"

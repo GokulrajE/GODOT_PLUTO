@@ -269,6 +269,14 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 		"StopTrial | SR=%.1f%% Targets=%d Hits=%d Misses=%d" % [
 			success_rate, targets, hits, misses])
 
+func close_session_logging() -> void:
+	# Final safeguard before patient state is cleared on logout.
+	if EventBus.new_sensor_data.is_connected(_on_raw_log):
+		EventBus.new_sensor_data.disconnect(_on_raw_log)
+	if _trial_raw_logger != null:
+		_trial_raw_logger.stop_data_log()
+		_trial_raw_logger = null
+
 func _on_raw_log() -> void:
 	if _trial_raw_logger == null or not _trial_raw_logger.still_logging:
 		return

@@ -1,4 +1,6 @@
 $ErrorActionPreference='Stop'
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+Add-Type -AssemblyName System.IO.Compression
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $fixtureRoot = Join-Path $repoRoot ('.godot/updater-install-tests/' + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $fixtureRoot -Force | Out-Null
@@ -29,7 +31,7 @@ foreach ($mode in @('success','failed-startup','bad-hash','traversal','wrong-ver
     Copy-Item -LiteralPath $compiled -Destination (Join-Path $build 'PLUTO.exe')
     'new-content' | Set-Content -LiteralPath (Join-Path $build 'asset.txt')
     $version = if ($mode -eq 'wrong-version') { '9.0.0' } else { '1.0.1' }
-    & (Join-Path $repoRoot 'tools/update/package-release.ps1') -BuildDirectory $build -Version $version -OutputDirectory (Join-Path $caseRoot 'release') | Out-Null
+    & python (Join-Path $repoRoot 'tools/update/package-release.py') --platform windows --arch x86_64 --build $build --version $version --output (Join-Path $caseRoot 'release') | Out-Null
     $zip = Join-Path $cache 'package-12345.zip'
     Copy-Item -LiteralPath (Join-Path $caseRoot 'release/PLUTO-windows-x86_64.zip') -Destination $zip
     'unrelated-cache-file' | Set-Content -LiteralPath (Join-Path $cache 'keep.txt')
@@ -43,7 +45,7 @@ foreach ($mode in @('success','failed-startup','bad-hash','traversal','wrong-ver
     $job = @{pid=2147483647;target=$target;executable='PLUTO.exe';package=$zip;sha256=$digest;version='1.0.1';token='12345';cache=$cache}
     $jobPath = Join-Path $cache 'job-12345.json'
     $job | ConvertTo-Json | Set-Content -LiteralPath $jobPath -Encoding UTF8
-    & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $repoRoot 'tools/update/install-update.ps1') -JobPath $jobPath
+    $installer = Start-Process -FilePath (Join-Path $repoRoot 'tools/update/bin/PLUTOUpdater.exe') -ArgumentList @(('"' + $jobPath + '"')) -WindowStyle Hidden -Wait -PassThru
     $status = Get-Content -LiteralPath (Join-Path $cache 'updater-status.json') -Raw | ConvertFrom-Json
     if ($mode -eq 'success') {
         Check ($status.state -eq 'complete') 'successful install and startup acknowledgement'

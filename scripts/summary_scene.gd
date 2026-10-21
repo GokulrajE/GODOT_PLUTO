@@ -56,6 +56,7 @@ func _populate_mech_cards(mech_game: Dictionary) -> void:
 
 func _on_done_pressed() -> void:
 	PlutoComm.disconnect_device()
+	AppData.close_session_logging()
 	AppData.is_patient_loaded    = false
 	AppData.patient_id           = ""
 	AppData.patient_start_date   = ""
