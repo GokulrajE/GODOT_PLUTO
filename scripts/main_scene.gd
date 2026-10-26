@@ -30,6 +30,7 @@ const _CLR_TXT_TODAY := Color("087f83")
 @onready var connect_status:  Label         = %ConnectStatus
 
 var _diag_button: Button = null
+var _login_pending := false
 
 # ── Dashboard card ────────────────────────────────────────────────────
 @onready var dash_card:    Panel = %DashCard
@@ -42,6 +43,23 @@ var _diag_button: Button = null
 @onready var _bars_hbox: HBoxContainer = %BarsHBox
 
 func _ready() -> void:
+	%PatientMatches.visible = LocalServer.enabled
+	%ServerStatus.visible = LocalServer.enabled
+	%RefreshPatients.visible = LocalServer.enabled
+	%RefreshPatients.pressed.connect(func():
+		%RefreshPatients.disabled = true
+		%RefreshPatients.text = "Refreshing…"
+		await LocalServer.refresh_patients()
+		if not is_inside_tree(): return
+		%RefreshPatients.disabled = false
+		%RefreshPatients.text = "↻  Refresh IDs")
+	patient_id_input.text_changed.connect(func(_text): _refresh_patient_matches())
+	%PatientMatches.item_selected.connect(func(index):
+		patient_id_input.text = %PatientMatches.get_item_text(index)
+		_refresh_patient_matches())
+	LocalServer.patients_changed.connect(_refresh_patient_matches)
+	LocalServer.message_changed.connect(func(): %ServerStatus.text = LocalServer.message)
+	_refresh_patient_matches()
 	$DiagnosticsButton.pressed.connect(func():
 		if AppUpdater.blocks_login() or AppData.is_patient_loaded: return
 		get_tree().change_scene_to_file("res://scenes/DiagnosticsScene.tscn"))
@@ -73,7 +91,7 @@ func _ready() -> void:
 	_update_gate()
 
 func _on_login_pressed() -> void:
-	if AppUpdater.blocks_login(): return
+	if AppUpdater.blocks_login() or _login_pending: return
 	if not AppStorage.error_message.is_empty():
 		_set_login_status(AppStorage.error_message, true)
 		return
@@ -81,6 +99,29 @@ func _on_login_pressed() -> void:
 	if pid.is_empty():
 		_set_login_status("Please enter a Patient ID.", true)
 		return
+	if not LocalServer.valid_id(pid):
+		_set_login_status("Use 1–40 letters, numbers, underscores or hyphens for the ID.", true)
+		return
+	if LocalServer.enabled:
+		_login_pending = true
+		_update_gate()
+		var started := await LocalServer.start_patient(pid, _patient_group())
+		_login_pending = false
+		_update_gate()
+		if not started:
+			_set_login_status(LocalServer.message, true)
+			return
+		if not DataManager.patient_exists(pid):
+			var entry := LocalServer.patient_entry(pid)
+			var side: String = str(entry.get("side", ""))
+			if side not in ["left", "right"]:
+				await LocalServer.stop_patient()
+				_set_login_status("Register this assigned ID and choose the training side first.", true)
+				return
+			if not DataManager.create_patient(pid, Time.get_date_string_from_system(), "", side.capitalize(), ""):
+				await LocalServer.stop_patient()
+				_set_login_status("Could not create the local patient record.", true)
+				return
 	if not DataManager.patient_exists(pid):
 		_set_login_status("Patient not found. Please register first.", true)
 		return
@@ -93,6 +134,7 @@ func _on_login_pressed() -> void:
 		connect_status.modulate = Color.WHITE
 		_animate_to_dashboard()
 	else:
+		await LocalServer.stop_patient()
 		_set_login_status("Failed to load patient data.", true)
 
 func _animate_to_dashboard() -> void:
@@ -213,18 +255,30 @@ func _set_login_status(msg: String, is_error: bool) -> void:
 
 func _update_gate() -> void:
 	var blocked := AppUpdater.blocks_login()
-	login_button.disabled = blocked or not AppStorage.error_message.is_empty()
-	register_button.disabled = blocked or not AppStorage.error_message.is_empty()
-	$DemoButton.disabled = blocked
-	$DiagnosticsButton.disabled = blocked or AppData.is_patient_loaded
+	login_button.disabled = _login_pending or blocked or not AppStorage.error_message.is_empty()
+	register_button.disabled = _login_pending or blocked or not AppStorage.error_message.is_empty()
+	$DemoButton.disabled = blocked or _login_pending
+	$DiagnosticsButton.disabled = blocked or _login_pending or AppData.is_patient_loaded
+	patient_id_input.editable = not _login_pending
 	$UpdatePanel.visible = AppUpdater.enabled and login_content.visible
 	$UpdatePanel/UpdateStatus.text = AppUpdater.message.get_slice("\n", 0)
 	$UpdatePanel/UpdateStatus.tooltip_text = AppUpdater.message
 	$UpdatePanel/UpdateProgress.visible = false
 	$UpdatePanel/UpdateProgress.value = 100.0 * AppUpdater.downloaded / maxf(1.0, AppUpdater.total)
-	$UpdatePanel/UpdateAction.disabled = AppUpdater.state in ["checking", "downloading", "installing"]
+	$UpdatePanel/UpdateAction.disabled = _login_pending or AppUpdater.state in ["checking", "downloading", "installing"]
 	$UpdatePanel/UpdateAction.text = "Update" if AppUpdater.state == "required" else "Check updates"
 	if AppUpdater.state == "downloaded": $UpdatePanel/UpdateAction.text = "Restart & install"
 	if AppUpdater.state == "downloading": $UpdatePanel/UpdateAction.text = "Downloading %d%%" % $UpdatePanel/UpdateProgress.value
 	if AppUpdater.state == "installing": $UpdatePanel/UpdateAction.text = "Restarting…"
 	$UpdatePanel/UpdateProgress.tooltip_text = "%.1f / %.1f MB" % [AppUpdater.downloaded / 1048576.0, AppUpdater.total / 1048576.0]
+
+func _patient_group() -> String:
+	return "devices"
+
+func _refresh_patient_matches() -> void:
+	if not LocalServer.enabled: return
+	%PatientMatches.clear()
+	for pid in LocalServer.suggestions(patient_id_input.text, _patient_group()):
+		%PatientMatches.add_item(pid)
+	%PatientMatches.visible = %PatientMatches.item_count > 0
+	%ServerStatus.text = LocalServer.message if %PatientMatches.item_count > 0 else "No matching IDs. Register a new local ID or refresh the server list."

@@ -219,7 +219,7 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 
 	var type_name    = _HomerTherapy.TrialType.keys()[trial_type]
 	var is_catch     = (trial_type == _HomerTherapy.TrialType.SR85PCCATCH)
-	DataManager.write_session_row({
+	var saved := DataManager.write_session_row({
 		"SessionNumber":       session_number,
 		"DateTime":            Time.get_datetime_string_from_system(),
 		"TrialNumberDay":      selected_mechanism.trial_number_day,
@@ -268,6 +268,8 @@ func stop_trial(targets: int, hits: int, misses: int) -> void:
 	DataManager.log_info("AppData",
 		"StopTrial | SR=%.1f%% Targets=%d Hits=%d Misses=%d" % [
 			success_rate, targets, hits, misses])
+
+	if saved: LocalServer.trial_ended()
 
 func close_session_logging() -> void:
 	# Final safeguard before patient state is cleared on logout.

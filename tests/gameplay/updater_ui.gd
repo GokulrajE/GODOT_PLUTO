@@ -10,6 +10,10 @@ func run() -> void:
 	var updater = root.get_node("AppUpdater")
 	updater.cache_path = "user://update-fixtures/" + str(Time.get_ticks_usec()) + "/"
 	DirAccess.make_dir_recursive_absolute(updater.cache_path)
+	check(updater.check_error(HTTPRequest.RESULT_CANT_RESOLVE, 0).contains("DNS"), "DNS failure explained")
+	check(updater.check_error(HTTPRequest.RESULT_TLS_HANDSHAKE_ERROR, 0).contains("certificates"), "TLS failure explained")
+	check(updater.check_error(HTTPRequest.RESULT_TIMEOUT, 0).contains("timed out"), "timeout explained")
+	check(updater.check_error(HTTPRequest.RESULT_CANT_CONNECT, 0).contains("firewall"), "connection failure explained")
 	check(updater.newer("v1.0.1", "1.0.0"), "patch version")
 	check(updater.newer("1.10.0", "1.9.9"), "numeric comparison")
 	check(not updater.newer("1.0.0", "1.0.0"), "same version")

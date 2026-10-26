@@ -128,6 +128,7 @@ func _load_game(id: String) -> void:
 		_check(view.get("booster").get_parent() == game.get_node("Player"), "booster anchored to vehicle")
 		_check(view.get("booster").position.is_equal_approx(Vector2(8, 74)), "booster rear mount aligned")
 	_check(root.content_scale_size == Vector2i(1166, 656), "canonical playfield")
+	_check(root.content_scale_aspect == Window.CONTENT_SCALE_ASPECT_EXPAND, "full-screen scaling remains enabled after scene change")
 	_check(game.size.is_equal_approx(Vector2(1166, 656)), "game fills canonical viewport")
 	var header: Control = game.get_node("UI/Header")
 	for key in ["GameName", "TimerLabel", "ScoreLabel", "StarDisplay", "ExitButton"]:

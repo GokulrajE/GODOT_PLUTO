@@ -74,6 +74,16 @@ func _check_patient_id() -> void:
 		status_label.text        = ""
 		register_button.disabled = true
 		return
+	if not LocalServer.valid_id(pid):
+		_set_status("Use 1–40 letters, numbers, underscores or hyphens.", true)
+		register_button.disabled = true
+		return
+	if LocalServer.enabled:
+		var entry := LocalServer.patient_entry(pid)
+		if not entry.is_empty() and not LocalServer.assigned(entry, "devices"):
+			_set_status("This ID is not assigned to PLUTO in patients.json.", true)
+			register_button.disabled = true
+			return
 	if DataManager.patient_exists(pid):
 		_set_status("Patient ID '" + pid + "' already exists. Go back and login instead.", true)
 		register_button.disabled = true
@@ -100,6 +110,16 @@ func _on_register_pressed() -> void:
 	if pid.is_empty():
 		_set_status("Patient ID is required.", true)
 		return
+	if not LocalServer.valid_id(pid):
+		_set_status("Use 1–40 letters, numbers, underscores or hyphens.", true)
+		register_button.disabled = true
+		return
+	if LocalServer.enabled:
+		var entry := LocalServer.patient_entry(pid)
+		if not entry.is_empty() and not LocalServer.assigned(entry, "devices"):
+			_set_status("This ID is not assigned to PLUTO in patients.json.", true)
+			register_button.disabled = true
+			return
 	if DataManager.patient_exists(pid):
 		_set_status("Patient ID already exists. Please login instead.", true)
 		return

@@ -13,6 +13,7 @@ var total := 0
 var enabled := false
 var stage := ""
 var checking := false
+var check_attempt := 0
 
 func _ready() -> void:
 	enabled = not OS.has_feature("editor") and not asset_name().is_empty()
@@ -90,9 +91,14 @@ func check_updates() -> void:
 		var cached = JSON.parse_string(FileAccess.get_file_as_string(cache_path + "required.json"))
 		if cached is Dictionary and newer(str(cached.get("tag_name", "")), version()): release = cached
 	checking = true
+	check_attempt = 0
 	_set_state("checking", "Checking GitHub for updates…")
+	_send_release_check()
+
+func _send_release_check() -> void:
+	check_attempt += 1
 	request = HTTPRequest.new()
-	request.timeout = 12
+	request.timeout = 25
 	request.body_size_limit = 2097152
 	add_child(request)
 	request.request_completed.connect(_checked)
@@ -103,10 +109,19 @@ func check_updates() -> void:
 		_unavailable("Could not check for updates. You can retry.")
 
 func _checked(result: int, code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	checking = false
 	request.queue_free()
+	var log := FileAccess.open(cache_path + "release-check.json", FileAccess.WRITE)
+	if log:
+		log.store_string(JSON.stringify({"time":Time.get_datetime_string_from_system(), "transport_result":result, "http_status":code, "attempt":check_attempt, "version":version()}))
+		log.close()
+	if result != HTTPRequest.RESULT_SUCCESS and check_attempt < 2:
+		_set_state("checking", "Connection interrupted. Retrying GitHub…")
+		await get_tree().create_timer(1.0).timeout
+		_send_release_check()
+		return
+	checking = false
 	if result != HTTPRequest.RESULT_SUCCESS or code != 200:
-		_unavailable("Release check unavailable (HTTP %d)." % code)
+		_unavailable(check_error(result, code))
 		return
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	if not data is Dictionary:
@@ -230,3 +245,16 @@ func confirm_startup() -> void:
 			if not token.is_valid_filename() or token.contains("."): return
 			var file := FileAccess.open(cache_path + "ack-" + token, FileAccess.WRITE)
 			if file: file.store_string(version())
+
+static func check_error(result: int, code: int) -> String:
+	if result != HTTPRequest.RESULT_SUCCESS:
+		match result:
+			HTTPRequest.RESULT_CANT_RESOLVE: return "Cannot resolve api.github.com. Check this device's DNS or Internet connection."
+			HTTPRequest.RESULT_CANT_CONNECT: return "Cannot connect to GitHub. Check Internet access, proxy or firewall settings."
+			HTTPRequest.RESULT_TLS_HANDSHAKE_ERROR: return "GitHub secure connection failed. Check the device clock and trusted certificates."
+			HTTPRequest.RESULT_TIMEOUT: return "GitHub update check timed out. Try again when the connection is stable."
+			HTTPRequest.RESULT_CONNECTION_ERROR: return "Connection to GitHub was interrupted. Check Internet access and retry."
+			_: return "GitHub request failed (network result %d). Retry; details are in release-check.json." % result
+	if code == 403 or code == 429: return "GitHub limited or refused the update request (HTTP %d). Try again later." % code
+	if code == 404: return "GitHub release not found (HTTP 404). Check repository access."
+	return "Release check unavailable (HTTP %d). Try again later." % code

@@ -102,11 +102,11 @@ func _count_session_rows() -> int:
 	file.close()
 	return max_sess + 1
 
-func write_session_row(row: Dictionary) -> void:
+func write_session_row(row: Dictionary) -> bool:
 	var path = data_root + AppData.patient_id + "/session/sessions.csv"
 	var file = FileAccess.open(path, FileAccess.READ_WRITE)
 	if file == null:
-		return
+		return false
 	file.seek_end()
 	var cols: PackedStringArray = SESSION_HEADER.split(",")
 	var values: Array[String]   = []
@@ -114,6 +114,7 @@ func write_session_row(row: Dictionary) -> void:
 		values.append(str(row.get(col.strip_edges(), "")))
 	file.store_line(",".join(values))
 	file.close()
+	return true
 
 # ══ Raw data ═══════════════════════════════════════════════════════════
 
@@ -460,6 +461,7 @@ func save_config() -> void:
 	])
 	file.close()
 	log_info("DataManager", "Config saved for " + AppData.patient_id)
+	LocalServer.config_updated()
 
 func has_rom_data(mech_name: String) -> bool:
 	var path = data_root + AppData.patient_id + "/rom/" + mech_name + "-rom.csv"
@@ -510,3 +512,21 @@ func write_active_time(raw_file: String, mech: String, game: String, days: Dicti
 	for day in days: file.store_csv_line([day, raw_file.get_file(), mech, game, "%.3f" % days[day]])
 	file.close()
 	_activity_cache_key = ""
+
+func export_server_config(pid: String) -> String:
+	var source := FileAccess.open(data_root + pid + "/configdata", FileAccess.READ)
+	if source == null: return ""
+	var columns := source.get_csv_line()
+	var values := source.get_csv_line()
+	source.close()
+	if columns.is_empty() or values.size() != columns.size() or values[0] != pid: return ""
+	# Preserve the local schema and add the server's routing column to its copy.
+	columns.append("HomerID")
+	values.append(pid)
+	var path := data_root + pid + "/configdata.csv"
+	var output := FileAccess.open(path, FileAccess.WRITE)
+	if output == null: return ""
+	output.store_csv_line(columns)
+	output.store_csv_line(values)
+	output.close()
+	return path

@@ -17,7 +17,9 @@ foreach ($target in $targets) {
 }
 Push-Location $root
 try {
-    if ('windows' -in $targets) { & (Join-Path $PSScriptRoot 'build-helper.ps1') }
+    if ('windows' -in $targets) {
+        & (Join-Path $PSScriptRoot 'build-helper.ps1')
+    }
     foreach ($target in $targets) {
         $build = Join-Path $root "builds/releases/v$version/$target"
         New-Item -ItemType Directory -Path $build -Force | Out-Null

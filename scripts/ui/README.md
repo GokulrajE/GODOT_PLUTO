@@ -9,7 +9,7 @@ The saved .tscn scenes contain the approved blue arcade UI, including layouts, t
 - `arcade_assets.gd`: cached atlas regions for transparent illustrations and plant stages.
 - `ui_motion.gd`: interruptible button feedback and modal entrances.
 - `login_ui.gd`, `dashboard_motion.gd`, `game_picker_ui.gd`: screen-specific composition.
-- `../gameplay/playfield_layout.gd`: fixed 1166×656 game coordinates with aspect-preserving scaling; menus use 1280×800.
+- `../gameplay/playfield_layout.gd`: 1166×656 game coordinates and 1280×800 menu coordinates with aspect-preserving expand scaling. Fullscreen defaults to a 1920×1080 window size; wider displays receive additional canvas space instead of letterboxing.
 - `../gameplay/game_input.gd`: device/keyboard input selection and position retention when keys are released.
 - `../gameplay/game_presentation.gd`: artwork, HUD, dialogs and visual motion, independent of game scoring.
 - `../effects/game_effects.gd`: bounded particles, score feedback and ball trails; pause and reduced-motion aware.

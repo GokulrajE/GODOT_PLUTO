@@ -142,6 +142,36 @@ texture_margin_top = 24.0
 texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 
+[sub_resource type="StyleBoxFlat" id="patient_list_background"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.94, 0.97, 0.99, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7, 0.83, 0.85, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="patient_list_selection"]
+bg_color = Color(0.61, 0.89, 0.81, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="patient_list_hover"]
+bg_color = Color(0.8, 0.93, 0.91, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qavw1"]
 content_margin_left = 16.0
 content_margin_top = 10.0
@@ -1190,6 +1220,49 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_jcw2p")
 placeholder_text = "Enter Patient ID"
 metadata/arcade_authored_control = true
 
+[node name="RefreshPatients" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=297867896]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 34)
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_text = "Get the latest assigned patient IDs from the server"
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("patient_list_background")
+theme_override_styles/pressed = SubResource("patient_list_selection")
+theme_override_styles/hover = SubResource("patient_list_hover")
+text = "↻  Refresh IDs"
+metadata/arcade_authored_control = true
+
+[node name="PatientMatches" type="ItemList" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1921641082]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.2, 0.27, 1)
+theme_override_colors/font_hovered_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_colors/font_hovered_selected_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_colors/font_selected_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/panel = SubResource("patient_list_background")
+theme_override_styles/hovered = SubResource("patient_list_hover")
+theme_override_styles/hovered_selected = SubResource("patient_list_selection")
+theme_override_styles/hovered_selected_focus = SubResource("patient_list_selection")
+theme_override_styles/selected = SubResource("patient_list_selection")
+theme_override_styles/selected_focus = SubResource("patient_list_selection")
+allow_reselect = true
+
+[node name="ServerStatus" type="Label" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=869658895]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Loading assigned patient IDs…"
+autowrap_mode = 3
+
 [node name="LoginButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=1664489903]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 52)
@@ -1383,7 +1456,8 @@ button_pressed = true
 text = "Music"
 metadata/arcade_authored_control = true
 
-[node name="DiagnosticsButton" type="Button" parent="."]
+[node name="DiagnosticsButton" type="Button" parent="." unique_id=1403364007]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 730.0
 offset_right = 240.0
@@ -1407,9 +1481,9 @@ metadata/arcade_authored_control = true
 visible = false
 anchors_preset = 0
 offset_left = 362.0
-offset_top = 520.0
+offset_top = 646.0
 offset_right = 922.0
-offset_bottom = 608.0
+offset_bottom = 734.0
 metadata/arcade_authored_control = true
 
 [node name="UpdateTitle" type="Label" parent="UpdatePanel" unique_id=1401697393]

@@ -12,7 +12,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/update/build-release.p
 
 Add `-Platform windows` or `-Platform pi` to build only one platform. Change the Godot path if installed elsewhere. The command works from Command Prompt or PowerShell.
 
-The script reads the project version, builds the Windows updater helper when needed, exports the game, and creates the ZIP, `app-release.json` and checksum. Existing version folders are never overwritten.
+The script reads the project version, builds the Windows updater helper, exports the game, and creates the ZIP, `app-release.json` and checksum. Existing version folders are never overwritten. The app uses the separately running local server agent. See [local-server setup](docs/local-server.md) for patient assignments and upload configuration.
 
 For version 1.0.7, outputs are:
 

@@ -106,3 +106,8 @@ func write_to_file() -> void:
 			mechanism, prom_min, prom_max, arom_min, arom_max, aprom_min, aprom_max,
 			str(is_cpm)
 		])
+
+	LocalServer.assessment_finished({mechanism: {
+		"datetime": datetime, "prom_min": prom_min, "prom_max": prom_max,
+		"arom_min": arom_min, "arom_max": arom_max,
+		"aprom_min": aprom_min, "aprom_max": aprom_max}})

@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="PLUTO"
-config/version="1.0.6"
+config/version="1.0.8"
 run/main_scene="res://scenes/MainScene.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://iu4sbf7q18wm"
@@ -31,14 +31,17 @@ StatusOverlay="*res://autoloads/StatusOverlay.gd"
 UIManager="*res://scripts/ui/ui_manager.gd"
 MenuMusic="*res://scripts/ui/menu_music.gd"
 AppUpdater="*res://autoloads/AppUpdater.gd"
+LocalServer="*res://autoloads/LocalServer.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=800
-window/size/window_width_override=1280
-window/size/window_height_override=800
+window/size/mode=3
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

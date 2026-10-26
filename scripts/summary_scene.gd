@@ -23,6 +23,7 @@ func _ready() -> void:
 
 	_populate_mech_cards(summary.get("mech_game", {}))
 	_populate_graph()
+	LocalServer.stop_patient()
 
 func _populate_mech_cards(mech_game: Dictionary) -> void:
 	var config := {
@@ -57,6 +58,8 @@ func _populate_mech_cards(mech_game: Dictionary) -> void:
 func _on_done_pressed() -> void:
 	PlutoComm.disconnect_device()
 	AppData.close_session_logging()
+	_done_button.disabled = true
+	await LocalServer.stop_patient()
 	AppData.is_patient_loaded    = false
 	AppData.patient_id           = ""
 	AppData.patient_start_date   = ""

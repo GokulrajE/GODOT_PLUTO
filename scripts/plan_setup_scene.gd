@@ -236,6 +236,12 @@ func _config_dict() -> Dictionary:
 	}
 
 func _update_done_button() -> void:
+	if LocalServer.enabled and LocalServer.login_group == "assessment_devices":
+		_done_button.text = "End assessment"
+		_done_button.disabled = false
+		_error_label.text = "Completed measurements upload automatically."
+		$Root/BottomBar/BottomPad/BottomHBox/SetDurationButton.hide()
+		return
 	var total   = AppData.config_wfe + AppData.config_wurd + AppData.config_fps \
 	            + AppData.config_hoc + AppData.config_fme1 + AppData.config_fme2
 	var fme1_ok = AppData.config_fme1 == 0 or AppData.config_fme1_id >= 0
@@ -309,5 +315,10 @@ func _select_knob(index: int) -> void:
 	_refresh_cards()
 
 func _on_done_pressed() -> void:
+	if LocalServer.enabled and LocalServer.login_group == "assessment_devices":
+		LocalServer.load_patients()
+		if not LocalServer.assigned(LocalServer.patient_entry(AppData.patient_id), "devices"):
+			get_tree().change_scene_to_file("res://scenes/SummaryScene.tscn")
+			return
 	AppData.is_plan_setup = false
 	get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
