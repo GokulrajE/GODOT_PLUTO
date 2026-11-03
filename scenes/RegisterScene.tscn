@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/register_scene.gd" id="1_reg"]
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_v17fi"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_2u6f2"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/forest-soft.png" id="3_2u6f2"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_64l03"]
 [ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="5_0lbd1"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_sverg"]
@@ -450,6 +450,87 @@ corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.10)
 shadow_offset = Vector2(0, 4)
 
+
+[sub_resource type="StyleBoxFlat" id="forest_card"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.79, 0.83, 0.80, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_primary"]
+bg_color = Color(0.025, 0.30, 0.34, 1)
+border_color = Color(0.025, 0.30, 0.34, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_hover"]
+bg_color = Color(0.04, 0.39, 0.41, 1)
+border_color = Color(0.04, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [node name="RegisterScene" type="Control" unique_id=121871352]
 layout_mode = 3
 anchors_preset = 15
@@ -463,7 +544,6 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=327798626]
-material = SubResource("living_garden_material")
 script = ExtResource("living_garden_script")
 anchors_preset = 0
 anchor_right = 1.0
@@ -472,7 +552,7 @@ mouse_filter = 2
 theme = ExtResource("1_v17fi")
 texture = ExtResource("3_2u6f2")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=1610370627]
@@ -647,17 +727,17 @@ custom_minimum_size = Vector2(140, 46)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_v17fi")
-theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_bpr2d")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_cxl2k")
-theme_override_styles/hover = SubResource("StyleBoxTexture_y81ox")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_cxmw3")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_r6ogl")
 theme_override_styles/focus = SubResource("StyleBoxFlat_cvyf2")
 toggle_mode = true
@@ -669,17 +749,17 @@ custom_minimum_size = Vector2(140, 46)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_v17fi")
-theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_6a7c1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_fopkj")
-theme_override_styles/hover = SubResource("StyleBoxTexture_makde")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_4ede0")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_62cth")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i8p5i")
 toggle_mode = true
@@ -723,17 +803,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_v17fi")
-theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_elc3c")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6uax2")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kogln")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_yjagp")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_g4c03")
 theme_override_styles/focus = SubResource("StyleBoxFlat_gu3a0")
 text = "Back"
@@ -748,17 +828,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_v17fi")
-theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxTexture_q12et")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1xsvo")
-theme_override_styles/hover = SubResource("StyleBoxTexture_sv2tl")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_31kbg")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_fbqc7")
 theme_override_styles/focus = SubResource("StyleBoxFlat_tlsov")
 disabled = true

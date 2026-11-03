@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_0ser4"]
 [ext_resource type="Script" path="res://scripts/assist_profile_scene.gd" id="1_s3fxf"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_qtm31"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/forest-soft.png" id="3_qtm31"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_iedyb"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="5_fyngl"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_v8n6b"]
@@ -141,6 +141,87 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+
+[sub_resource type="StyleBoxFlat" id="forest_card"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.79, 0.83, 0.80, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_primary"]
+bg_color = Color(0.025, 0.30, 0.34, 1)
+border_color = Color(0.025, 0.30, 0.34, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_hover"]
+bg_color = Color(0.04, 0.39, 0.41, 1)
+border_color = Color(0.04, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [node name="AssistProfileScene" type="Control" unique_id=1181833162]
 layout_mode = 3
 anchors_preset = 15
@@ -154,7 +235,6 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=16241748]
-material = SubResource("living_garden_material")
 script = ExtResource("living_garden_script")
 anchors_preset = 0
 anchor_right = 1.0
@@ -163,7 +243,7 @@ mouse_filter = 2
 theme = ExtResource("1_0ser4")
 texture = ExtResource("3_qtm31")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="BGColor" type="ColorRect" parent="." unique_id=1090763865]
@@ -229,17 +309,17 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_0ser4")
-theme_override_colors/font_color = Color(0.07058824, 0.24705882, 0.2784314, 1)
-theme_override_colors/font_focus_color = Color(0.07058824, 0.24705882, 0.2784314, 1)
-theme_override_colors/font_pressed_color = Color(0.07058824, 0.24705882, 0.2784314, 1)
-theme_override_colors/font_hover_color = Color(0.07058824, 0.24705882, 0.2784314, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.07058824, 0.24705882, 0.2784314, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.48235294, 0.56078434, 0.63529414, 1)
 theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxTexture_udcdo")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6mblc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_1rdgn")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_5nes3")
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_tng4m")
 theme_override_styles/focus = SubResource("StyleBoxFlat_vnxrt")
 text = "← Assess"
@@ -253,7 +333,7 @@ anchor_top = 0.13
 anchor_right = 0.99
 anchor_bottom = 0.95
 theme = ExtResource("1_0ser4")
-theme_override_styles/panel = SubResource("StyleBoxTexture_5t8bd")
+theme_override_styles/panel = SubResource("forest_card")
 metadata/arcade_authored_control = true
 
 [node name="AssistHeaderBar" type="Panel" parent="MainPanel" unique_id=1542731713]

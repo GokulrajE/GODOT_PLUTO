@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="res://scripts/diagnostics_scene.gd" id="1"]
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="2"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/forest-soft.png" id="3"]
 [sub_resource type="StyleBoxFlat" id="surface"]
 bg_color = Color(0.97, 0.99, 0.98, 0.97)
 corner_radius_top_left = 20
@@ -12,6 +12,87 @@ content_margin_left = 24.0
 content_margin_right = 24.0
 content_margin_top = 18.0
 content_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxFlat" id="forest_card"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.79, 0.83, 0.80, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_primary"]
+bg_color = Color(0.025, 0.30, 0.34, 1)
+border_color = Color(0.025, 0.30, 0.34, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_hover"]
+bg_color = Color(0.04, 0.39, 0.41, 1)
+border_color = Color(0.04, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [node name="DiagnosticsScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -59,6 +140,15 @@ custom_minimum_size = Vector2(220,42)
 unique_name_in_owner = true
 text = "Connect"
 custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 
 [node name="Connection" type="Label" parent="Layout/Toolbar"]
 unique_name_in_owner = true
@@ -74,6 +164,15 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 text = "Back to login"
 custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
 
 [node name="ContentScroll" type="ScrollContainer" parent="Layout"]
 size_flags_vertical = 3
@@ -207,11 +306,29 @@ theme_override_constants/separation = 12
 unique_name_in_owner = true
 text = "Next random target"
 custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 
 [node name="Stop" type="Button" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/Actions"]
 unique_name_in_owner = true
 text = "Stop output"
 custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 
 [node name="CalibrationTitle" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
 unique_name_in_owner = true
@@ -231,11 +348,29 @@ theme_override_constants/separation = 12
 unique_name_in_owner = true
 text = "Start calibration"
 custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 
 [node name="CancelCalibration" type="Button" parent="Layout/ContentScroll/Columns/Controls/ControlsContent/CalibrationActions"]
 unique_name_in_owner = true
 text = "Cancel"
 custom_minimum_size = Vector2(0, 42)
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
 
 [node name="CalibrationStatus" type="Label" parent="Layout/ContentScroll/Columns/Controls/ControlsContent"]
 unique_name_in_owner = true

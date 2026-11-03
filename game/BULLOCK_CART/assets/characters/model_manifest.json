@@ -1,0 +1,30 @@
+{
+  "bullock_rigged": {
+	"vertices": 19796,
+	"triangles": 39472,
+	"bones": 21,
+	"bytes": 3129684,
+	"animations": [
+	  "Run",
+      "Walk"
+	]
+  },
+  "driver_rigged": {
+	"vertices": 17598,
+	"triangles": 35044,
+	"bones": 11,
+	"bytes": 7190908,
+	"animations": [
+      "Ride"
+	]
+  },
+  "driver_rigged_checked": {
+	"vertices": 18090,
+	"triangles": 36024,
+	"bones": 11,
+	"bytes": 9471732,
+	"animations": [
+      "Ride"
+	]
+  }
+}

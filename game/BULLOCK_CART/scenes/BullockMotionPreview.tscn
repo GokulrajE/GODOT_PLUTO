@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cc40jegkw8pva"]
+
+[ext_resource type="Script" uid="uid://rd8kgyl16pow" path="res://game/BULLOCK_CART/scripts/bullock_game.gd" id="1"]
+
+[node name="BullockMotionPreview" type="Node3D" unique_id=713538735]
+script = ExtResource("1")
+motion_preview = true

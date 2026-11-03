@@ -1,0 +1,233 @@
+{
+  "size": [
+    1254,
+    1254
+  ],
+  "anchor": "cart wheel baseline and rear cart edge, not moving hooves",
+  "frames": [
+    {
+      "region": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "offset": [
+        -7.5,
+        118.5
+      ],
+      "wheel_bottom": 275,
+      "cart_right": 306
+    },
+    {
+      "region": [
+        313,
+        0,
+        314,
+        313
+      ],
+      "offset": [
+        -10.0,
+        117.5
+      ],
+      "wheel_bottom": 274,
+      "cart_right": 309
+    },
+    {
+      "region": [
+        627,
+        0,
+        313,
+        313
+      ],
+      "offset": [
+        -13.5,
+        118.5
+      ],
+      "wheel_bottom": 275,
+      "cart_right": 312
+    },
+    {
+      "region": [
+        940,
+        0,
+        314,
+        313
+      ],
+      "offset": [
+        -10.0,
+        117.5
+      ],
+      "wheel_bottom": 274,
+      "cart_right": 309
+    },
+    {
+      "region": [
+        0,
+        313,
+        313,
+        314
+      ],
+      "offset": [
+        -7.5,
+        114.0
+      ],
+      "wheel_bottom": 271,
+      "cart_right": 306
+    },
+    {
+      "region": [
+        313,
+        313,
+        314,
+        314
+      ],
+      "offset": [
+        -10.0,
+        114.0
+      ],
+      "wheel_bottom": 271,
+      "cart_right": 309
+    },
+    {
+      "region": [
+        627,
+        313,
+        313,
+        314
+      ],
+      "offset": [
+        -8.5,
+        114.0
+      ],
+      "wheel_bottom": 271,
+      "cart_right": 307
+    },
+    {
+      "region": [
+        940,
+        313,
+        314,
+        314
+      ],
+      "offset": [
+        -7.0,
+        113.0
+      ],
+      "wheel_bottom": 270,
+      "cart_right": 306
+    },
+    {
+      "region": [
+        0,
+        627,
+        313,
+        313
+      ],
+      "offset": [
+        -7.5,
+        114.5
+      ],
+      "wheel_bottom": 271,
+      "cart_right": 306
+    },
+    {
+      "region": [
+        313,
+        627,
+        314,
+        313
+      ],
+      "offset": [
+        -9.0,
+        115.5
+      ],
+      "wheel_bottom": 272,
+      "cart_right": 308
+    },
+    {
+      "region": [
+        627,
+        627,
+        313,
+        313
+      ],
+      "offset": [
+        -7.5,
+        117.5
+      ],
+      "wheel_bottom": 274,
+      "cart_right": 306
+    },
+    {
+      "region": [
+        940,
+        627,
+        314,
+        313
+      ],
+      "offset": [
+        -6.0,
+        116.5
+      ],
+      "wheel_bottom": 273,
+      "cart_right": 305
+    },
+    {
+      "region": [
+        0,
+        940,
+        313,
+        314
+      ],
+      "offset": [
+        -8.5,
+        113.0
+      ],
+      "wheel_bottom": 270,
+      "cart_right": 307
+    },
+    {
+      "region": [
+        313,
+        940,
+        314,
+        314
+      ],
+      "offset": [
+        -10.0,
+        113.0
+      ],
+      "wheel_bottom": 270,
+      "cart_right": 309
+    },
+    {
+      "region": [
+        627,
+        940,
+        313,
+        314
+      ],
+      "offset": [
+        -8.5,
+        114.0
+      ],
+      "wheel_bottom": 271,
+      "cart_right": 307
+    },
+    {
+      "region": [
+        940,
+        940,
+        314,
+        314
+      ],
+      "offset": [
+        -8.0,
+        113.0
+      ],
+      "wheel_bottom": 270,
+      "cart_right": 307
+    }
+  ]
+}

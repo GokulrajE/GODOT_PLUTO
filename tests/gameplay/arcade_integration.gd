@@ -245,7 +245,7 @@ func _run() -> void:
 		await _step(2100, true)
 		_hold(0)
 		_check(game.get_node("UI/GameOverPanel").visible, "timer reaches results")
-		_check(game.get_node("UI/GameOverPanel/OverTitle").text == "GAME OVER", "updated results heading")
+		_check(game.get_node("UI/GameOverPanel/OverTitle").text == "Game over", "updated results heading")
 		_check(game.get_node("UI/GameOverPanel").reveal_count == 1, "results animation and audio trigger once")
 		if kind == "garden":
 			_check(game.get("_drop_nodes")[0] is TextureRect, "rain uses water-drop textures")

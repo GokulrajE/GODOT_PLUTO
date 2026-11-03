@@ -4,36 +4,32 @@
 [ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_pjux3"]
 [ext_resource type="Texture2D" uid="uid://iu4sbf7q18wm" path="res://Assets/Pluto.png" id="2_pluto"]
 [ext_resource type="Texture2D" uid="uid://be73246ox7t08" path="res://Assets/cmc.png" id="3_c6dvc"]
-[ext_resource type="Texture2D" uid="uid://c0id5s7b44ywi" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_xnxdc"]
+[ext_resource type="Texture2D" uid="uid://cca05wamm68n4" path="res://Assets/Arcade/forest-soft.png" id="3_xnxdc"]
 [ext_resource type="Texture2D" uid="uid://ctlrhku5y7rhf" path="res://Assets/biorehab.png" id="4_611at"]
 [ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="5_kp0ql"]
 [ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="6_08o8g"]
 [ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="7_0cxu4"]
-[ext_resource type="Texture2D" uid="uid://xlgqeatescof" path="res://Assets/Arcade/daylight-primary.svg" id="8_xnxdc"]
-[ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="9_0ehpd"]
 [ext_resource type="Script" uid="uid://cmaq3wpsmkmug" path="res://scripts/ui/living_garden.gd" id="living_garden_script"]
-[ext_resource type="Shader" uid="uid://cfisjlcpj1osj" path="res://Assets/Arcade/living-garden.gdshader" id="living_garden_shader"]
-[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
-[ext_resource type="Texture2D" uid="uid://eielf00nhhvv" path="res://Assets/Arcade/Online/Icons/arrow-right.svg" id="patient_icon_arrow-right"]
+[ext_resource type="Script" uid="uid://gb52huyujiua" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
 [ext_resource type="Texture2D" uid="uid://bxwghdgibefs6" path="res://Assets/Arcade/Online/Icons/bluetooth.svg" id="patient_icon_bluetooth"]
 [ext_resource type="Texture2D" uid="uid://cyjqxkp82sa5u" path="res://Assets/Arcade/Online/Icons/play.svg" id="patient_icon_play"]
 [ext_resource type="Texture2D" uid="uid://dmikdo8ywksjo" path="res://Assets/Arcade/Online/Icons/user-plus.svg" id="patient_icon_user-plus"]
 
-[sub_resource type="ShaderMaterial" id="living_garden_material"]
-resource_local_to_scene = true
-shader = ExtResource("living_garden_shader")
-shader_parameter/phase = 0.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8wjpf"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxFlat" id="forest_card"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.79, 0.83, 0.8, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25dfr"]
 content_margin_left = 24.0
@@ -87,28 +83,6 @@ texture_margin_top = 24.0
 texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ns3k"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a7pbh"]
-content_margin_left = 24.0
-content_margin_top = 14.0
-content_margin_right = 24.0
-content_margin_bottom = 14.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ye0jt"]
 content_margin_left = 16.0
 content_margin_top = 10.0
@@ -142,6 +116,38 @@ texture_margin_top = 24.0
 texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.56, 0.56, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.56, 0.56, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [sub_resource type="StyleBoxFlat" id="patient_list_background"]
 content_margin_left = 12.0
 content_margin_top = 8.0
@@ -158,13 +164,6 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="patient_list_selection"]
-bg_color = Color(0.61, 0.89, 0.81, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
 [sub_resource type="StyleBoxFlat" id="patient_list_hover"]
 bg_color = Color(0.8, 0.93, 0.91, 1)
 corner_radius_top_left = 6
@@ -172,50 +171,44 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qavw1"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="StyleBoxFlat" id="patient_list_selection"]
+bg_color = Color(0.61, 0.89, 0.81, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i7ifx"]
+[sub_resource type="StyleBoxFlat" id="forest_primary"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+bg_color = Color(0.025, 0.3, 0.34, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.025, 0.3, 0.34, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3sjc"]
+[sub_resource type="StyleBoxFlat" id="forest_hover"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fto0a"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+bg_color = Color(0.04, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.04, 0.39, 0.41, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mekmn"]
 content_margin_left = 16.0
@@ -243,51 +236,6 @@ corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kwqb8"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y15d6"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("9_0ehpd")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u55b3"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wsqty"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("9_0ehpd")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oiest"]
 content_margin_left = 16.0
 content_margin_top = 10.0
@@ -313,51 +261,6 @@ corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kik7w"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ikpr"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_doyhq"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2so2y"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("8_xnxdc")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7yh6i"]
 content_margin_left = 16.0
@@ -385,62 +288,6 @@ corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cw1g3"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yc0gu"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("9_0ehpd")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qnen4"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5chl"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("9_0ehpd")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j2mks"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("7_0cxu4")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ha8j"]
 bg_color = Color(1, 1, 1, 0)
 draw_center = false
@@ -455,51 +302,6 @@ corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xuwja"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g8282"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("9_0ehpd")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7tuqu"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("5_kp0ql")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e65ta"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("9_0ehpd")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fupde"]
 content_margin_left = 16.0
@@ -540,7 +342,6 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=1969061458]
-material = SubResource("living_garden_material")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -548,6 +349,7 @@ mouse_filter = 2
 theme = ExtResource("1_pjux3")
 texture = ExtResource("3_xnxdc")
 expand_mode = 1
+stretch_mode = 6
 script = ExtResource("living_garden_script")
 metadata/arcade_authored_control = true
 
@@ -600,7 +402,7 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_pjux3")
-theme_override_styles/panel = SubResource("StyleBoxTexture_8wjpf")
+theme_override_styles/panel = SubResource("forest_card")
 metadata/arcade_authored_control = true
 
 [node name="DashCardVBox" type="VBoxContainer" parent="DashCard" unique_id=1750666833]
@@ -1117,7 +919,7 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_pjux3")
-theme_override_styles/panel = SubResource("StyleBoxTexture_1ns3k")
+theme_override_styles/panel = SubResource("forest_card")
 metadata/arcade_authored_control = true
 
 [node name="LoginCardVBox" type="VBoxContainer" parent="LoginCard" unique_id=156750519]
@@ -1135,7 +937,7 @@ metadata/arcade_authored_control = true
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 theme = ExtResource("1_pjux3")
-theme_override_styles/panel = SubResource("StyleBoxTexture_a7pbh")
+theme_override_styles/panel = SubResource("forest_card")
 metadata/arcade_authored_control = true
 
 [node name="HeaderVBox" type="VBoxContainer" parent="LoginCard/LoginCardVBox/LoginCardHeader" unique_id=1676850649]
@@ -1227,13 +1029,16 @@ layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Get the latest assigned patient IDs from the server"
 mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(0.08, 0.22, 0.25, 1)
-theme_override_colors/font_pressed_color = Color(0.08, 0.22, 0.25, 1)
-theme_override_colors/font_hover_color = Color(0.08, 0.22, 0.25, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("patient_list_background")
-theme_override_styles/pressed = SubResource("patient_list_selection")
-theme_override_styles/hover = SubResource("patient_list_hover")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 text = "↻  Refresh IDs"
 metadata/arcade_authored_control = true
 
@@ -1269,23 +1074,22 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/h_separation = 10
 theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxTexture_qavw1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_i7ifx")
-theme_override_styles/hover = SubResource("StyleBoxTexture_r3sjc")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_fto0a")
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_mekmn")
 theme_override_styles/focus = SubResource("StyleBoxFlat_l3o4o")
 text = "Login"
-icon = ExtResource("patient_icon_arrow-right")
 metadata/arcade_authored_control = true
 
 [node name="RegisterButton" type="Button" parent="LoginCard/LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent" unique_id=945927648]
@@ -1294,19 +1098,19 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/h_separation = 10
 theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxTexture_kwqb8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_y15d6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_u55b3")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wsqty")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_oiest")
 theme_override_styles/focus = SubResource("StyleBoxFlat_f4jp2")
 text = "Register New Patient"
@@ -1338,19 +1142,19 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/h_separation = 10
 theme_override_constants/icon_max_width = 20
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxTexture_kik7w")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_4ikpr")
-theme_override_styles/hover = SubResource("StyleBoxTexture_doyhq")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2so2y")
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7yh6i")
 theme_override_styles/focus = SubResource("StyleBoxFlat_pwxld")
 text = "Connect to PLUTO"
@@ -1391,11 +1195,11 @@ theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_cw1g3")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_yc0gu")
-theme_override_styles/hover = SubResource("StyleBoxTexture_qnen4")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_q5chl")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_j2mks")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_secondary")
+theme_override_styles/hover = SubResource("forest_secondary")
+theme_override_styles/hover_pressed = SubResource("forest_secondary")
+theme_override_styles/disabled = SubResource("forest_secondary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5ha8j")
 text = "Reduced motion"
 metadata/arcade_authored_control = true
@@ -1413,18 +1217,18 @@ offset_right = 240.0
 offset_bottom = -32.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_pjux3")
-theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_constants/h_separation = 10
 theme_override_constants/icon_max_width = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_xuwja")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_g8282")
-theme_override_styles/hover = SubResource("StyleBoxTexture_7tuqu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_e65ta")
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_fupde")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ell2e")
 text = "TRY THE GAMES  •  KEYBOARD DEMO"
@@ -1446,11 +1250,11 @@ theme_override_colors/font_pressed_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/font_hover_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.16, 0.2, 0.32, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_cw1g3")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_yc0gu")
-theme_override_styles/hover = SubResource("StyleBoxTexture_qnen4")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_q5chl")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_j2mks")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_secondary")
+theme_override_styles/hover = SubResource("forest_secondary")
+theme_override_styles/hover_pressed = SubResource("forest_secondary")
+theme_override_styles/disabled = SubResource("forest_secondary")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5ha8j")
 button_pressed = true
 text = "Music"
@@ -1462,6 +1266,15 @@ offset_left = 32.0
 offset_top = 730.0
 offset_right = 240.0
 offset_bottom = 774.0
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 text = "Device diagnostics"
 metadata/secondary = true
 
@@ -1524,4 +1337,13 @@ layout_mode = 0
 offset_left = 180.0
 offset_right = 380.0
 offset_bottom = 42.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 text = "Check updates"

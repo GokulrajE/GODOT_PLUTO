@@ -3,7 +3,7 @@
 [ext_resource type="Theme" path="res://Assets/Arcade/daylight-theme.tres" id="1_44dgg"]
 [ext_resource type="Script" path="res://scripts/summary_scene.gd" id="1_sumsc"]
 [ext_resource type="Script" path="res://scripts/line_graph.gd" id="2_lngph"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/wellness-garden-3d.png" id="3_g2n7v"]
+[ext_resource type="Texture2D" path="res://Assets/Arcade/forest-soft.png" id="3_g2n7v"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-panel.svg" id="4_yppje"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-primary.svg" id="5_nly8u"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/daylight-field.svg" id="6_j3yce"]
@@ -159,6 +159,87 @@ texture_margin_top = 24.0
 texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 
+
+[sub_resource type="StyleBoxFlat" id="forest_card"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.79, 0.83, 0.80, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_primary"]
+bg_color = Color(0.025, 0.30, 0.34, 1)
+border_color = Color(0.025, 0.30, 0.34, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_hover"]
+bg_color = Color(0.04, 0.39, 0.41, 1)
+border_color = Color(0.04, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [node name="SummaryScene" type="Control" unique_id=2006846952]
 layout_mode = 3
 anchors_preset = 15
@@ -172,7 +253,6 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=1303924540]
-material = SubResource("living_garden_material")
 script = ExtResource("living_garden_script")
 anchors_preset = 0
 anchor_right = 1.0
@@ -181,7 +261,7 @@ mouse_filter = 2
 theme = ExtResource("1_44dgg")
 texture = ExtResource("3_g2n7v")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 6
 metadata/arcade_authored_control = true
 
 [node name="BGColor" type="ColorRect" parent="." unique_id=559848564]
@@ -262,17 +342,17 @@ offset_right = -16.0
 offset_bottom = 58.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_44dgg")
-theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_focus_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_pressed_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_color = Color(0.16, 0.20, 0.32, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.16, 0.20, 0.32, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxTexture_00bao")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_anfc0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_si1ww")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_8fwfq")
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_oae8m")
 theme_override_styles/focus = SubResource("StyleBoxFlat_bn3ch")
 text = "Done"

@@ -35,6 +35,8 @@
 [ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/pause-icon.svg" id="hud_pause_icon"]
 [ext_resource type="Texture2D" path="res://Assets/Arcade/HUD/exit-icon.svg" id="hud_exit_icon"]
 
+[ext_resource type="Texture2D" path="res://Assets/vecteezy_3d-star-icon-isolated-on-background-customer-rating_18842764.png" id="forest_gold_star"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hxlb"]
 texture = ExtResource("10_5nlrh")
 texture_margin_left = 24.0
@@ -751,6 +753,87 @@ corner_radius_top_right = 12
 corner_radius_bottom_left = 12
 corner_radius_bottom_right = 12
 
+
+[sub_resource type="StyleBoxFlat" id="forest_card"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.79, 0.83, 0.80, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_primary"]
+bg_color = Color(0.025, 0.30, 0.34, 1)
+border_color = Color(0.025, 0.30, 0.34, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_hover"]
+bg_color = Color(0.04, 0.39, 0.41, 1)
+border_color = Color(0.04, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_color = Color(0.40, 0.56, 0.56, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [node name="PingPongScene" type="Control" unique_id=178319741]
 layout_mode = 3
 anchors_preset = 0
@@ -1193,37 +1276,49 @@ offset_top = 150.0
 offset_right = 863.0
 offset_bottom = 510.0
 theme = ExtResource("1_p1olx")
-theme_override_styles/panel = SubResource("gameover_style")
+theme_override_styles/panel = SubResource("forest_card")
 metadata/arcade_authored_control = true
 
 script = ExtResource("gameover_motion")
 
+z_index = 40
+
+[node name="ResultStar" type="TextureRect" parent="UI/GameOverPanel"]
+offset_left = 248.0
+offset_top = 14.0
+offset_right = 312.0
+offset_bottom = 78.0
+texture = ExtResource("forest_gold_star")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
 [node name="OverTitle" type="Label" parent="UI/GameOverPanel" unique_id=817931745]
 layout_mode = 1
 offset_left = 24.0
-offset_top = 36.0
+offset_top = 80.0
 offset_right = 536.0
-offset_bottom = 97.0
+offset_bottom = 130.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.10, 0.14, 0.23, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
 theme_override_font_sizes/font_size = 32
-text = "GAME OVER"
+text = "Game over"
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
 
 [node name="ScoreLabel" type="Label" parent="UI/GameOverPanel" unique_id=1543316800]
 layout_mode = 1
 offset_left = 24.0
-offset_top = 115.0
+offset_top = 145.0
 offset_right = 536.0
-offset_bottom = 215.0
+offset_bottom = 235.0
 grow_horizontal = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_outline_color = Color(0.125, 0.208, 0.31, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("11_g5fsc")
@@ -1241,20 +1336,20 @@ offset_right = 522.0
 offset_bottom = 315.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
 theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("arcade_hud_button")
-theme_override_styles/pressed = SubResource("arcade_hud_hover")
-theme_override_styles/hover = SubResource("arcade_hud_hover")
-theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
 theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_eqre6")
-text = "Return to Game Select"
+text = "Choose game"
 metadata/arcade_authored_control = true
 
 [node name="ReplayButton" type="Button" parent="UI/GameOverPanel" unique_id=942421497]
@@ -1266,19 +1361,19 @@ offset_bottom = 315.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_p1olx")
-theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_focus_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_pressed_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_hover_color = Color(0.96, 0.98, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_disabled_color = Color(0.96, 0.98, 1, 1)
-theme_override_styles/normal = SubResource("arcade_hud_button")
-theme_override_styles/pressed = SubResource("arcade_hud_hover")
-theme_override_styles/hover = SubResource("arcade_hud_hover")
-theme_override_styles/hover_pressed = SubResource("arcade_hud_hover")
+theme_override_styles/normal = SubResource("forest_primary")
+theme_override_styles/pressed = SubResource("forest_hover")
+theme_override_styles/hover = SubResource("forest_hover")
+theme_override_styles/hover_pressed = SubResource("forest_hover")
 theme_override_styles/disabled = SubResource("arcade_hud_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_jn0nw")
-text = "PLAY AGAIN"
+text = "Play again"
 metadata/arcade_authored_control = true
 
 [node name="SpeedPanel" type="Panel" parent="UI" unique_id=770120001]

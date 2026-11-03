@@ -15,6 +15,7 @@ func _ready() -> void:
 	$GameGrid/PingPongButton.pressed.connect(_on_ping_pong_pressed)
 	if AppData.demo_mode: $BackButton.text = "← Back to home"
 	$BackButton.pressed.connect(_on_back_pressed)
+	$BullockCartButton.pressed.connect(func(): get_tree().change_scene_to_file("res://game/BULLOCK_CART/scenes/BullockMotionPreview.tscn"))
 	EventBus.button_released.connect(_on_pluto_button)
 
 func _exit_tree() -> void:

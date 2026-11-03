@@ -1,11 +1,8 @@
 extends Panel
 ## One-shot results celebration; never changes score or trial state.
-var effects: Node2D
 var sound: AudioStreamPlayer
 var reveal_count := 0
 func _ready() -> void:
-	effects = preload("res://scripts/effects/game_effects.gd").new()
-	add_child(effects)
 	sound = AudioStreamPlayer.new()
 	sound.stream = preload("res://Assets/Arcade/Online/game-over.ogg")
 	sound.volume_db = -6
@@ -17,8 +14,8 @@ func _reveal() -> void:
 	reveal_count += 1
 	sound.play()
 	if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)): return
-	effects.burst(Vector2(50, 65), true, false)
-	effects.burst(Vector2(size.x - 50, 65), true, false)
-
-func _process(delta: float) -> void:
-	if visible and effects: effects.step(delta, false)
+	var star := get_node_or_null("ResultStar") as Control
+	if star:
+		star.pivot_offset = star.size * 0.5
+		star.scale = Vector2(0.85, 0.85)
+		create_tween().tween_property(star, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_SINE)
