@@ -43,6 +43,7 @@ var _login_pending := false
 @onready var _bars_hbox: HBoxContainer = %BarsHBox
 
 func _ready() -> void:
+	preload("res://scripts/ui/rehab_refinement.gd").apply.call_deferred(self)
 	%PatientMatches.visible = LocalServer.enabled
 	%ServerStatus.visible = LocalServer.enabled
 	%RefreshPatients.visible = LocalServer.enabled

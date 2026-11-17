@@ -35,6 +35,7 @@ const KNOB_IMAGES = [
 ]
 
 func _ready() -> void:
+	preload("res://scripts/ui/rehab_refinement.gd").apply.call_deferred(self)
 	PlutoComm.calibrate_start("NOMECH")
 	PlutoComm.set_control_gain(1.0)
 

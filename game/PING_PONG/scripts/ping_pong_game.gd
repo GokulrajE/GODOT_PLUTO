@@ -103,6 +103,7 @@ var _arom:  Array = []
 @onready var _inc_btn:       Button            = $UI/SpeedPanel/SpeedRow/IncreaseButton
 
 func _ready() -> void:
+	preload("res://scripts/ui/game_chrome.gd").apply.call_deferred($UI)
 	_player_on_left = AppData.patient_training_side.to_lower() == "left"
 	_enemy_paddle.size.y = GAME_BOTTOM - GAME_TOP
 	_player_w = _player_paddle.size.x

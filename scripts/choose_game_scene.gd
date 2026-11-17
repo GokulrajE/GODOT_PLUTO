@@ -4,8 +4,9 @@ extends Control
 @onready var status_label: Label = $Header/StatusLabel
 
 func _ready() -> void:
+	preload("res://scripts/ui/rehab_refinement.gd").apply.call_deferred(self)
 	preload("res://scripts/ui/game_picker_ui.gd").configure($GameGrid)
-	mech_label.text   = "FIVE WAYS TO MOVE. ONE BRIGHTER DAY." if AppData.demo_mode else _get_mech_display_name()
+	mech_label.text   = "SIX WAYS TO MOVE. ONE BRIGHTER DAY." if AppData.demo_mode else _get_mech_display_name()
 	status_label.text = "Keyboard demo • no patient data recorded" if AppData.demo_mode else AppData.daily_progress_text()
 
 	$GameGrid/HatTrickButton.pressed.connect(_on_hat_trick_pressed)
@@ -15,7 +16,7 @@ func _ready() -> void:
 	$GameGrid/PingPongButton.pressed.connect(_on_ping_pong_pressed)
 	if AppData.demo_mode: $BackButton.text = "← Back to home"
 	$BackButton.pressed.connect(_on_back_pressed)
-	$BullockCartButton.pressed.connect(func(): get_tree().change_scene_to_file("res://game/BULLOCK_CART/scenes/BullockMotionPreview.tscn"))
+	$GameGrid/BullockCartButton.pressed.connect(_on_bullock_cart_pressed)
 	EventBus.button_released.connect(_on_pluto_button)
 
 func _exit_tree() -> void:
@@ -40,6 +41,10 @@ func _on_rnr_pressed() -> void:
 func _on_tuk_tuk_pressed() -> void:
 	AppData.set_game("TUK-TUK")
 	get_tree().change_scene_to_file("res://game/TUK_TUK/scene/TukTukScene.tscn")
+
+func _on_bullock_cart_pressed() -> void:
+	AppData.set_game("BULLOCK-CART")
+	get_tree().change_scene_to_file("res://game/BULLOCK_CART/scenes/BullockMotionPreview.tscn")
 
 func _on_ping_pong_pressed() -> void:
 	AppData.set_game("PING-PONG")

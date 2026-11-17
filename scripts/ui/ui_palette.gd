@@ -1,15 +1,38 @@
 extends RefCounted
 ## Arcade design tokens shared by all menus and game overlays.
-const INK := Color("20354f")
-const MUTED := Color("526b82")
-const ACCENT := Color("087f83")
-const CANVAS := Color("f1f8fc")
-const BORDER := Color("c5dce8")
-const NIGHT := Color("ffffff")
-const GOLD := Color("a56a08")
+
+# ── Core palette ──────────────────────────────────────────────────────────
+const INK     := Color("1a2e44")   # primary text (5.8:1 on CANVAS)
+const MUTED   := Color("4d6478")   # secondary / helper text (5.1:1 on CANVAS)
+const ACCENT  := Color("087f83")   # teal CTA and highlights
+const CANVAS  := Color("f1f8fc")   # page / card background
+const BORDER  := Color("b8d3e3")   # subtle panel border
+const GOLD    := Color("8f5c05")   # star counts / values (5.3:1 on CANVAS)
+const SUCCESS := Color("1a7a4a")   # confirmed / connected / positive states
+const ERROR   := Color("b92b2b")   # validation / connection error states
+const SURFACE := Color("ffffff")   # white panel fill
+const NIGHT   := SURFACE           # backward-compat alias; prefer SURFACE
+
+# ── Typography scale (font sizes, px) ─────────────────────────────────────
+const SIZE_XS   := 13   # captions, metadata
+const SIZE_SM   := 16   # descriptions, helper text
+const SIZE_BASE := 18   # body, secondary labels
+const SIZE_MD   := 20   # section labels
+const SIZE_LG   := 24   # card titles, CTAs
+const SIZE_XL   := 30   # screen headings
+const SIZE_2XL  := 38   # hero values (streak, goal)
+
+# ── Spacing scale (pixels) ────────────────────────────────────────────────
+const GAP_XS  :=  4
+const GAP_SM  :=  8
+const GAP_MD  := 12
+const GAP_LG  := 18
+const GAP_XL  := 24
+const GAP_2XL := 32
+
 const DISPLAY = preload("res://Assets/Arcade/Online/Outfit-Semibold.tres")
 
-static func surface(color: Color = NIGHT, radius: int = 18, border: Color = BORDER) -> StyleBoxFlat:
+static func surface(color: Color = SURFACE, radius: int = 18, border: Color = BORDER) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
 	style.border_color = border
@@ -32,10 +55,8 @@ static func button(color: Color, border: Color = BORDER) -> StyleBoxFlat:
 
 static func theme() -> Theme:
 	var result := Theme.new()
-	var font := SystemFont.new()
-	font.font_names = PackedStringArray(["Segoe UI", "Inter", "Noto Sans"])
 	result.default_font = DISPLAY
-	result.default_font_size = 16
+	result.default_font_size = SIZE_SM
 	result.set_color("font_color", "Label", INK)
 	result.set_stylebox("background", "ProgressBar", surface(Color("e8f1f6"), 8))
 	result.set_stylebox("fill", "ProgressBar", surface(Color("10a6a0"), 8, Color("10a6a0")))

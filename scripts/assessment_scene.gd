@@ -119,6 +119,7 @@ var _hoc_close_finalized: bool     = false
 # ──────────────────────────────────────────────────────────────────────
 
 func _ready() -> void:
+	preload("res://scripts/ui/rehab_refinement.gd").apply.call_deferred(self)
 	PlutoComm.set_control_type("NONE")
 	_ang_limit = (AppData.calib_angle + 10.0) if AppData.mechanism_name == "HOC" \
 				 else (AppData.mech_offset + 10.0)

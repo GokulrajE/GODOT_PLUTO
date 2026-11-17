@@ -105,6 +105,7 @@ var _arom_guides: Control
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
+	preload("res://scripts/ui/game_chrome.gd").apply.call_deferred($UI)
 	_build_slot_positions()
 	_load_seed_textures()
 	_init_rom_data()

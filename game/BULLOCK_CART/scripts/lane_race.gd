@@ -9,6 +9,7 @@ const LEVEL_HELP := [
 	"5 lanes • Balanced rivals • New routes every race",
 	"5 lanes • Quicker rival decisions • More route choices",
 ]
+var automatic_pickup_recycling := true
 var difficulty := 2
 var layout_seed := 0
 var actual_seed := 0
@@ -123,7 +124,7 @@ func _tick(dt: float, steering: float) -> void:
 	super._tick(dt, steering)
 	if timed_mode:
 		complete = elapsed >= game_duration
-		if not complete: _recycle_pickups()
+		if not complete and automatic_pickup_recycling: _recycle_pickups()
 	else:
 		complete = elapsed >= TIME_LIMIT
 		var all_finished := true

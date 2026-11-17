@@ -10,6 +10,7 @@ var done_calibration:  bool = false
 var start_calibration: bool = false
 
 func _ready() -> void:
+	preload("res://scripts/ui/rehab_refinement.gd").apply.call_deferred(self)
 	mech_label.text = AppData.mechanism_name
 
 	back_button.pressed.connect(func():

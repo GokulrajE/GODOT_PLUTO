@@ -93,6 +93,7 @@ var _arom_nodes:   Array      = []
 @onready var _inc_btn:        Button            = $UI/SpeedPanel/SpeedRow/IncreaseButton
 
 func _ready() -> void:
+	preload("res://scripts/ui/game_chrome.gd").apply.call_deferred($UI)
 	_load_textures()
 	_setup_scrolling_bg()
 	_init_rom_data()

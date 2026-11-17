@@ -93,6 +93,7 @@ var _earned_star:    bool = false
 @onready var _inc_btn:        Button             = $UI/SpeedPanel/SpeedRow/IncreaseButton
 
 func _ready() -> void:
+	preload("res://scripts/ui/game_chrome.gd").apply.call_deferred($UI)
 	_load_ball_textures()
 	_init_rom_data()
 	_calc_speed()
@@ -116,6 +117,10 @@ func _ready() -> void:
 	_update_star_display()
 
 func _exit_tree() -> void:
+	PlutoComm.set_control_type("NONE")
+	PlutoComm.reset_aan_target()
+	if not _game_finished:
+		AppData.stop_trial(n_targets, n_success, n_failure)
 	if EventBus.button_released.is_connected(_on_pluto_button):
 		EventBus.button_released.disconnect(_on_pluto_button)
 
@@ -225,6 +230,8 @@ func _set_hat_x(x: float) -> void:
 	_hat_front.position.x = x - HAT_VISUAL_HALF
 
 func _process(delta: float) -> void:
+	if _use_aan and (not PlutoComm.is_connected or not PlutoComm.is_streaming) and _state not in [State.WAITING, State.PAUSED, State.DONE]:
+		_toggle_pause()
 	if _state == State.PAUSED: return
 	_move_hat(delta)
 	_tick(delta)
@@ -489,14 +496,25 @@ func _on_pluto_button() -> void:
 
 func _toggle_pause() -> void:
 	if _state != State.PAUSED:
+		PlutoComm.set_control_type("NONE")
+		PlutoComm.reset_aan_target()
 		_prev_state          = _state
 		_state               = State.PAUSED
 		_pause_panel.visible = true
 		_music.stream_paused  = true
 	else:
+		if _use_aan and (not PlutoComm.is_connected or not PlutoComm.is_streaming): return
 		_state               = _prev_state
 		_pause_panel.visible = false
 		_music.stream_paused  = false
+		if _use_aan and PlutoComm.is_connected:
+			PlutoComm.set_control_type("POSITIONAAN")
+			PlutoComm.set_control_bound(AppData.assist_bound)
+			PlutoComm.set_control_dir(0)
+			if _aan != null:
+				_aan.reset_trial()
+				_aan.set_new_trial_details(PlutoComm.angle, _target_angle, _move_duration, _game_speed)
+	_update_log_state()
 
 func _on_exit_pressed() -> void:
 	PlutoComm.set_control_type("NONE")

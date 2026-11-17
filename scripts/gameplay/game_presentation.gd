@@ -98,68 +98,121 @@ func _rect(control: Control, rect: Rect2) -> void:
 	control.size = rect.size
 
 func _setup_hud() -> void:
+	var hdr := game.get_node_or_null("UI/Header")
+	if hdr: hdr.visible = false
 	if game.has_node("UI/SessionProgress"):
 		timer_bar = game.get_node("UI/SessionProgress")
-		footer = game.get_node("UI/GameHelp")
+		footer    = game.get_node("UI/GameHelp")
 		pause_button = game.get_node("UI/Header/PauseButton")
-		pause_button.pressed.connect(func(): game.call("_on_pluto_button"))
-		footer.text = "ARROW KEYS  Move     •     SPACE  Start / pause     •     CTRL + G  Speed" if not PlutoComm.is_connected else "PLUTO connected  •  Press device button to start / pause"
-		if AppData.demo_mode: footer.text += "     •     DEMO — not recorded"
+		timer_bar.visible = false
+		footer.visible = false
+		_add_float_score()
+		_add_hud_card()
+		_add_trial_card()
 		return
-	var header: Panel = game.get_node("UI/Header")
-	_rect(header, Rect2(12, 8, 1142, 58))
-	var title := Label.new()
-	title.name = "GameName"
-	title.text = {"hat": "HAT-TRICK", "basket": "FRUIT BASKET", "cloud": "RAIN & RISE", "tuk": "TUK-TUK", "pong": "PING-PONG"}[_icon_key()]
-	title.add_theme_font_override("font", Palette.DISPLAY)
-	title.add_theme_font_size_override("font_size", 20)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	title.add_theme_stylebox_override("normal", Palette.chrome("field-blue"))
-	header.add_child(title)
-	_rect(title, Rect2(14, 8, 190, 40))
-	for key in ["TimerLabel", "ScoreLabel"]:
-		var label: Label = header.get_node(key)
-		label.add_theme_font_size_override("font_size", 22)
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		var chip := Palette.chrome("field-blue")
-		chip.content_margin_top = 4
-		chip.content_margin_bottom = 4
-		label.add_theme_stylebox_override("normal", chip)
-		label.add_theme_font_override("font", Palette.DISPLAY)
-
-	_rect(header.get_node("TimerLabel"), Rect2(214, 8, 180, 40))
-	_rect(header.get_node("ScoreLabel"), Rect2(414, 8, 354, 40))
-	header.get_node("TimerLabel").vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	header.get_node("ScoreLabel").vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_rect(header.get_node("StarDisplay"), Rect2(790, 5, 110, 44))
-	var star: TextureRect = header.get_node("StarDisplay/StarImg")
-	star.texture = Assets.sprite("star")
-	star.custom_minimum_size = Vector2(38, 38)
-	star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	var count: Label = header.get_node("StarDisplay/StarCountLabel")
-	count.add_theme_font_size_override("font_size", 28)
-	count.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_rect.call_deferred(header.get_node("StarDisplay"), Rect2(790, 7, 110, 44))
-	_rect(header.get_node("ExitButton"), Rect2(1020, 8, 100, 40))
-	pause_button = _button(header, "Pause", Rect2(916, 8, 94, 40), func(): game.call("_on_pluto_button"))
-	pause_button.set_meta("secondary", true)
+	pause_button = hdr.get_node("PauseButton") if hdr else Button.new()
 	timer_bar = ProgressBar.new()
 	timer_bar.name = "SessionProgress"
 	timer_bar.show_percentage = false
 	timer_bar.max_value = 60
 	timer_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	timer_bar.visible = false
 	game.get_node("UI").add_child(timer_bar)
-	_rect(timer_bar, Rect2(28, 71, 1110, 7))
 	footer = Label.new()
 	footer.name = "GameHelp"
-	footer.add_theme_font_size_override("font_size", 12)
-	footer.add_theme_stylebox_override("normal", Palette.surface(Color("242448"), 8, Color.TRANSPARENT))
-	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	footer.text = "ARROW KEYS  Move     •     SPACE  Start / pause     •     CTRL + G  Speed" if not PlutoComm.is_connected else "PLUTO connected  •  Press device button to start / pause"
-	if AppData.demo_mode: footer.text += "     •     DEMO — not recorded"
+	footer.visible = false
 	game.get_node("UI").add_child(footer)
-	_rect(footer, Rect2(20, 632, 1126, 20))
+	_add_float_score()
+	_add_hud_card()
+	_add_trial_card()
+
+func _add_hud_card() -> void:
+	if game.has_node("UI/GameHudCard"): return
+	var card := preload("res://scripts/ui/game_hud_card.gd").new()
+	card.name = "GameHudCard"
+	card.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	card.position = Vector2(12, 76)
+	game.get_node("UI").add_child(card)
+
+func _add_trial_card() -> void:
+	if game.has_node("UI/GameTrialCard"): return
+	var card := preload("res://scripts/ui/game_trial_card.gd").new()
+	card.name = "GameTrialCard"
+	card.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	card.offset_left   = -102
+	card.offset_right  = -12
+	card.offset_top    = -102
+	card.offset_bottom = -12
+	game.get_node("UI").add_child(card)
+
+func _add_float_score() -> void:
+	if game.has_node("UI/FloatScore"): return
+	var fs := Panel.new()
+	fs.name = "FloatScore"
+	fs.set_meta("arcade_authored_control", true)
+	fs.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	fs.offset_left   = 12
+	fs.offset_right  = 260
+	fs.offset_top    = 12
+	fs.offset_bottom = 68
+	fs.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var fs_bg := StyleBoxFlat.new()
+	fs_bg.bg_color = Color(0.07, 0.11, 0.18, 0.84)
+	fs_bg.set_corner_radius_all(12)
+	fs_bg.set_border_width_all(1)
+	fs_bg.border_color = Color(1, 1, 1, 0.10)
+	fs.add_theme_stylebox_override("panel", fs_bg)
+	game.get_node("UI").add_child(fs)
+
+	var ci := TextureRect.new()
+	ci.set_meta("arcade_authored_control", true)
+	ci.texture = Assets.sprite(_icon_key())
+	ci.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	ci.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	ci.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ci.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	ci.position = Vector2(0, 5)
+	ci.size = Vector2(44, 44)
+	fs.add_child(ci)
+
+	var cl := Label.new()
+	cl.name = "CollectCount"
+	cl.set_meta("arcade_authored_control", true)
+	cl.add_theme_font_override("font", Palette.DISPLAY)
+	cl.add_theme_font_size_override("font_size", 26)
+	cl.add_theme_color_override("font_color", Color("e8f4fc"))
+	cl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	cl.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	cl.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	cl.position = Vector2(52, 11)
+	cl.size = Vector2(60, 32)
+	cl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fs.add_child(cl)
+
+	var si := TextureRect.new()
+	si.set_meta("arcade_authored_control", true)
+	si.texture = Assets.sprite("star")
+	si.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	si.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	si.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	si.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	si.position = Vector2(122, 9)
+	si.size = Vector2(36, 36)
+	fs.add_child(si)
+
+	var sc := Label.new()
+	sc.name = "StarCount"
+	sc.set_meta("arcade_authored_control", true)
+	sc.add_theme_font_override("font", Palette.DISPLAY)
+	sc.add_theme_font_size_override("font_size", 26)
+	sc.add_theme_color_override("font_color", Color("efbc46"))
+	sc.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	sc.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	sc.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	sc.position = Vector2(164, 11)
+	sc.size = Vector2(50, 32)
+	sc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fs.add_child(sc)
 
 func _button(parent: Node, text: String, rect: Rect2, action: Callable) -> Button:
 	var button := Button.new()
@@ -230,6 +283,14 @@ func _process(delta: float) -> void:
 	timer_bar.value = maxf(0, float(game.get("_time_left")))
 	var hits: int = game.get("n_success")
 	var misses: int = game.get("n_failure")
+	var fs := game.get_node_or_null("UI/FloatScore")
+	if fs:
+		var stars := 0
+		for t in [5, 15, 30]: if hits >= t: stars += 1
+		var cc := fs.get_node_or_null("CollectCount") as Label
+		if cc: cc.text = str(hits)
+		var sc := fs.get_node_or_null("StarCount") as Label
+		if sc: sc.text = str(stars)
 	var at := Vector2(AppData.log_player_x, AppData.log_player_y)
 	if kind.contains("FRUIT_BASKET") or kind.contains("RNR"):
 		at = Vector2(AppData.log_target_x, 520)

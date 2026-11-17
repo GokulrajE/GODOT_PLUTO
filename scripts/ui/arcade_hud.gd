@@ -37,19 +37,14 @@ func _process(delta: float) -> void:
 	longest_time = maxf(longest_time, float(game.get("_time_left")))
 	timer.pivot_offset = timer.size * 0.5
 	timer.scale = Vector2.ONE * (1.0 + 0.035 * sin(animation_time * 5.0) if seconds > 0 and seconds <= 10 and not reduced else 1.0)
+
+	var stars := 0
+	for t in [5, 15, 30]:
+		if hits >= t: stars += 1
+	var sc := get_node_or_null("StarDisplay/StarCountLabel") as Label
+	if sc: sc.text = str(stars)
+
 	queue_redraw()
-	progress_refresh -= delta
-	if not AppData.demo_mode and AppData.is_patient_loaded and progress_refresh <= 0:
-		progress_refresh = 1.0
-		var daily := AppData.daily_progress()
-		var clock = preload("res://scripts/data/DailyActivity.gd")
-		var played := clock.clock_text(float(daily.games.get(AppData.selected_game_name, 0.0)))
-		game.get_node("UI/GameHelp").text = "%s  %s  |  This game: %s today" % [AppData.mechanism_name, AppData.daily_progress_text(), played]
 
 func _draw() -> void:
-	if not is_instance_valid(game) or game.get("_time_left") == null: return
-	var fraction := clampf(float(game.get("_time_left")) / longest_time, 0.0, 1.0)
-	var start := Vector2(262, 50)
-	draw_line(start, start + Vector2(118, 0), Color("d7bc83"), 3.0, true)
-	if fraction > 0:
-		draw_line(start, start + Vector2(118 * fraction, 0), Color("bd6431"), 3.0, true)
+	pass

@@ -40,7 +40,7 @@ func _ready() -> void:
 		label.add_theme_font_size_override("font_size", 24 if key in ["TitleLabel", "TodayLabel"] else 19)
 	$Card/BodyHBox/ScoreVBox/ArrowLabel.text = "A new personal best"
 	$Card/BodyHBox/ScoreVBox/TitleLabel.text = "KEEP GROWING!"
-	_star.texture = Assets.sprite("star")
+	_star.texture = preload("res://scripts/ui/premium_finish.gd").sprite(0)
 	_star.custom_minimum_size = Vector2(64, 64)
 	_star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 

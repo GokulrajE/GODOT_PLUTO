@@ -5,6 +5,18 @@ const Track = preload("res://game/BULLOCK_CART/scripts/track.gd")
 const ChaseCamera = preload("res://game/BULLOCK_CART/scripts/chase_camera.gd")
 const Race = preload("res://game/BULLOCK_CART/scripts/lane_race.gd")
 const COLLECTION_FRONT := 3.05
+const Palette = preload("res://scripts/ui/ui_palette.gd")
+const LANTERN_SEQUENCE := ["power", "power", "rare", "power", "power3x"]
+var lantern_variant := 0
+
+const AAN = preload("res://scripts/PlutoAAN.gd")
+var aan = AAN.new()
+var therapy_active := false
+var device_session := false
+var aan_enabled := false
+var therapy_target := -1.0
+var encountered: Dictionary = {}
+var therapy_aprom: Array = [-45.0, 45.0]
 var race := Race.new()
 @export var motion_preview := false
 var rivals: Array[Node3D] = []
@@ -64,6 +76,57 @@ var mini_score_label: Label
 var mini_pos_label: Label
 var mini_pause_btn: Button
 
+# Shared HUD-card interface — game_hud_card.gd reads these two properties.
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE")
+var _time_left: float:
+	get: return _mp_time_left if motion_preview else maxf(0.0, race.TIME_LIMIT - race.elapsed)
+var n_success: int:
+	get: return _mp_n_success if motion_preview else hits
+
+# ---- motion_preview therapeutic mode ----
+enum MPState { WAITING, START, SPAWN_TARGET, MOVE, SUCCESS, FAILURE, STOP, DONE }
+var _mp_state: MPState = MPState.WAITING
+var _mp_prev_state: MPState = MPState.WAITING
+var _mp_target_lane: int = 2
+var _mp_move_elapsed: float = 0.0
+var _mp_event_delay: float = 0.0
+var _mp_game_finished: bool = false
+var _mp_n_targets: int = 0
+var _mp_n_success: int = 0
+var _mp_n_failure: int = 0
+var _mp_time_left: float = 60.0
+const MP_TRIAL_DURATION := 60.0
+const MP_MIN_SPEED := 10.0
+const MP_MAX_SPEED := 40.0
+var _mp_game_speed: float = 10.0
+var _mp_move_duration: float = 2.0
+var _mp_mech_min_duration: float = 0.5
+var _mp_mech_max_duration: float = 4.0
+var _mp_aprom: Array = [-45.0, 45.0]
+var _mp_arom: Array = [-30.0, 30.0]
+var _mp_prom: Array = [-45.0, 45.0]
+var _mp_aan = null
+var _mp_use_aan: bool = false
+var _mp_wait_panel: Control
+var _mp_pause_panel: Control
+var _mp_over_panel: Control
+var _mp_speed_panel: Control
+var _mp_speed_lbl: Label
+var _mp_speed_info_lbl: Label
+var _mp_header_timer: Label
+var _mp_header_score: Label
+var _mp_dec_btn: Button
+var _mp_inc_btn: Button
+var _mp_lane_indicator: Node3D
+var _mp_indicator_elapsed: float = 0.0
+var _mp_spawn_distance: float = 0.0
+var _preloaded_cart_sheets: Dictionary = {}
+var _preloaded_cart_meta: Dictionary = {}
+var _preloaded_flowers: Array[Texture2D] = []
+var _preloaded_multi_tex: Texture2D
+var _preloaded_rare_tex: Texture2D
+var _preloaded_p3x_tex: Texture2D
+
 func _retry_course() -> void:
 	race.layout_seed = race.actual_seed
 	difficulty_select.select(completed_difficulty)
@@ -73,6 +136,9 @@ func _course_record_key() -> String:
 	return "v2_%d_%d" % [race.difficulty, race.actual_seed]
 
 func _ready() -> void:
+	_preload_assets()
+	AppData.set_game("BULLOCK-CART")
+	EventBus.button_released.connect(_device_button)
 	course_records.load("user://bullock-course-records.cfg")
 	get_window().content_scale_size = Vector2i(1280, 800)
 	race.timed_mode = true
@@ -196,13 +262,22 @@ func _ready() -> void:
 	music = race_audio.music
 	sound = race_audio.effect
 	_build_ui()
+	preload("res://scripts/ui/game_chrome.gd").bullock.call_deferred(self)
 	_apply_detail()
 	_reset_targets()
-	var kb_hint := ("Move the device to steer  •  Device button: boost" if PlutoComm.is_connected else "← → / A D  •  Space: boost")
-	_show_modal("BULLOCK TRAIL", "Steer left and right to collect lanterns and score points!\nBlue lantern = boost  •  Clay pot = super boost  •  Gold = ultra boost\n" + kb_hint + "  •  Esc: pause", "Start race")
-	if motion_preview:
-		var lane_hint := "Move the device to change lanes" if PlutoComm.is_connected else "Tap ← → to change lane"
-		_show_modal("BULLOCK TRAIL", "Steer left and right to collect lanterns and score points!\nBlue = boost  •  Clay pot = super boost  •  Gold = ultra boost\n" + lane_hint + "  •  Esc to pause", "Start race")
+	if not motion_preview:
+		var kb_hint := ("Move the device to steer  •  Device button: pause/resume" if PlutoComm.is_connected else "← → / A D  •  Space: boost")
+		_show_modal("BULLOCK TRAIL", "Steer left and right to collect lanterns and score points!\nBlue lantern = boost  •  Clay pot = super boost  •  Gold = ultra boost\n" + kb_hint + "  •  Esc: pause", "Start race")
+	else:
+		_mp_init_rom_data()
+		_mp_calc_speed()
+		# Target itself is the steering cue; no lane highlight.
+		modal.hide()
+		top_bar.hide()
+		mini_hud.hide()
+		_mp_wait_panel.show()
+		_mp_state = MPState.WAITING
+		_mp_prev_state = MPState.WAITING
 	# Start streaming if device is connected but idle (e.g. game launched standalone)
 	if PlutoComm.is_connected and not PlutoComm.is_streaming:
 		PlutoComm.start_stream()
@@ -219,9 +294,9 @@ func _neon_mat(color: Color, alpha: float, priority: int = 1) -> StandardMateria
 func _build_targets() -> void:
 	for t in targets: t.queue_free()
 	targets.clear()
-	var multi_tex: Texture2D = load("res://game/BULLOCK_CART/assets/generated/multiple powers.png")
-	var rare_tex: Texture2D = load("res://game/BULLOCK_CART/assets/generated/rarePower.png")
-	var p3x_tex: Texture2D = load("res://game/BULLOCK_CART/assets/generated/power3X.png")
+	var multi_tex: Texture2D = _preloaded_multi_tex if _preloaded_multi_tex else load("res://game/BULLOCK_CART/assets/generated/multiple powers.png")
+	var rare_tex: Texture2D = _preloaded_rare_tex if _preloaded_rare_tex else load("res://game/BULLOCK_CART/assets/generated/rarePower.png")
+	var p3x_tex: Texture2D = _preloaded_p3x_tex if _preloaded_p3x_tex else load("res://game/BULLOCK_CART/assets/generated/power3X.png")
 	var tw := multi_tex.get_width() * 0.5 if multi_tex else 128.0
 	var th := multi_tex.get_height() * 0.5 if multi_tex else 128.0
 	# Ring glow texture: transparent center, glowing rim, transparent outer
@@ -326,7 +401,7 @@ func _reset_targets() -> void:
 		if i >= race.pickups.size():
 			targets[i].hide()
 			continue
-		targets[i].position = Vector3(race.pickups[i].x, 1.15, -race.pickups[i].distance - COLLECTION_FRONT)
+		targets[i].position = Vector3(race.pickups[i].x, 1.15, race.racers[0].distance - race.pickups[i].distance - COLLECTION_FRONT)
 		targets[i].visible = true
 		targets[i].scale = Vector3.ONE
 		var kind: String = race.pickups[i].kind
@@ -359,6 +434,7 @@ func _reset_targets() -> void:
 	finish_gate.position.z = -Race.LENGTH - COLLECTION_FRONT
 
 func start_ride(with_countdown := true) -> void:
+	_finish_therapy()
 	collection_fx.reset()
 	race_audio.start_race()
 	audio_panel.hide()
@@ -386,8 +462,22 @@ func start_ride(with_countdown := true) -> void:
 	for rival in rivals: rival.rotation.y = 0.0
 	camera.reset(Vector3.ZERO)
 	_reset_targets()
+	AppData.start_new_trial()
+	therapy_active = true
+	device_session = not AppData.demo_mode and PlutoComm.is_connected
+	encountered.clear()
+	therapy_target = -1.0
+	aan.reset_trial()
+	var mech = AppData.selected_mechanism
+	aan_enabled = device_session and mech != null and AppData.mechanism_name not in ["FME1", "FME2", "NOMECH"]
+	if mech != null:
+		therapy_aprom = mech.current_aprom.duplicate()
+		aan.arom = mech.current_arom.duplicate()
+		aan.prom = mech.current_prom.duplicate()
+	aan_enabled = aan_enabled and aan.arom.size() >= 2 and aan.prom.size() >= 2 and therapy_aprom.size() >= 2
 	running = true
 	paused = false
+	_log_therapy("COUNTDOWN")
 	play_button.release_focus()
 	modal.hide()
 	pause_button.disabled = false
@@ -404,6 +494,18 @@ func _input(event: InputEvent) -> void:
 		mouse_x_accum += event.relative.x
 
 func _process(delta: float) -> void:
+	var _fs := get_node_or_null("GameUI/Interface/FloatScore")
+	if _fs:
+		var _hits: int = n_success
+		var _stars := 0
+		for _t in [5, 15, 30]: if _hits >= _t: _stars += 1
+		var _cc := _fs.get_node_or_null("CollectCount") as Label
+		if _cc: _cc.text = str(_hits)
+		var _sc := _fs.get_node_or_null("StarCount") as Label
+		if _sc: _sc.text = str(_stars)
+	if motion_preview:
+		_process_mp(delta)
+		return
 	if not running or paused:
 		mouse_x_accum = 0.0
 		device_prev_button = PlutoComm.button if PlutoComm.is_connected else 0
@@ -431,22 +533,21 @@ func _process(delta: float) -> void:
 		var x_max := race.lane_x(race.lane_max)
 		device_target_x    = lerpf(x_min, x_max, t)
 		device_target_lane = race.lane_min + roundi(t * float(race.lane_max - race.lane_min))
-		if PlutoComm.button == 1 and device_prev_button == 0 and not motion_preview:
-			if race.activate_boost(0):
-				_show_feedback("BOOST!", Color("8cfff1"))
-				race_audio.celebrate("boost")
-		device_prev_button = PlutoComm.button
+
 	else:
 		direction = mouse_dir if absf(mouse_dir) > absf(key_dir) else key_dir
-	step(delta, direction)
 	# Instant 1:1 mapping: bypass lane interpolation and set X directly from device angle.
 	if device_target_x != INF and race.racers[0].finish < 0 and not race.complete:
 		race.racers[0].x            = device_target_x
 		race.racers[0].lane         = device_target_lane
 		race.racers[0].lateral_speed = 0.0
+	step(delta, 0.0 if device_target_x != INF else direction)
 
 func step(delta: float, direction: float) -> void:
 	if not running or paused: return
+	if device_session and (not PlutoComm.is_connected or not PlutoComm.is_streaming):
+		_pause("Device disconnected. Reconnect before continuing.")
+		return
 	# Bound simulation steps after stalls; never jump over the collection plane.
 	var dt := clampf(delta, 0, .25 if motion_preview else .1)
 	if countdown_remaining > 0:
@@ -454,6 +555,9 @@ func step(delta: float, direction: float) -> void:
 		feedback.text = str(ceili(countdown_remaining)) if countdown_remaining > 0 else "GO!  Collect the lanterns!"
 		feedback_time = 2.0
 		return
+	if not motion_preview:
+		AppData.record_active_time(minf(dt, maxf(0.0, race.game_duration - race.elapsed)))
+		_update_assistance(dt)
 	collection_fx.advance(dt)
 	race_audio.advance(dt)
 	feedback_pulse = maxf(0, feedback_pulse - dt)
@@ -463,7 +567,16 @@ func step(delta: float, direction: float) -> void:
 	var old_rival_distances: Array[float] = []
 	if motion_preview:
 		for i in rivals.size(): old_rival_distances.append(race.racers[i + 1].distance)
-	race.advance(delta, direction)
+	var passed: Array[float] = []
+	for pickup in race.pickups:
+		if pickup.distance >= old_distance: passed.append(pickup.distance)
+	race.advance(dt, direction)
+	if motion_preview and _mp_state == MPState.MOVE and not race.pickups.is_empty():
+		var remaining := maxf(0.0, 1.0 - (_mp_move_elapsed + dt) / _mp_move_duration)
+		race.pickups[0].distance = race.racers[0].distance + maxf(24.0, race.BASE_SPEED * _mp_move_duration) * remaining
+	for distance in passed:
+		if distance <= race.racers[0].distance: encountered[distance] = true
+	if not motion_preview: _log_therapy("MOVE")
 	elapsed = race.elapsed
 	cart.position.x = race.racers[0].x
 	cart.rotation.y = lerpf(cart.rotation.y, -race.racers[0].lateral_speed * 0.085, 1.0 - exp(-dt * 6.0))
@@ -597,7 +710,7 @@ func step(delta: float, direction: float) -> void:
 	feedback_time = maxf(0, feedback_time - dt)
 	if feedback_time == 0: feedback.text = ""
 	_update_hud()
-	if race.complete: finish_ride()
+	if not motion_preview and race.complete: finish_ride()
 
 func _update_hud() -> void:
 	if race_dashboard: race_dashboard.update_race(race)
@@ -670,6 +783,7 @@ func _show_feedback(message: String, color: Color) -> void:
 	feedback_pulse = .4
 
 func finish_ride() -> void:
+	_finish_therapy()
 	# End-of-race burst: all carts do one final urge gesture
 	if motion_preview:
 		cart.set("pending_flick", true)
@@ -701,6 +815,8 @@ func _pause(message := "Take your time. Your ride is paused.") -> void:
 	cart.freeze_effects(true)
 	for rival in rivals: rival.freeze_effects(true)
 	paused = true
+	_disable_assistance()
+	_log_therapy("PAUSED")
 	race_audio.set_paused(true)
 	top_bar.show()
 	mini_hud.hide()
@@ -708,6 +824,9 @@ func _pause(message := "Take your time. Your ride is paused.") -> void:
 
 func _play() -> void:
 	if paused:
+		if device_session and (not PlutoComm.is_connected or not PlutoComm.is_streaming): return
+		therapy_target = -1.0
+		_log_therapy("MOVE")
 		cart.freeze_effects(false)
 		for rival in rivals: rival.freeze_effects(false)
 		paused = false
@@ -728,9 +847,17 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			race_audio.celebrate("boost")
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_C and not motion_preview:
 		camera.side_view = not camera.side_view
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_G and motion_preview:
+		if _mp_speed_panel:
+			if _mp_speed_panel.visible: _mp_speed_panel.hide()
+			else: _mp_speed_panel.show()
 	if event.is_action_pressed("ui_cancel"):
-		if paused: _play()
-		else: _pause()
+		if motion_preview:
+			if paused: _mp_resume()
+			elif running: _mp_pause()
+		else:
+			if paused: _play()
+			else: _pause()
 
 func _show_modal(title: String, message: String, action: String) -> void:
 	if result_board: result_board.hide()
@@ -754,9 +881,7 @@ func _center_modal() -> void:
 		modal.position = (modal.get_parent().size - modal.size) * .5
 
 func _style(color: Color) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.set_corner_radius_all(18)
+	var style := Palette.surface(color)
 	style.content_margin_left = 24
 	style.content_margin_right = 24
 	style.content_margin_top = 14
@@ -770,20 +895,24 @@ func _button(text: String, parent: Node, action: Callable) -> Button:
 	button.custom_minimum_size = Vector2(160, 54)
 	button.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	button.add_theme_font_size_override("font_size", 20)
-	button.add_theme_color_override("font_color", Color("ffffff"))
-	button.add_theme_color_override("font_hover_color", Color("ffffff"))
-	button.add_theme_color_override("font_focus_color", Color("ffffff"))
-	button.add_theme_stylebox_override("normal", _style(Color("17676a")))
-	button.add_theme_stylebox_override("hover", _style(Color("238185")))
-	button.add_theme_stylebox_override("pressed", _style(Color("104c50")))
+	button.add_theme_color_override("font_color", Palette.INK)
+	button.add_theme_color_override("font_hover_color", Palette.INK)
+	button.add_theme_color_override("font_focus_color", Palette.INK)
+	button.add_theme_stylebox_override("normal", Palette.chrome("button-lime"))
+	button.add_theme_stylebox_override("focus", Palette.surface(Color(0, 0, 0, 0), 14, Palette.ACCENT))
+	button.add_theme_stylebox_override("hover", Palette.chrome("button-purple"))
+	button.add_theme_stylebox_override("pressed", Palette.chrome("button-purple"))
 	parent.add_child(button)
 	button.pressed.connect(action)
 	return button
 
 func _build_ui() -> void:
 	var canvas := CanvasLayer.new()
+	canvas.name = "GameUI"
 	add_child(canvas)
 	var root := Control.new()
+	root.name = "Interface"
+	root.theme = preload("res://Assets/Arcade/daylight-theme.tres")
 	root.set_meta("arcade_authored_control", true)
 	canvas.add_child(root)
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -859,7 +988,7 @@ func _build_ui() -> void:
 	modal.offset_right = 310
 	modal.offset_top = -265 if motion_preview else -160
 	modal.offset_bottom = 265 if motion_preview else 160
-	modal.add_theme_stylebox_override("panel", _style(Color("fff6e6")))
+	modal.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 	if motion_preview: modal.resized.connect(_center_modal)
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 12 if motion_preview else 18)
@@ -868,13 +997,13 @@ func _build_ui() -> void:
 	modal_title.set_meta("arcade_authored_control", true)
 	modal_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	modal_title.add_theme_font_size_override("font_size", 36)
-	modal_title.add_theme_color_override("font_color", Color("185e57"))
+	modal_title.add_theme_color_override("font_color", Palette.INK)
 	column.add_child(modal_title)
 	modal_body = Label.new()
 	modal_body.set_meta("arcade_authored_control", true)
 	modal_body.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	modal_body.add_theme_font_size_override("font_size", 20)
-	modal_body.add_theme_color_override("font_color", Color("30483f"))
+	modal_body.add_theme_color_override("font_color", Palette.INK)
 	column.add_child(modal_body)
 	if motion_preview:
 		result_board = preload("res://game/BULLOCK_CART/scripts/race_result_board.gd").new()
@@ -890,7 +1019,7 @@ func _build_ui() -> void:
 		for state in ["normal", "hover", "pressed", "focus"]:
 			difficulty_select.add_theme_stylebox_override(state, _style(Color("225d60")))
 		var popup := difficulty_select.get_popup()
-		popup.add_theme_stylebox_override("panel", _style(Color("fff6e6")))
+		popup.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 		popup.add_theme_stylebox_override("hover", _style(Color("225d60")))
 		popup.add_theme_color_override("font_color", Color("203f40"))
 		popup.add_theme_color_override("font_hover_color", Color.WHITE)
@@ -898,7 +1027,7 @@ func _build_ui() -> void:
 		difficulty_help = Label.new()
 		difficulty_help.set_meta("arcade_authored_control", true)
 		difficulty_help.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		difficulty_help.add_theme_color_override("font_color", Color("30483f"))
+		difficulty_help.add_theme_color_override("font_color", Palette.INK)
 		difficulty_help.add_theme_font_size_override("font_size", 16)
 		difficulty_help.text = race.LEVEL_HELP[race.difficulty]
 		column.add_child(difficulty_help)
@@ -914,7 +1043,7 @@ func _build_ui() -> void:
 	for state in ["normal", "hover", "pressed", "focus"]:
 		duration_select.add_theme_stylebox_override(state, _style(Color("225d60")))
 	var dur_popup := duration_select.get_popup()
-	dur_popup.add_theme_stylebox_override("panel", _style(Color("fff6e6")))
+	dur_popup.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 	dur_popup.add_theme_stylebox_override("hover", _style(Color("225d60")))
 	dur_popup.add_theme_color_override("font_color", Color("203f40"))
 	dur_popup.add_theme_color_override("font_hover_color", Color.WHITE)
@@ -978,6 +1107,92 @@ func _build_ui() -> void:
 	mini_pause_btn.pressed.connect(_pause)
 	mini_hud.add_child(mini_pause_btn)
 	mini_hud.hide()
+	if motion_preview:
+		_mp_build_panels(root)
+		_mp_header_timer = Label.new()
+		_mp_header_timer.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+		_mp_header_timer.offset_top = 14
+		_mp_header_timer.offset_bottom = 54
+		_mp_header_timer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_mp_header_timer.add_theme_font_size_override("font_size", 30)
+		_mp_header_timer.add_theme_color_override("font_color", Color("ffffff"))
+		_mp_header_timer.add_theme_color_override("font_outline_color", Color("071f1e"))
+		_mp_header_timer.add_theme_constant_override("outline_size", 9)
+		_mp_header_timer.text = "Time: 60 s"
+		mini_hud.add_child(_mp_header_timer)
+		_mp_header_score = Label.new()
+		_mp_header_score.position = Vector2(18, 60)
+		_mp_header_score.add_theme_font_size_override("font_size", 20)
+		_mp_header_score.add_theme_color_override("font_color", Color("ffd568"))
+		_mp_header_score.add_theme_color_override("font_outline_color", Color("1e1000"))
+		_mp_header_score.add_theme_constant_override("outline_size", 7)
+		_mp_header_score.text = "Score: 0 / 0"
+		mini_hud.add_child(_mp_header_score)
+	# FloatScore: collect icon + count, star icon + count — top-left
+	var fs := Panel.new()
+	fs.name = "FloatScore"
+	fs.set_meta("arcade_authored_control", true)
+	fs.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	fs.offset_left = 12; fs.offset_right = 260; fs.offset_top = 12; fs.offset_bottom = 68
+	fs.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var fs_bg := StyleBoxFlat.new()
+	fs_bg.bg_color = Color(0.07, 0.11, 0.18, 0.84)
+	fs_bg.set_corner_radius_all(12)
+	fs_bg.set_border_width_all(1)
+	fs_bg.border_color = Color(1, 1, 1, 0.10)
+	fs.add_theme_stylebox_override("panel", fs_bg)
+	root.add_child(fs)
+	var fs_ci := TextureRect.new()
+	fs_ci.set_meta("arcade_authored_control", true)
+	fs_ci.texture = load("res://game/BULLOCK_CART/assets/generated/festival-boost-lantern.png")
+	fs_ci.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	fs_ci.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	fs_ci.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fs_ci.position = Vector2(6, 7); fs_ci.size = Vector2(38, 38)
+	fs.add_child(fs_ci)
+	var fs_cl := Label.new()
+	fs_cl.name = "CollectCount"
+	fs_cl.set_meta("arcade_authored_control", true)
+	fs_cl.add_theme_font_size_override("font_size", 26)
+	fs_cl.add_theme_color_override("font_color", Color("e8f4fc"))
+	fs_cl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	fs_cl.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	fs_cl.position = Vector2(50, 11); fs_cl.size = Vector2(60, 32)
+	fs_cl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fs.add_child(fs_cl)
+	var fs_si := TextureRect.new()
+	fs_si.set_meta("arcade_authored_control", true)
+	fs_si.texture = preload("res://scripts/ui/arcade_assets.gd").sprite("star")
+	fs_si.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	fs_si.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	fs_si.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fs_si.position = Vector2(122, 11); fs_si.size = Vector2(32, 32)
+	fs.add_child(fs_si)
+	var fs_sc := Label.new()
+	fs_sc.name = "StarCount"
+	fs_sc.set_meta("arcade_authored_control", true)
+	fs_sc.add_theme_font_size_override("font_size", 26)
+	fs_sc.add_theme_color_override("font_color", Color("efbc46"))
+	fs_sc.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	fs_sc.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	fs_sc.position = Vector2(160, 11); fs_sc.size = Vector2(50, 32)
+	fs_sc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fs.add_child(fs_sc)
+
+	# GameHudCard: time ring — below FloatScore
+	var hud_card := preload("res://scripts/ui/game_hud_card.gd").new()
+	hud_card.name = "GameHudCard"
+	hud_card.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	hud_card.position = Vector2(12, 76)
+	root.add_child(hud_card)
+
+	# GameTrialCard: session ring — bottom-right
+	var trial_card := preload("res://scripts/ui/game_trial_card.gd").new()
+	trial_card.name = "GameTrialCard"
+	trial_card.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	trial_card.offset_left = -102; trial_card.offset_right = -12
+	trial_card.offset_top  = -102; trial_card.offset_bottom = -12
+	root.add_child(trial_card)
 	_update_hud()
 
 func _toggle_music() -> void:
@@ -1047,3 +1262,587 @@ func _apply_detail() -> void:
 	for rival in rivals: rival.set_character_detail(high_detail)
 	detail_button.text = "PC detail" if high_detail else "Light detail"
 	track.set_detail(high_detail)
+
+func _device_button() -> void:
+	if motion_preview:
+		if _mp_state == MPState.WAITING and _mp_wait_panel and _mp_wait_panel.visible: return
+		if paused: _mp_resume()
+		else: _mp_pause()
+		return
+	if not running: return
+	if paused: _play()
+	else: _pause()
+
+func _disable_assistance() -> void:
+	PlutoComm.set_control_type("NONE")
+	PlutoComm.reset_aan_target()
+	aan.reset_trial()
+	therapy_target = -1.0
+
+func _finish_therapy() -> void:
+	_disable_assistance()
+	if therapy_active:
+		_log_therapy("DONE")
+		therapy_active = false
+		AppData.stop_trial(maxi(encountered.size(), hits), hits, maxi(0, encountered.size() - hits))
+
+func _exit_tree() -> void:
+	if EventBus.button_released.is_connected(_device_button):
+		EventBus.button_released.disconnect(_device_button)
+	if motion_preview:
+		PlutoComm.set_control_type("NONE")
+		if not _mp_game_finished:
+			AppData.stop_trial(_mp_n_targets, _mp_n_success, _mp_n_failure)
+		return
+	_finish_therapy()
+
+func _log_therapy(state_name: String) -> void:
+	AppData.log_game_state = state_name
+	AppData.log_player_x = race.racers[0].x
+	AppData.log_player_y = race.racers[0].distance
+	AppData.log_aan_target = aan.target_position
+	AppData.log_aan_init = aan.initial_position
+	AppData.log_aan_state = AAN.State.keys()[aan.state]
+	if therapy_target < 0:
+		AppData.log_target_x = 0.0
+		AppData.log_target_y = 0.0
+
+func _update_assistance(dt: float) -> void:
+	var nearest: Dictionary = {}
+	for pickup in race.pickups:
+		if pickup.owner == -1 and pickup.distance >= race.racers[0].distance:
+			if nearest.is_empty() or pickup.distance < nearest.distance: nearest = pickup
+	if nearest.is_empty():
+		_disable_assistance()
+		return
+	AppData.log_target_x = nearest.x
+	AppData.log_target_y = nearest.distance
+	if therapy_target != nearest.distance:
+		therapy_target = nearest.distance
+		if aan_enabled:
+			PlutoComm.reset_aan_target()
+			PlutoComm.set_control_type("POSITIONAAN")
+			PlutoComm.set_control_bound(AppData.assist_bound)
+			PlutoComm.set_control_dir(0)
+			aan.reset_trial()
+			var fraction: float = inverse_lerp(race.lane_x(race.lane_min), race.lane_x(race.lane_max), nearest.x)
+			var angle: float = clampf(lerpf(therapy_aprom[0], therapy_aprom[1], fraction), aan.prom[0], aan.prom[1])
+			var duration: float = maxf(1.0, (nearest.distance - race.racers[0].distance) / maxf(1.0, race.racers[0].speed))
+			var speed: float = AppData.speed_data.game_speed if AppData.speed_data != null else 10.0
+			aan.set_new_trial_details(PlutoComm.angle, angle, duration, speed)
+	if aan_enabled:
+		aan.update(PlutoComm.angle, dt, false)
+		if aan.state_change:
+			if aan.state == AAN.State.AROM_MOVING: PlutoComm.reset_aan_target()
+			else:
+				var target = aan.get_new_aan_target()
+				if target != null: PlutoComm.set_aan_target(target[0], target[1], target[2], target[3])
+
+# ============================================================
+# motion_preview therapeutic mode — all functions below
+# ============================================================
+
+func _preload_assets() -> void:
+	for key in [&"player", &"amber", &"indigo"]:
+		var sheet = ResourceLoader.load("res://game/BULLOCK_CART/assets/generated/cart-centered-%s.png" % key)
+		if sheet: _preloaded_cart_sheets[key] = sheet
+		var meta = ResourceLoader.load("res://game/BULLOCK_CART/assets/generated/cart-centered-%s.json" % key)
+		if meta: _preloaded_cart_meta[key] = meta
+	_preloaded_multi_tex = ResourceLoader.load("res://game/BULLOCK_CART/assets/generated/multiple powers.png")
+	_preloaded_rare_tex  = ResourceLoader.load("res://game/BULLOCK_CART/assets/generated/rarePower.png")
+	_preloaded_p3x_tex   = ResourceLoader.load("res://game/BULLOCK_CART/assets/generated/power3X.png")
+	for fname in ["flower_cherry", "flower_blossom", "flower_hibiscus", "flower_sunflower", "flower_tulip"]:
+		var t: Texture2D = ResourceLoader.load("res://game/BULLOCK_CART/assets/generated/%s.png" % fname)
+		if t: _preloaded_flowers.append(t)
+
+func _mp_init_rom_data() -> void:
+	if AppData.selected_mechanism == null:
+		_mp_aprom = [-45.0, 45.0]; _mp_arom = [-30.0, 30.0]; _mp_prom = [-45.0, 45.0]
+		_mp_set_min_max_duration()
+		return
+	_mp_aprom = AppData.selected_mechanism.current_aprom.duplicate()
+	_mp_arom  = AppData.selected_mechanism.current_arom.duplicate()
+	_mp_prom  = AppData.selected_mechanism.current_prom.duplicate()
+	if _mp_aprom.size() < 2: _mp_aprom = [-45.0, 45.0]
+	if _mp_arom.size()  < 2: _mp_arom  = [-30.0, 30.0]
+	if _mp_prom.size()  < 2: _mp_prom  = [-45.0, 45.0]
+	_mp_set_min_max_duration()
+
+func _mp_set_min_max_duration() -> void:
+	var range_size := absf(_mp_aprom[1] - _mp_aprom[0])
+	_mp_mech_max_duration = clampf(range_size / maxf(MP_MIN_SPEED, 1.0), 1.5, 6.0)
+	_mp_mech_min_duration = clampf(range_size / maxf(MP_MAX_SPEED, 1.0), 0.3, 2.0)
+
+func _mp_calc_speed() -> void:
+	_mp_game_speed = MP_MIN_SPEED
+	if AppData.speed_data != null:
+		_mp_game_speed = clampf(AppData.speed_data.game_speed, MP_MIN_SPEED, MP_MAX_SPEED)
+	_mp_recalc_from_speed()
+
+func _mp_recalc_from_speed() -> void:
+	var t := clampf((_mp_game_speed - MP_MIN_SPEED) / maxf(MP_MAX_SPEED - MP_MIN_SPEED, 1.0), 0.0, 1.0)
+	_mp_move_duration = lerpf(_mp_mech_max_duration, _mp_mech_min_duration, t)
+	if _mp_speed_lbl:
+		_mp_speed_lbl.text = "Speed: %d" % int(_mp_game_speed)
+	if _mp_speed_info_lbl:
+		_mp_speed_info_lbl.text = "Duration: %.1f s\nRange: %.0f° – %.0f°" % [_mp_move_duration, _mp_aprom[0], _mp_aprom[1]]
+
+func _mp_build_panels(canvas_root: Control) -> void:
+	# --- Wait panel ---
+	_mp_wait_panel = PanelContainer.new()
+	canvas_root.add_child(_mp_wait_panel)
+	_mp_wait_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_mp_wait_panel.offset_left = -310; _mp_wait_panel.offset_right = 310
+	_mp_wait_panel.offset_top = -220; _mp_wait_panel.offset_bottom = 220
+	_mp_wait_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
+	var wc := VBoxContainer.new()
+	wc.add_theme_constant_override("separation", 14)
+	_mp_wait_panel.add_child(wc)
+	var wt := Label.new()
+	wt.text = "BULLOCK CART"
+	wt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	wt.add_theme_font_size_override("font_size", 40)
+	wt.add_theme_color_override("font_color", Palette.INK)
+	wc.add_child(wt)
+	var wb := Label.new()
+	wb.text = "Steer toward each lantern.\nBlue: boost • Pink: super boost • Gold: ultra boost\nBoosts activate automatically.\nDevice button or Esc: pause / resume"
+	wb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	wb.add_theme_font_size_override("font_size", 18)
+	wb.add_theme_color_override("font_color", Palette.INK)
+	wb.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	wc.add_child(wb)
+	_button("PLAY  ›", wc, func():
+		_mp_wait_panel.hide()
+		_mp_state = MPState.START)
+	_button("Choose game", wc, func():
+		PlutoComm.set_control_type("NONE")
+		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn"))
+	_mp_wait_panel.hide()
+	# --- Pause panel ---
+	_mp_pause_panel = PanelContainer.new()
+	canvas_root.add_child(_mp_pause_panel)
+	_mp_pause_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_mp_pause_panel.offset_left = -260; _mp_pause_panel.offset_right = 260
+	_mp_pause_panel.offset_top = -180; _mp_pause_panel.offset_bottom = 180
+	_mp_pause_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
+	var pc := VBoxContainer.new()
+	pc.add_theme_constant_override("separation", 14)
+	_mp_pause_panel.add_child(pc)
+	var pt := Label.new()
+	pt.text = "PAUSED"
+	pt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	pt.add_theme_font_size_override("font_size", 40)
+	pt.add_theme_color_override("font_color", Palette.INK)
+	pc.add_child(pt)
+	var ph := Label.new()
+	ph.text = "Press resume or device button to continue"
+	ph.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ph.add_theme_font_size_override("font_size", 18)
+	ph.add_theme_color_override("font_color", Palette.INK)
+	pc.add_child(ph)
+	_button("Resume", pc, _mp_resume)
+	_button("Choose game", pc, func():
+		PlutoComm.set_control_type("NONE")
+		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn"))
+	_mp_pause_panel.hide()
+	# --- Game over panel ---
+	_mp_over_panel = PanelContainer.new()
+	canvas_root.add_child(_mp_over_panel)
+	_mp_over_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_mp_over_panel.offset_left = -310; _mp_over_panel.offset_right = 310
+	_mp_over_panel.offset_top = -220; _mp_over_panel.offset_bottom = 220
+	_mp_over_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
+	var oc := VBoxContainer.new()
+	oc.add_theme_constant_override("separation", 14)
+	_mp_over_panel.add_child(oc)
+	var ot := Label.new()
+	ot.text = "GREAT RIDE!"
+	ot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ot.add_theme_font_size_override("font_size", 40)
+	ot.add_theme_color_override("font_color", Palette.INK)
+	oc.add_child(ot)
+	var os_lbl := Label.new()
+	os_lbl.name = "MPScoreFinalLabel"
+	os_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	os_lbl.add_theme_font_size_override("font_size", 32)
+	os_lbl.add_theme_color_override("font_color", Palette.INK)
+	oc.add_child(os_lbl)
+	var osub := Label.new()
+	osub.text = "lanes reached / lanes shown"
+	osub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	osub.add_theme_font_size_override("font_size", 16)
+	osub.add_theme_color_override("font_color", Palette.MUTED)
+	oc.add_child(osub)
+	_button("Play again", oc, func(): get_tree().reload_current_scene())
+	_button("Choose game", oc, func():
+		PlutoComm.set_control_type("NONE")
+		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn"))
+	_mp_over_panel.hide()
+	# --- Speed panel ---
+	_mp_speed_panel = PanelContainer.new()
+	canvas_root.add_child(_mp_speed_panel)
+	_mp_speed_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_mp_speed_panel.offset_left = -220; _mp_speed_panel.offset_right = 220
+	_mp_speed_panel.offset_top = -130; _mp_speed_panel.offset_bottom = 130
+	_mp_speed_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
+	var sc := VBoxContainer.new()
+	sc.add_theme_constant_override("separation", 10)
+	_mp_speed_panel.add_child(sc)
+	var spt := Label.new()
+	spt.text = "GAME SPEED"
+	spt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	spt.add_theme_font_size_override("font_size", 24)
+	spt.add_theme_color_override("font_color", Palette.INK)
+	sc.add_child(spt)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 16)
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	sc.add_child(row)
+	_mp_dec_btn = _button("−", row, _mp_decrease_speed)
+	_mp_speed_lbl = Label.new()
+	_mp_speed_lbl.add_theme_font_size_override("font_size", 28)
+	_mp_speed_lbl.add_theme_color_override("font_color", Palette.INK)
+	_mp_speed_lbl.custom_minimum_size.x = 100
+	_mp_speed_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	row.add_child(_mp_speed_lbl)
+	_mp_inc_btn = _button("+", row, _mp_increase_speed)
+	_mp_speed_info_lbl = Label.new()
+	_mp_speed_info_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_mp_speed_info_lbl.add_theme_font_size_override("font_size", 15)
+	_mp_speed_info_lbl.add_theme_color_override("font_color", Palette.MUTED)
+	sc.add_child(_mp_speed_info_lbl)
+	_button("Close  (G)", sc, func(): _mp_speed_panel.hide())
+	_mp_speed_panel.hide()
+	_mp_recalc_from_speed()
+
+func _mp_begin_game() -> void:
+	_mp_time_left = MP_TRIAL_DURATION
+	lantern_variant = 0
+	_mp_n_targets = 0
+	_mp_n_success = 0
+	_mp_n_failure = 0
+	_mp_game_finished = false
+	elapsed = 0.0
+	hits = 0
+	finish_announced = false
+	countdown_remaining = 0.0
+	encountered.clear()
+	race.reset()
+	if retry_button: retry_button.hide()
+	cart.reset_motion()
+	for rival in rivals: rival.reset_motion()
+	cart.position.x = 0
+	cart.rotation.y = 0.0
+	for rival in rivals: rival.rotation.y = 0.0
+	camera.reset(Vector3.ZERO)
+	_reset_targets()
+	running = true
+	paused = false
+	mini_hud.show()
+	top_bar.hide()
+	if mini_pause_btn: mini_pause_btn.disabled = false
+	pause_button.disabled = false
+	race.automatic_pickup_recycling = false
+	race.automatic_collection = false
+	# Single-lantern mode: replace full pickup list with one placeholder
+	race.pickups.clear()
+	race.pickups.append({"id": 0, "distance": -999.0, "x": race.lane_x(2),
+		"lane": 2, "kind": "power", "owner": -1, "primary": true})
+	_reset_targets()  # rebuilds exactly 1 target node
+	AppData.start_new_trial()
+	_mp_setup_aan()
+	race_audio.start_race()
+
+func _mp_setup_aan() -> void:
+	_mp_use_aan = not AppData.demo_mode and PlutoComm.is_connected \
+				  and AppData.mechanism_name not in ["FME1", "FME2", "NOMECH"]
+	_mp_aan = AAN.new()
+	_mp_aan.arom = _mp_arom.duplicate()
+	_mp_aan.prom = _mp_prom.duplicate()
+	if _mp_use_aan and _mp_arom.size() >= 2 and _mp_prom.size() >= 2:
+		PlutoComm.set_control_type("POSITIONAAN")
+		PlutoComm.set_control_bound(AppData.assist_bound)
+		PlutoComm.set_control_dir(0)
+	else:
+		_mp_use_aan = false
+
+func _mp_end_game() -> void:
+	_mp_game_finished = true
+	PlutoComm.set_control_type("NONE")
+	running = false
+	mini_hud.hide()
+	top_bar.show()
+	race_audio.finish_race()
+	if AppData.speed_data != null:
+		AppData.speed_data.game_speed = _mp_game_speed
+	AppData.stop_trial(_mp_n_targets, _mp_n_success, _mp_n_failure)
+	_mp_hide_lane_indicator()
+	var over_score := _mp_over_panel.find_child("MPScoreFinalLabel", true, false) as Label
+	if over_score:
+		over_score.text = "%d / %d" % [_mp_n_success, _mp_n_targets]
+	_mp_over_panel.show()
+
+func _mp_on_outcome(success: bool) -> void:
+	if success:
+		_mp_n_success += 1
+		_show_feedback("COLLECTED!", Color("8cfff1"))
+		race_audio.celebrate("collect")
+	else:
+		_mp_n_failure += 1
+		_show_feedback("MISSED!", Color("ff9966"))
+	_mp_n_targets += 1
+
+func _mp_pause() -> void:
+	if not running or paused: return
+	_mp_prev_state = _mp_state
+	_mp_state = MPState.WAITING
+	paused = true
+	race_audio.set_paused(true)
+	PlutoComm.set_control_type("NONE")
+	_mp_hide_lane_indicator()
+	mini_hud.hide()
+	_mp_pause_panel.show()
+
+func _mp_resume() -> void:
+	if not paused: return
+	_mp_pause_panel.hide()
+	paused = false
+	_mp_state = _mp_prev_state
+	race_audio.set_paused(false)
+	if _mp_use_aan and running:
+		PlutoComm.set_control_type("POSITIONAAN")
+		PlutoComm.set_control_bound(AppData.assist_bound)
+	mini_hud.show()
+
+func _mp_decrease_speed() -> void:
+	_mp_game_speed = maxf(MP_MIN_SPEED, _mp_game_speed - 5.0)
+	_mp_recalc_from_speed()
+
+func _mp_increase_speed() -> void:
+	_mp_game_speed = minf(MP_MAX_SPEED, _mp_game_speed + 5.0)
+	_mp_recalc_from_speed()
+
+func _mp_tick(delta: float) -> void:
+	if paused: return
+	match _mp_state:
+		MPState.WAITING:
+			pass
+		MPState.START:
+			_mp_begin_game()
+			_mp_state = MPState.SPAWN_TARGET
+		MPState.SPAWN_TARGET:
+			if _mp_time_left <= 0.0:
+				_mp_state = MPState.STOP
+				return
+			_mp_move_elapsed = 0.0
+			_mp_event_delay = 0.05
+			var lane_count := race.lane_max - race.lane_min + 1
+			_mp_target_lane = race.lane_min + (randi() % lane_count)
+			# Place lantern 20m ahead of the player in the target lane
+			_mp_spawn_distance = race.racers[0].distance + maxf(24.0, race.BASE_SPEED * _mp_move_duration)
+			race.pickups[0].distance = _mp_spawn_distance
+			race.pickups[0].x       = race.lane_x(_mp_target_lane)
+			race.pickups[0].lane    = _mp_target_lane
+			race.pickups[0].owner   = -1
+			race.pickups[0].kind = LANTERN_SEQUENCE[lantern_variant % LANTERN_SEQUENCE.size()]
+			_set_lantern_variant(lantern_variant)
+			lantern_variant += 1
+			_reset_targets()
+
+			if _mp_use_aan and _mp_aan != null:
+				var _aprom_now: Array = _mp_aprom
+				if AppData.selected_mechanism == null or AppData.selected_mechanism.current_aprom.size() < 2:
+					_aprom_now = [AppData.mech_offset - AppData.calib_angle * 0.5,
+								  AppData.mech_offset + AppData.calib_angle * 0.5]
+				var fraction := inverse_lerp(float(race.lane_min), float(race.lane_max), float(_mp_target_lane))
+				var target_angle := clampf(lerpf(float(_aprom_now[0]), float(_aprom_now[1]), fraction), float(_mp_prom[0]), float(_mp_prom[1]))
+				PlutoComm.reset_aan_target()
+				PlutoComm.set_control_type("POSITIONAAN")
+				PlutoComm.set_control_bound(AppData.assist_bound)
+				PlutoComm.set_control_dir(0)
+				_mp_aan.reset_trial()
+				_mp_aan.set_new_trial_details(PlutoComm.angle, target_angle, _mp_move_duration, _mp_game_speed)
+			_mp_state = MPState.MOVE
+		MPState.MOVE:
+			_mp_move_elapsed += delta
+			_mp_time_left = maxf(0.0, _mp_time_left - delta)
+			AppData.record_active_time(delta)
+			if _mp_use_aan and _mp_aan != null:
+				_mp_aan.update(PlutoComm.angle, delta, false)
+				if _mp_aan.state_change:
+					if _mp_aan.state == AAN.State.AROM_MOVING: PlutoComm.reset_aan_target()
+					else:
+						var target = _mp_aan.get_new_aan_target()
+						if target != null: PlutoComm.set_aan_target(target[0], target[1], target[2], target[3])
+			# Resolve exactly once at the speed-dependent arrival time.
+			if _mp_move_elapsed >= _mp_move_duration and race.pickups[0].owner < 0:
+				var caught: bool = absf(race.racers[0].x - race.pickups[0].x) <= race._pickup_reach()
+				race.pickups[0].owner = 0 if caught else 3
+				if caught: race._award_pickup(0, race.pickups[0])
+				_mp_on_outcome(caught)
+				_mp_state = MPState.SUCCESS if caught else MPState.FAILURE
+				_mp_event_delay = 0.4
+				return
+			# Success: lantern collected (owner set by race.advance)
+			if not race.pickups.is_empty() and race.pickups[0].owner >= 0:
+				_mp_on_outcome(true)
+				_mp_hide_lane_indicator()
+				_mp_state = MPState.SUCCESS
+				_mp_event_delay = 0.4
+			# Miss: player has driven past the lantern without collecting it
+			elif not race.pickups.is_empty() and race.racers[0].distance > race.pickups[0].distance + 3.0:
+				_mp_on_outcome(false)
+				_mp_hide_lane_indicator()
+				_mp_state = MPState.FAILURE
+				_mp_event_delay = 0.4
+			# Fallback: time up
+			elif _mp_time_left <= 0.0:
+				_mp_on_outcome(false)
+				_mp_hide_lane_indicator()
+				_mp_state = MPState.STOP
+		MPState.SUCCESS, MPState.FAILURE:
+			_mp_event_delay = maxf(0.0, _mp_event_delay - delta)
+			if _mp_event_delay <= 0.0:
+				if _mp_time_left > 0.0:
+					_mp_state = MPState.SPAWN_TARGET
+				else:
+					_mp_state = MPState.STOP
+		MPState.STOP:
+			_mp_state = MPState.DONE
+			_mp_end_game()
+		MPState.DONE:
+			pass
+
+func _process_mp(delta: float) -> void:
+	var device_target_x := INF
+	var device_target_lane := -1
+	var direction := 0.0
+	if PlutoComm.is_connected and PlutoComm.is_streaming:
+		# Same fallback as non-preview _process(): use calibration data when mechanism not selected
+		var aprom: Array = _mp_aprom
+		if AppData.selected_mechanism == null or AppData.selected_mechanism.current_aprom.size() < 2:
+			aprom = [AppData.mech_offset - AppData.calib_angle * 0.5,
+					 AppData.mech_offset + AppData.calib_angle * 0.5]
+		var range_size: float = float(aprom[1]) - float(aprom[0])
+		var t := clampf((PlutoComm.angle - aprom[0]) / (range_size if range_size != 0.0 else 1.0), 0.0, 1.0)
+		direction = t * 2.0 - 1.0
+		device_target_x    = lerpf(race.lane_x(race.lane_min), race.lane_x(race.lane_max), t)
+		device_target_lane = race.lane_min + roundi(t * float(race.lane_max - race.lane_min))
+	else:
+		var l := Input.is_physical_key_pressed(KEY_LEFT) or Input.is_physical_key_pressed(KEY_A)
+		var r := Input.is_physical_key_pressed(KEY_RIGHT) or Input.is_physical_key_pressed(KEY_D)
+		direction = float(r) - float(l)
+	var allow_move := running and not paused and _mp_state in [MPState.SPAWN_TARGET, MPState.MOVE, MPState.SUCCESS, MPState.FAILURE]
+	if allow_move:
+		if device_target_x != INF:
+			race.racers[0].x = device_target_x
+			race.racers[0].lane = device_target_lane
+			race.racers[0].lateral_speed = 0.0
+		step(delta, 0.0 if device_target_x != INF else direction)
+	elif running and not paused:
+		race_audio.advance(delta)
+	_mp_tick(delta)
+	_mp_refresh_hud()
+	_mp_log_state()
+	if _mp_lane_indicator and _mp_lane_indicator.visible:
+		_mp_lane_indicator.position.z = -(20.0 + COLLECTION_FRONT)
+		_mp_lane_indicator.position.x = race.lane_x(_mp_target_lane)
+		_mp_animate_indicator(delta)
+
+func _mp_refresh_hud() -> void:
+	if _mp_header_timer and mini_hud and mini_hud.visible:
+		_mp_header_timer.text = "Time: %d s" % int(ceil(_mp_time_left))
+	if _mp_header_score and mini_hud and mini_hud.visible:
+		_mp_header_score.text = "Score: %d / %d" % [_mp_n_success, _mp_n_targets]
+
+func _mp_log_state() -> void:
+	AppData.log_player_x   = race.racers[0].x
+	AppData.log_player_y   = race.racers[0].distance
+	AppData.log_target_x   = race.lane_x(_mp_target_lane) if _mp_state in [MPState.SPAWN_TARGET, MPState.MOVE] else 0.0
+	AppData.log_target_y   = 0.0
+	AppData.log_game_state = MPState.keys()[_mp_state]
+	if _mp_aan != null:
+		AppData.log_aan_target = _mp_aan.target_position
+		AppData.log_aan_init   = _mp_aan.initial_position
+		AppData.log_aan_state  = AAN.State.keys()[_mp_aan.state]
+
+func _mp_build_lane_indicator() -> void:
+	_mp_lane_indicator = Node3D.new()
+	add_child(_mp_lane_indicator)
+	var arch_mat := StandardMaterial3D.new()
+	arch_mat.albedo_color = Color("ffd700")
+	arch_mat.emission_enabled = true
+	arch_mat.emission = Color("ffe040")
+	arch_mat.emission_energy_multiplier = 1.5
+	var pillar_mesh := BoxMesh.new()
+	pillar_mesh.size = Vector3(0.25, 4.0, 0.25)
+	for px in [-1.5, 1.5]:
+		var pillar := MeshInstance3D.new()
+		pillar.mesh = pillar_mesh
+		pillar.material_override = arch_mat
+		pillar.position = Vector3(px, 2.0, 0.0)
+		_mp_lane_indicator.add_child(pillar)
+	var bar_mesh := BoxMesh.new()
+	bar_mesh.size = Vector3(3.25, 0.25, 0.25)
+	var bar := MeshInstance3D.new()
+	bar.mesh = bar_mesh
+	bar.material_override = arch_mat
+	bar.position = Vector3(0.0, 4.0, 0.0)
+	_mp_lane_indicator.add_child(bar)
+	var glow_mat := StandardMaterial3D.new()
+	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glow_mat.albedo_color = Color(1.0, 0.9, 0.2, 0.5)
+	glow_mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	glow_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var glow_mesh := QuadMesh.new()
+	glow_mesh.size = Vector2(4.5, 5.0)
+	var glow := MeshInstance3D.new()
+	glow.name = "GlowQuad"
+	glow.mesh = glow_mesh
+	glow.material_override = glow_mat
+	glow.position = Vector3(0.0, 2.0, 0.0)
+	glow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_mp_lane_indicator.add_child(glow)
+	var countdown_lbl := Label3D.new()
+	countdown_lbl.name = "CountdownLabel"
+	countdown_lbl.text = ""
+	countdown_lbl.font_size = 80
+	countdown_lbl.pixel_size = 0.006
+	countdown_lbl.position = Vector3(0.0, 5.2, 0.0)
+	countdown_lbl.modulate = Color("ffe38a")
+	countdown_lbl.outline_size = 10
+	countdown_lbl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	_mp_lane_indicator.add_child(countdown_lbl)
+	_mp_lane_indicator.hide()
+
+func _mp_show_lane_indicator(lane: int) -> void:
+	if not _mp_lane_indicator: return
+	_mp_lane_indicator.position = Vector3(race.lane_x(lane), 0.0, -(20.0 + COLLECTION_FRONT))
+	_mp_indicator_elapsed = 0.0
+	_mp_lane_indicator.show()
+
+func _mp_hide_lane_indicator() -> void:
+	if _mp_lane_indicator: _mp_lane_indicator.hide()
+
+func _mp_animate_indicator(dt: float) -> void:
+	_mp_indicator_elapsed += dt
+	var glow := _mp_lane_indicator.get_node_or_null("GlowQuad") as MeshInstance3D
+	if glow:
+		var gmat := glow.material_override as StandardMaterial3D
+		if gmat:
+			var col := gmat.albedo_color
+			col.a = 0.35 + sin(_mp_indicator_elapsed * 4.0) * 0.22
+			gmat.albedo_color = col
+	var countdown := _mp_lane_indicator.get_node_or_null("CountdownLabel") as Label3D
+	if countdown:
+		var remaining := maxf(0.0, _mp_move_duration - _mp_move_elapsed)
+		countdown.text = "%.1f s" % remaining
+
+func _set_lantern_variant(variant: int) -> void:
+	if targets.is_empty(): return
+	var sprite = targets[0].get_node_or_null("v_power")
+	if sprite == null or not sprite.texture is AtlasTexture: return
+	var atlas := sprite.texture as AtlasTexture
+	var cell := Vector2(atlas.atlas.get_width(), atlas.atlas.get_height()) * 0.5
+	atlas.region = Rect2(Vector2(variant % 2, (variant >> 1) % 2) * cell, cell)

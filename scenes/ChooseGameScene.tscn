@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bq0summpb3dw4" path="res://scripts/choose_game_scene.gd" id="1_cgame"]
 [ext_resource type="Theme" uid="uid://o0pld3buj8af" path="res://Assets/Arcade/daylight-theme.tres" id="1_muk0j"]
-[ext_resource type="Texture2D" path="res://Assets/Arcade/forest-soft.png" id="3_vglxf"]
+[ext_resource type="Texture2D" uid="uid://cca05wamm68n4" path="res://Assets/Arcade/forest-soft.png" id="3_vglxf"]
 [ext_resource type="Texture2D" uid="uid://bqud1iobifytp" path="res://Assets/Arcade/daylight-panel.svg" id="4_vglxf"]
 [ext_resource type="FontVariation" path="res://Assets/Arcade/Online/Outfit-Medium.tres" id="5_dxjs5"]
-[ext_resource type="Texture2D" uid="uid://bqhylig7jdm53" path="res://Assets/Arcade/daylight-secondary.svg" id="6_nq0wi"]
 [ext_resource type="Texture2D" uid="uid://barycirfkqtgp" path="res://Assets/Arcade/daylight-field.svg" id="7_3r834"]
 [ext_resource type="Texture2D" uid="uid://iexna6jy5cmt" path="res://Assets/Arcade/twilight-garden.png" id="8_gtsbo"]
 [ext_resource type="Texture2D" uid="uid://du1wiyrovrrvi" path="res://Assets/Arcade/sprites-source.png" id="9_8r1i5"]
@@ -14,16 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://cde51pluy473l" path="res://Assets/Arcade/canyon-v2.png" id="12_628qv"]
 [ext_resource type="Texture2D" uid="uid://ruurlt5aiwfd" path="res://Assets/Arcade/sprites-driver-v2.png" id="13_fyw8g"]
 [ext_resource type="Texture2D" uid="uid://cfxplvjhkg52h" path="res://Assets/Arcade/arena-v2.png" id="14_3qpw1"]
-[ext_resource type="Script" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
+[ext_resource type="Texture2D" uid="uid://d3hme5pan1jy6" path="res://game/BULLOCK_CART/assets/generated/cart-centered-player.png" id="15_bullock"]
+[ext_resource type="Script" uid="uid://cmaq3wpsmkmug" path="res://scripts/ui/living_garden.gd" id="living_garden_script"]
+[ext_resource type="Script" uid="uid://gb52huyujiua" path="res://scripts/ui/menu_ambience.gd" id="patient_ambience"]
 [ext_resource type="Texture2D" uid="uid://dh8spggqwauku" path="res://Assets/Arcade/Online/Icons/arrow-left.svg" id="patient_icon_arrow-left"]
 
-[ext_resource type="Script" path="res://scripts/ui/living_garden.gd" id="living_garden_script"]
-[ext_resource type="Shader" path="res://Assets/Arcade/living-garden.gdshader" id="living_garden_shader"]
-
-[sub_resource type="ShaderMaterial" id="living_garden_material"]
-resource_local_to_scene = true
-shader = ExtResource("living_garden_shader")
-shader_parameter/phase = 0.0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8s5b"]
 texture = ExtResource("4_vglxf")
 texture_margin_left = 24.0
@@ -31,50 +25,37 @@ texture_margin_top = 24.0
 texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gjpr3"]
+[sub_resource type="StyleBoxFlat" id="forest_secondary"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+bg_color = Color(0.995, 0.99, 0.975, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.56, 0.56, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7kmb3"]
+[sub_resource type="StyleBoxFlat" id="forest_soft"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qi1a8"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_07pkr"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+bg_color = Color(0.87, 0.94, 0.91, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.56, 0.56, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqjqa"]
 content_margin_left = 16.0
@@ -109,51 +90,6 @@ atlas = ExtResource("9_8r1i5")
 region = Rect2(45, 97, 465, 360)
 filter_clip = true
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ar0l"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hrmpu"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8nfk8"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtu4i"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d5xtu"]
 content_margin_left = 16.0
 content_margin_top = 10.0
@@ -184,51 +120,6 @@ shadow_offset = Vector2(0, 4)
 atlas = ExtResource("9_8r1i5")
 region = Rect2(537, 106, 470, 333)
 filter_clip = true
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5rmdv"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cfveg"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_do6pm"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fijpi"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h3pk7"]
 content_margin_left = 16.0
@@ -261,51 +152,6 @@ atlas = ExtResource("9_8r1i5")
 region = Rect2(1027, 99, 480, 348)
 filter_clip = true
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5ong"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7rod"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ykotl"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5date"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bb2ud"]
 content_margin_left = 16.0
 content_margin_top = 10.0
@@ -336,51 +182,6 @@ shadow_offset = Vector2(0, 4)
 atlas = ExtResource("13_fyw8g")
 region = Rect2(34, 566, 505, 374)
 filter_clip = true
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5hgmi"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xy3i3"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_80t6i"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tcbt3"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dvhue"]
 content_margin_left = 16.0
@@ -413,50 +214,10 @@ atlas = ExtResource("9_8r1i5")
 region = Rect2(548, 567, 438, 383)
 filter_clip = true
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6jf80"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4w483"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_icwul"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_vglxf")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-modulate_color = Color(1.15, 1.15, 1.15, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pfie1"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 10.0
-texture = ExtResource("6_nq0wi")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullock"]
+atlas = ExtResource("15_bullock")
+region = Rect2(0, 0, 313, 318)
+filter_clip = true
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_svol7"]
 content_margin_left = 16.0
@@ -484,87 +245,6 @@ corner_radius_bottom_left = 14
 shadow_color = Color(0.12, 0.25, 0.35, 0.1)
 shadow_offset = Vector2(0, 4)
 
-
-[sub_resource type="StyleBoxFlat" id="forest_card"]
-bg_color = Color(0.995, 0.99, 0.975, 1)
-border_color = Color(0.79, 0.83, 0.80, 1)
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-border_width_bottom = 1
-corner_radius_top_left = 18
-corner_radius_top_right = 18
-corner_radius_bottom_left = 18
-corner_radius_bottom_right = 18
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="forest_primary"]
-bg_color = Color(0.025, 0.30, 0.34, 1)
-border_color = Color(0.025, 0.30, 0.34, 1)
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-border_width_bottom = 1
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="forest_hover"]
-bg_color = Color(0.04, 0.39, 0.41, 1)
-border_color = Color(0.04, 0.39, 0.41, 1)
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-border_width_bottom = 1
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="forest_secondary"]
-bg_color = Color(0.995, 0.99, 0.975, 1)
-border_color = Color(0.40, 0.56, 0.56, 1)
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-border_width_bottom = 1
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="forest_soft"]
-bg_color = Color(0.87, 0.94, 0.91, 1)
-border_color = Color(0.40, 0.56, 0.56, 1)
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-border_width_bottom = 1
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 16.0
-content_margin_right = 16.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-
 [node name="ChooseGameScene" type="Control" unique_id=1357170814]
 layout_mode = 3
 anchors_preset = 15
@@ -578,7 +258,6 @@ metadata/arcade_authored = true
 metadata/arcade_authored_control = true
 
 [node name="ArcadeBackdrop" type="TextureRect" parent="." unique_id=653967447]
-script = ExtResource("living_garden_script")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -586,8 +265,9 @@ mouse_filter = 2
 theme = ExtResource("1_muk0j")
 texture = ExtResource("3_vglxf")
 expand_mode = 1
-metadata/arcade_authored_control = true
 stretch_mode = 6
+script = ExtResource("living_garden_script")
+metadata/arcade_authored_control = true
 
 [node name="MenuAmbience" type="Control" parent="ArcadeBackdrop" unique_id=402818707]
 layout_mode = 1
@@ -605,6 +285,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -712,18 +396,35 @@ expand_icon = true
 metadata/arcade_authored_control = true
 
 [node name="WorldPreview" type="TextureRect" parent="GameGrid/HatTrickButton" unique_id=1240960694]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
 offset_top = 12.0
 offset_right = -12.0
-offset_bottom = -200.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_muk0j")
 texture = ExtResource("8_gtsbo")
 expand_mode = 1
 stretch_mode = 6
+metadata/arcade_authored_control = true
+
+[node name="@TextureRect@135" type="TextureRect" parent="GameGrid/HatTrickButton" unique_id=654932940]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 211.0
+offset_bottom = 196.0
+mouse_filter = 2
+theme = ExtResource("1_muk0j")
+texture = SubResource("AtlasTexture_vkesn")
+expand_mode = 1
+stretch_mode = 5
 metadata/arcade_authored_control = true
 
 [node name="@VBoxContainer@134" type="VBoxContainer" parent="GameGrid/HatTrickButton" unique_id=1360253904]
@@ -741,16 +442,6 @@ mouse_filter = 2
 theme = ExtResource("1_muk0j")
 theme_override_constants/separation = 18
 alignment = 1
-metadata/arcade_authored_control = true
-
-[node name="@TextureRect@135" type="TextureRect" parent="GameGrid/HatTrickButton/@VBoxContainer@134" unique_id=654932940]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-mouse_filter = 2
-theme = ExtResource("1_muk0j")
-texture = SubResource("AtlasTexture_vkesn")
-expand_mode = 1
-stretch_mode = 5
 metadata/arcade_authored_control = true
 
 [node name="@Label@136" type="Label" parent="GameGrid/HatTrickButton/@VBoxContainer@134" unique_id=1180728576]
@@ -810,13 +501,16 @@ expand_icon = true
 metadata/arcade_authored_control = true
 
 [node name="WorldPreview" type="TextureRect" parent="GameGrid/FruitBasketButton" unique_id=2132902075]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
 offset_top = 12.0
 offset_right = -12.0
-offset_bottom = -200.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_muk0j")
 texture = ExtResource("10_qrd2o")
@@ -1124,9 +818,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 14.0
-offset_top = 26.0
+offset_top = -33.0
 offset_right = -14.0
-offset_bottom = 43.0
+offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -1178,22 +872,95 @@ text = "PLAY  ›"
 horizontal_alignment = 1
 metadata/arcade_authored_control = true
 
-[node name="BullockCartButton" type="Button" parent="."]
-layout_mode = 1
-anchor_top = 1.0
+[node name="BullockCartButton" type="Button" parent="GameGrid" unique_id=337898379]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_muk0j")
+theme_override_colors/font_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_focus_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.08, 0.18, 0.23, 1)
+theme_override_colors/font_disabled_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("forest_secondary")
+theme_override_styles/pressed = SubResource("forest_soft")
+theme_override_styles/hover = SubResource("forest_soft")
+theme_override_styles/hover_pressed = SubResource("forest_soft")
+metadata/arcade_authored_control = true
+
+[node name="WorldPreview" type="TextureRect" parent="GameGrid/BullockCartButton" unique_id=1840526261]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = -128.0
-offset_right = -28.0
-offset_bottom = -72.0
-theme_override_font_sizes/font_size = 22
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("forest_primary")
-theme_override_styles/hover = SubResource("forest_hover")
-text = "BULLOCK TRAIL  ›  New 3D steering preview"
+mouse_filter = 2
+theme = ExtResource("1_muk0j")
+texture = ExtResource("8_gtsbo")
+expand_mode = 1
+stretch_mode = 6
+metadata/arcade_authored_control = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameGrid/BullockCartButton" unique_id=1210910860]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 65.0
+offset_right = -14.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_muk0j")
+theme_override_constants/separation = 18
+alignment = 1
+metadata/arcade_authored_control = true
+
+[node name="CartPreview" type="TextureRect" parent="GameGrid/BullockCartButton/VBoxContainer" unique_id=882102805]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_muk0j")
+texture = SubResource("AtlasTexture_bullock")
+expand_mode = 1
+stretch_mode = 5
+metadata/arcade_authored_control = true
+
+[node name="TitleLabel" type="Label" parent="GameGrid/BullockCartButton/VBoxContainer" unique_id=1352599483]
+layout_mode = 2
+theme = ExtResource("1_muk0j")
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_fonts/font = ExtResource("5_dxjs5")
+theme_override_font_sizes/font_size = 23
+text = "BULLOCK CART"
+horizontal_alignment = 1
+metadata/arcade_authored_control = true
+
+[node name="Description" type="Label" parent="GameGrid/BullockCartButton/VBoxContainer" unique_id=115192247]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("1_muk0j")
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_font_sizes/font_size = 15
+text = "Steer to the target lane"
+horizontal_alignment = 1
+autowrap_mode = 3
+metadata/arcade_authored_control = true
+
+[node name="PlayLabel" type="Label" parent="GameGrid/BullockCartButton/VBoxContainer" unique_id=1402930106]
+layout_mode = 2
+theme = ExtResource("1_muk0j")
+theme_override_colors/font_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.2, 0.32, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("5_dxjs5")
+theme_override_font_sizes/font_size = 24
+text = "PLAY  ›"
+horizontal_alignment = 1
 metadata/arcade_authored_control = true
 
 [node name="BackButton" type="Button" parent="." unique_id=1564524278]
@@ -1228,4 +995,3 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_hck6c")
 text = "← Choose Mechanism"
 icon = ExtResource("patient_icon_arrow-left")
 metadata/arcade_authored_control = true
-

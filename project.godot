@@ -22,6 +22,7 @@ config/icon="uid://iu4sbf7q18wm"
 
 [autoload]
 
+DeviceStatusOverlay="*res://scripts/ui/reference_frame.gd"
 EventBus="*res://autoloads/EventBus.gd"
 AppData="*res://autoloads/AppData.gd"
 AppStorage="*res://autoloads/AppStorage.gd"

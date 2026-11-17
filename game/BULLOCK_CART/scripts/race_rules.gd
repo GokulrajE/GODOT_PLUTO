@@ -3,11 +3,11 @@ extends RefCounted
 const LENGTH := 480.0
 const TIME_LIMIT := 90.0
 const BASE_SPEED := 8.0
-const BOOST_SPEED := 13.0
+const BOOST_SPEED := 10.0
 const BOOST_SECONDS := 3.0
-const BOOST_RARE_SPEED := 14.5
+const BOOST_RARE_SPEED := 11.0
 const BOOST_RARE_SECONDS := 5.0
-const BOOST_3X_SPEED := 16.0
+const BOOST_3X_SPEED := 12.0
 const BOOST_3X_SECONDS := 9.0
 
 ## When true the race ends by elapsed time and winner is highest score.
@@ -18,6 +18,7 @@ var racers: Array[Dictionary] = []
 var pickups: Array[Dictionary] = []
 var elapsed := 0.0
 var complete := false
+var automatic_collection := true
 var events: Array[Dictionary] = []
 
 func reset() -> void:
@@ -71,7 +72,7 @@ func _tick(dt: float, steering: float) -> void:
 	for racer in racers: previous.append(racer.distance)
 	_move_racers(dt, steering, previous)
 	for pickup in pickups:
-		if pickup.owner >= 0: continue
+		if not automatic_collection or pickup.owner >= 0: continue
 		var winner := -1
 		var first_fraction := 2.0
 		for i in racers.size():
@@ -157,7 +158,7 @@ func _move_racers(dt: float, steering: float, previous: Array[float]) -> void:
 func _near_good_pickup(index: int) -> bool:
 	var racer := racers[index]
 	for pickup in pickups:
-		if pickup.owner >= 0: continue
+		if not automatic_collection or pickup.owner >= 0: continue
 		var ahead: float = pickup.distance - racer.distance
 		if ahead <= 0 or ahead > 25: continue
 		if pickup.kind in ["rare", "power3x"] and absf(pickup.x - racer.x) < 1.5:

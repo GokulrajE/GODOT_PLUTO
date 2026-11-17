@@ -77,19 +77,28 @@ func _decorate_scene(scene: Control, game: bool) -> void:
 		var motion := CheckButton.new()
 		motion.name = "ReducedMotion"
 		motion.text = "Reduced motion"
+		motion.tooltip_text = "Disables UI animations for a calmer experience"
 		motion.button_pressed = bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false))
 		scene.add_child(motion)
-		motion.position = Vector2(1030, 24)
-		motion.size = Vector2(220, 44)
+		# Anchor to top-right so it adapts to any window size
+		motion.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE)
+		motion.offset_left  = -244
+		motion.offset_right = -24
+		motion.offset_top   = 20
+		motion.offset_bottom = 64
 		motion.toggled.connect(func(enabled: bool): ProjectSettings.set_setting("pluto/ui/reduced_motion", enabled))
 		var demo := Button.new()
 		demo.name = "DemoButton"
 		demo.text = "TRY THE GAMES  •  KEYBOARD DEMO"
 		demo.set_meta("secondary", true)
+		demo.custom_minimum_size = Vector2(480, 48)
 		scene.add_child(demo)
-		demo.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-		demo.position = Vector2(400, 720)
-		demo.size = Vector2(480, 48)
+		# Anchor to center-bottom; offsets expressed relative to that anchor
+		demo.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE)
+		demo.offset_left   = -240
+		demo.offset_right  =  240
+		demo.offset_top    = -68
+		demo.offset_bottom = -20
 		demo.pressed.connect(func():
 			if AppUpdater.blocks_login(): return
 			AppData.enter_demo()
@@ -129,6 +138,7 @@ func _style(node: Node) -> void:
 		var focus := Palette.surface(Color.TRANSPARENT, 14, Palette.GOLD)
 		focus.draw_center = false
 		focus.shadow_size = 0
+		focus.set_border_width_all(3)  # thicker ring for keyboard visibility
 		control.add_theme_stylebox_override("focus", focus)
 		control.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		Motion.bind(control)
@@ -145,13 +155,14 @@ func _style(node: Node) -> void:
 		var text_color := Palette.INK
 		if key == "playlabel": text_color = Palette.ACCENT
 		elif key.contains("starcount") or key.contains("value"): text_color = Palette.GOLD
+		elif key == "loginstatus": text_color = Palette.MUTED
 		elif old.r > old.g * 1.5 and old.r > 0.5: text_color = Color("bd3653")
 		elif key.contains("desc") or key.contains("sub") or key.contains("hint"): text_color = Palette.MUTED
 		control.add_theme_color_override("font_color", text_color)
 		if control.get_theme_font_size("font_size") >= 24 and not key.contains("angle"):
 			control.add_theme_font_override("font", Palette.DISPLAY)
 			control.add_theme_constant_override("outline_size", 0)
-			control.add_theme_color_override("font_outline_color", Color("20354f"))
+			control.add_theme_color_override("font_outline_color", Palette.INK)
 	elif control is Panel or control is PanelContainer:
 		# Gameplay rings/bars own their colors and are deliberately excluded.
 		if game and not in_hud: return

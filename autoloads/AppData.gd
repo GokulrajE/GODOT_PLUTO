@@ -339,7 +339,8 @@ func daily_progress(mech: String = "") -> Dictionary:
 		var live := float(trial_active_days.get(Time.get_date_string_from_system(), 0.0))
 		data.seconds += live
 		data.games[selected_game_name] = float(data.games.get(selected_game_name, 0.0)) + live
-	data["goal"] = float(get("config_" + mech.to_lower())) * 60.0
+	var _cfg = get("config_" + mech.to_lower())
+	data["goal"] = (float(_cfg) if _cfg != null else 0.0) * 60.0
 	data["complete"] = data.goal > 0 and data.seconds >= data.goal
 	return data
 
