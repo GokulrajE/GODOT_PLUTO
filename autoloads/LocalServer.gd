@@ -255,6 +255,14 @@ func refresh_patients() -> bool:
 	return success
 
 func read_sender_address() -> bool:
+	# the developer settings in device.cfg win over the values found inside sender.py
+	var dev := AppStorage.dev_settings()
+	if not str(dev.device_id).is_empty(): settings["device_id"] = dev.device_id
+	if not str(dev.client_id).is_empty(): settings["client_id"] = dev.client_id
+	if not str(dev.host).is_empty() and int(dev.server_port) > 0:
+		settings["server_host"] = dev.host
+		settings["server_port"] = int(dev.server_port)
+		return true
 	var path := sender_path()
 	if not FileAccess.file_exists(path): return false
 	var source := FileAccess.get_file_as_string(path)

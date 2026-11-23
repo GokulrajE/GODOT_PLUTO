@@ -15,8 +15,8 @@ func _ready() -> void:
 	name = "CompactGameHUD"
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	pause_button = action("pause", "Pause or resume", -190)
-	exit_button  = action("exit",  "Exit to game selection", -130)
+	pause_button = action("pause", "Pause or resume", -122)       # the corner badge is gone, so the buttons
+	exit_button  = action("exit",  "Exit to game selection", -62)  # sit right at the edge, under the Hz pill
 	pause_button.pressed.connect(_pause)
 	exit_button.pressed.connect(_exit)
 
@@ -27,8 +27,8 @@ func action(symbol: String, hint: String, left: float) -> Button:
 	button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	button.offset_left   = left
 	button.offset_right  = left + 48
-	button.offset_top    = 16
-	button.offset_bottom = 64
+	button.offset_top    = 30
+	button.offset_bottom = 78
 	button.icon = icon(symbol)
 	button.tooltip_text = hint
 	button.accessibility_name = hint
@@ -77,9 +77,6 @@ func _pause() -> void:
 
 func _exit() -> void:
 	if bullock:
-		for button in game._mp_pause_panel.find_children("*", "Button", true, false):
-			if button.text == "Choose game":
-				button.pressed.emit()
-				return
+		game._mp_exit_to_games()
 	else:
 		legacy_ui.get_node("Header/ExitButton").pressed.emit()

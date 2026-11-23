@@ -96,6 +96,9 @@ var _mp_n_success: int = 0
 var _mp_n_failure: int = 0
 var _mp_time_left: float = 60.0
 const MP_TRIAL_DURATION := 60.0
+var _mp_yesterday_hits: int = 0
+var _mp_earned_star := false
+var _mp_celeb_card: Control
 const MP_MIN_SPEED := 10.0
 const MP_MAX_SPEED := 40.0
 var _mp_game_speed: float = 10.0
@@ -271,6 +274,7 @@ func _ready() -> void:
 	else:
 		_mp_init_rom_data()
 		_mp_calc_speed()
+		_mp_yesterday_hits = DataManager.read_yesterday_hits(AppData.selected_game_name, AppData.mechanism_name)
 		# Target itself is the steering cue; no lane highlight.
 		modal.hide()
 		top_bar.hide()
@@ -841,13 +845,15 @@ func _play() -> void:
 		start_ride()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if motion_preview and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_SPACE:
+		_mp_pluto_action()
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_SPACE and running and not paused and not motion_preview:
 		if race.activate_boost(0):
 			_show_feedback("BOOST!", Color("8cfff1"))
 			race_audio.celebrate("boost")
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_C and not motion_preview:
 		camera.side_view = not camera.side_view
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_G and motion_preview:
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_G and event.ctrl_pressed and motion_preview:
 		if _mp_speed_panel:
 			if _mp_speed_panel.visible: _mp_speed_panel.hide()
 			else: _mp_speed_panel.show()
@@ -1161,6 +1167,7 @@ func _build_ui() -> void:
 	fs_cl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	fs.add_child(fs_cl)
 	var fs_si := TextureRect.new()
+	fs_si.name = "StarIcon"
 	fs_si.set_meta("arcade_authored_control", true)
 	fs_si.texture = preload("res://scripts/ui/arcade_assets.gd").sprite("star")
 	fs_si.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -1190,8 +1197,8 @@ func _build_ui() -> void:
 	var trial_card := preload("res://scripts/ui/game_trial_card.gd").new()
 	trial_card.name = "GameTrialCard"
 	trial_card.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	trial_card.offset_left = -102; trial_card.offset_right = -12
-	trial_card.offset_top  = -102; trial_card.offset_bottom = -12
+	trial_card.offset_left = -170; trial_card.offset_right = -12
+	trial_card.offset_top  = -60;  trial_card.offset_bottom = -12
 	root.add_child(trial_card)
 	_update_hud()
 
@@ -1265,9 +1272,7 @@ func _apply_detail() -> void:
 
 func _device_button() -> void:
 	if motion_preview:
-		if _mp_state == MPState.WAITING and _mp_wait_panel and _mp_wait_panel.visible: return
-		if paused: _mp_resume()
-		else: _mp_pause()
+		_mp_pluto_action()
 		return
 	if not running: return
 	if paused: _play()
@@ -1383,9 +1388,9 @@ func _mp_recalc_from_speed() -> void:
 	var t := clampf((_mp_game_speed - MP_MIN_SPEED) / maxf(MP_MAX_SPEED - MP_MIN_SPEED, 1.0), 0.0, 1.0)
 	_mp_move_duration = lerpf(_mp_mech_max_duration, _mp_mech_min_duration, t)
 	if _mp_speed_lbl:
-		_mp_speed_lbl.text = "Speed: %d" % int(_mp_game_speed)
+		_mp_speed_lbl.text = "%d" % int(_mp_game_speed)
 	if _mp_speed_info_lbl:
-		_mp_speed_info_lbl.text = "Duration: %.1f s\nRange: %.0f° – %.0f°" % [_mp_move_duration, _mp_aprom[0], _mp_aprom[1]]
+		_mp_speed_info_lbl.text = "Duration: %.1f s\nBound: %.2f" % [_mp_move_duration, AppData.assist_bound]
 
 func _mp_build_panels(canvas_root: Control) -> void:
 	# --- Wait panel ---
@@ -1393,7 +1398,8 @@ func _mp_build_panels(canvas_root: Control) -> void:
 	canvas_root.add_child(_mp_wait_panel)
 	_mp_wait_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	_mp_wait_panel.offset_left = -310; _mp_wait_panel.offset_right = 310
-	_mp_wait_panel.offset_top = -220; _mp_wait_panel.offset_bottom = 220
+	_mp_wait_panel.offset_top = -10; _mp_wait_panel.offset_bottom = 10
+	_mp_wait_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_mp_wait_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 	var wc := VBoxContainer.new()
 	wc.add_theme_constant_override("separation", 14)
@@ -1405,58 +1411,59 @@ func _mp_build_panels(canvas_root: Control) -> void:
 	wt.add_theme_color_override("font_color", Palette.INK)
 	wc.add_child(wt)
 	var wb := Label.new()
-	wb.text = "Steer toward each lantern.\nBlue: boost • Pink: super boost • Gold: ultra boost\nBoosts activate automatically.\nDevice button or Esc: pause / resume"
+	wb.text = "Steer toward each lantern to collect it!\nBlue: boost • Pink: super boost • Gold: ultra boost"
 	wb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	wb.add_theme_font_size_override("font_size", 18)
 	wb.add_theme_color_override("font_color", Palette.INK)
 	wb.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	wc.add_child(wb)
-	_button("PLAY  ›", wc, func():
-		_mp_wait_panel.hide()
-		_mp_state = MPState.START)
-	_button("Choose game", wc, func():
-		PlutoComm.set_control_type("NONE")
-		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn"))
+	var wh := Label.new()
+	wh.name = "HintLabel"
+	wh.text = "Press SPACE or choose Play" if not PlutoComm.is_connected else "Press the PLUTO button or choose Play"
+	wh.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	wh.add_theme_font_size_override("font_size", 18)
+	wh.add_theme_color_override("font_color", Palette.INK)
+	wc.add_child(wh)
+	_button("PLAY", wc, _mp_start_pressed)
 	_mp_wait_panel.hide()
 	# --- Pause panel ---
 	_mp_pause_panel = PanelContainer.new()
 	canvas_root.add_child(_mp_pause_panel)
 	_mp_pause_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	_mp_pause_panel.offset_left = -260; _mp_pause_panel.offset_right = 260
-	_mp_pause_panel.offset_top = -180; _mp_pause_panel.offset_bottom = 180
+	_mp_pause_panel.offset_top = -10; _mp_pause_panel.offset_bottom = 10
+	_mp_pause_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_mp_pause_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 	var pc := VBoxContainer.new()
 	pc.add_theme_constant_override("separation", 14)
 	_mp_pause_panel.add_child(pc)
 	var pt := Label.new()
-	pt.text = "PAUSED"
+	pt.text = "Paused"
 	pt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pt.add_theme_font_size_override("font_size", 40)
 	pt.add_theme_color_override("font_color", Palette.INK)
 	pc.add_child(pt)
 	var ph := Label.new()
-	ph.text = "Press resume or device button to continue"
+	ph.text = "Take your time. Your session is paused."
 	ph.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ph.add_theme_font_size_override("font_size", 18)
 	ph.add_theme_color_override("font_color", Palette.INK)
 	pc.add_child(ph)
-	_button("Resume", pc, _mp_resume)
-	_button("Choose game", pc, func():
-		PlutoComm.set_control_type("NONE")
-		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn"))
+	_button("RESUME", pc, _mp_resume)
 	_mp_pause_panel.hide()
 	# --- Game over panel ---
 	_mp_over_panel = PanelContainer.new()
 	canvas_root.add_child(_mp_over_panel)
 	_mp_over_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	_mp_over_panel.offset_left = -310; _mp_over_panel.offset_right = 310
-	_mp_over_panel.offset_top = -220; _mp_over_panel.offset_bottom = 220
+	_mp_over_panel.offset_top = -10; _mp_over_panel.offset_bottom = 10
+	_mp_over_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_mp_over_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 	var oc := VBoxContainer.new()
 	oc.add_theme_constant_override("separation", 14)
 	_mp_over_panel.add_child(oc)
 	var ot := Label.new()
-	ot.text = "GREAT RIDE!"
+	ot.text = "Session complete"
 	ot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ot.add_theme_font_size_override("font_size", 40)
 	ot.add_theme_color_override("font_color", Palette.INK)
@@ -1467,29 +1474,22 @@ func _mp_build_panels(canvas_root: Control) -> void:
 	os_lbl.add_theme_font_size_override("font_size", 32)
 	os_lbl.add_theme_color_override("font_color", Palette.INK)
 	oc.add_child(os_lbl)
-	var osub := Label.new()
-	osub.text = "lanes reached / lanes shown"
-	osub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	osub.add_theme_font_size_override("font_size", 16)
-	osub.add_theme_color_override("font_color", Palette.MUTED)
-	oc.add_child(osub)
-	_button("Play again", oc, func(): get_tree().reload_current_scene())
-	_button("Choose game", oc, func():
-		PlutoComm.set_control_type("NONE")
-		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn"))
+	_button("PLAY AGAIN", oc, func(): get_tree().reload_current_scene())
+	_button("Choose game", oc, _mp_exit_to_games)
 	_mp_over_panel.hide()
 	# --- Speed panel ---
 	_mp_speed_panel = PanelContainer.new()
 	canvas_root.add_child(_mp_speed_panel)
 	_mp_speed_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	_mp_speed_panel.offset_left = -220; _mp_speed_panel.offset_right = 220
-	_mp_speed_panel.offset_top = -130; _mp_speed_panel.offset_bottom = 130
+	_mp_speed_panel.offset_top = -10; _mp_speed_panel.offset_bottom = 10
+	_mp_speed_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_mp_speed_panel.add_theme_stylebox_override("panel", _style(Palette.NIGHT))
 	var sc := VBoxContainer.new()
 	sc.add_theme_constant_override("separation", 10)
 	_mp_speed_panel.add_child(sc)
 	var spt := Label.new()
-	spt.text = "GAME SPEED"
+	spt.text = "Game speed"
 	spt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	spt.add_theme_font_size_override("font_size", 24)
 	spt.add_theme_color_override("font_color", Palette.INK)
@@ -1511,9 +1511,13 @@ func _mp_build_panels(canvas_root: Control) -> void:
 	_mp_speed_info_lbl.add_theme_font_size_override("font_size", 15)
 	_mp_speed_info_lbl.add_theme_color_override("font_color", Palette.MUTED)
 	sc.add_child(_mp_speed_info_lbl)
-	_button("Close  (G)", sc, func(): _mp_speed_panel.hide())
+	_button("Close", sc, func(): _mp_speed_panel.hide())
 	_mp_speed_panel.hide()
 	_mp_recalc_from_speed()
+	# Daily-star celebration card (same card the other games use), above every panel.
+	_mp_celeb_card = preload("res://scenes/CelebrationCard.tscn").instantiate()
+	_mp_celeb_card.score_unit = "lanterns"
+	canvas_root.add_child(_mp_celeb_card)
 
 func _mp_begin_game() -> void:
 	_mp_time_left = MP_TRIAL_DURATION
@@ -1575,12 +1579,23 @@ func _mp_end_game() -> void:
 	race_audio.finish_race()
 	if AppData.speed_data != null:
 		AppData.speed_data.game_speed = _mp_game_speed
+	# Today total = hits already saved today + this trial; award the daily star before stop_trial.
+	var today_total := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name) + _mp_n_success
+	_mp_earned_star = AppData.selected_game != null and today_total > _mp_yesterday_hits \
+		and today_total > 0 and AppData.selected_game.today_stars == 0
+	if _mp_earned_star:
+		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(_mp_n_targets, _mp_n_success, _mp_n_failure)
 	_mp_hide_lane_indicator()
 	var over_score := _mp_over_panel.find_child("MPScoreFinalLabel", true, false) as Label
 	if over_score:
-		over_score.text = "%d / %d" % [_mp_n_success, _mp_n_targets]
+		over_score.text = "%d / %d\nPress PLUTO button to play again" % [_mp_n_success, _mp_n_targets]
 	_mp_over_panel.show()
+	if _mp_earned_star and _mp_celeb_card:
+		await get_tree().create_timer(0.6).timeout
+		var star := get_node_or_null("GameUI/Interface/FloatScore/StarIcon") as Control
+		var rect := star.get_global_rect() if star else Rect2(Vector2(140, 20), Vector2(36, 36))
+		_mp_celeb_card.show_celebration(_mp_yesterday_hits, today_total, rect)
 
 func _mp_on_outcome(success: bool) -> void:
 	if success:
@@ -1612,14 +1627,35 @@ func _mp_resume() -> void:
 	if _mp_use_aan and running:
 		PlutoComm.set_control_type("POSITIONAAN")
 		PlutoComm.set_control_bound(AppData.assist_bound)
+		PlutoComm.set_control_dir(0)
 	mini_hud.show()
 
+## Start the session (wait panel -> first lantern).
+func _mp_start_pressed() -> void:
+	_mp_wait_panel.hide()
+	_mp_state = MPState.START
+
+## Device button / SPACE: same behaviour as every other game (start, pause/resume, play again).
+func _mp_pluto_action() -> void:
+	if _mp_wait_panel and _mp_wait_panel.visible:
+		_mp_start_pressed()
+	elif _mp_over_panel and _mp_over_panel.visible:
+		get_tree().reload_current_scene()
+	elif paused:
+		_mp_resume()
+	elif running:
+		_mp_pause()
+
+func _mp_exit_to_games() -> void:
+	PlutoComm.set_control_type("NONE")
+	get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
+
 func _mp_decrease_speed() -> void:
-	_mp_game_speed = maxf(MP_MIN_SPEED, _mp_game_speed - 5.0)
+	_mp_game_speed = maxf(MP_MIN_SPEED, _mp_game_speed - 1.0)
 	_mp_recalc_from_speed()
 
 func _mp_increase_speed() -> void:
-	_mp_game_speed = minf(MP_MAX_SPEED, _mp_game_speed + 5.0)
+	_mp_game_speed = minf(MP_MAX_SPEED, _mp_game_speed + 1.0)
 	_mp_recalc_from_speed()
 
 func _mp_tick(delta: float) -> void:
@@ -1751,7 +1787,7 @@ func _process_mp(delta: float) -> void:
 
 func _mp_refresh_hud() -> void:
 	if _mp_header_timer and mini_hud and mini_hud.visible:
-		_mp_header_timer.text = "Time: %d s" % int(ceil(_mp_time_left))
+		_mp_header_timer.text = "Time: %02d s" % maxi(0, ceili(_mp_time_left))
 	if _mp_header_score and mini_hud and mini_hud.visible:
 		_mp_header_score.text = "Score: %d / %d" % [_mp_n_success, _mp_n_targets]
 

@@ -12,26 +12,25 @@ const MECH_LABELS = {
 }
 
 const MECH_IMAGES = {
-	"WFE":  "res://Assets/mechanismImages/FE.png",
-	"WURD": "res://Assets/mechanismImages/ulnar_radial_out2.png",
-	"FPS":  "res://Assets/mechanismImages/Pron_supin_out.png",
-	"HOC":  "res://Assets/mechanismImages/hoc.png",
+	"WFE":  "res://Assets/mechanismImages/icons/wfe.png",
+	"WURD": "res://Assets/mechanismImages/icons/wurd.png",
+	"FPS":  "res://Assets/mechanismImages/icons/fps.png",
+	"HOC":  "res://Assets/mechanismImages/icons/hoc.png",
 }
 
 const KNOB_IMAGES = [
-	"res://Assets/Knobs_PNG/1._Ball_Knob_Big-removebg-preview.png",
-	"res://Assets/Knobs_PNG/2._Wing_Knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/3._Long_Handle-removebg-preview.png",
-	"res://Assets/Knobs_PNG/4.1_T_knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/6._Crank_Handle-removebg-preview.png",
-	"res://Assets/Knobs_PNG/7._Four_Pointed_Star-removebg-preview.png",
-	"res://Assets/Knobs_PNG/8._Rotor_Knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/9._Small_Knob_-_Big-removebg-preview.png",
-	"res://Assets/Knobs_PNG/10._Three_Pointed_Knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/11._Finger_Wheel-removebg-preview.png",
-	"res://Assets/Knobs_PNG/12._Poteniometer_Knob-removebg-preview.png",
-	"res://Assets/mechanismImages/KNOB.png",
-	"res://Assets/mechanismImages/keyknob_outline.png",
+	"res://Assets/Knobs_Color/knob_01.png",
+	"res://Assets/Knobs_Color/knob_02.png",
+	"res://Assets/Knobs_Color/knob_03.png",
+	"res://Assets/Knobs_Color/knob_04.png",
+	"res://Assets/Knobs_Color/knob_05.png",
+	"res://Assets/Knobs_Color/knob_06.png",
+	"res://Assets/Knobs_Color/knob_07.png",
+	"res://Assets/Knobs_Color/knob_08.png",
+	"res://Assets/Knobs_Color/knob_09.png",
+	"res://Assets/Knobs_Color/knob_10.png",
+	"res://Assets/Knobs_Color/knob_11.png",
+	"res://Assets/Knobs_Color/knob_12.png",
 ]
 
 func _ready() -> void:
@@ -94,7 +93,7 @@ func _populate_button(btn: Button, mech: String, time_val: int) -> void:
 		tex.stretch_mode  = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		tex.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		if mech != "FME1" and mech != "FME2":
-			tex.modulate = Color(0, 0, 0, 1)
+			tex.set_meta("full_color", true)
 		tex.mouse_filter  = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(tex)
 

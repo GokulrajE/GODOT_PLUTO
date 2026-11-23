@@ -7,7 +7,7 @@ var _hz_lbl:       Label = null
 
 func _ready() -> void:
 	layer        = 100
-	visible      = false
+	visible      = true            # always shown: green dot + Hz when connected, red / amber otherwise
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_ui()
 	EventBus.device_connected.connect(_on_connected)
@@ -25,7 +25,7 @@ func _build_ui() -> void:
 	panel.anchor_right   = 1.0
 	panel.anchor_top     = 0.0
 	panel.anchor_bottom  = 0.0
-	panel.offset_left    = -60.0
+	panel.offset_left    = -96.0
 	panel.offset_right   = -2.0
 	panel.offset_top     = 2.0
 	panel.offset_bottom  = 24.0
@@ -63,14 +63,27 @@ func _build_ui() -> void:
 
 	_hz_lbl = Label.new()
 	_hz_lbl.text = "-- Hz"
-	_hz_lbl.custom_minimum_size = Vector2(40, 0)
+	_hz_lbl.custom_minimum_size = Vector2(60, 0)
 	_hz_lbl.add_theme_font_size_override("font_size", 9)
 	_hz_lbl.add_theme_color_override("font_color", Color(0.55, 0.85, 1.0, 1))
 	_hz_lbl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	hbox.add_child(_hz_lbl)
 
+var _shown_state := ""
+
 func _process(delta: float) -> void:
 	if not visible: return
+	# one indicator for every state: green dot + Hz (connected), amber dot (keyboard demo), red dot (no device)
+	if AppData.demo_mode:
+		_show_state("demo", "Demo", Color(1.0, 0.8, 0.3, 1), Color(1.0, 0.85, 0.4, 1))
+		return
+	if not PlutoComm.is_connected:
+		_show_state("off", "No device", Color(0.95, 0.25, 0.25, 1), Color(1.0, 0.6, 0.6, 1))
+		return
+	if _shown_state != "on":
+		_shown_state = "on"
+		_hz_lbl.text = "-- Hz"
+		_dot_lbl.add_theme_color_override("font_color", Color(0.15, 0.95, 0.4, 1))
 	_hz_timer += delta
 	if _hz_timer >= 1.0:
 		var hz: float = _packet_count / _hz_timer
@@ -82,6 +95,15 @@ func _process(delta: float) -> void:
 		elif hz >= 10: col = Color(1.0, 0.85, 0.2, 1)
 		else:          col = Color(1.0, 0.35, 0.35, 1)
 		_hz_lbl.add_theme_color_override("font_color", col)
+
+func _show_state(key: String, text: String, dot: Color, text_color: Color) -> void:
+	if _shown_state == key: return
+	_shown_state = key
+	_hz_lbl.text = text
+	_hz_lbl.add_theme_color_override("font_color", text_color)
+	_dot_lbl.add_theme_color_override("font_color", dot)
+	_packet_count = 0
+	_hz_timer = 0.0
 
 func _on_packet() -> void:
 	_packet_count += 1

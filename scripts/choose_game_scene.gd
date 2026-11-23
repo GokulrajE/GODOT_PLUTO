@@ -23,6 +23,15 @@ func _exit_tree() -> void:
 	if EventBus.button_released.is_connected(_on_pluto_button):
 		EventBus.button_released.disconnect(_on_pluto_button)
 
+## Ctrl+Shift+X: re-assess the current mechanism (assessment, then assist profile) and return here.
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_X 			and event.ctrl_pressed and event.shift_pressed:
+		if AppData.demo_mode or AppData.selected_mechanism == null: return
+		get_viewport().set_input_as_handled()
+		AppData.is_plan_setup = false
+		AppData.assess_from_games = true
+		get_tree().change_scene_to_file("res://scenes/AssessmentScene.tscn")
+
 func _on_pluto_button() -> void:
 	_on_hat_trick_pressed()
 

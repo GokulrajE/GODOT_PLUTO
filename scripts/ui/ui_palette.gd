@@ -58,6 +58,7 @@ static func theme() -> Theme:
 	result.default_font = DISPLAY
 	result.default_font_size = SIZE_SM
 	result.set_color("font_color", "Label", INK)
+	result.set_color("font_placeholder_color", "LineEdit", Color("a3b3c2"))
 	result.set_stylebox("background", "ProgressBar", surface(Color("e8f1f6"), 8))
 	result.set_stylebox("fill", "ProgressBar", surface(Color("10a6a0"), 8, Color("10a6a0")))
 	for type in ["HSlider", "VSlider"]:

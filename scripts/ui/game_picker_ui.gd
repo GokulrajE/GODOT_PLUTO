@@ -4,6 +4,15 @@ const Palette = preload("res://scripts/ui/ui_palette.gd")
 const TITLES       := ["HAT-TRICK", "FRUIT BASKET", "R-N-R", "TUK-TUK", "PING-PONG", "BULLOCK TRAIL"]
 const DESCRIPTIONS := ["Catch the falling balls", "Match fruit to its basket", "Water your growing garden", "Navigate the rocky gaps", "Keep the rally going", "Steer toward the lanterns"]
 const ICONS        := ["hat", "basket", "cloud", "tuk", "pong", "star"]
+# the same scenery the games are played in, so each card previews its world
+const SCENERY := [
+	"res://game/HAT_TIRCK/assets/backgrounds/sunset.png",
+	"res://Assets/Arcade/orchard-v2.png",
+	"res://Assets/Arcade/garden-v2.png",
+	"res://game/TUK_TUK/sprites/Backgrounds/game/kerala.png",
+	"res://Assets/Arcade/arena-v2.png",
+	"res://Assets/Arcade/forest-soft.png",
+]
 
 # Per-game accent stripe colors (3 px bottom border inside each card)
 const GAME_ACCENTS := [
@@ -34,12 +43,25 @@ static func configure(grid: GridContainer) -> void:
 		child.clip_contents = true
 
 		# Background scenery image
-		var scenery := TextureRect.new()
+		# rounded frame that clips the picture (concept_layout positions this "WorldPreview" node)
+		var scenery := Panel.new()
 		scenery.name = "WorldPreview"
-		scenery.texture = Assets.background(ICONS[index])
-		scenery.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		scenery.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		scenery.set_meta("arcade_authored_control", true)
+		scenery.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
 		scenery.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var round_frame := Palette.surface(Color.WHITE, 16, Color.TRANSPARENT)
+		round_frame.shadow_size = 0
+		scenery.add_theme_stylebox_override("panel", round_frame)
+		var pic := TextureRect.new()
+		var scene_path: String = SCENERY[index]
+		pic.texture = (load(scene_path) as Texture2D) if ResourceLoader.exists(scene_path) else Assets.background(ICONS[index])
+		pic.set_meta("full_color", true)
+		pic.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		scenery.add_child(pic)
+		pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		child.add_child(scenery)
 		scenery.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		scenery.offset_left   =  12
@@ -57,8 +79,8 @@ static func configure(grid: GridContainer) -> void:
 		stack.offset_right  = -14
 		stack.offset_top    = 14
 		stack.offset_bottom = -16
-		stack.alignment     = BoxContainer.ALIGNMENT_BEGIN
-		stack.add_theme_constant_override("separation", 6)
+		stack.alignment     = BoxContainer.ALIGNMENT_CENTER
+		stack.add_theme_constant_override("separation", 12)
 
 		# Game sprite art
 		var art := TextureRect.new()
@@ -83,17 +105,6 @@ static func configure(grid: GridContainer) -> void:
 		title.add_theme_font_size_override("font_size", Palette.SIZE_MD)
 		title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		stack.add_child(title)
-
-		# Short description
-		var desc := Label.new()
-		desc.name = "Description"
-		desc.text = DESCRIPTIONS[index]
-		desc.custom_minimum_size.y = 26
-		desc.autowrap_mode         = TextServer.AUTOWRAP_WORD_SMART
-		desc.horizontal_alignment  = HORIZONTAL_ALIGNMENT_CENTER
-		desc.add_theme_font_size_override("font_size", Palette.SIZE_SM)
-		desc.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		stack.add_child(desc)
 
 		# PLAY CTA with a subtle tinted pill background
 		var play_panel := PanelContainer.new()

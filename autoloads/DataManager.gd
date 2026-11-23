@@ -61,6 +61,7 @@ func load_patient(patient_id: String) -> bool:
 	AppData.config_fme2_id        = int(p[11])
 	AppData.patient_training_side = p[12]
 	AppData.patient_location      = p[13]
+	AppData.config_limit_total    = FileAccess.file_exists(data_root + patient_id + "/time_limit_on")
 	AppData.is_patient_loaded     = true
 
 	_init_session_file()
@@ -460,6 +461,14 @@ func save_config() -> void:
 		AppData.patient_location,
 	])
 	file.close()
+	# Whether the total session time is a hard limit is kept beside the config (the server's
+	# configdata schema is left untouched).
+	var flag_path := data_root + AppData.patient_id + "/time_limit_on"
+	if AppData.config_limit_total:
+		var flag := FileAccess.open(flag_path, FileAccess.WRITE)
+		if flag: flag.store_string("1"); flag.close()
+	elif FileAccess.file_exists(flag_path):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(flag_path))
 	log_info("DataManager", "Config saved for " + AppData.patient_id)
 	LocalServer.config_updated()
 

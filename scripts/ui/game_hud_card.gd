@@ -8,10 +8,10 @@ var game_ref: Node
 var peak_time := 1.0
 var time_lbl: Label
 
-const SZ := Vector2(90, 90)
-const RC := Vector2(45, 45)   # ring center within card
-const RR := 34.0              # ring outer radius
-const RW := 6.0               # ring track width
+const SZ := Vector2(72, 72)
+const RC := Vector2(36, 36)   # ring center within card
+const RR := 27.0              # ring outer radius
+const RW := 5.0               # ring track width
 
 func _ready() -> void:
 	set_meta("arcade_authored_control", true)
@@ -37,11 +37,11 @@ func _build_time_label() -> void:
 	time_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	time_lbl.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
 	time_lbl.add_theme_font_override("font", Palette.DISPLAY)
-	time_lbl.add_theme_font_size_override("font_size", 17)
+	time_lbl.add_theme_font_size_override("font_size", 14)
 	time_lbl.add_theme_color_override("font_color", Color("e8f4fc"))
 	time_lbl.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	time_lbl.position = Vector2(RC.x - 32, RC.y - 11)
-	time_lbl.size     = Vector2(64, 22)
+	time_lbl.position = Vector2(RC.x - 28, RC.y - 10)
+	time_lbl.size     = Vector2(56, 20)
 	time_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(time_lbl)
 
@@ -65,7 +65,7 @@ func _draw() -> void:
 	# Card background
 	var bg := StyleBoxFlat.new()
 	bg.bg_color = Color(0.07, 0.11, 0.18, 0.84)
-	bg.set_corner_radius_all(16)
+	bg.set_corner_radius_all(14)
 	bg.set_border_width_all(1)
 	bg.border_color = Color(1, 1, 1, 0.08)
 	draw_style_box(bg, Rect2(Vector2.ZERO, size))

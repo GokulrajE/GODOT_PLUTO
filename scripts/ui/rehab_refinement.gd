@@ -3,7 +3,7 @@ const P = preload("res://scripts/ui/ui_palette.gd")
 static func apply(screen: Control) -> void:
 	var bg = screen.get_node_or_null("ArcadeBackdrop")
 	if bg:
-		bg.texture = load("res://Assets/Arcade/pluto-botanical-background.png")
+		bg.texture = load("res://Assets/menu_background_blur.png")
 		bg.modulate = Color.WHITE
 	preload("res://scripts/ui/premium_finish.gd").welcome.call_deferred(screen)
 	style(screen)

@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="PLUTO"
 config/version="1.0.8"
-run/main_scene="res://scenes/MainScene.tscn"
+run/main_scene="res://scenes/WelcomeScene.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://iu4sbf7q18wm"
 
@@ -33,6 +33,7 @@ UIManager="*res://scripts/ui/ui_manager.gd"
 MenuMusic="*res://scripts/ui/menu_music.gd"
 AppUpdater="*res://autoloads/AppUpdater.gd"
 LocalServer="*res://autoloads/LocalServer.gd"
+BatteryWatch="*res://autoloads/BatteryWatch.gd"
 
 [display]
 

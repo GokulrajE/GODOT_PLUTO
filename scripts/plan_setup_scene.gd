@@ -3,19 +3,18 @@ extends Control
 const MECHS = ["WFE", "WURD", "FPS", "HOC", "FME1", "FME2"]
 
 const KNOB_IMAGES = [
-	"res://Assets/Knobs_PNG/1._Ball_Knob_Big-removebg-preview.png",
-	"res://Assets/Knobs_PNG/2._Wing_Knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/3._Long_Handle-removebg-preview.png",
-	"res://Assets/Knobs_PNG/4.1_T_knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/6._Crank_Handle-removebg-preview.png",
-	"res://Assets/Knobs_PNG/7._Four_Pointed_Star-removebg-preview.png",
-	"res://Assets/Knobs_PNG/8._Rotor_Knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/9._Small_Knob_-_Big-removebg-preview.png",
-	"res://Assets/Knobs_PNG/10._Three_Pointed_Knob-removebg-preview.png",
-	"res://Assets/Knobs_PNG/11._Finger_Wheel-removebg-preview.png",
-	"res://Assets/Knobs_PNG/12._Poteniometer_Knob-removebg-preview.png",
-	"res://Assets/mechanismImages/KNOB.png",
-	"res://Assets/mechanismImages/keyknob_outline.png",
+	"res://Assets/Knobs_Color/knob_01.png",
+	"res://Assets/Knobs_Color/knob_02.png",
+	"res://Assets/Knobs_Color/knob_03.png",
+	"res://Assets/Knobs_Color/knob_04.png",
+	"res://Assets/Knobs_Color/knob_05.png",
+	"res://Assets/Knobs_Color/knob_06.png",
+	"res://Assets/Knobs_Color/knob_07.png",
+	"res://Assets/Knobs_Color/knob_08.png",
+	"res://Assets/Knobs_Color/knob_09.png",
+	"res://Assets/Knobs_Color/knob_10.png",
+	"res://Assets/Knobs_Color/knob_11.png",
+	"res://Assets/Knobs_Color/knob_12.png",
 ]
 
 # ── Colors — arcade status variants ──────
@@ -53,6 +52,7 @@ func _ready() -> void:
 	AppData.is_plan_setup = true
 	_collect_card_refs()
 	_build_knob_buttons()
+	_fit_layout()
 	_done_button.pressed.connect(_on_done_pressed)
 	$Root/BottomBar/BottomPad/BottomHBox/SetDurationButton.pressed.connect(func():
 		get_tree().change_scene_to_file("res://scenes/SetDurationScene.tscn")
@@ -71,6 +71,7 @@ func _collect_card_refs() -> void:
 		_status_badges[mech]   = inner.get_node("BadgeRow/DurationBadge") as Panel
 		_duration_labels[mech] = inner.get_node("BadgeRow/DurationBadge/DurationLabel") as Label
 		var calib_btn := inner.get_node("CalibrateButton") as Button
+		_setup_card_icon(mech, card, inner)
 		if mech == "FME1" or mech == "FME2":
 			calib_btn.visible = false
 			_knob_btns[mech]    = inner.get_node("KnobButton") as Button
@@ -82,10 +83,107 @@ func _collect_card_refs() -> void:
 		else:
 			calib_btn.pressed.connect(func(): _go_calibrate(mech))
 
+## Let the card grid use the whole screen height instead of hugging the top, and keep every card's
+## content (picture, name, time, button) centred and in the same order.
+func _fit_layout() -> void:
+	var pad := $Root/Scroll/CardPad as Control
+	pad.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var grid := $Root/Scroll/CardPad/MechGrid as Control
+	grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	for mech in MECHS:
+		var card := _card_panels[mech] as Control
+		card.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		var inner := card.get_node("VBox/Content/InnerVBox") as BoxContainer
+		inner.alignment = BoxContainer.ALIGNMENT_CENTER
+		inner.add_theme_constant_override("separation", 12)
+		var name_label := inner.get_node_or_null("NameLabel") as Label
+		if name_label: name_label.add_theme_font_size_override("font_size", 22)
+		var badge_label := _duration_labels[mech] as Label
+		badge_label.add_theme_font_size_override("font_size", 16)
+		for button_name in ["CalibrateButton", "KnobButton"]:
+			var button := inner.get_node_or_null(button_name) as Button
+			if button:
+				button.custom_minimum_size.y = 52
+				button.add_theme_font_size_override("font_size", 20)
+		if mech == "FME1" or mech == "FME2":
+			var preview := inner.get_node_or_null("KnobPreview")
+			if preview: inner.move_child(preview, 0)     # picture on top, like the other cards
+
+const MECH_ICONS := {
+	"WFE":  "res://Assets/mechanismImages/icons/wfe.png",
+	"WURD": "res://Assets/mechanismImages/icons/wurd.png",
+	"FPS":  "res://Assets/mechanismImages/icons/fps.png",
+	"HOC":  "res://Assets/mechanismImages/icons/hoc.png",
+}
+const KNOB_NAMES := ["Red star", "Blue wheel", "Yellow wing", "Green dome", "Orange oval", "Purple rod",
+	"Teal wing", "Pink oval", "Lime crank", "Sky star", "Gold ball", "Bronze ball"]
+const ICON_SIZE := 120.0     # every mechanism icon is drawn in the same square
+const KNOB_CELL := 116.0
+const KNOB_GAP := 14.0
+
+func _setup_card_icon(mech: String, card: Control, inner: Node) -> void:
+	var img := inner.get_node_or_null("MechImage") as TextureRect
+	if mech == "FME1" or mech == "FME2":
+		var preview := inner.get_node_or_null("KnobPreview") as TextureRect
+		if preview:
+			preview.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+			preview.set_meta("full_color", true)
+			Hover3D.attach(card, preview)
+		return
+	if img == null or not MECH_ICONS.has(mech): return
+	img.set_script(null)                       # drop the old black/white ink shader
+	img.material = null
+	img.texture = load(MECH_ICONS[mech])
+	img.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
+	img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	img.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	img.self_modulate = Color.WHITE
+	img.modulate = Color.WHITE
+	img.set_meta("full_color", true)
+	Hover3D.attach(card, img)
+
+func _layout_knob_popup() -> void:
+	# Whole grid fits without scrolling: 4 columns x 3 rows, centred, with room for the hover lift.
+	var cols := 4
+	var rows := int(ceil(float(KNOB_IMAGES.size()) / cols))
+	var grid_w := cols * KNOB_CELL + (cols - 1) * KNOB_GAP
+	var grid_h := rows * KNOB_CELL + (rows - 1) * KNOB_GAP
+	_knob_grid.columns = cols
+	_knob_grid.add_theme_constant_override("h_separation", int(KNOB_GAP))
+	_knob_grid.add_theme_constant_override("v_separation", int(KNOB_GAP))
+	_knob_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	var scroll := _knob_grid.get_parent() as ScrollContainer
+	var pad := MarginContainer.new()
+	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]:
+		pad.add_theme_constant_override(side, 14)
+	scroll.add_child(pad)
+	_knob_grid.reparent(pad)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	scroll.custom_minimum_size = Vector2(grid_w + 28, grid_h + 28)
+	scroll.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	_fit_knob_popup.call_deferred(grid_w + 28 + 80)
+
+## Size the popup to exactly what it holds (title + grid + close), centred on screen.
+func _fit_knob_popup(panel_w: float) -> void:
+	var panel := $KnobPopup/PopupPanel as Control
+	var vbox := $KnobPopup/PopupPanel/PopupVBox as Control
+	var panel_h := vbox.get_combined_minimum_size().y + 36.0
+	panel.offset_left = -panel_w / 2.0
+	panel.offset_right = panel_w / 2.0
+	panel.offset_top = -panel_h / 2.0
+	panel.offset_bottom = panel_h / 2.0
+
 func _build_knob_buttons() -> void:
+	_layout_knob_popup()
 	for i in range(KNOB_IMAGES.size()):
 		var btn := Button.new()
-		btn.custom_minimum_size = Vector2(88, 88)
+		btn.custom_minimum_size = Vector2(KNOB_CELL, KNOB_CELL)
+		btn.tooltip_text = KNOB_NAMES[i] if i < KNOB_NAMES.size() else ""
+		btn.focus_mode = Control.FOCUS_ALL
 		var idx := i
 		btn.pressed.connect(func(): _select_knob(idx))
 
@@ -122,8 +220,10 @@ func _build_knob_buttons() -> void:
 			knob_img.expand_mode  = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 			knob_img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			knob_img.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			knob_img.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+			knob_img.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 10)
+			knob_img.set_meta("full_color", true)
 			btn.add_child(knob_img)
+			Hover3D.attach(btn, knob_img, 6.0)
 		var num_lbl := Label.new()
 		num_lbl.text = str(i + 1)
 		num_lbl.add_theme_font_size_override("font_size", 10)
@@ -250,13 +350,15 @@ func _update_done_button() -> void:
 	var both_fme_active = AppData.config_fme1 > 0 and AppData.config_fme2 > 0
 	var fme_diff = not both_fme_active or (AppData.config_fme1_id != AppData.config_fme2_id)
 
-	var valid = (total == 60 and fme1_ok and fme2_ok and fme_diff)
+	var limit: int = AppData.config_total_time if AppData.config_limit_total else 0
+	var within_limit: bool = limit <= 0 or total <= limit
+	var valid = (total > 0 and within_limit and fme1_ok and fme2_ok and fme_diff)
 	_done_button.disabled = not valid
 
 	if total == 0:
 		_error_label.text = "Assess each mechanism first, then set the duration."
-	elif total != 60:
-		_error_label.text = "Total duration must be 60 min (currently %d min)." % total
+	elif not within_limit:
+		_error_label.text = "Allocated %d min is over the %d min session limit." % [total, limit]
 	elif not fme1_ok:
 		_error_label.text = "FME1 has time allocated — select a knob."
 	elif not fme2_ok:
@@ -275,7 +377,7 @@ func _go_calibrate(mech: String) -> void:
 
 func _open_knob_popup(fme: String) -> void:
 	_selecting_fme = fme
-	_popup_title.text = "Select Knob for " + fme
+	_popup_title.text = "Select a knob for " + fme
 	_update_popup_buttons()
 	_knob_popup.visible = true
 
@@ -285,7 +387,8 @@ func _update_popup_buttons() -> void:
 	for i in range(_popup_buttons.size()):
 		var btn: Button = _popup_buttons[i]
 		btn.disabled = (i == other_id)
-		btn.modulate = Color(0.6, 0.6, 0.6, 1.0) if btn.disabled else Color.WHITE
+		btn.modulate = Color(1, 1, 1, 0.38) if btn.disabled else Color.WHITE
+		btn.tooltip_text = (KNOB_NAMES[i] if i < KNOB_NAMES.size() else "") + ("  (in use by the other mechanism)" if btn.disabled else "")
 		if i == this_id:
 			var sb_sel := StyleBoxFlat.new()
 			sb_sel.bg_color = Color("c7eee0")
@@ -304,6 +407,7 @@ func _update_popup_buttons() -> void:
 			sb_normal.content_margin_left  = 6; sb_normal.content_margin_right  = 6
 			sb_normal.content_margin_top   = 6; sb_normal.content_margin_bottom = 6
 			btn.add_theme_stylebox_override("normal", sb_normal)
+			btn.add_theme_stylebox_override("disabled", sb_normal)
 
 func _select_knob(index: int) -> void:
 	if _selecting_fme == "FME1":

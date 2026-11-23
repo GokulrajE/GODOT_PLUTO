@@ -19,6 +19,22 @@ const BASKET_SIZE:    float = 150.0
 const BASKET_HALF_W:  float = 55.0
 const SLOT_COUNT:     int   = 5
 
+# -- Rabbit lift ---------------------------------------------------------------
+# While a fruit falls, a rabbit raises the TARGET basket by LIFT_HEIGHT px. The fruit's fall
+# speed is scaled to the shorter distance, so it reaches the raised basket at exactly the
+# same moment it would have reached a basket on the ground: the target time never changes.
+const LIFT_TARGET:    bool   = true
+const LIFT_HEIGHT:    float  = 26.0     # how far the bunny raises the target basket
+const LIFT_SECONDS:   float  = 0.28
+const RABBIT_HEIGHT:  float  = 230.0    # drawn height of the bunny
+const RABBIT_GAP:     float  = 24.0     # paws reach the basket this far in from its centre line
+const RABBIT_FEET_Y:  float  = 622.0    # the bunny always stands on the ground here
+# Frame size of the bunny pictures and where the front paw is in each pose (frames 1-4).
+# The bunny's feet stay on the ground; the lift is small enough that its paws (about 40-60 px
+# above its feet, depending on the pose) are always at or inside the basket's lower edge.
+const RABBIT_CANVAS = Vector2(298.0, 360.0)
+const RABBIT_HANDS = [Vector2(270.0, 260.0), Vector2(288.0, 286.0), Vector2(262.0, 287.0), Vector2(246.0, 298.0)]
+
 const FRUIT_NAMES = ["apple", "lemon", "orange", "strawberry", "blueberry"]
 
 const CAUGHT_ICON_W:      float = 40.0
@@ -75,6 +91,9 @@ var _slot_fruit_type:    Array     = []   # shuffled fruit index per slot
 var _aura_nodes:         Array     = []
 var _ring_nodes:         Array     = []
 var _flash_nodes:        Array     = []
+var _basket_lift:        Array     = []   # current animated lift (px) per slot
+var _rabbit_nodes:       Array     = []
+var _rabbit_end_frame:   int       = 0     # pose while lowering: 0 happy (caught), 5/7 upset (missed)
 var _fruit_textures:     Array     = []
 
 # ── Animation ─────────────────────────────────────────────────────────────────
@@ -100,6 +119,7 @@ var _arom_nodes: Array      = []
 @onready var _final_lbl:        Label             = $UI/GameOverPanel/ScoreLabel
 @onready var _catch_sfx:        AudioStreamPlayer = $CatchSound
 @onready var _miss_sfx:         AudioStreamPlayer = $MissSound
+@onready var _music:            AudioStreamPlayer = $Music
 @onready var _speed_panel:      Panel             = $UI/SpeedPanel
 @onready var _speed_lbl:        Label             = $UI/SpeedPanel/SpeedRow/SpeedLabel
 @onready var _speed_info_lbl:   Label             = $UI/SpeedPanel/SessionLabel
@@ -148,6 +168,7 @@ func _build_baskets() -> void:
 		var basket := _basket_container.get_node(basket_names[i]) as Sprite2D
 		basket.texture = ArcadeAssets.sprite("basket")
 		basket.modulate = Color.WHITE
+		basket.z_index = 2
 		basket.scale = Vector2(150.0 / 470.0, 150.0 / 470.0)
 		basket.position = Vector2(120.0 + i * 231.5, 560.0)
 		var cx:     float = basket.position.x
@@ -156,15 +177,28 @@ func _build_baskets() -> void:
 		_basket_nodes.append(basket)
 		_basket_rest_y.append(rest_y)
 		_caught_icon_nodes.append([])
+		_basket_lift.append(0.0)
+
+		# Bunny that holds this basket up. It stands beside the basket (on the screen-centre side
+		# for the far-left basket) with its hands under the basket, drawn in front of the glow.
+		var rabbit := preload("res://game/FRUIT_BASKET/scripts/rabbit_lift.gd").new()
+		rabbit.size = Vector2(RABBIT_HEIGHT * rabbit.frame_aspect(), RABBIT_HEIGHT)
+		rabbit.mirrored = (i == 0)
+		rabbit.visible = false
+		_basket_container.add_child(rabbit)
+		rabbit.z_index = 1   # above the glow, but behind the basket so the whole basket stays visible
+		_rabbit_nodes.append(rabbit)
 
 		# Outer aura (behind basket, large soft glow)
-		var aura_size: float = BASKET_SIZE
+		var aura_size: float = BASKET_SIZE + 30.0
 		var aura_style := StyleBoxFlat.new()
 		aura_style.bg_color                   = Color(1.0, 0.85, 0.1, 0.0)
-		aura_style.corner_radius_top_left     = 60
-		aura_style.corner_radius_top_right    = 60
-		aura_style.corner_radius_bottom_right = 60
-		aura_style.corner_radius_bottom_left  = 60
+		aura_style.corner_radius_top_left     = 90
+		aura_style.corner_radius_top_right    = 90
+		aura_style.corner_radius_bottom_right = 90
+		aura_style.corner_radius_bottom_left  = 90
+		aura_style.shadow_color               = Color(1.0, 0.8, 0.15, 0.0)
+		aura_style.shadow_size                = 28
 		var aura := Panel.new()
 		aura.add_theme_stylebox_override("panel", aura_style)
 		aura.size     = Vector2(aura_size, aura_size)
@@ -202,6 +236,7 @@ func _build_baskets() -> void:
 			icon.name = "FilledFruit%d" % i
 			_basket_container.add_child(icon)
 		icon.size = Vector2(150, 85)
+		icon.z_index = 2
 		icon.position = Vector2(cx - 75, rest_y - 72)
 		icon.fruit_texture = _fruit_textures[fruit_idx]
 		_basket_icon_nodes.append(icon)
@@ -218,6 +253,7 @@ func _build_baskets() -> void:
 		flash.size     = Vector2(BASKET_SIZE + 20.0, BASKET_SIZE + 20.0)
 		flash.position = Vector2(cx - (BASKET_SIZE + 20.0) * 0.5, rest_y - (BASKET_SIZE + 20.0) * 0.5)
 		_basket_container.add_child(flash)
+		flash.z_index = 2
 		_flash_nodes.append(flash)
 
 		# Catch counter label — white text, sits above the basket
@@ -229,6 +265,7 @@ func _build_baskets() -> void:
 		count_lbl.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
 		count_lbl.add_theme_font_size_override("font_size", 24)
 		_basket_container.add_child(count_lbl)
+		count_lbl.z_index = 2
 		_basket_count_nodes.append(count_lbl)
 		_basket_counts.append(0)
 
@@ -344,28 +381,55 @@ func _process(delta: float) -> void:
 		var previous_x := _fruit_x
 		var sx: float = GameInput.horizontal(_fruit_x, angle_to_screen(PlutoComm.angle), delta)
 		_set_fruit_x(clamp(sx, GAME_LEFT + FRUIT_SIZE * 0.5, GAME_RIGHT - FRUIT_SIZE * 0.5))
-		_current_fruit.position.y += _fall_speed * delta
+		_current_fruit.position.y += _current_fall_speed() * delta
 		# Subtle roll follows horizontal movement so the realistic fruit sprite feels alive.
 		var travel_direction := signf(_fruit_x - previous_x)
 		_current_fruit.rotation = move_toward(_current_fruit.rotation, travel_direction * 0.12, delta * 0.65)
 		_check_collision()
-	_animate_baskets(active)
+	_animate_baskets(active, delta)
 	_refresh_ui()
 	_update_log_state()
 
 # ── Basket animation ──────────────────────────────────────────────────────────
-func _animate_baskets(active: bool) -> void:
+func _animate_baskets(active: bool, delta: float = 0.0) -> void:
 	for i in SLOT_COUNT:
 		var is_target: bool = (i == _target_slot and active and
 			(_state == State.MOVE or _state == State.SPAWNFRUIT))
 		var cx:     float = float(_slot_positions[i])
-		var rest_y: float = float(_basket_rest_y[i])
+		var ground_y: float = float(_basket_rest_y[i])
+		# The rabbit raises the target basket and lowers it again once the fruit is resolved.
+		var lift: float = float(_basket_lift[i])
+		var lift_goal: float = LIFT_HEIGHT if (is_target and LIFT_TARGET) else 0.0
+		if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)):
+			lift = lift_goal
+		else:
+			lift = move_toward(lift, lift_goal, LIFT_HEIGHT / LIFT_SECONDS * delta)
+		_basket_lift[i] = lift
+		var rest_y: float = ground_y - lift
 		var basket    := _basket_nodes[i]      as Sprite2D
 		var bicon     := _basket_icon_nodes[i] as TextureRect
 		var count_lbl := _basket_count_nodes[i] as Label
 		var aura      := _aura_nodes[i]        as Panel
 		var ring      := _ring_nodes[i]        as Panel
 		var flash_cr  := _flash_nodes[i]       as Panel
+		aura.position.y     = rest_y - aura.size.y * 0.5
+		ring.position.y     = rest_y - ring.size.y * 0.5
+		flash_cr.position.y = rest_y - flash_cr.size.y * 0.5
+		var rabbit    := _rabbit_nodes[i]      as Control
+		var lift_frac: float = clampf(lift / LIFT_HEIGHT, 0.0, 1.0)
+		rabbit.visible    = lift_frac > 0.01
+		rabbit.modulate.a = clampf(lift_frac * 1.6, 0.0, 1.0)
+		# Pose: ready while rising, then straining harder as the fruit gets closer; once the fruit
+		# is resolved it stays happy (caught) or upset (missed) while the basket is lowered.
+		var rabbit_frame: int = _rabbit_end_frame
+		if is_target:
+			rabbit_frame = 0
+			if lift_frac >= 0.999 and _current_fruit != null:
+				var start_cy: float = FRUIT_START_Y + FRUIT_SIZE * 0.5
+				var progress: float = clampf((_current_fruit.position.y + FRUIT_SIZE * 0.5 - start_cy)
+					/ (_catch_line(i) - start_cy), 0.0, 1.0)
+				rabbit_frame = 1 if progress < 0.4 else (2 if progress < 0.75 else 3)
+		rabbit.set("frame", rabbit_frame)
 
 		if is_target:
 			# Bounce basket, icon, and counter together
@@ -376,16 +440,14 @@ func _animate_baskets(active: bool) -> void:
 			basket.position.x    = cx
 			bicon.position.x     = cx - 75.0
 			count_lbl.position.x = cx - 32.0
+			# Soft golden glow that breathes around the raised basket (replaces the old ring).
 			aura.visible = true
-			ring.visible = true
-			# Slow breathe on aura, fast crisp pulse on ring border
-			var aura_alpha: float = sin(_anim_t * 3.0) * 0.08 + 0.15
-			var ring_alpha: float = sin(_anim_t * 5.2) * 0.2 + 0.82
+			ring.visible = false
+			var pulse: float = sin(_anim_t * 3.2) * 0.5 + 0.5
 			var aura_sbox := aura.get_theme_stylebox("panel") as StyleBoxFlat
-			aura_sbox.bg_color     = Color(1.0, 0.85, 0.1, aura_alpha)
-			var ring_sbox := ring.get_theme_stylebox("panel") as StyleBoxFlat
-			ring_sbox.bg_color     = Color(1.0, 0.85, 0.1, 0.0)
-			ring_sbox.border_color = Color(1.0, 0.93, 0.2, ring_alpha)
+			aura_sbox.bg_color     = Color(1.0, 0.86, 0.25, 0.14 + 0.14 * pulse)
+			aura_sbox.shadow_color = Color(1.0, 0.8, 0.15, 0.35 + 0.35 * pulse)
+			basket.modulate = Color(1.12, 1.08, 0.98)
 		else:
 			# Reset to rest position
 			basket.position.y    = rest_y
@@ -393,6 +455,7 @@ func _animate_baskets(active: bool) -> void:
 			count_lbl.position.y = rest_y - 130.0
 			aura.visible = false
 			ring.visible = false
+			basket.modulate = Color.WHITE
 
 		# Flash overlay + shake (applied after base position, overrides X if shaking)
 		var flash_sbox := flash_cr.get_theme_stylebox("panel") as StyleBoxFlat
@@ -416,9 +479,18 @@ func _animate_baskets(active: bool) -> void:
 				bicon.position.x     = cx - 75.0
 				count_lbl.position.x = cx - 32.0
 
+		# Bunny: feet always on the ground, paws reaching in under the basket's lower edge in every
+		# pose (the basket is drawn in front, so it may hide the arm), also while it rises or bounces.
+		var pose: int = clampi(int(rabbit.get("frame")), 0, RABBIT_HANDS.size() - 1)
+		var hand: Vector2 = RABBIT_HANDS[pose]
+		var px: float = RABBIT_HEIGHT / RABBIT_CANVAS.y
+		var flipped: bool = bool(rabbit.get("mirrored"))
+		var contact_x: float = cx + (RABBIT_GAP if flipped else -RABBIT_GAP)
+		var hand_x: float = (RABBIT_CANVAS.x - hand.x) if flipped else hand.x
+		rabbit.position = Vector2(contact_x - hand_x * px, RABBIT_FEET_Y - RABBIT_HEIGHT)
 		# Move all caught icons with the basket (same dx/dy as the basket sprite)
 		var basket_dx: float = basket.position.x - cx
-		var basket_dy: float = basket.position.y - rest_y
+		var basket_dy: float = basket.position.y - ground_y
 		for j in (_caught_icon_nodes[i] as Array).size():
 			var c_icon := (_caught_icon_nodes[i] as Array)[j] as TextureRect
 			var rp: Vector2 = _caught_icon_rest_pos(i, j)
@@ -509,19 +581,36 @@ func _check_collision() -> void:
 	var fruit_cx: float = _current_fruit.position.x + FRUIT_SIZE * 0.5
 	var fruit_cy: float = _current_fruit.position.y + FRUIT_SIZE * 0.5
 
-	if fruit_cy >= BASKET_Y and fruit_cy <= BASKET_Y + BASKET_CATCH_H:
-		for i in SLOT_COUNT:
-			if abs(fruit_cx - float(_slot_positions[i])) < BASKET_HALF_W:
-				if i == _target_slot:
-					_fruit_was_caught()
-				else:
-					_fruit_was_missed(i)
-				return
-	elif _current_fruit.position.y >= FRUIT_MISS_Y:
+	for i in SLOT_COUNT:
+		var catch_y: float = _catch_line(i)
+		if fruit_cy >= catch_y and fruit_cy <= catch_y + BASKET_CATCH_H \
+				and abs(fruit_cx - float(_slot_positions[i])) < BASKET_HALF_W:
+			if i == _target_slot:
+				_fruit_was_caught()
+			else:
+				_fruit_was_missed(i)
+			return
+	if _current_fruit.position.y >= FRUIT_MISS_Y:
 		_fruit_was_missed(-1)
+
+## Fruit-centre Y at which a basket starts catching; raised while the rabbit holds the target up.
+func _catch_line(slot: int) -> float:
+	return BASKET_Y - (LIFT_HEIGHT if (LIFT_TARGET and slot == _target_slot) else 0.0)
+
+## Fall speed of the current fruit. The ground speed reaches BASKET_Y in the target time; a raised
+## target is closer, so the speed is scaled by the same ratio and the fruit arrives at the basket
+## at exactly the same moment as it would at ground level.
+func _current_fall_speed() -> float:
+	if not LIFT_TARGET:
+		return _fall_speed
+	var start_cy: float = FRUIT_START_Y + FRUIT_SIZE * 0.5
+	var ground_dist: float = BASKET_Y - start_cy
+	var lifted_dist: float = _catch_line(_target_slot) - start_cy
+	return _fall_speed * lifted_dist / ground_dist
 
 func _fruit_was_caught() -> void:
 	_fruit_landed = true
+	_rabbit_end_frame = 0
 	n_success    += 1
 	_catch_sfx.play()
 	_trigger_flash(_target_slot, false)
@@ -533,6 +622,7 @@ func _fruit_was_caught() -> void:
 
 func _fruit_was_missed(wrong_slot: int = -1) -> void:
 	_fruit_missed = true
+	_rabbit_end_frame = 3
 	n_failure    += 1
 	if wrong_slot >= 0:
 		# Wrong basket: lower pitch to distinguish from "fell to ground"
@@ -574,6 +664,7 @@ func _spawn_fruit() -> void:
 		_fruit_container.add_child(_pooled_fruit)
 	var fruit := _pooled_fruit
 	fruit.rotation = 0.0
+	fruit.z_index = 3   # falling fruit stays in front of the baskets and the bunny
 	fruit.show()
 	fruit.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 	fruit.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -601,6 +692,7 @@ func _update_pluto_aan_target() -> void:
 # ── Game lifecycle ────────────────────────────────────────────────────────────
 func _begin_game() -> void:
 	_time_left = TRIAL_DURATION
+	_music.play()
 	n_targets  = 0; n_success = 0; n_failure = 0
 	for i in SLOT_COUNT:
 		_basket_counts[i] = 0
@@ -622,7 +714,9 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	PlutoComm.set_control_type("NONE")
 	_kill_fruit()
+	_music.stop()
 	_save_speed()
 	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
 	var today_total := today_prior + n_success
@@ -648,7 +742,7 @@ func _update_log_state() -> void:
 	AppData.log_player_y = (_current_fruit.position.y + FRUIT_SIZE * 0.5) if _current_fruit else 0.0
 	if _target_slot >= 0 and _target_slot < _slot_positions.size():
 		AppData.log_target_x = float(_slot_positions[_target_slot])
-		AppData.log_target_y = BASKET_Y
+		AppData.log_target_y = _catch_line(_target_slot)
 	AppData.log_game_state = State.keys()[_state]
 	if _aan != null:
 		AppData.log_aan_target = _aan.target_position
@@ -677,12 +771,27 @@ func _on_pluto_button() -> void:
 
 func _toggle_pause() -> void:
 	if _state != State.PAUSED:
+		# Same behaviour in every game: free the device and silence the music while paused.
+		PlutoComm.set_control_type("NONE")
+		PlutoComm.reset_aan_target()
 		_prev_state = _state; _state = State.PAUSED; _pause_panel.visible = true
+		_music.stream_paused = true
 	else:
+		if _use_aan and (not PlutoComm.is_connected or not PlutoComm.is_streaming): return
 		_state = _prev_state; _pause_panel.visible = false
+		_music.stream_paused = false
+		if _use_aan and PlutoComm.is_connected:
+			PlutoComm.set_control_type("POSITIONAAN")
+			PlutoComm.set_control_bound(AppData.assist_bound)
+			PlutoComm.set_control_dir(0)
+			if _aan != null and _target_slot >= 0 and _target_slot < _slot_positions.size():
+				_aan.reset_trial()
+				_aan.set_new_trial_details(PlutoComm.angle, _screen_to_angle(float(_slot_positions[_target_slot])), _move_duration, _game_speed)
+	_update_log_state()
 
 func _on_exit_pressed() -> void:
 	PlutoComm.set_control_type("NONE")
+	_music.stop()
 	if not _game_finished:
 		_kill_fruit()
 		_save_speed()

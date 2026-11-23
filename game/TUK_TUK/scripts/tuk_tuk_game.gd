@@ -11,8 +11,12 @@ const GAME_RIGHT:      float = 1146.0
 const GAME_TOP:        float = 82.0
 const GAME_BOTTOM:     float = 562.0
 const PLAYER_X:        float = 220.0
-const ROCK_W:          float = 90.0
-const ROCK_H:          float = 320.0
+const ROCK_W:          float = 100.0   # hit-box width of an obstacle (the stone core of the pillar)
+const ROCK_VIS_W:      float = 200.0   # widest an obstacle picture is drawn
+const ROCK_H:          float = 340.0
+const PORTAL_CHANCE:   float = 0.15    # rare: share of obstacles that are followed by a portal
+const PORTAL_SIZE:     float = 124.0
+const PORTAL_HIT_R:    float = 44.0
 const GAP_H:           float = 188.0
 const SPAWN_X:         float = 1240.0
 const DESPAWN_X:       float = -110.0
@@ -62,8 +66,14 @@ var _anim_t:         float = 0.0
 var _aan_target_gap_y: float = -1.0
 
 var _columns:       Array     = []
-var _rock_tex:      Texture2D = null
-var _rock_down_tex: Texture2D = null
+var _rock_tex:      Texture2D = null   # pillar rising from the ground
+var _rock_down_tex: Texture2D = null   # pillar hanging from the top
+var _rock_vis_w_top: float = ROCK_VIS_W
+var _rock_vis_w_bot: float = ROCK_VIS_W
+var _portal_tex:    Texture2D = null
+var _tp_flash_t:    float = 0.0
+var _world:         Control = null
+var _theme:         Dictionary = {}
 
 var _bg1: TextureRect = null
 var _bg2: TextureRect = null
@@ -94,6 +104,9 @@ var _arom_nodes:   Array      = []
 
 func _ready() -> void:
 	preload("res://scripts/ui/game_chrome.gd").apply.call_deferred($UI)
+	# everything the game can need is loaded now, while the scene is still being built
+	preload("res://game/TUK_TUK/scripts/tuk_world.gd").preload_all()
+	_theme = preload("res://game/TUK_TUK/scripts/tuk_world.gd").pick_theme()
 	_load_textures()
 	_setup_scrolling_bg()
 	_init_rom_data()
@@ -105,6 +118,9 @@ func _ready() -> void:
 	_player_h = _player.size.y if _player.size.y > 0.0 else 72.0
 	_player_y = (GAME_TOP + GAME_BOTTOM) * 0.5
 	_update_player_node()
+	_world = preload("res://game/TUK_TUK/scripts/tuk_world.gd").new()
+	add_child(_world)
+	_world.setup(self, _theme)
 	_wait_panel.visible  = true
 	_pause_panel.visible = false
 	_over_panel.visible  = false
@@ -131,8 +147,14 @@ func _exit_tree() -> void:
 
 # ── Init ──────────────────────────────────────────────────────────────────────
 func _load_textures() -> void:
-	_rock_tex      = load("res://Assets/Arcade/rock-column.svg")
-	_rock_down_tex = load("res://Assets/Arcade/rock-column.svg")
+	# obstacles come from the theme picked for this game (pillar rising from the ground / hanging down)
+	_rock_tex      = load(String(_theme.bottom)) as Texture2D
+	_rock_down_tex = load(String(_theme.top)) as Texture2D
+	if _rock_tex == null: _rock_tex = load("res://Assets/Arcade/rock-column.svg")
+	if _rock_down_tex == null: _rock_down_tex = load("res://Assets/Arcade/rock-column.svg")
+	_rock_vis_w_bot = minf(ROCK_H * float(_rock_tex.get_width()) / float(_rock_tex.get_height()), ROCK_VIS_W)
+	_rock_vis_w_top = minf(ROCK_H * float(_rock_down_tex.get_width()) / float(_rock_down_tex.get_height()), ROCK_VIS_W)
+	_portal_tex    = load("res://game/TUK_TUK/sprites/Obstacles/teleportation_portal.png") as Texture2D
 
 func _setup_scrolling_bg() -> void:
 	if has_node("ArcadeGameBackground"): return
@@ -251,40 +273,153 @@ func _update_player_node() -> void:
 # ── Column management ─────────────────────────────────────────────────────────
 func _spawn_column() -> void:
 	n_targets += 1
-	var margin:   float = 55.0
-	var gap_y:    float = randf_range(GAME_TOP + GAP_H * 0.5 + margin, GAME_BOTTOM - GAP_H * 0.5 - margin)
+	var gap_y: float = _random_gap_y()
 
 	var top := TextureRect.new()
-	top.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	top.stretch_mode = TextureRect.STRETCH_SCALE
 	top.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-	top.size         = Vector2(ROCK_W, ROCK_H)
-	top.position     = Vector2(SPAWN_X - ROCK_W * 0.5, gap_y - GAP_H * 0.5 - ROCK_H)
-	if _rock_down_tex: top.texture = _rock_down_tex
+	top.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top.size         = Vector2(_rock_vis_w_top, ROCK_H)
+	top.position     = Vector2(SPAWN_X - _rock_vis_w_top * 0.5, gap_y - GAP_H * 0.5 - ROCK_H)
+	top.texture = _rock_down_tex
 	_rock_container.add_child(top)
 
 	var bot := TextureRect.new()
-	bot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	bot.stretch_mode = TextureRect.STRETCH_SCALE
 	bot.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
-	bot.size         = Vector2(ROCK_W, ROCK_H)
-	bot.position     = Vector2(SPAWN_X - ROCK_W * 0.5, gap_y + GAP_H * 0.5)
-	if _rock_tex: bot.texture = _rock_tex
-	bot.flip_v = true
+	bot.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	bot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bot.size         = Vector2(_rock_vis_w_bot, ROCK_H)
+	bot.position     = Vector2(SPAWN_X - _rock_vis_w_bot * 0.5, gap_y + GAP_H * 0.5)
+	bot.texture = _rock_tex
 	_rock_container.add_child(bot)
 
-	_columns.append({"top": top, "bot": bot, "gap_y": gap_y, "x": SPAWN_X, "scored": false, "collided": false})
+	_columns.append({"kind": "rock", "top": top, "bot": bot, "gap_y": gap_y, "x": SPAWN_X, "scored": false, "collided": false})
+	# rarely this obstacle also carries a portal, floating in the middle of its gap
+	if n_targets >= 2 and not _portal_alive() and _portal_tex != null and randf() < PORTAL_CHANCE:
+		_spawn_portal(SPAWN_X, gap_y)
 
-func _clear_columns() -> void:
+# ── Teleportation portal (a rare target between two obstacles) ─────────────────
+# Now and then a glowing portal drifts in between two obstacles, at a random height. It is a target like
+# the obstacles: the assist guides the arm to it, and touching it counts as a hit and teleports the
+# tuk-tuk to a DIFFERENT WORLD - another backdrop with its own obstacles. Missing it costs nothing.
+
+func _random_gap_y() -> float:
+	var margin: float = 55.0
+	return randf_range(GAME_TOP + GAP_H * 0.5 + margin, GAME_BOTTOM - GAP_H * 0.5 - margin)
+
+func _portal_alive() -> bool:
 	for col in _columns:
+		if col.kind == "portal" and not col.scored: return true
+	return false
+
+func _spawn_portal(x: float, y: float) -> void:
+	var node := TextureRect.new()
+	node.texture = _portal_tex
+	node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	node.stretch_mode = TextureRect.STRETCH_SCALE
+	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	node.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	node.size = Vector2(PORTAL_SIZE, PORTAL_SIZE)
+	node.pivot_offset = node.size * 0.5
+	node.position = Vector2(x - PORTAL_SIZE * 0.5, y - PORTAL_SIZE * 0.5)
+	_rock_container.add_child(node)
+	_columns.append({"kind": "portal", "node": node, "gap_y": y, "x": x, "scored": false, "collided": false, "used": false, "age": 0.0})
+
+func _portal_touched() -> Variant:
+	var pr := Rect2(_player.position + _collision_rect.position, _collision_rect.size)
+	for col in _columns:
+		if col.kind != "portal" or col.used: continue
+		var center := Vector2(float(col.x), float(col.gap_y))
+		var nearest := Vector2(clampf(center.x, pr.position.x, pr.end.x), clampf(center.y, pr.position.y, pr.end.y))
+		if nearest.distance_to(center) < PORTAL_HIT_R:
+			return col
+	return null
+
+func _update_portal_touch(delta: float) -> void:
+	_tp_flash_t = maxf(_tp_flash_t - delta, 0.0)
+	var portal = _portal_touched()
+	if portal == null: return
+	portal.used = true
+	_pass_sfx.play()
+	_tp_flash_t = 0.6
+	# the obstacle it sits in is scored as usual when you pass it, so the portal adds nothing extra
+	_switch_world(Vector2(PLAYER_X, _player_y))
+
+## Into the portal: another world (different backdrop AND obstacles), never the one we are in.
+func _switch_world(at: Vector2) -> void:
+	var worlds: Array = []
+	for candidate in _world.THEMES:
+		if candidate.id != _theme.id: worlds.append(candidate)
+	_theme = worlds[randi() % worlds.size()]
+	_world.pulse(at, Color(0.55, 0.85, 1.0))
+	_world.switch_theme(_theme, at)
+	_load_textures()
+	# obstacles already on screen dissolve into the new world's pillars (the old picture fades out on top)
+	for col in _columns:
+		if col.kind != "rock": continue
+		for pair in [[col.top, _rock_down_tex, _rock_vis_w_top], [col.bot, _rock_tex, _rock_vis_w_bot]]:
+			var node := pair[0] as TextureRect
+			var ghost := TextureRect.new()
+			ghost.texture = node.texture
+			ghost.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			ghost.stretch_mode = TextureRect.STRETCH_SCALE
+			ghost.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			ghost.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+			ghost.size = node.size
+			node.add_child(ghost)
+			var old_w: float = node.size.x
+			node.texture = pair[1]
+			node.size = Vector2(float(pair[2]), ROCK_H)
+			node.position.x = float(col.x) - float(pair[2]) * 0.5
+			ghost.size = Vector2(old_w, ROCK_H)
+			ghost.position = Vector2((node.size.x - old_w) * 0.5, 0.0)
+			var fade := ghost.create_tween()
+			fade.tween_property(ghost, "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_IN)
+			fade.tween_callback(ghost.queue_free)
+
+func _free_column(col: Dictionary) -> void:
+	if col.kind == "portal":
+		if is_instance_valid(col.node): (col.node as Control).queue_free()
+	else:
 		(col.top as TextureRect).queue_free()
 		(col.bot as TextureRect).queue_free()
+
+func _clear_columns() -> void:
+	var kept: Array = []
+	for col in _columns:
+		if col.kind == "portal":
+			kept.append(col)          # a portal sits between obstacles and outlives the cycle change
+		else:
+			_free_column(col)
+	_columns = kept
+
+func _clear_all_columns() -> void:
+	for col in _columns:
+		_free_column(col)
 	_columns.clear()
 
 func _update_columns(delta: float) -> void:
 	var to_remove: Array = []
 	for col in _columns:
 		col.x -= _scroll_speed * delta
-		(col.top as TextureRect).position.x = col.x - ROCK_W * 0.5
-		(col.bot as TextureRect).position.x = col.x - ROCK_W * 0.5
+		if col.kind == "portal":
+			col.age += delta
+			var node := col.node as TextureRect
+			node.rotation = 0.0 if bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)) else col.age * 1.4
+			node.scale = Vector2.ONE * (1.0 + sin(col.age * 4.0) * 0.06)
+			node.position = Vector2(col.x - PORTAL_SIZE * 0.5, col.gap_y - PORTAL_SIZE * 0.5)
+			if col.used:
+				node.modulate.a = maxf(0.0, node.modulate.a - delta * 3.0)
+			if not col.scored and (col.x + PORTAL_SIZE * 0.5) < (PLAYER_X - _player_w * 0.5):
+				col.scored = true          # behind the tuk-tuk: touched or not, nothing else happens
+			if col.x < DESPAWN_X or (col.used and node.modulate.a <= 0.01):
+				_free_column(col)
+				to_remove.append(col)
+			continue
+		(col.top as TextureRect).position.x = col.x - _rock_vis_w_top * 0.5
+		(col.bot as TextureRect).position.x = col.x - _rock_vis_w_bot * 0.5
 		# Score when column fully passes the player (skip if it already caused a collision)
 		if not col.scored and (col.x + ROCK_W * 0.5) < (PLAYER_X - _player_w * 0.5):
 			col.scored = true
@@ -294,8 +429,7 @@ func _update_columns(delta: float) -> void:
 				_pass_sfx.play()
 				_pass_flash_t = 0.35
 		if col.x < DESPAWN_X:
-			(col.top as TextureRect).queue_free()
-			(col.bot as TextureRect).queue_free()
+			_free_column(col)
 			to_remove.append(col)
 	for col in to_remove:
 		_columns.erase(col)
@@ -305,7 +439,8 @@ func _check_collision() -> bool:
 	if pr.position.y < GAME_TOP or pr.end.y > GAME_BOTTOM:
 		return true
 	for col in _columns:
-		if abs(col.x - PLAYER_X) > ROCK_W * 2.0: continue
+		if col.kind == "portal": continue
+		if abs(col.x - PLAYER_X) > ROCK_VIS_W: continue
 		var top_r := Rect2(col.x - ROCK_W * 0.5, col.gap_y - GAP_H * 0.5 - ROCK_H, ROCK_W, ROCK_H)
 		var bot_r := Rect2(col.x - ROCK_W * 0.5, col.gap_y + GAP_H * 0.5, ROCK_W, ROCK_H)
 		if pr.intersects(top_r) or pr.intersects(bot_r):
@@ -377,6 +512,7 @@ func _tick(delta: float) -> void:
 			# Player Y from PLUTO (or keyboard in debug)
 			var ty: float = GameInput.vertical(_player_y, angle_to_screen_y(PlutoComm.angle), delta, 350.0)
 			_player_y = clamp(ty, GAME_TOP + _player_h * 0.5, GAME_BOTTOM - _player_h * 0.5)
+			_update_portal_touch(delta)
 			_player.visible = true
 			_update_player_node()
 			# Blink: success flash fades gold→white; idle headlight pulse between
@@ -384,6 +520,9 @@ func _tick(delta: float) -> void:
 			if _pass_flash_t > 0.0:
 				var t: float = _pass_flash_t / 0.35
 				_player.modulate = Color(1.0, 1.0, lerp(1.0, 0.2, t), 1.0)
+			elif _tp_flash_t > 0.0:
+				var u: float = _tp_flash_t / 0.6
+				_player.modulate = Color(0.7 + 0.3 * (1.0 - u), 0.85 + 0.15 * (1.0 - u), 1.0, 0.45 + 0.55 * (1.0 - u))
 			else:
 				var pulse: float = 0.88 + sin(_anim_t * 5.0) * 0.12
 				_player.modulate = Color(1.0, 1.0, pulse, 1.0)
@@ -506,12 +645,13 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	PlutoComm.set_control_type("NONE")
 	$Music.stop()
 	# Count any in-flight columns that never resolved (passed or collided) as failures
 	for col in _columns:
-		if not col.scored and not col.collided:
+		if col.kind != "portal" and not col.scored and not col.collided:
 			n_failure += 1
-	_clear_columns()
+	_clear_all_columns()
 	_save_speed()
 	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
 	var today_total := today_prior + n_success
@@ -565,9 +705,21 @@ func _on_pluto_button() -> void:
 
 func _toggle_pause() -> void:
 	if _state != State.PAUSED:
+		# Same behaviour in every game: free the device and silence the music while paused.
+		PlutoComm.set_control_type("NONE")
+		PlutoComm.reset_aan_target()
 		_prev_state = _state; _state = State.PAUSED; _pause_panel.visible = true
+		$Music.stream_paused = true
 	else:
+		if _use_aan and (not PlutoComm.is_connected or not PlutoComm.is_streaming): return
 		_state = _prev_state; _pause_panel.visible = false
+		$Music.stream_paused = false
+		if _use_aan and PlutoComm.is_connected:
+			PlutoComm.set_control_type("POSITIONAAN")
+			PlutoComm.set_control_bound(AppData.assist_bound)
+			PlutoComm.set_control_dir(0)
+			_aan_target_gap_y = -1.0   # re-arm the assist toward the next column on the next tick
+	_update_log_state()
 
 func _on_exit_pressed() -> void:
 	PlutoComm.set_control_type("NONE")

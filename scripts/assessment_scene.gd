@@ -45,7 +45,7 @@ const DIRECTION_TEXT = [
 const CYCLE_COLORS = [
 	Color(1.0, 0.2, 0.2),  # cycle 1 — red
 	Color(1.0, 0.6, 0.1),  # cycle 2 — orange
-	Color(0.9, 0.9, 0.0),  # cycle 3 — yellow
+	Color(0.62, 0.42, 0.92),  # cycle 3 — purple
 	Color(0.2, 0.8, 0.3),  # cycle 4 — green
 	Color(0.2, 0.5, 1.0),  # cycle 5 — blue
 ]
@@ -125,15 +125,16 @@ func _ready() -> void:
 				 else (AppData.mech_offset + 10.0)
 	_setup_labels()
 	_select_arom()
+	_build_widgets_when_laid_out.call_deferred()
 
 	exit_button.pressed.connect(func():
-		var dest = "res://scenes/PlanSetupScene.tscn" if AppData.is_plan_setup \
-				   else "res://scenes/ChooseMechanism.tscn"
+		var dest = "res://scenes/ChooseGameScene.tscn" if AppData.assess_from_games else ("res://scenes/PlanSetupScene.tscn" if AppData.is_plan_setup else "res://scenes/ChooseMechanism.tscn")
+		AppData.assess_from_games = false
 		get_tree().change_scene_to_file(dest)
 	)
 	change_mech_btn.pressed.connect(func():
-		var dest = "res://scenes/PlanSetupScene.tscn" if AppData.is_plan_setup \
-				   else "res://scenes/ChooseMechanism.tscn"
+		var dest = "res://scenes/ChooseGameScene.tscn" if AppData.assess_from_games else ("res://scenes/PlanSetupScene.tscn" if AppData.is_plan_setup else "res://scenes/ChooseMechanism.tscn")
+		AppData.assess_from_games = false
 		get_tree().change_scene_to_file(dest)
 	)
 	arom_start_btn.pressed.connect(_on_arom_start_click)
@@ -148,6 +149,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not is_node_ready():
 		return
+	_refresh_state_ui()
 	var angle = PlutoComm.angle
 	if _arom_selected:
 		arom_angle_label.text = "%.1f" % (AppData.hoc_to_cm(angle) if AppData.mechanism_name == "HOC" else angle)
@@ -166,6 +168,87 @@ func _process(delta: float) -> void:
 		_run_prom_state_machine()
 		if _prom_state == PromState.ASSESS:
 			_update_prom_cursors(_prom_tmin, _prom_tmax)
+	_highlight_prompts()
+
+# ── Attention: the line that asks the user to act ("Press PLUTO button ...") and the result colour ──
+
+var _prompts := {}
+var _prompt_t := 0.0
+
+## Lifts the "Press PLUTO button ..." instruction out of the status text into a bold amber banner that
+## gently pulses, and colours the rest of the status by what is happening (amber while measuring,
+## green when done), so the important line cannot be missed.
+func _highlight_prompts() -> void:
+	_prompt_t += get_process_delta_time()
+	for pair in [[arom_status, arom_panel, true], [prom_status, $PromPanel, false]]:
+		var status: Label = pair[0]
+		var panel: Control = pair[1]
+		var lines: PackedStringArray = status.text.split("
+")
+		var kept: PackedStringArray = []
+		var prompt := ""
+		for line in lines:
+			if line.strip_edges().to_lower().begins_with("press "):
+				prompt = line.strip_edges()
+			else:
+				kept.append(line)
+		# drop blank lines left behind at the end
+		while kept.size() > 0 and kept[kept.size() - 1].strip_edges() == "":
+			kept.remove_at(kept.size() - 1)
+		var holder: PanelContainer = _prompts.get(panel)
+		if holder == null:
+			holder = _make_prompt(panel, status)
+			_prompts[panel] = holder
+		var label := holder.get_child(0) as Label
+		status.text = "
+".join(kept)
+		holder.visible = prompt != "" and panel.is_inside_tree()
+		if prompt != "":
+			label.text = "▶  " + prompt.trim_prefix("Press ").capitalize() if false else "▶  " + prompt
+			var pulse := 0.5 + 0.5 * sin(_prompt_t * 4.0)
+			holder.self_modulate = Color(1, 1, 1, 1)
+			var sb := holder.get_theme_stylebox("panel") as StyleBoxFlat
+			sb.bg_color = Color("ffbf3c").lerp(Color("ffd978"), pulse)
+		# status body colour follows the state
+		var done: bool = (pair[2] and (_arom_state == AromState.TRIAL_COMPLETE or _arom_state == AromState.ASSESSMENT_COMPLETE)) 				or (not pair[2] and _prom_state == PromState.ASSESS and false)
+		var measuring: bool = (pair[2] and _arom_state == AromState.TRIAL_RUNNING) or (not pair[2] and _prom_selected and _prom_state == PromState.ASSESS)
+		status.add_theme_color_override("font_color", Color("0b7a3d") if done else (Color("8a5300") if measuring else Color("1a2e44")))
+		status.add_theme_font_size_override("font_size", 17)
+
+func _make_prompt(panel: Control, status: Label) -> PanelContainer:
+	var holder := PanelContainer.new()
+	holder.set_meta("arcade_authored_control", true)
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("ffbf3c")
+	sb.border_color = Color("c98400")
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(14)
+	sb.content_margin_left = 12; sb.content_margin_right = 12; sb.content_margin_top = 6; sb.content_margin_bottom = 6
+	holder.add_theme_stylebox_override("panel", sb)
+	var label := Label.new()
+	label.set_meta("arcade_authored_control", true)
+	label.add_theme_font_size_override("font_size", 17)
+	label.add_theme_color_override("font_color", Color("3a2400"))
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.custom_minimum_size.x = 250
+	holder.add_child(label)
+	panel.add_child(holder)
+	holder.anchor_left = .04; holder.anchor_right = .48
+	holder.anchor_top = .83; holder.anchor_bottom = .95
+	holder.offset_left = 0; holder.offset_right = 0; holder.offset_top = 0; holder.offset_bottom = 0
+	return holder
+
+## The panels are laid out (and globally restyled) a moment after _ready, so the widgets that depend
+## on the final sizes are built, and the per-state look applied, a little later.
+func _build_widgets_when_laid_out() -> void:
+	await get_tree().create_timer(0.45).timeout
+	if not is_inside_tree():
+		return
+	_build_bar_widgets()
+	_state_sig = ""
+	_update_cycle_marker_positions()
 
 func _on_pluto_button() -> void:
 	_is_button_pressed = true
@@ -396,6 +479,7 @@ func _record_cycle(lo: float, hi: float) -> void:
 	_completed_cycles += 1
 
 	_add_cycle_markers(lo, hi, _completed_cycles - 1)
+	_refresh_cycle_list()
 
 	# Show widest range seen so far this trial
 	for c in _trial_cycles:
@@ -424,6 +508,7 @@ func _complete_trial() -> void:
 	_arom_tmin  = best.lo
 	_arom_tmax  = best.hi
 	_highlight_best_cycle_marker(best.lo, best.hi)
+	_refresh_cycle_list()
 	_arom_state = AromState.TRIAL_COMPLETE
 
 func _finish_assessment() -> void:
@@ -465,135 +550,269 @@ func _save_arom_and_select_prom() -> void:
 	_select_prom()
 
 func _mark_arom_panel_complete(lo: float, hi: float) -> void:
-	# Green tint overlay
-	var overlay := ColorRect.new()
-	overlay.color = Color(0.15, 0.7, 0.25, 0.18)
-	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	overlay.z_index = -1
-	arom_panel.add_child(overlay)
-
-	# Green border via StyleBox
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0, 0, 0, 0)
-	sb.border_color = Color(0.25, 0.85, 0.35)
-	sb.set_border_width_all(3)
-	sb.set_corner_radius_all(6)
-	arom_panel.add_theme_stylebox_override("panel", sb)
-
-	# ✓ badge at top-right corner
-	var badge := Panel.new()
-	badge.anchor_left   = 1.0; badge.anchor_right  = 1.0
-	badge.anchor_top    = 0.0; badge.anchor_bottom = 0.0
-	badge.offset_left   = -148.0; badge.offset_right  = -6.0
-	badge.offset_top    = 6.0;   badge.offset_bottom = 30.0
-	var badge_sb := StyleBoxFlat.new()
-	badge_sb.bg_color = Color(0.18, 0.72, 0.28)
-	badge_sb.set_corner_radius_all(10)
-	badge.add_theme_stylebox_override("panel", badge_sb)
-	arom_panel.add_child(badge)
-
-	var badge_lbl := Label.new()
-	badge_lbl.text = "✓  AROM Done"
-	badge_lbl.add_theme_font_size_override("font_size", 12)
-	badge_lbl.add_theme_color_override("font_color", Color.WHITE)
-	badge_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	badge_lbl.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
-	badge_lbl.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	badge.add_child(badge_lbl)
-
-	# Freeze angle label to show the saved AROM result
+	# The look of a finished AROM (solid green card, green header, "AROM DONE" chip) comes from
+	# _refresh_state_ui(); here we only freeze the saved result in the reading.
 	var is_hoc = AppData.mechanism_name == "HOC"
 	if is_hoc:
 		arom_angle_label.text = "%.1fcm–%.1fcm" % [AppData.hoc_to_cm(lo), AppData.hoc_to_cm(hi)]
 	else:
 		arom_angle_label.text = "%d°–%d°" % [int(lo), int(hi)]
+	_state_sig = ""
 
 # =========================================================================
 # AROM — UI display helpers
 # =========================================================================
 
 # =========================================================================
+# Range bar: knob, reached-range fill, MIN / MAX tabs, cycle flags and per-state look
+# =========================================================================
+
+const KNOB_W := 16.0
+const TAB_W := 40.0
+const TAB_H := 18.0
+const SLATE := Color("1f3a5f")
+
+var _flags: Control = null
+var _arom_reach: Panel = null
+var _prom_reach: Panel = null
+var _chips := {}
+var _state_sig := ""
+
+func _flat(fill: Color, border: Color, radius: int, border_w := 0) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = fill
+	sb.border_color = border
+	sb.set_border_width_all(border_w)
+	sb.set_corner_radius_all(radius)
+	return sb
+
+func _build_bar_widgets() -> void:
+	var arom_box := arom_track.get_parent() as Control
+	_arom_reach = _make_reach(arom_box, arom_track)
+	_prom_reach = _make_reach(prom_track.get_parent() as Control, prom_track)
+	for pair in [[arom_min_cursor, "MIN"], [arom_max_cursor, "MAX"], [prom_min_cursor, "MIN"], [prom_max_cursor, "MAX"]]:
+		_style_tab(pair[0], pair[1])
+	for knob in [arom_curr_cursor, prom_curr_cursor]:
+		var sb := _flat(Color.WHITE, Color("087f83"), 8, 3)
+		sb.shadow_color = Color(0.05, 0.2, 0.3, 0.35)
+		sb.shadow_size = 5
+		sb.shadow_offset = Vector2(0, 2)
+		knob.add_theme_stylebox_override("panel", sb)
+		knob.size.x = KNOB_W
+	_flags = preload("res://scripts/ui/cycle_flags.gd").new()
+	_flags.name = "CycleFlags"
+	arom_box.add_child(_flags)
+	_flags.size = arom_box.size
+	arom_box.resized.connect(func(): _flags.size = arom_box.size)
+	_build_chips()
+
+func _make_reach(box: Control, track: Control) -> Panel:
+	var reach := Panel.new()
+	reach.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	reach.set_meta("arcade_authored_control", true)
+	reach.add_theme_stylebox_override("panel", _flat(Color(0.03, 0.5, 0.52, 0.55), Color(0, 0, 0, 0), 9))
+	box.add_child(reach)
+	box.move_child(reach, track.get_index() + 1)
+	reach.visible = false
+	return reach
+
+func _style_tab(tab: Panel, text: String) -> void:
+	tab.add_theme_stylebox_override("panel", _flat(SLATE, Color(1, 1, 1, 0.9), 9, 1))
+	tab.size = Vector2(TAB_W, TAB_H)
+	tab.visible = false          # shown once there is a range to mark
+	tab.set_meta("arcade_authored_control", true)
+	var label := Label.new()
+	label.text = text
+	label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 11)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	label.set_meta("arcade_authored_control", true)
+	tab.add_child(label)
+
+func _place_knob(track: Control, knob: Control, angle: float) -> void:
+	var tw: float = track.size.x
+	if tw == 0.0:
+		return
+	knob.size = Vector2(KNOB_W, track.size.y + 12.0)
+	knob.position = Vector2(
+		track.position.x + clampf(_display_fraction(angle), 0.0, 1.0) * tw - KNOB_W * 0.5,
+		track.position.y - 6.0)
+
+func _place_reach(track: Control, min_tab: Control, max_tab: Control, reach: Panel, min_val: float, max_val: float) -> void:
+	var tw: float = track.size.x
+	if tw == 0.0 or reach == null:
+		return
+	var x0: float = track.position.x + clampf(_display_fraction(min_val), 0.0, 1.0) * tw
+	var x1: float = track.position.x + clampf(_display_fraction(max_val), 0.0, 1.0) * tw
+	reach.visible = true
+	min_tab.visible = true
+	max_tab.visible = true
+	reach.position = Vector2(x0, track.position.y)
+	reach.size = Vector2(maxf(x1 - x0, 2.0), track.size.y)
+	var y: float = track.position.y + track.size.y + 4.0
+	var lo_x := clampf(x0 - TAB_W * 0.5, track.position.x - 6.0, track.position.x + tw - TAB_W + 6.0)
+	var hi_x := clampf(x1 - TAB_W * 0.5, track.position.x - 6.0, track.position.x + tw - TAB_W + 6.0)
+	# keep the two tabs from sitting on top of each other when the range is tiny
+	if hi_x - lo_x < TAB_W + 2.0:
+		var mid := (lo_x + hi_x) * 0.5
+		lo_x = mid - TAB_W - 1.0
+		hi_x = mid + 1.0
+	min_tab.position = Vector2(lo_x, y)
+	max_tab.position = Vector2(hi_x, y)
+
+func _build_chips() -> void:
+	for pair in [[arom_panel, "AromHeaderBar"], [$PromPanel, "PromHeaderBar"]]:
+		var panel: Control = pair[0]
+		var chip := Label.new()
+		chip.name = "StateChip"
+		chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		chip.set_meta("arcade_authored_control", true)
+		chip.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+		chip.offset_left = -236.0
+		chip.offset_right = -16.0
+		chip.offset_top = 12.0
+		chip.offset_bottom = 42.0
+		chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		chip.add_theme_font_size_override("font_size", 14)
+		chip.z_index = 2
+		panel.add_child(chip)
+		_chips[panel] = chip
+
+## What each panel is doing right now, shown as a coloured chip in its header, a card colour and
+## border, and a dimmed look for the panel that is not active yet.
+func _panel_look(is_arom: bool) -> Dictionary:
+	var slate := {"chip_bg": Color("e4edf3"), "chip_fg": Color("3d556b")}
+	var amber := {"chip_bg": Color("ffe7b0"), "chip_fg": Color("7a4a00")}
+	var teal := {"chip_bg": Color("c6ebec"), "chip_fg": Color("075c60")}
+	var blue := {"chip_bg": Color("d7e4fb"), "chip_fg": Color("1f3f8a")}
+	var done := {"chip_bg": Color("1f9d55"), "chip_fg": Color.WHITE}
+	var look: Dictionary
+	if is_arom:
+		if _arom_state == AromState.ASSESSMENT_COMPLETE and not _arom_selected:
+			look = done.duplicate(); look.text = "AROM DONE  ✓"; look.mode = "done"
+		elif _arom_state == AromState.ASSESSMENT_COMPLETE:
+			look = blue.duplicate(); look.text = "REVIEW RESULT"; look.mode = "active"
+		elif _arom_state == AromState.TRIAL_COMPLETE:
+			look = teal.duplicate(); look.text = "TRIAL COMPLETE"; look.mode = "active"
+		elif _arom_state == AromState.TRIAL_RUNNING:
+			look = amber.duplicate(); look.text = "MEASURING  %d / %d" % [mini(_completed_cycles + 1, CYCLES_PER_TRIAL), CYCLES_PER_TRIAL]; look.mode = "active"
+		else:
+			look = slate.duplicate(); look.text = "READY"; look.mode = "active"
+	else:
+		if not _prom_selected:
+			look = slate.duplicate(); look.text = "WAITING FOR AROM"; look.mode = "idle"
+		elif _prom_state == PromState.ASSESS:
+			look = amber.duplicate(); look.text = "MEASURING"; look.mode = "active"
+		else:
+			look = slate.duplicate(); look.text = "READY"; look.mode = "active"
+	return look
+
+func _refresh_state_ui() -> void:
+	if _chips.is_empty():
+		return
+	var sig := "%d|%d|%d|%d|%d" % [_arom_state, _prom_state, int(_arom_selected), int(_prom_selected), _completed_cycles]
+	if sig == _state_sig:
+		return
+	_state_sig = sig
+	for pair in [[arom_panel, true, "AromHeaderBar", "AromTitle"], [$PromPanel, false, "PromHeaderBar", "PromTitle"]]:
+		var panel: Panel = pair[0]
+		var look := _panel_look(pair[1])
+		var chip: Label = _chips[panel]
+		chip.text = look.text
+		chip.add_theme_color_override("font_color", look.chip_fg)
+		chip.add_theme_stylebox_override("normal", _flat(look.chip_bg, look.chip_fg.darkened(0.1) if look.mode == "done" else Color(look.chip_fg, 0.25), 14, 1))
+		var card: StyleBoxFlat
+		var header_fill := Color("fbfdfe")
+		var title_color := Color("1a2e44")
+		match look.mode:
+			"done":
+				card = _flat(Color("e2f4e8"), Color("1f9d55"), 18, 3)
+				header_fill = Color("1f9d55")
+				title_color = Color.WHITE
+			"active":
+				card = _flat(Color("fbfdfef2"), Color("087f83"), 18, 3)
+			_:
+				card = _flat(Color("eef3f6e6"), Color("c4d4da"), 18, 1)
+		card.shadow_color = Color(0.1, 0.25, 0.3, 0.14)
+		card.shadow_size = 8
+		panel.add_theme_stylebox_override("panel", card)
+		panel.modulate = Color(1, 1, 1, 0.82) if look.mode == "idle" else Color.WHITE
+		var header := panel.get_node_or_null(pair[2]) as Panel
+		if header:
+			header.add_theme_stylebox_override("panel", _flat(header_fill, Color(0, 0, 0, 0), 14))
+		var title := panel.get_node_or_null(pair[3]) as Label
+		if title:
+			title.add_theme_color_override("font_color", title_color)
+
+# =========================================================================
 # AROM — cycle marker UI helpers
 # =========================================================================
 
 func _add_cycle_markers(lo: float, hi: float, cycle_idx: int) -> void:
-	if not is_node_ready():
-		return
-	var color: Color = CYCLE_COLORS[cycle_idx % CYCLE_COLORS.size()]
-	var container: Node = arom_track.get_parent()
-	var track_h: float  = max(arom_track.size.y, 20.0)
-
-	var lo_node := ColorRect.new()
-	lo_node.color = color
-	lo_node.size  = Vector2(MARKER_W, track_h)
-	container.add_child(lo_node)
-
-	var hi_node := ColorRect.new()
-	hi_node.color = color
-	hi_node.size  = Vector2(MARKER_W, track_h)
-	container.add_child(hi_node)
-
-	var lo_badge := Label.new()
-	lo_badge.text = str(cycle_idx + 1)
-	lo_badge.add_theme_font_size_override("font_size", 10)
-	lo_badge.add_theme_color_override("font_color", color)
-	lo_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lo_badge.custom_minimum_size  = Vector2(16, 0)
-	container.add_child(lo_badge)
-
-	var hi_badge := Label.new()
-	hi_badge.text = str(cycle_idx + 1)
-	hi_badge.add_theme_font_size_override("font_size", 10)
-	hi_badge.add_theme_color_override("font_color", color)
-	hi_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hi_badge.custom_minimum_size  = Vector2(16, 0)
-	container.add_child(hi_badge)
-
-	_cycle_marker_data.append({
-		"lo": lo, "hi": hi,
-		"lo_node": lo_node, "hi_node": hi_node,
-		"lo_badge": lo_badge, "hi_badge": hi_badge,
-		"cycle_idx": cycle_idx
-	})
+	_cycle_marker_data.append({"lo": lo, "hi": hi, "cycle_idx": cycle_idx, "best": false})
 	_update_cycle_marker_positions()
 
 func _highlight_best_cycle_marker(best_lo: float, best_hi: float) -> void:
 	for m in _cycle_marker_data:
-		if abs(m.lo - best_lo) < 0.1 and abs(m.hi - best_hi) < 0.1:
-			m.lo_node.color = BEST_CYCLE_COLOR
-			m.hi_node.color = BEST_CYCLE_COLOR
-			m.lo_badge.add_theme_color_override("font_color", BEST_CYCLE_COLOR)
-			m.hi_badge.add_theme_color_override("font_color", BEST_CYCLE_COLOR)
+		m.best = abs(m.lo - best_lo) < 0.1 and abs(m.hi - best_hi) < 0.1
+	_update_cycle_marker_positions()
 
 func _clear_cycle_markers() -> void:
-	for m in _cycle_marker_data:
-		if is_instance_valid(m.lo_node):  m.lo_node.queue_free()
-		if is_instance_valid(m.hi_node):  m.hi_node.queue_free()
-		if is_instance_valid(m.lo_badge): m.lo_badge.queue_free()
-		if is_instance_valid(m.hi_badge): m.hi_badge.queue_free()
 	_cycle_marker_data.clear()
+	_update_cycle_marker_positions()
+	_refresh_cycle_list()
+
+## One line per completed cycle ("1  -32.0° → 41.0°  (73.0°)"), in the same colour as that cycle's
+## markers on the bar; the best cycle of the trial is starred.
+func _refresh_cycle_list() -> void:
+	var list := arom_panel.get_node_or_null("CycleList") as RichTextLabel
+	if list == null:
+		return
+	var is_hoc := AppData.mechanism_name == "HOC"
+	var best := {}
+	if _arom_state == AromState.TRIAL_COMPLETE or _arom_state == AromState.ASSESSMENT_COMPLETE:
+		best = _trial_best
+	var text := "[b]Cycle ranges[/b]" + "\n"
+	for i in _trial_cycles.size():
+		var c: Dictionary = _trial_cycles[i]
+		var color: Color = CYCLE_COLORS[i % CYCLE_COLORS.size()]
+		var is_best: bool = not best.is_empty() and absf(c.lo - best.lo) < 0.1 and absf(c.hi - best.hi) < 0.1
+		var range_text: String
+		if is_hoc:
+			range_text = "%.1f → %.1f cm  (%.1f)" % [AppData.hoc_to_cm(c.lo), AppData.hoc_to_cm(c.hi), absf(AppData.hoc_to_cm(c.hi) - AppData.hoc_to_cm(c.lo))]
+		else:
+			range_text = "%.1f° → %.1f°  (%.1f°)" % [c.lo, c.hi, c.hi - c.lo]
+		text += "[color=#%s]●[/color] [b]%d[/b]   %s%s" % [color.to_html(false), i + 1, range_text, "  [color=#b07a00]★ best[/color]" if is_best else ""] + "\n"
+	list.text = text
 
 func _update_cycle_marker_positions() -> void:
-	if _cycle_marker_data.is_empty():
+	if _flags == null:
 		return
 	var tw: float = arom_track.size.x
-	if tw == 0.0:
-		return
-	var track_h: float = arom_track.size.y
-	var tx: float      = arom_track.position.x
-	var ty: float      = arom_track.position.y
+	var lows := []
+	var highs := []
 	for m in _cycle_marker_data:
-		var lo_t: float = _display_fraction(m.lo)
-		var hi_t: float = _display_fraction(m.hi)
-		var lo_x: float = tx + clamp(lo_t, 0.0, 1.0) * tw - MARKER_W * 0.5
-		var hi_x: float = tx + clamp(hi_t, 0.0, 1.0) * tw - MARKER_W * 0.5
-		m.lo_node.position = Vector2(lo_x, ty)
-		m.hi_node.position = Vector2(hi_x, ty)
-		m.lo_node.size.y    = track_h
-		m.hi_node.size.y    = track_h
-		m.lo_badge.position = Vector2(lo_x - 8.0 + MARKER_W * 0.5, ty - 16.0)
-		m.hi_badge.position = Vector2(hi_x - 8.0 + MARKER_W * 0.5, ty - 16.0)
+		var color: Color = BEST_CYCLE_COLOR if m.best else CYCLE_COLORS[m.cycle_idx % CYCLE_COLORS.size()]
+		var base := {"color": color, "label": str(int(m.cycle_idx) + 1), "best": m.best}
+		var lo_item: Dictionary = base.duplicate()
+		lo_item.x = arom_track.position.x + clampf(_display_fraction(m.lo), 0.0, 1.0) * tw
+		lo_item.side = 1.0
+		var hi_item: Dictionary = base.duplicate()
+		hi_item.x = arom_track.position.x + clampf(_display_fraction(m.hi), 0.0, 1.0) * tw
+		hi_item.side = -1.0
+		lows.append(lo_item)
+		highs.append(hi_item)
+	# poles that are close together get different heights (three levels), so every flag stays readable
+	var items := []
+	for group in [lows, highs]:
+		group.sort_custom(func(a, b): return a.x < b.x)
+		for i in group.size():
+			group[i].level = i % 3
+			items.append(group[i])
+	_flags.set_items(items, arom_track.position.y, arom_track.position.y + arom_track.size.y)
 
 func _show_trial_running_ui() -> void:
 	var is_hoc = AppData.mechanism_name == "HOC"
@@ -803,48 +1022,16 @@ func _check_prom_limits() -> void:
 # =========================================================================
 
 func _update_arom_cursors(min_val: float, max_val: float) -> void:
-	var tw = arom_track.size.x
-	if tw == 0:
-		return
-	var min_t = _display_fraction(min_val)
-	var max_t = _display_fraction(max_val)
-	arom_min_cursor.position.x = (
-		arom_track.position.x + clamp(min_t, 0.0, 1.0) * tw - arom_min_cursor.size.x / 2.0
-	)
-	arom_max_cursor.position.x = (
-		arom_track.position.x + clamp(max_t, 0.0, 1.0) * tw - arom_max_cursor.size.x / 2.0
-	)
+	_place_reach(arom_track, arom_min_cursor, arom_max_cursor, _arom_reach, min_val, max_val)
 
 func _update_prom_cursors(min_val: float, max_val: float) -> void:
-	var tw = prom_track.size.x
-	if tw == 0:
-		return
-	var min_t = _display_fraction(min_val)
-	var max_t = _display_fraction(max_val)
-	prom_min_cursor.position.x = (
-		prom_track.position.x + clamp(min_t, 0.0, 1.0) * tw - prom_min_cursor.size.x / 2.0
-	)
-	prom_max_cursor.position.x = (
-		prom_track.position.x + clamp(max_t, 0.0, 1.0) * tw - prom_max_cursor.size.x / 2.0
-	)
+	_place_reach(prom_track, prom_min_cursor, prom_max_cursor, _prom_reach, min_val, max_val)
 
 func _update_curr_cursor(angle: float) -> void:
 	if _arom_selected and arom_curr_cursor.visible:
-		var tw = arom_track.size.x
-		if tw == 0:
-			return
-		var t = _display_fraction(angle)
-		arom_curr_cursor.position.x = (
-			arom_track.position.x + clamp(t, 0.0, 1.0) * tw - arom_curr_cursor.size.x / 2.0
-		)
+		_place_knob(arom_track, arom_curr_cursor, angle)
 	if _prom_selected and prom_curr_cursor.visible:
-		var tw = prom_track.size.x
-		if tw == 0:
-			return
-		var t = _display_fraction(angle)
-		prom_curr_cursor.position.x = (
-			prom_track.position.x + clamp(t, 0.0, 1.0) * tw - prom_curr_cursor.size.x / 2.0
-		)
+		_place_knob(prom_track, prom_curr_cursor, angle)
 
 func _setup_labels() -> void:
 	$AromPanel/AngleUnitLabel.text = "centimetres" if AppData.mechanism_name == "HOC" else "degrees"

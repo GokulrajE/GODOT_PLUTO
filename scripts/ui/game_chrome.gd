@@ -5,12 +5,12 @@ static func apply(ui: Node) -> void:
 	if str(ui.name) == "UI":
 		preload("res://scripts/ui/premium_finish.gd").enrich.call_deferred(ui)
 		preload("res://scripts/ui/reference_game_layout.gd").apply.call_deferred(ui)
-	if ui is Label:
+	if ui is Label and not ui.has_meta("keep_style"):     # HUD widgets with their own colours opt out
 		ui.add_theme_font_override("font", P.DISPLAY)
 		ui.add_theme_color_override("font_color", P.INK)
 		ui.add_theme_constant_override("outline_size", 0)
 		if ui.get_theme_font_size("font_size") < 16: ui.add_theme_font_size_override("font_size", 16)
-	if ui is Panel or ui is PanelContainer:
+	if (ui is Panel or ui is PanelContainer) and not ui.has_meta("keep_style"):
 		var surface := P.surface(P.SURFACE, 16)
 		if ui is PanelContainer:
 			for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]: surface.set_content_margin(side,20)

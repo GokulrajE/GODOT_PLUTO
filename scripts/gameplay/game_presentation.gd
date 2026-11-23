@@ -7,6 +7,7 @@ var game: Control
 var effects: Node2D
 var kind := ""
 var last_hits := 0
+var _goal_checked := false
 var last_misses := 0
 var timer_bar: ProgressBar
 var footer: Label
@@ -139,9 +140,9 @@ func _add_trial_card() -> void:
 	var card := preload("res://scripts/ui/game_trial_card.gd").new()
 	card.name = "GameTrialCard"
 	card.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	card.offset_left   = -102
+	card.offset_left   = -170
 	card.offset_right  = -12
-	card.offset_top    = -102
+	card.offset_top    = -60
 	card.offset_bottom = -12
 	game.get_node("UI").add_child(card)
 
@@ -226,6 +227,10 @@ func _button(parent: Node, text: String, rect: Rect2, action: Callable) -> Butto
 	return button
 
 func _setup_dialogs() -> void:
+	_add_goal_notice_to_start_card()
+	# no how-to-play sentence on the start card: the picture and the PLAY button are enough
+	var how_to := game.get_node_or_null("UI/WaitPanel/SubTitle")
+	if how_to: how_to.visible = false
 	if game.has_node("UI/WaitPanel/PlayButton"):
 		for path in ["UI/WaitPanel/PlayButton", "UI/PausePanel/ResumeButton", "UI/GameOverPanel/ReplayButton"]:
 			var action := Callable(game, "_on_pluto_button")
@@ -270,6 +275,56 @@ func _setup_dialogs() -> void:
 	speed.z_index = 20
 	# Existing speed panel uses its own internal control layout.
 
+## Start card of a game whose mechanism is already done for today: an indication inside the card.
+func _add_goal_notice_to_start_card() -> void:
+	if AppData.demo_mode or not bool(AppData.daily_progress().get("complete", false)): return
+	var wait := game.get_node_or_null("UI/WaitPanel")
+	if wait == null or wait.has_node("GoalNotice"): return
+	var label := Label.new()
+	label.name = "GoalNotice"
+	label.set_meta("arcade_authored_control", true)
+	label.set_meta("keep_style", true)
+	label.text = "✓ Today's prescribed time for this mechanism is complete.
+Try another mechanism, take a rest, or keep playing."
+	label.add_theme_font_size_override("font_size", 15)
+	label.add_theme_constant_override("line_spacing", -10)
+	label.add_theme_color_override("font_color", Color("0f7a42"))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	wait.add_child(label)
+	label.position = Vector2(28, 202)
+	label.size = Vector2(504, 44)
+
+## First time today's prescribed time for this mechanism is completed: say so, then move on to Choose
+## Mechanism (only once; playing it again later just shows a notice, see the game picker).
+func _goal_redirect_once() -> void:
+	if AppData.demo_mode: return
+	var mech := AppData.mechanism_name
+	var daily := AppData.daily_progress()
+	if not bool(daily.get("complete", false)) or AppData.goal_redirected.get(mech, false): return
+	AppData.goal_redirected[mech] = true
+	var banner := PanelContainer.new()
+	banner.set_meta("arcade_authored_control", true)
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("1f9d55")
+	sb.set_corner_radius_all(18)
+	sb.content_margin_left = 24; sb.content_margin_right = 24; sb.content_margin_top = 12; sb.content_margin_bottom = 12
+	banner.add_theme_stylebox_override("panel", sb)
+	var label := Label.new()
+	label.text = "Prescribed time for %s completed ✓  Taking you to your mechanisms..." % mech
+	label.add_theme_font_size_override("font_size", 20)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	label.set_meta("arcade_authored_control", true)
+	banner.add_child(label)
+	game.get_node("UI").add_child(banner)
+	banner.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_MINSIZE)
+	banner.offset_top = 20
+	banner.z_index = 50
+	await game.get_tree().create_timer(4.5).timeout
+	if is_instance_valid(game) and game.is_inside_tree():
+		game.get_tree().change_scene_to_file("res://scenes/ChooseMechanism.tscn")
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(game): return
 	var paused: bool = game.get_node("UI/PausePanel").visible
@@ -278,6 +333,9 @@ func _process(delta: float) -> void:
 	if booster: booster.step(delta, not waiting and not done, paused)
 	var backdrop := game.get_node_or_null("ArcadeGameBackground")
 	if backdrop and backdrop.has_method("step"): backdrop.step(delta, not waiting and not done, paused)
+	if done and not _goal_checked:
+		_goal_checked = true
+		_goal_redirect_once()
 	pause_button.disabled = waiting or done
 	pause_button.text = "Resume" if paused else "Pause"
 	timer_bar.value = maxf(0, float(game.get("_time_left")))

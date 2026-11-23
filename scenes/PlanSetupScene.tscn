@@ -1934,7 +1934,7 @@ layout_mode = 2
 theme = ExtResource("1_kjbep")
 theme_override_colors/font_color = Color(0.16, 0.20, 0.32, 1)
 theme_override_font_sizes/font_size = 12
-text = "Prescribe time for each mechanism After assessing."
+text = "Assess each mechanism, then set the time for each one."
 vertical_alignment = 1
 metadata/arcade_authored_control = true
 

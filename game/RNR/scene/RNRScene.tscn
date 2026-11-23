@@ -1151,7 +1151,6 @@ stream = ExtResource("6_miss")
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1003604943]
 stream = ExtResource("7_music")
 volume_db = -8.0
-autoplay = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=304651742]
 layer = 10

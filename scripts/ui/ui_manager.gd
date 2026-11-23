@@ -48,6 +48,12 @@ func _decorate_if_alive(instance_id: int, game: bool) -> void:
 func _decorate_scene(scene: Control, game: bool) -> void:
 	if not is_instance_valid(scene) or scene.has_meta("arcade_decorated"): return
 	scene.set_meta("arcade_decorated", true)
+	if not game:
+		_clear_status_badge(scene)
+		var backdrop := scene.get_node_or_null("ArcadeBackdrop") as TextureRect
+		if backdrop and scene.name != "WelcomeScene":
+			backdrop.texture = preload("res://Assets/menu_background_blur.png")
+			backdrop.modulate = Color.WHITE
 	if scene.has_meta("arcade_authored"):
 		if scene.name == "MainScene":
 			var music: CheckButton = scene.get_node("MusicToggle")
@@ -105,11 +111,33 @@ func _decorate_scene(scene: Control, game: bool) -> void:
 			get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 		)
 
+## The device-status badge sits in the top-right corner; nudge any button that would overlap it.
+func _clear_status_badge(scene: Control) -> void:
+	await get_tree().create_timer(0.35).timeout
+	if not is_instance_valid(scene) or not scene.is_inside_tree(): return
+	var win := Vector2(scene.get_viewport_rect().size)
+	var badge := Rect2(win.x - 70.0, 8.0, 64.0, 64.0)
+	var stack: Array[Node] = [scene]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		for child in node.get_children(): stack.append(child)
+		var button := node as BaseButton
+		if button == null or not button.is_visible_in_tree() or button.name == "ReducedMotion": continue
+		if button.get_script() == preload("res://scripts/ui/reference_frame.gd") : continue
+		var rect := button.get_global_rect()
+		if not rect.intersects(badge) or rect.size.x > win.x * 0.5: continue
+		var dx := rect.end.x - badge.position.x + 12.0
+		if button.anchor_left >= 0.9:
+			button.offset_left -= dx
+			button.offset_right -= dx
+		else:
+			button.position.x -= dx
+
 func _style(node: Node) -> void:
 	if not is_instance_valid(node) or not node.is_inside_tree(): return
 	var control := node as Control
 	var key := str(control.name).to_lower()
-	if control is TextureRect and control.texture and control.texture.resource_path.contains("mechanismImages"):
+	if control is TextureRect and control.texture and control.texture.resource_path.contains("mechanismImages") and not control.has_meta("full_color"):
 		if not control.get_script(): control.set_script(preload("res://scripts/ui/mechanism_contrast.gd")); control._ready()
 	if control.has_meta("arcade_authored_control"):
 		if control is BaseButton: Motion.bind(control)
@@ -147,7 +175,7 @@ func _style(node: Node) -> void:
 			control.add_theme_stylebox_override(state, Palette.chrome("frame-blue" if state == "focus" else "field-blue"))
 		for state in ["font_color", "font_uneditable_color", "caret_color"]:
 			control.add_theme_color_override(state, Palette.INK)
-		control.add_theme_color_override("font_placeholder_color", Palette.MUTED)
+		control.add_theme_color_override("font_placeholder_color", Color("a3b3c2"))
 		control.add_theme_color_override("selection_color", Color("7244be"))
 	elif control is Label:
 		if key == "readycountlabel": control.modulate = Color.WHITE
@@ -177,7 +205,7 @@ func _style(node: Node) -> void:
 	elif control is ColorRect and not game and key in ["background", "bg", "bgcolor", "backgroundcolor", "backgroundtint", "headerbg", "footerbg"]:
 		control.color = Color.TRANSPARENT
 		control.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	elif control is TextureRect and not game and control.texture and control.texture.resource_path.contains("mechanismImages"):
+	elif control is TextureRect and not game and control.texture and control.texture.resource_path.contains("mechanismImages") and not control.has_meta("full_color"):
 		control.modulate = Color.WHITE
 	elif control is TextureRect and not game and key == "backgroundimage":
 		control.visible = false

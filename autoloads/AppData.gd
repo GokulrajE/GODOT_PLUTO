@@ -1,6 +1,7 @@
 extends Node
 
 var demo_mode: bool = false
+var goal_redirected := {}   # mechanisms already sent back to Choose Mechanism after completing their time (once per session)
 var _demo_snapshot: Dictionary = {}
 
 func enter_demo() -> void:
@@ -61,7 +62,9 @@ var is_calibrated: bool = false
 
 # ── Plan setup ────────────────────────────────────────────────────────
 var is_plan_setup:     bool = false
-var config_total_time: int  = 0
+var assess_from_games: bool = false   # Ctrl+Shift+X on the game picker: assess, then come back to it
+var config_total_time: int  = 0   # session goal in minutes (the limit when config_limit_total, else the sum)
+var config_limit_total: bool = false  # true: allocations may not exceed config_total_time
 var config_wfe:        int  = 0
 var config_wurd:       int  = 0
 var config_fps:        int  = 0

@@ -76,11 +76,21 @@ func _ready() -> void:
 	_diag_button = Button.new()
 	_diag_button.text = "Device Diagnostics"
 	_diag_button.custom_minimum_size = Vector2(0, 44)
+	_diag_button.set_meta("secondary", true)
 	_diag_button.pressed.connect(func():
 		if AppUpdater.blocks_login(): return
 		get_tree().change_scene_to_file("res://scenes/DiagnosticsScene.tscn"))
 	connect_content.add_child(_diag_button)
+	var back := Button.new()
+	back.name = "BackToLoginButton"
+	back.text = "← Back to login"
+	back.set_meta("secondary", true)
+	back.custom_minimum_size = Vector2(0, 44)
+	back.pressed.connect(_back_to_login)
+	connect_content.add_child(back)
 	$VersionLabel.text = "PLUTO v" + AppUpdater.version()
+	_add_close_button()
+	_place_logos()
 	AppUpdater.changed.connect(_update_gate)
 	$UpdatePanel/UpdateAction.pressed.connect(func():
 		if AppUpdater.state == "required": AppUpdater.download_update()
@@ -130,6 +140,7 @@ func _on_login_pressed() -> void:
 		sub_label.text     = "Patient: " + pid
 		login_content.visible  = false
 		connect_content.visible = true
+		$DiagnosticsButton.hide()      # the connect card has its own diagnostics button
 		$UpdatePanel.hide()
 		connect_status.text    = "Port: " + PORT
 		connect_status.modulate = Color.WHITE
@@ -260,6 +271,7 @@ func _update_gate() -> void:
 	register_button.disabled = _login_pending or blocked or not AppStorage.error_message.is_empty()
 	$DemoButton.disabled = blocked or _login_pending
 	$DiagnosticsButton.disabled = blocked or _login_pending or AppData.is_patient_loaded
+	$DiagnosticsButton.visible = not AppData.is_patient_loaded   # the connect card has its own diagnostics button
 	patient_id_input.editable = not _login_pending
 	$UpdatePanel.visible = AppUpdater.enabled and login_content.visible
 	$UpdatePanel/UpdateStatus.text = AppUpdater.message.get_slice("\n", 0)
@@ -283,3 +295,211 @@ func _refresh_patient_matches() -> void:
 		%PatientMatches.add_item(pid)
 	%PatientMatches.visible = %PatientMatches.item_count > 0
 	%ServerStatus.text = LocalServer.message if %PatientMatches.item_count > 0 else "No matching IDs. Register a new local ID or refresh the server list."
+
+## Developer option (Ctrl+Shift+X on the login screen): change the serial port and save it to device.cfg.
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_X 			and event.ctrl_pressed and event.shift_pressed and not AppData.is_patient_loaded:
+		get_viewport().set_input_as_handled()
+		_open_port_dialog()
+
+func _open_port_dialog() -> void:
+	if has_node("PortDialog"): return
+	var saved := AppStorage.dev_settings()
+	var shade := ColorRect.new()
+	shade.name = "PortDialog"
+	shade.color = Color(0.05, 0.1, 0.15, 0.55)
+	shade.set_meta("arcade_authored_control", true)
+	add_child(shade)
+	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var card := PanelContainer.new()
+	shade.add_child(card)
+	card.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	card.custom_minimum_size = Vector2(560, 0)
+	card.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	card.grow_vertical = Control.GROW_DIRECTION_BOTH
+	var pad := MarginContainer.new()
+	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: pad.add_theme_constant_override(side, 22)
+	card.add_child(pad)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 6)
+	pad.add_child(box)
+	var title := Label.new()
+	title.text = "Developer settings"
+	title.add_theme_font_size_override("font_size", 24)
+	box.add_child(title)
+	var note := Label.new()
+	note.text = "Saved to Documents/PLUTO/device.cfg. The sender and other linked apps read the same file."
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	note.custom_minimum_size.x = 516
+	box.add_child(note)
+	var fields := {}
+	var host_now: String = str(saved.host) if str(saved.host) != "" else str(LocalServer.settings.get("server_host", ""))
+	var port_now: String = str(saved.server_port) if int(saved.server_port) > 0 else str(LocalServer.settings.get("server_port", 5000))
+	var device_now: String = str(saved.device_id) if str(saved.device_id) != "" else str(LocalServer.settings.get("device_id", "PLUTO"))
+	var section_defs := [
+		{"key": "serial", "title": "Device connection", "button": "Test device & Save", "fields": [
+			["port", "COM port", PORT, "COM45"]]},
+		{"key": "server", "title": "Server", "button": "Save server", "fields": [
+			["host", "Server IP address", host_now, "192.168.0.101"],
+			["server_port", "Server port", port_now, "5000"]]},
+		{"key": "device", "title": "Identity", "button": "Save identity", "fields": [
+			["device_id", "Device name", device_now, "PLUTO"],
+			["client_id", "Computer name (optional)", str(saved.client_id), "defaults to this computer name"]]},
+	]
+	for def in section_defs:
+		var head := Label.new()
+		head.text = def.title
+		head.add_theme_font_size_override("font_size", 19)
+		box.add_child(head)
+		var group_fields := {}
+		for entry in def.fields:
+			var caption := Label.new()
+			caption.text = entry[1]
+			caption.add_theme_font_size_override("font_size", 14)
+			box.add_child(caption)
+			var edit := LineEdit.new()
+			edit.text = entry[2]
+			edit.placeholder_text = entry[3]
+			edit.select_all_on_focus = true
+			box.add_child(edit)
+			group_fields[entry[0]] = edit
+			fields[entry[0]] = edit
+		var line := HBoxContainer.new()
+		line.add_theme_constant_override("separation", 12)
+		box.add_child(line)
+		var button := Button.new()
+		button.text = def.button
+		button.custom_minimum_size = Vector2(190, 40)
+		line.add_child(button)
+		var status := Label.new()
+		status.add_theme_font_size_override("font_size", 15)
+		status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		status.custom_minimum_size.x = 270
+		status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		line.add_child(status)
+		button.pressed.connect(func(): _save_group(def.key, group_fields, button, status))
+	var cancel := Button.new()
+	cancel.text = "Close"
+	cancel.set_meta("secondary", true)
+	cancel.custom_minimum_size = Vector2(120, 44)
+	cancel.pressed.connect(func(): shade.queue_free())
+	box.add_child(cancel)
+	(fields["port"] as LineEdit).grab_focus.call_deferred()
+
+## Saves one group on its own. The COM port group tests the device first; the rest are plain settings.
+func _save_group(section: String, group_fields: Dictionary, button: Button, status: Label) -> void:
+	var values := {}
+	for key in group_fields: values[key] = (group_fields[key] as LineEdit).text
+	if values.has("server_port"):
+		var text := str(values["server_port"]).strip_edges()
+		values["server_port"] = int(text) if text.is_valid_int() else 0
+	button.disabled = true
+	status.add_theme_color_override("font_color", Color("1a2e44"))
+	if section == "serial":
+		status.text = "Testing %s ..." % str(values["port"]).strip_edges()
+		var message: String = await _verify_port(str(values["port"]).strip_edges())
+		if message != "":
+			status.add_theme_color_override("font_color", Color("c0273a"))
+			status.text = message
+			button.disabled = false
+			return
+	var error := AppStorage.save_dev_section(section, values)
+	button.disabled = false
+	if error != "":
+		status.add_theme_color_override("font_color", Color("c0273a"))
+		status.text = error
+		return
+	LocalServer.read_sender_address()
+	connect_status.text = "Port: " + PORT
+	status.add_theme_color_override("font_color", Color("0b7a3d"))
+	status.text = "Device answered - saved" if section == "serial" else "Saved"
+
+## Opens the port, asks for data and waits for real packets: the device must answer before the port is
+## saved. Returns "" when it works, otherwise a message. An already connected device on this port passes.
+func _verify_port(port: String) -> String:
+	if port.is_empty():
+		return "Enter a COM port, for example COM45."
+	if PlutoComm.is_connected and port == PORT:
+		return ""
+	if PlutoComm.is_connected:
+		PlutoComm.disconnect_device()
+	if not PlutoComm.connect_device(port):
+		return "Could not open %s. Check the cable and the port name." % port
+	var got := [false]
+	var on_data := func(): got[0] = true
+	EventBus.new_sensor_data.connect(on_data)
+	PlutoComm.start_stream()
+	var waited := 0.0
+	while not got[0] and waited < 3.0:
+		await get_tree().create_timer(0.1).timeout
+		waited += 0.1
+	EventBus.new_sensor_data.disconnect(on_data)
+	PlutoComm.disconnect_device()          # the normal Connect button reconnects with the saved port
+	if not got[0]:
+		return "%s opened but no PLUTO data arrived in 3 seconds. Is the device on and plugged into this port?" % port
+	return ""
+
+## "Close application" on the login screen (this is where logging out lands), bottom-left beside diagnostics.
+func _add_close_button() -> void:
+	var close := Button.new()
+	close.name = "CloseAppButton"
+	close.text = "Close application"
+	close.set_meta("secondary", true)
+	close.custom_minimum_size = Vector2(190, 48)
+	add_child(close)
+	close.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	close.offset_left = 256
+	close.offset_right = 446
+	close.offset_top = -70
+	close.offset_bottom = -22
+	close.pressed.connect(func():
+		PlutoComm.set_control_type("NONE")
+		get_tree().quit())
+
+## From the connect card: leave this patient and return to the login panel.
+func _back_to_login() -> void:
+	PlutoComm.disconnect_device()
+	AppData.close_session_logging()
+	await LocalServer.stop_patient()
+	AppData.is_patient_loaded    = false
+	AppData.patient_id           = ""
+	AppData.patient_start_date   = ""
+	AppData.patient_end_date     = ""
+	AppData.session_number       = 1
+	AppData.trial_number_day     = 0
+	AppData.trial_number_session = 0
+	AppData.mechanism_index      = 0
+	AppData.mechanism_name       = "NOMECH"
+	AppData.is_calibrated        = false
+	AppData.is_plan_setup        = false
+	AppData.selected_mechanism   = null
+	AppData.selected_game        = null
+	get_tree().reload_current_scene()
+
+## The two partner logos sit together in the top-left corner, undistorted (the scene's sprites were
+## stretched and floated near the middle).
+func _place_logos() -> void:
+	for node_name in ["cmc_logo", "biorehab_logo"]:
+		var old := get_node_or_null(node_name)
+		if old: old.hide()
+	var row := HBoxContainer.new()
+	row.name = "PartnerLogos"
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.set_meta("arcade_authored_control", true)
+	row.add_theme_constant_override("separation", 14)
+	add_child(row)
+	row.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	row.position = Vector2(24, 14)
+	for path in ["res://Assets/cmc.png", "res://Assets/biorehab.png"]:
+		var texture := load(path) as Texture2D
+		if texture == null: continue
+		var logo := TextureRect.new()
+		logo.texture = texture
+		logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		logo.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		logo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		logo.set_meta("full_color", true)
+		var height := 64.0
+		logo.custom_minimum_size = Vector2(height * texture.get_width() / texture.get_height(), height)
+		row.add_child(logo)

@@ -16,14 +16,17 @@ const SEED_Y:        float = 620.0     # baseline Y (bottom of seed/plant sprite
 const SEED_COUNT:    int   = 5
 const SEED_SIZE:     float = 44.0      # seed sprite size (smaller)
 const SEED_HALF_W:   float = 36.0      # cloud-over-seed detection radius
-const RAIN_DROP_COUNT: int = 48
 const RAIN_EMIT_INTERVAL: float = 0.025
-const RAIN_DROP_W:   float = 18.0       # width of each raindrop streak
-const RAIN_DROP_H:   float = 29.0      # height of each raindrop streak
 const RAIN_COL_W:    float = 100.0      # rain column total width
 
-# plant sizes per stage (0=seed … 4=final, bigger each stage)
-const PLANT_SIZES = [44.0, 95.0, 135.0, 180.0, 210.0]
+# Ten plants, four growth stages each (sprout, vegetative, budding, fully grown) cut from the sheet
+# in game/RNR/sprites/. Stage 0 is always the seed. Each slot gets a different plant every game.
+const PLANT_NAMES = ["watermelon", "strawberry", "sunflower", "tomato", "carrot", "blueberry", "pumpkin", "corn", "tulip", "flower"]
+const PLANT_PATH := "res://game/RNR/sprites/plants/%s_%d.png"
+const PLANT_SCALE := 0.383         # texture pixels (3x the sheet) -> screen pixels
+const PLANT_MAX_W := 215.0         # widest a plant may get, so neighbours never overlap
+const PLANT_BAR_GAP := 112.0       # progress bar sits this far to the right of the slot centre
+const PLANT_SIZES_SEED := 44.0
 
 # ── Speed ────────────────────────────────────────────────────────────────────
 const MIN_SPEED:          float = 10.0
@@ -65,16 +68,17 @@ var _highlight_timer:       float = 0.0
 var _rain_duration_to_grow: float = 0.3
 var _is_raining:            bool  = false
 var _pulse_t:               float = 0.0   # drives highlight pulse animation
-var _rain_emit_clock := 0.0
-var _rain_drop_serial := 0
 var _rain_anim_t:           float = 0.0   # drives rain drop scroll animation
 
-var _seed_textures:    Array = []
+var _seed_textures:    Array = []   # per slot: [seed, sprout, vegetative, budding, grown]
+var _slot_plants:      Array = []   # plant name per slot
+var _slot_scale:       Array = []   # sheet-to-screen scale per slot
+var _ambience:         Control = null
+var _rain_fx:          Control = null
 var _seed_nodes:       Array = []   # TextureRect per slot
 var _ring_nodes:       Array = []   # glow-ring Panel per slot
 var _bar_bg_nodes:     Array = []   # thin grey progress bg per slot
 var _bar_fill_nodes:   Array = []   # coloured fill inside bar per slot
-var _drop_nodes:       Array = []   # shared rain drops (Control array, moved per tick)
 var _seed_stage:       Array = []
 var _slot_positions:   Array = []
 
@@ -117,8 +121,12 @@ func _ready() -> void:
 	_arom_guides.draw.connect(_draw_arom_guides)
 	_calc_speed()
 	_spawn_seeds()
-	_build_rain_drops()
+	_build_cloud_character()
+	_build_rain_fx()
 	_set_cloud_x(583.0)
+	_ambience = preload("res://game/RNR/scripts/rnr_ambience.gd").new()
+	add_child(_ambience)
+	_ambience.setup(self)
 	_wait_panel.visible  = true
 	_pause_panel.visible = false
 	_over_panel.visible  = false
@@ -145,8 +153,29 @@ func _build_slot_positions() -> void:
 		_slot_positions.append(GAME_LEFT + margin + step * float(i))
 
 func _load_seed_textures() -> void:
-	for i in 5:
-		_seed_textures.append(ArcadeAssets.plant(i))
+	_seed_textures.clear()
+	_slot_plants.clear()
+	_slot_scale.clear()
+	var names: Array = PLANT_NAMES.duplicate()
+	names.shuffle()
+	for slot in SEED_COUNT:
+		var plant_name: String = names[slot % names.size()]
+		_slot_plants.append(plant_name)
+		var stages: Array = [ArcadeAssets.plant(0)]
+		var widest := 1.0
+		for stage in range(1, 5):
+			var texture := load(PLANT_PATH % [plant_name, stage]) as Texture2D
+			stages.append(texture)
+			if texture: widest = maxf(widest, float(texture.get_width()))
+		_seed_textures.append(stages)
+		_slot_scale.append(minf(PLANT_SCALE, PLANT_MAX_W / widest))
+
+## Height (screen px) of a slot's plant at a growth stage; the seed keeps the fixed seed size.
+func _stage_height(slot: int, stage: int) -> float:
+	if stage <= 0: return PLANT_SIZES_SEED
+	var texture := _seed_textures[slot][stage] as Texture2D
+	if texture == null: return PLANT_SIZES_SEED
+	return float(texture.get_height()) * float(_slot_scale[slot])
 
 func _spawn_seeds() -> void:
 	for child in _seed_container.get_children():
@@ -204,7 +233,7 @@ func _spawn_seeds() -> void:
 		# ── Rain progress bar (right side of seed, 8px wide) ─────────────────
 		const BAR_H    := 80.0
 		const BAR_W    := 8.0
-		var bar_x := cx + SEED_SIZE * 0.5 + 6.0
+		var bar_x := cx + PLANT_BAR_GAP
 		var bar_y := SEED_Y - SEED_SIZE - BAR_H
 
 		var bg_style := StyleBoxFlat.new()
@@ -239,12 +268,13 @@ func _spawn_seeds() -> void:
 		var seed_node := TextureRect.new()
 		seed_node.material = preload("res://Assets/Arcade/sprite-contrast.tres")
 		seed_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		seed_node.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS   # smooth when scaled
 		seed_node.expand_mode  = TextureRect.EXPAND_IGNORE_SIZE
 		seed_node.size         = Vector2(SEED_SIZE, SEED_SIZE)
 		seed_node.scale        = Vector2(1.0, 1.0)
 		seed_node.position     = Vector2(cx - SEED_SIZE * 0.5, SEED_Y - SEED_SIZE)
-		if _seed_textures.size() > 0 and _seed_textures[0] != null:
-			seed_node.texture = _seed_textures[0]
+		if _seed_textures.size() > i and _seed_textures[i][0] != null:
+			seed_node.texture = _seed_textures[i][0]
 			seed_node.size.x = SEED_SIZE * seed_node.texture.get_width() / seed_node.texture.get_height()
 			seed_node.position.x = cx - seed_node.size.x * 0.5
 		_seed_container.add_child(seed_node)
@@ -254,19 +284,21 @@ func _spawn_seeds() -> void:
 		# ── Ring must render in front of the seed, so move it to last ──────
 		_seed_container.move_child(ring, _seed_container.get_child_count() - 1)
 
-# Build shared animated rain drops (one set, repositioned to active slot)
-func _build_rain_drops() -> void:
-	_drop_nodes.clear()
-	for _i in RAIN_DROP_COUNT:
-		var drop := TextureRect.new()
-		drop.texture = preload("res://Assets/Arcade/water-drop.svg")
-		drop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		drop.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		drop.custom_minimum_size = Vector2(RAIN_DROP_W, RAIN_DROP_H)
-		drop.size = Vector2(RAIN_DROP_W, RAIN_DROP_H)
-		drop.visible = false
-		_seed_container.add_child(drop)
-		_drop_nodes.append(drop)
+# The cloud is drawn as an animated character with facial reactions (cloud_character.gd); the node
+# below it keeps the position the game moves.
+func _build_cloud_character() -> void:
+	_cloud.self_modulate = Color(1, 1, 1, 0)
+	var character: Control = preload("res://game/RNR/scripts/cloud_character.gd").new()
+	character.game = self
+	character.texture = ArcadeAssets.sprite("cloud")
+	_cloud.add_child(character)
+
+# Natural rain (rain_fx.gd): gravity, breeze, cloud-driven lean, splashes on plants and soil.
+func _build_rain_fx() -> void:
+	_rain_fx = preload("res://game/RNR/scripts/rain_fx.gd").new()
+	_rain_fx.game = self
+	add_child(_rain_fx)
+	move_child(_rain_fx, _seed_container.get_index() + 1)
 
 # ── Init ───────────────────────────────────────────────────────────────────────
 func _init_rom_data() -> void:
@@ -387,7 +419,6 @@ func _animate_visuals(delta: float) -> void:
 	_rain_anim_t += delta
 
 	var active = _state == State.MOVE or _state == State.SPAWNTARGET
-
 	for i in SEED_COUNT:
 		var is_target := (i == _target_seed and active)
 		var ring      := _ring_nodes[i] as Panel
@@ -413,42 +444,12 @@ func _animate_visuals(delta: float) -> void:
 			if i < _seed_nodes.size():
 				_seed_nodes[i].modulate = Color(1, 1, 1, 1)
 
-	# Rain drops + progress bar
-	var rain_visible: bool = _is_raining and (active or _state == State.SUCCESS)
-	var col_top:      float = _cloud.position.y + _cloud.size.y
-	var col_bottom:   float = SEED_Y - SEED_SIZE - 4.0
-	if _target_seed >= 0 and _target_seed < _seed_nodes.size():
-		col_bottom = maxf(col_top + 20, _seed_nodes[_target_seed].position.y + 8)
-	var slot_cx:      float = float(_slot_positions[_target_seed]) if _target_seed >= 0 and _target_seed < _slot_positions.size() else 583.0
-
-	# Pooled drops start at the cloud in sequence and keep falling after emission stops.
-	for drop: TextureRect in _drop_nodes:
-		if not drop.visible: continue
-		drop.position.y += float(drop.get_meta("speed", 420.0)) * delta
-		if drop.position.y >= float(drop.get_meta("bottom", col_bottom)):
-			drop.hide()
-	if rain_visible:
-		_rain_emit_clock += minf(delta, 0.1)
-		while _rain_emit_clock >= RAIN_EMIT_INTERVAL:
-			_rain_emit_clock -= RAIN_EMIT_INTERVAL
-			for drop: TextureRect in _drop_nodes:
-				if drop.visible: continue
-				var lane: float = (fmod(float(_rain_drop_serial) * 0.618034, 1.0) - 0.5) * RAIN_COL_W
-				drop.position = Vector2(_cloud_x + lane - RAIN_DROP_W * 0.5, col_top - 14)
-				drop.set_meta("speed", 390.0 + float(_rain_drop_serial % 5) * 24.0)
-				drop.position.y += float(drop.get_meta("speed")) * _rain_emit_clock
-				drop.set_meta("bottom", col_bottom)
-				drop.modulate.a = 0.85 + float(_rain_drop_serial % 3) * 0.075
-				drop.show()
-				_rain_drop_serial += 1
-				break
-	else:
-		_rain_emit_clock = 0.0
+	var slot_cx: float = float(_slot_positions[_target_seed]) if _target_seed >= 0 and _target_seed < _slot_positions.size() else 583.0
 
 	# Progress bar (show when target active)
 	const BAR_H: float = 80.0
 	const BAR_W: float = 8.0
-	var bar_cx: float = slot_cx + SEED_SIZE * 0.5 + 6.0
+	var bar_cx: float = slot_cx + PLANT_BAR_GAP
 	var bar_y:  float = SEED_Y - SEED_SIZE - BAR_H
 	for i in SEED_COUNT:
 		_bar_bg_nodes[i].visible   = (i == _target_seed and active)
@@ -566,23 +567,38 @@ func _update_rain(delta: float) -> void:
 func _grow_seed(idx: int) -> void:
 	if _seed_grown: return
 	_seed_grown = true
-	var max_stage: int = _seed_textures.size() - 1
+	var max_stage: int = (_seed_textures[idx] as Array).size() - 1
 	var new_stage: int = _seed_stage[idx] + 1
 	if new_stage > max_stage:
-		new_stage = 2   # wrap back to stage 3 (index 2) after reaching stage 5
+		new_stage = 2   # after the fully grown plant the slot loops back to the budding stage
 	_seed_stage[idx] = new_stage
-	var sz:     float = float(PLANT_SIZES[new_stage]) if new_stage < PLANT_SIZES.size() else 120.0
+	n_success        += 1
+	_success_sfx.play()
+	_show_growth_when_rain_lands(idx, new_stage)
+
+## The score and sound happen the moment the target is watered, but the plant itself only visibly
+## grows once the rain from the cloud has actually reached it (with a safety timeout).
+func _show_growth_when_rain_lands(idx: int, new_stage: int) -> void:
+	if _rain_fx != null:
+		var asked: float = _rain_fx.clock()
+		var deadline := Time.get_ticks_msec() + 1200
+		while not _rain_fx.rain_reached(idx, asked) and Time.get_ticks_msec() < deadline:
+			await get_tree().process_frame
+			if not is_inside_tree(): return
+	_apply_plant_growth(idx, new_stage)
+
+func _apply_plant_growth(idx: int, new_stage: int) -> void:
+	if idx >= _seed_nodes.size() or not is_instance_valid(_seed_nodes[idx]): return
+	var sz:     float = _stage_height(idx, new_stage)
 	var cx:     float = float(_slot_positions[idx])
 	var node          := _seed_nodes[idx] as TextureRect
-	node.texture      = _seed_textures[new_stage] if new_stage < _seed_textures.size() else null
+	node.texture      = _seed_textures[idx][new_stage]
 	# Scale uniformly from base SEED_SIZE so the texture's natural aspect ratio is kept
 	var factor: float = sz / SEED_SIZE
 	node.size = Vector2(SEED_SIZE * node.texture.get_width() / node.texture.get_height(), SEED_SIZE)
 	node.set_meta("growth_target", factor)
 	# Reanchor to bottom-center (scale expands from top-left corner)
 	node.position = Vector2(cx - node.size.x * node.scale.x * 0.5, SEED_Y - node.size.y * node.scale.y)
-	n_success        += 1
-	_success_sfx.play()
 
 func _pick_target_seed() -> int:
 	# Build candidate list excluding the slot that was just targeted
@@ -612,8 +628,6 @@ func _hide_all_highlights() -> void:
 		_bar_bg_nodes[i].visible  = false
 		_bar_fill_nodes[i].visible = false
 		_seed_nodes[i].modulate   = Color(1, 1, 1, 1)
-	for drop in _drop_nodes:
-		drop.visible = false
 
 # ── AAN ───────────────────────────────────────────────────────────────────────
 func _update_pluto_aan_target() -> void:
@@ -630,6 +644,7 @@ func _update_pluto_aan_target() -> void:
 # ── Game lifecycle ────────────────────────────────────────────────────────────
 func _begin_game() -> void:
 	_time_left = TRIAL_DURATION
+	_music.play()
 	n_targets  = 0; n_success = 0; n_failure = 0
 	_wait_panel.visible = false
 	AppData.start_new_trial()
@@ -648,6 +663,7 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	PlutoComm.set_control_type("NONE")
 	_is_raining    = false
 	_hide_all_highlights()
 	_music.stop()
@@ -705,9 +721,23 @@ func _on_pluto_button() -> void:
 
 func _toggle_pause() -> void:
 	if _state != State.PAUSED:
+		# Same behaviour in every game: free the device and silence the music while paused.
+		PlutoComm.set_control_type("NONE")
+		PlutoComm.reset_aan_target()
 		_prev_state = _state; _state = State.PAUSED; _pause_panel.visible = true
+		_music.stream_paused = true
 	else:
+		if _use_aan and (not PlutoComm.is_connected or not PlutoComm.is_streaming): return
 		_state = _prev_state; _pause_panel.visible = false
+		_music.stream_paused = false
+		if _use_aan and PlutoComm.is_connected:
+			PlutoComm.set_control_type("POSITIONAAN")
+			PlutoComm.set_control_bound(AppData.assist_bound)
+			PlutoComm.set_control_dir(0)
+			if _aan != null and _target_seed >= 0 and _target_seed < _slot_positions.size():
+				_aan.reset_trial()
+				_aan.set_new_trial_details(PlutoComm.angle, _screen_to_angle(_slot_positions[_target_seed]), _move_duration, _game_speed)
+	_update_log_state()
 
 func _on_exit_pressed() -> void:
 	PlutoComm.set_control_type("NONE")

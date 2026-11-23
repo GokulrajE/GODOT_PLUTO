@@ -21,7 +21,7 @@ static func decorate(panel: Control, emblem := -1) -> void:
 	if panel is PanelContainer:
 		for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]: style.set_content_margin(side,24)
 	panel.add_theme_stylebox_override("panel",style)
-	if panel is Panel:
+	if panel is Panel and panel.name != "LoginCard":
 		var accent := ColorRect.new()
 		accent.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		accent.color = P.ACCENT
@@ -65,22 +65,86 @@ static func enrich(root: Node) -> void:
 		elif name in ["GameOverPanel","PremiumResults","Card"]: decorate(root)
 		elif name in ["WaitPanel","PremiumStart","SpeedPanel","PremiumSpeed"]: decorate(root)
 
+## Login only: a white wash over the backdrop so the scene reads light and clean.
+static func _brighten_backdrop(screen: Control) -> void:
+	var backdrop := screen.get_node_or_null("ArcadeBackdrop")
+	if backdrop == null: return
+	var wash := ColorRect.new()
+	wash.name = "LoginWash"
+	wash.color = Color(1, 1, 1, 0.62)
+	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	screen.add_child(wash)
+	wash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	screen.move_child(wash, backdrop.get_index() + 1)
+
+## Login only: tighten the vertical rhythm and size the card to its content, centred on screen.
+static func _compact_login(login: Control) -> void:
+	var content := login.get_node_or_null("LoginCardVBox/LoginBodyPad/LoginBodyVBox/LoginContent") as BoxContainer
+	if content:
+		content.add_theme_constant_override("separation", 10)
+		var status := content.get_node_or_null("LoginStatus") as Control
+		if status: status.custom_minimum_size.y = 0
+	var pad := login.get_node_or_null("LoginCardVBox/LoginBodyPad") as MarginContainer
+	if pad:
+		pad.add_theme_constant_override("margin_top", 16)
+		pad.add_theme_constant_override("margin_bottom", 4)
+	var dash := login.get_parent().get_node_or_null("DashCard") as Control
+	var fit := func():
+		if not is_instance_valid(login) or not login.is_inside_tree(): return
+		var box := login.get_node("LoginCardVBox") as Control
+		var h := box.get_combined_minimum_size().y
+		var dash_h := maxf(h, 400.0) if dash and dash.visible else h
+		var top := -dash_h * .5 - 14.0
+		login.anchor_top = .5
+		login.anchor_bottom = .5
+		login.offset_top = top
+		login.offset_bottom = top + h
+		if dash and dash.visible:
+			dash.anchor_top = .5
+			dash.anchor_bottom = .5
+			dash.offset_top = top
+			dash.offset_bottom = top + dash_h
+	var refit := func():
+		if is_instance_valid(login) and login.is_inside_tree():
+			if not login.get_tree().process_frame.is_connected(fit):
+				login.get_tree().process_frame.connect(fit, CONNECT_ONE_SHOT)
+	refit.call()
+	(login.get_node("LoginCardVBox") as Control).minimum_size_changed.connect(refit)
+	if dash: dash.visibility_changed.connect(refit)
+
 static func welcome(screen: Control) -> void:
 	var login = screen.get_node_or_null("LoginCard")
 	if login == null: return
 	login.anchor_left = .48
 	login.anchor_right = .94
-	var art := TextureRect.new()
-	art.texture = sprite(3)
-	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	screen.add_child(art)
-	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	art.anchor_left = .05
-	art.anchor_right = .44
-	art.anchor_top = .30
-	art.anchor_bottom = .78
+	_brighten_backdrop(screen)
+	_compact_login(login)
+	# The PLUTO device: floats gently, and lifts / tilts toward the pointer (Hover3D) on hover.
+	var hero := Control.new()
+	hero.name = "PlutoHero"
+	hero.mouse_filter = Control.MOUSE_FILTER_PASS
+	hero.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	screen.add_child(hero)
+	hero.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	hero.anchor_left = .0
+	hero.anchor_right = .48
+	hero.anchor_top = .10
+	hero.anchor_bottom = .90
+	var pic := TextureRect.new()
+	pic.texture = load("res://Assets/mechanismImages/ProductionPluto.png") as Texture2D
+	pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pic.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	hero.add_child(pic)
+	pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	preload("res://scripts/ui/hover_3d.gd").attach(hero, pic, 18.0).shadow_strength = 0.10
+	if not bool(ProjectSettings.get_setting("pluto/ui/reduced_motion", false)):
+		var drift := func(v: float): hero.offset_top = v; hero.offset_bottom = v
+		var bob := hero.create_tween().set_loops()
+		bob.tween_method(drift, -9.0, 9.0, 2.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		bob.tween_method(drift, 9.0, -9.0, 2.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	var art: Control = hero
 	art.visible = login.visible
 	login.visibility_changed.connect(func(): art.visible = login.visible)
 	var dash := screen.get_node_or_null("DashCard")

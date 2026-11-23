@@ -23,6 +23,8 @@ func _process(_delta: float) -> void:
 	var state := "demo" if AppData.demo_mode else ("connected" if PlutoComm.is_connected else "disconnected")
 	if state == last_state: return
 	last_state = state
+	# connected is already shown by the green dot beside the Hz reading, so no tick badge then
+	badge.visible = false      # the dot + Hz pill (StatusOverlay) now shows every state, so no icon badge
 	badge.icon = load("res://Assets/UI/compact/%s.svg" % state)
 	badge.tooltip_text = {"demo":"Keyboard demo — device input inactive", "connected":"PLUTO connected", "disconnected":"PLUTO disconnected"}[state]
 	badge.accessibility_name = badge.tooltip_text

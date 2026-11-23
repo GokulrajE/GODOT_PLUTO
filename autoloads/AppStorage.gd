@@ -49,6 +49,50 @@ func device_port() -> String:
 	var cfg := ConfigFile.new()
 	if cfg.load(root_path + "device.cfg") != OK: return ""
 	return str(cfg.get_value("serial", "port", "")).strip_edges()
+## Developer settings shared with the sender and any other linked program, all in Documents/PLUTO/device.cfg:
+##   [serial] port = "COM45"
+##   [server] host = "192.168.0.101"   port = 5000
+##   [device] id = "PLUTO"             client_id = "" (empty = this computer's name)
+func dev_settings() -> Dictionary:
+	var cfg := ConfigFile.new()
+	var found := cfg.load(root_path + "device.cfg") == OK
+	return {
+		"port": str(cfg.get_value("serial", "port", "")).strip_edges() if found else "",
+		"host": str(cfg.get_value("server", "host", "")).strip_edges() if found else "",
+		"server_port": int(cfg.get_value("server", "port", 0)) if found else 0,
+		"device_id": str(cfg.get_value("device", "id", "")).strip_edges() if found else "",
+		"client_id": str(cfg.get_value("device", "client_id", "")).strip_edges() if found else "",
+	}
+
+## Each group is validated and saved on its own, so changing one never touches the others
+## (other sections and keys in device.cfg are always kept). Returns "" or an error message.
+func save_dev_section(section: String, values: Dictionary) -> String:
+	var cfg := ConfigFile.new()
+	var path := root_path + "device.cfg"
+	if FileAccess.file_exists(path) and cfg.load(path) != OK: return "Could not read device.cfg."
+	match section:
+		"serial":
+			var port := str(values.get("port", "")).strip_edges()
+			if port.is_empty(): return "Enter a COM port, for example COM45."
+			cfg.set_value("serial", "port", port)
+		"server":
+			var host := str(values.get("host", "")).strip_edges()
+			var server_port := int(values.get("server_port", 0))
+			if host.is_empty() or host.contains(" "): return "Enter the server IP address or host name."
+			if server_port < 1 or server_port > 65535: return "Server port must be 1 - 65535."
+			cfg.set_value("server", "host", host)
+			cfg.set_value("server", "port", server_port)
+		"device":
+			var device_id := str(values.get("device_id", "")).strip_edges()
+			if device_id.is_empty(): return "Enter a device name, for example PLUTO."
+			cfg.set_value("device", "id", device_id)
+			cfg.set_value("device", "client_id", str(values.get("client_id", "")).strip_edges())
+		_:
+			return "Unknown settings group."
+	if cfg.save(path) != OK: return "Could not save device.cfg."
+	return ""
+func set_device_port(port: String) -> String:
+	return save_dev_section("serial", {"port": port})
 func copy_missing(source: String, destination: String) -> bool:
 	if not DirAccess.dir_exists_absolute(source): return true
 	if DirAccess.make_dir_recursive_absolute(destination) != OK: return false

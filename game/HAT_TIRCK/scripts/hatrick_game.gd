@@ -92,6 +92,21 @@ var _earned_star:    bool = false
 @onready var _dec_btn:        Button             = $UI/SpeedPanel/SpeedRow/DecreaseButton
 @onready var _inc_btn:        Button             = $UI/SpeedPanel/SpeedRow/IncreaseButton
 
+var _rabbit: Control = null   # the rabbit that pushes the hat (cosmetic only)
+
+# Backdrops: one is picked at random for every game (1 game = 1 trial; each replay reloads the scene),
+# never the same one twice in a row.
+const BACKGROUND_PATHS := [
+	"res://game/HAT_TIRCK/assets/backgrounds/clear.png",
+	"res://game/HAT_TIRCK/assets/backgrounds/new_3.png",
+	"res://game/HAT_TIRCK/assets/backgrounds/new_4.png",
+	"res://game/HAT_TIRCK/assets/backgrounds/sunset.png",
+]
+const BG_VIEW := Vector2(1166.0, 716.0)
+var _backgrounds: Array = []
+var _bg_index := -1
+static var _last_bg_index := -1      # remembered across replays so a game never repeats the last backdrop
+
 func _ready() -> void:
 	preload("res://scripts/ui/game_chrome.gd").apply.call_deferred($UI)
 	_load_ball_textures()
@@ -99,6 +114,12 @@ func _ready() -> void:
 	_calc_speed()
 	_place_arom_lines()
 	_set_hat_x(583.0)
+	_setup_backgrounds()
+	_rabbit = preload("res://game/HAT_TIRCK/scripts/rabbit_pusher.gd").new()
+	_rabbit.game = self
+	_rabbit.hat_half = HAT_VISUAL_HALF
+	add_child(_rabbit)
+	move_child(_rabbit, _hat_back.get_index())   # behind the hat, so the paws tuck in behind it
 	_wait_panel.visible  = true
 	_pause_panel.visible = false
 	_over_panel.visible  = false
@@ -123,6 +144,29 @@ func _exit_tree() -> void:
 		AppData.stop_trial(n_targets, n_success, n_failure)
 	if EventBus.button_released.is_connected(_on_pluto_button):
 		EventBus.button_released.disconnect(_on_pluto_button)
+
+# ── Backgrounds ───────────────────────────────────────────────────────────────
+func _setup_backgrounds() -> void:
+	_backgrounds.clear()
+	for path in BACKGROUND_PATHS:
+		var tex := load(path) as Texture2D
+		if tex: _backgrounds.append(tex)
+	if _backgrounds.is_empty(): return
+	_bg_index = randi() % _backgrounds.size()
+	while _backgrounds.size() > 1 and _bg_index == _last_bg_index:
+		_bg_index = randi() % _backgrounds.size()
+	_last_bg_index = _bg_index
+	_fit_background($ArcadeGameBackground, _backgrounds[_bg_index])
+
+## Scale the picture to the play-field width and pin its bottom to the bottom edge, so the grass /
+## stone ground strip always sits under the hat; any extra height is cropped off the top.
+func _fit_background(bg: TextureRect, tex: Texture2D) -> void:
+	bg.texture = tex
+	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	bg.stretch_mode = TextureRect.STRETCH_SCALE
+	var h := BG_VIEW.x * float(tex.get_height()) / float(tex.get_width())
+	bg.size = Vector2(BG_VIEW.x, h)
+	bg.position = Vector2(0.0, BG_VIEW.y - h)
 
 func _load_ball_textures() -> void:
 	var t1 = load("res://Assets/Arcade/hat-real-ball.svg")
@@ -367,6 +411,7 @@ func _ball_was_caught() -> void:
 	_ball_caught = true
 	n_success   += 1
 	_catch_sfx.play()
+	if _rabbit: _rabbit.cheer()
 	_kill_ball()
 
 func _ball_was_missed() -> void:

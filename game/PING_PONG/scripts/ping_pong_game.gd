@@ -571,6 +571,7 @@ func _setup_aan() -> void:
 
 func _end_game() -> void:
 	_game_finished = true
+	PlutoComm.set_control_type("NONE")
 	_music.stop()
 	_save_speed()
 	var today_prior := DataManager.read_today_hits(AppData.selected_game_name, AppData.mechanism_name)
@@ -580,7 +581,7 @@ func _end_game() -> void:
 	if _earned_star:
 		AppData.selected_game.update_cumulative_stars()
 	AppData.stop_trial(n_targets, n_success, n_failure)
-	_final_lbl.text     = "You: %d  |  CPU: %d\nSuccessful returns: %d" % [_player_score, _cpu_score, n_success]
+	_final_lbl.text     = "You: %d  |  CPU: %d  •  Returns: %d\nPress PLUTO button to play again" % [_player_score, _cpu_score, n_success]
 	_over_panel.visible  = true
 	_speed_panel.visible = false
 	if _earned_star:
@@ -624,9 +625,21 @@ func _on_pluto_button() -> void:
 
 func _toggle_pause() -> void:
 	if _state != State.PAUSED:
+		# Same behaviour in every game: free the device and silence the music while paused.
+		PlutoComm.set_control_type("NONE")
+		PlutoComm.reset_aan_target()
 		_prev_state = _state; _state = State.PAUSED; _pause_panel.visible = true
+		_music.stream_paused = true
 	else:
+		if _use_aan and (not PlutoComm.is_connected or not PlutoComm.is_streaming): return
 		_state = _prev_state; _pause_panel.visible = false
+		_music.stream_paused = false
+		if _use_aan and PlutoComm.is_connected:
+			PlutoComm.set_control_type("POSITIONAAN")
+			PlutoComm.set_control_bound(AppData.assist_bound)
+			PlutoComm.set_control_dir(0)
+			_aan_trial_set = false   # re-arm the assist on the next return
+	_update_log_state()
 
 func _on_exit_pressed() -> void:
 	PlutoComm.set_control_type("NONE")

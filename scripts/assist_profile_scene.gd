@@ -54,6 +54,11 @@ var _target_negative_end:    float = 0.0
 var _ang_limit:              float = 0.0
 var _tmin:                   float = 0.0
 var _tmax:                   float = 0.0
+# The bar spans the passive range of motion (PROM) of this mechanism.
+var _bar_lo:                 float = -1.0
+var _bar_hi:                 float = 1.0
+var _reach_fill:             Panel = null
+var _range_info:             Label = null
 
 const ENDPOINT_TOLERANCE:    float = 5.0
 const STUCK_THRESHOLD_TIME:  float = 3.0
@@ -74,6 +79,7 @@ func _ready() -> void:
 	EventBus.button_released.connect(_on_pluto_button)
 	EventBus.new_sensor_data.connect(_on_data)
 
+	_build_bar()
 	_initialize_assessment()
 
 func _initialize_assessment() -> void:
@@ -107,6 +113,13 @@ func _initialize_assessment() -> void:
 	_tmin = PlutoComm.angle
 	_tmax = PlutoComm.angle
 
+	# bar range = passive range of motion (falls back to the whole mechanism range when none is saved)
+	_bar_lo = -absf(_ang_limit)
+	_bar_hi = absf(_ang_limit)
+	if _rom != null and _rom.is_prom_set and _rom.prom_max - _rom.prom_min > 1.0:
+		_bar_lo = _rom.prom_min
+		_bar_hi = _rom.prom_max
+
 	_setup_labels()
 
 	curr_cursor.visible = true
@@ -120,6 +133,7 @@ func _initialize_assessment() -> void:
 func _process(delta: float) -> void:
 	if not is_node_ready():
 		return
+	_refresh_state_look(delta)
 	var angle = PlutoComm.angle
 	angle_label.text = "Angle: %d" % int(angle)
 	_update_curr_cursor(angle)
@@ -156,6 +170,73 @@ func _run_state_machine(delta: float) -> void:
 				if _is_button_pressed:
 					_save_and_proceed()
 					_is_button_pressed = false
+
+# ── State indication: chip + card colour + attention banner ────────────────────────────────────────
+
+var _chip: Label
+var _chip_sig := ""
+var _banner_t := 0.0
+
+func _flat(fill: Color, border: Color, radius: int, border_w := 0) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = fill
+	sb.border_color = border
+	sb.set_border_width_all(border_w)
+	sb.set_corner_radius_all(radius)
+	return sb
+
+## READY (grey) -> ASSESSING with the two ends ticked off (amber) -> COMPLETE (solid green card).
+func _refresh_state_look(delta: float) -> void:
+	var panel := $MainPanel as Control
+	if _chip == null:
+		_chip = Label.new()
+		_chip.set_meta("arcade_authored_control", true)
+		_chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_chip.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+		_chip.offset_left = -330.0; _chip.offset_right = -20.0
+		_chip.offset_top = 16.0; _chip.offset_bottom = 50.0
+		_chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_chip.add_theme_font_size_override("font_size", 16)
+		_chip.z_index = 2
+		panel.add_child(_chip)
+	var mode := "ready"
+	var text := "READY"
+	if _state == AssistState.ASSESS:
+		if _reached_positive and _reached_negative:
+			mode = "done"; text = "AAN COMPLETE  ✓"
+		else:
+			mode = "busy"
+			text = "ASSESSING   max %s   min %s" % ["✓" if _reached_positive else "…", "✓" if _reached_negative else "…"]
+	var sig := mode + text
+	if sig != _chip_sig:
+		_chip_sig = sig
+		var colors: Array = {
+			"ready": [Color("e4edf3"), Color("3d556b"), Color("c4d4da")],
+			"busy": [Color("ffe7b0"), Color("7a4a00"), Color("e3b04a")],
+			"done": [Color("1f9d55"), Color.WHITE, Color("167a41")],
+		}[mode]
+		_chip.text = text
+		_chip.add_theme_color_override("font_color", colors[1])
+		_chip.add_theme_stylebox_override("normal", _flat(colors[0], colors[2], 17, 1))
+		var card := _flat(Color("e2f4e8") if mode == "done" else Color("fbfdfef2"), Color("1f9d55") if mode == "done" else (Color("087f83") if mode == "busy" else Color("c4dcdf")), 18, 3 if mode != "ready" else 1)
+		card.shadow_color = Color(0.1, 0.25, 0.3, 0.14)
+		card.shadow_size = 8
+		panel.add_theme_stylebox_override("panel", card)
+		instruction_label.add_theme_color_override("font_color", Color("0b7a3d") if mode == "done" else (Color("8a5300") if mode == "busy" else Color("1a2e44")))
+		instruction_label.modulate = Color.WHITE
+	# the "Press PLUTO button ..." line becomes a pulsing amber banner
+	_banner_t += delta
+	var has_prompt := inst1_label.text.strip_edges() != ""
+	if has_prompt:
+		var pulse := 0.5 + 0.5 * sin(_banner_t * 4.0)
+		var banner := _flat(Color("ffbf3c").lerp(Color("ffd978"), pulse), Color("c98400"), 14, 2)
+		banner.content_margin_top = 4; banner.content_margin_bottom = 4
+		inst1_label.add_theme_stylebox_override("normal", banner)
+		inst1_label.add_theme_color_override("font_color", Color("3a2400"))
+		inst1_label.add_theme_font_size_override("font_size", 19)
+	else:
+		inst1_label.remove_theme_stylebox_override("normal")
 
 func _start_assessment() -> void:
 	_state  = AssistState.ASSESS
@@ -322,23 +403,31 @@ func _save_and_proceed() -> void:
 		AppData.selected_mechanism.set_new_aprom(_min_angle, _max_angle)
 		AppData.selected_mechanism.save_assessment_data()
 	EventBus.assist_assessed.emit(_min_angle, _max_angle)
+	AppData.assess_from_games = false
 	if AppData.is_plan_setup:
 		get_tree().change_scene_to_file("res://scenes/PlanSetupScene.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/ChooseGameScene.tscn")
 
-func _cursor_x(angle: float, width: float) -> float:
+func _bar_fraction(angle: float) -> float:
 	# A missing/zero range must never produce NaN scene coordinates.
-	var limit := absf(_ang_limit)
-	var t := 0.5
-	if is_finite(limit) and limit > 0.001 and is_finite(angle):
-		t = clampf((angle + limit) / (2.0 * limit), 0.0, 1.0)
-	return slider_track.position.x + t * maxf(0, slider_track.size.x - width)
+	var span := _bar_hi - _bar_lo
+	if is_finite(span) and span > 0.001 and is_finite(angle):
+		return clampf((angle - _bar_lo) / span, 0.0, 1.0)
+	return 0.5
+
+func _cursor_x(angle: float, width: float) -> float:
+	return slider_track.position.x + _bar_fraction(angle) * maxf(0, slider_track.size.x - width)
 
 func _update_curr_cursor(angle: float) -> void:
 	curr_cursor.position.x = _cursor_x(angle, curr_cursor.size.x)
 
 func _update_min_max_cursors() -> void:
+	if _reach_fill:
+		var x0 := slider_track.position.x + _bar_fraction(_tmin) * slider_track.size.x
+		var x1 := slider_track.position.x + _bar_fraction(_tmax) * slider_track.size.x
+		_reach_fill.position = Vector2(x0, slider_track.position.y)
+		_reach_fill.size = Vector2(maxf(x1 - x0, 0.0), slider_track.size.y)
 	min_cursor.position.x = _cursor_x(_tmin, min_cursor.size.x)
 	max_cursor.position.x = _cursor_x(_tmax, max_cursor.size.x)
 	min_cursor.get_node("Value").text = "MIN %.0f°" % _tmin
@@ -353,8 +442,77 @@ func _setup_labels() -> void:
 	if mech_idx >= 0 and mech_idx < DIRECTION_TEXT.size():
 		left_label.text  = DIRECTION_TEXT[mech_idx][0]
 		right_label.text = DIRECTION_TEXT[mech_idx][1]
-	center_label.visible = is_hoc
-	center_label.text    = "Closed" if is_hoc else ""
+	center_label.visible = false
+	center_label.text    = ""
+	# the end labels give the passive range the bar covers
+	var unit := "cm" if is_hoc else "°"
+	var lo_v := AppData.hoc_to_cm(_bar_lo) if is_hoc else _bar_lo
+	var hi_v := AppData.hoc_to_cm(_bar_hi) if is_hoc else _bar_hi
+	left_label.text  = "%s  %.0f%s" % [left_label.text, lo_v, unit]
+	right_label.text = "%.0f%s  %s" % [hi_v, unit, right_label.text]
+	if _range_info:
+		_range_info.text = "Passive range of motion:  %.0f%s  to  %.0f%s   (%.0f%s)" % [lo_v, unit, hi_v, unit, hi_v - lo_v, unit]
+
+## Lay the bar out across the panel, style it, and add the "reached" fill and the passive-range caption.
+func _build_bar() -> void:
+	var panel := $MainPanel as Control
+	var bar := slider_track.get_parent() as Control
+	bar.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	bar.anchor_left = .04; bar.anchor_right = .96
+	bar.anchor_top = .36; bar.anchor_bottom = .36
+	bar.offset_left = 0; bar.offset_right = 0; bar.offset_top = 0; bar.offset_bottom = 80
+	slider_track.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	slider_track.anchor_right = 1.0
+	slider_track.offset_left = 0; slider_track.offset_right = 0
+	slider_track.offset_top = 28; slider_track.offset_bottom = 50
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("d3e6e8")
+	style.set_corner_radius_all(11)
+	style.set_border_width_all(1)
+	style.border_color = Color("9fc3c6")
+	slider_track.add_theme_stylebox_override("panel", style)
+	_reach_fill = Panel.new()
+	_reach_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_reach_fill.set_meta("arcade_authored_control", true)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = Color(0.03, 0.5, 0.52, 0.55)
+	fill.set_corner_radius_all(11)
+	_reach_fill.add_theme_stylebox_override("panel", fill)
+	bar.add_child(_reach_fill)
+	bar.move_child(_reach_fill, slider_track.get_index() + 1)
+	for label in [left_label, right_label]:
+		label.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		label.anchor_top = .36; label.anchor_bottom = .36
+		label.offset_top = 90; label.offset_bottom = 118
+		label.add_theme_font_size_override("font_size", 16)
+	left_label.anchor_left = .04; left_label.anchor_right = .40
+	left_label.offset_left = 0; left_label.offset_right = 0
+	left_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	right_label.anchor_left = .60; right_label.anchor_right = .96
+	right_label.offset_left = 0; right_label.offset_right = 0
+	right_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_range_info = Label.new()
+	_range_info.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	_range_info.anchor_left = .04; _range_info.anchor_right = .96
+	_range_info.anchor_top = .36; _range_info.anchor_bottom = .36
+	_range_info.offset_top = 132; _range_info.offset_bottom = 164
+	_range_info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_range_info.add_theme_font_size_override("font_size", 20)
+	_range_info.set_meta("arcade_authored_control", true)
+	panel.add_child(_range_info)
+	inst1_label.anchor_top = .24; inst1_label.anchor_bottom = .24
+	inst1_label.offset_top = 0; inst1_label.offset_bottom = 32
+	inst1_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var reading := angle_label
+	reading.anchor_top = .62; reading.anchor_bottom = .62
+	reading.offset_top = 0; reading.offset_bottom = 90
+	var unit_label := panel.get_node_or_null("AngleUnitLabel") as Control
+	if unit_label:
+		unit_label.anchor_top = .62; unit_label.anchor_bottom = .62
+		unit_label.offset_top = 94; unit_label.offset_bottom = 118
+	# keep the button clear of the device-status badge in the top-right corner
+	assess_button.offset_left = -200
+	assess_button.offset_right = -76
 
 func _get_mech_display_name() -> String:
 	var names = {
